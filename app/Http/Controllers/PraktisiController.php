@@ -15,7 +15,7 @@ class PraktisiController extends Controller
         $praktisi = Praktisi::with('ts')->latest()->get();
         $matakuliahList = Matakuliah::orderBy('nama_matakuliah', 'asc')->get();
         $kelasList = Kelas::orderBy('nama_kelas', 'asc')->get();
-        $tsList = TS::orderBy('tahun_sekarang', 'desc')->get();
+        $tsList = Ts::orderBy('tahun_sekarang', 'desc')->get();
 
         // Calculate statistics
         $allCodes = [];
@@ -72,7 +72,7 @@ class PraktisiController extends Controller
     {
         $matakuliahList = Matakuliah::orderBy('nama_matakuliah', 'asc')->get();
         $kelasList = Kelas::orderBy('nama_kelas', 'asc')->get();
-        $tsList = TS::orderBy('tahun_sekarang', 'desc')->get();
+        $tsList = Ts::orderBy('tahun_sekarang', 'desc')->get();
 
         return view('praktisi.edit', compact('praktisi', 'matakuliahList', 'kelasList', 'tsList'));
     }

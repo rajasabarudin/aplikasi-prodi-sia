@@ -37,7 +37,7 @@ class HibahPenelitianController extends Controller
             'eksternal' => $allHibah->where('jenis_hibah', 'eksternal')->count(),
         ];
 
-        $tsStats = TS::orderBy('tahun_sekarang')
+        $tsStats = Ts::orderBy('tahun_sekarang')
             ->get()
             ->mapWithKeys(function ($ts) use ($allHibah) {
                 $matching = $allHibah->where('ts_id', $ts->id);
@@ -121,7 +121,7 @@ class HibahPenelitianController extends Controller
         }
 
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
         $mahasiswas = Mahasiswa::orderBy('nim')->get();
 
         return view('hibah_penelitian.index', compact(
@@ -132,7 +132,7 @@ class HibahPenelitianController extends Controller
     public function create()
     {
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
         $mahasiswas = Mahasiswa::orderBy('nim')->get();
         return view('hibah_penelitian.create', compact('dosens', 'tsList', 'mahasiswas'));
     }
@@ -200,7 +200,7 @@ class HibahPenelitianController extends Controller
     public function edit(HibahPenelitian $hibahPenelitian)
     {
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
         $mahasiswas = Mahasiswa::orderBy('nim')->get();
         return view('hibah_penelitian.edit', compact('hibahPenelitian', 'dosens', 'tsList', 'mahasiswas'));
     }
@@ -320,7 +320,7 @@ class HibahPenelitianController extends Controller
         $namaDosens = array_filter($request->input('nama_dosen', []));
 
         $tsId = $request->input('ts_id');
-        $ts = TS::find($tsId);
+        $ts = Ts::find($tsId);
         $tahun = date('Y');
         if ($ts) {
             if (preg_match('/\d{4}/', $ts->tahun_sekarang, $matches)) {
@@ -388,7 +388,7 @@ class HibahPenelitianController extends Controller
             $namaDosens = array_filter($request->input('nama_dosen', []));
 
             $tsId = $request->input('ts_id');
-            $ts = TS::find($tsId);
+            $ts = Ts::find($tsId);
             $tahun = date('Y');
             if ($ts) {
                 if (preg_match('/\d{4}/', $ts->tahun_sekarang, $matches)) {

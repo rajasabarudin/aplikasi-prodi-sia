@@ -40,7 +40,7 @@ class PKMDosenController extends Controller
 
         $totalPkm = PKMDosen::count();
         $pkmDenganMhs = PKMDosen::whereNotNull('nim_mhs')->count();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
         $dosens = Dosen::orderBy('kode_dosen')->get();
         $mahasiswas = Mahasiswa::orderBy('nim')->get();
 
@@ -50,7 +50,7 @@ class PKMDosenController extends Controller
             'Mitra Produktif' => PKMDosen::where('jenis_pkm', 'Mitra Produktif')->count(),
         ];
 
-        $tsPkmCounts = TS::orderBy('tahun_sekarang')
+        $tsPkmCounts = Ts::orderBy('tahun_sekarang')
             ->get()
             ->mapWithKeys(function ($ts) {
                 $count = \App\Models\PKMDosen::where('ts_id', $ts->id)->count();
@@ -90,7 +90,7 @@ class PKMDosenController extends Controller
     public function create()
     {
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
         $mahasiswas = Mahasiswa::orderBy('nim')->get();
         return view('pkm_dosen.create', compact('dosens', 'tsList', 'mahasiswas'));
     }
@@ -138,7 +138,7 @@ class PKMDosenController extends Controller
     public function edit(PKMDosen $pkmDosen)
     {
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
         $mahasiswas = Mahasiswa::orderBy('nim')->get();
         return view('pkm_dosen.edit', compact('pkmDosen', 'dosens', 'tsList', 'mahasiswas'));
     }
@@ -225,7 +225,7 @@ class PKMDosenController extends Controller
 
             $dosens = Dosen::all();
             $mahasiswas = Mahasiswa::all();
-            $tsList = TS::all();
+            $tsList = Ts::all();
 
             $inserted = 0;
             $skipped = 0;

@@ -102,9 +102,9 @@ class HkiController extends Controller
         $tglPermohonan = $request->input('tgl_permohonan');
         $tahun = date('Y', strtotime($tglPermohonan));
         
-        $ts = TS::where('tahun_sekarang', 'like', "%{$tahun}%")->first();
+        $ts = Ts::where('tahun_sekarang', 'like', "%{$tahun}%")->first();
         if (!$ts) {
-            $ts = TS::orderBy('tahun_sekarang', 'desc')->first();
+            $ts = Ts::orderBy('tahun_sekarang', 'desc')->first();
         }
         $tsId = $ts ? $ts->id : null;
 

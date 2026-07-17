@@ -341,7 +341,7 @@ class DashboardController extends Controller
             ->groupBy('ts_id')
             ->pluck('total', 'ts_id');
 
-        $tsLabels = TS::whereIn('id', $rekognisiPerTS->keys())->pluck('tahun_sekarang', 'id');
+        $tsLabels = Ts::whereIn('id', $rekognisiPerTS->keys())->pluck('tahun_sekarang', 'id');
         $rekognisiPerTSLabeled = [];
         foreach ($rekognisiPerTS as $tsId => $total) {
             $label = $tsLabels[$tsId] ?? 'TS #'.$tsId;
@@ -492,7 +492,7 @@ class DashboardController extends Controller
         $persenDosenHki = $jumlahDosen > 0 ? round(($totalDosenPunyaHkiCount / $jumlahDosen) * 100, 2) : 0;
 
         // Praktisi per TS for dashboard chart
-        $allTs = TS::orderBy('id', 'asc')->get();
+        $allTs = Ts::orderBy('id', 'asc')->get();
         $praktisiChartLabels = $allTs->pluck('tahun_sekarang')->toArray();
         $praktisiAll = Praktisi::all();
         $praktisiChartData = $allTs->map(function($ts) use ($praktisiAll) {

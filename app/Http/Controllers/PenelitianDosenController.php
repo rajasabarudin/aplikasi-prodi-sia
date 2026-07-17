@@ -45,7 +45,7 @@ class PenelitianDosenController extends Controller
         ];
 
         // Berdasarkan TS
-        $tsCounts = TS::orderBy('tahun_sekarang')
+        $tsCounts = Ts::orderBy('tahun_sekarang')
             ->get()
             ->mapWithKeys(function ($ts) use ($allPenelitian) {
                 $count = $allPenelitian->where('ts_id', $ts->id)->count();
@@ -114,7 +114,7 @@ class PenelitianDosenController extends Controller
         }
 
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
         $mahasiswas = Mahasiswa::orderBy('nim')->get();
 
         return view('penelitian_dosen.index', compact(
@@ -125,7 +125,7 @@ class PenelitianDosenController extends Controller
     public function create()
     {
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
         $mahasiswas = Mahasiswa::orderBy('nim')->get();
         return view('penelitian_dosen.create', compact('dosens', 'tsList', 'mahasiswas'));
     }
@@ -197,7 +197,7 @@ class PenelitianDosenController extends Controller
     public function edit(PenelitianDosen $penelitianDosen)
     {
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
         $mahasiswas = Mahasiswa::orderBy('nim')->get();
         return view('penelitian_dosen.edit', compact('penelitianDosen', 'dosens', 'tsList', 'mahasiswas'));
     }
@@ -316,7 +316,7 @@ class PenelitianDosenController extends Controller
             $namaDosens = array_filter($request->input('nama_dosen', []));
 
             $tsId = $request->input('ts_id');
-            $ts = TS::find($tsId);
+            $ts = Ts::find($tsId);
             $tahun = date('Y');
             if ($ts) {
                 if (preg_match('/\d{4}/', $ts->tahun_sekarang, $matches)) {

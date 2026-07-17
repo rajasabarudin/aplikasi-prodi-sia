@@ -9,7 +9,7 @@ class TSController extends Controller
 {
     public function index()
     {
-        $ts = TS::latest()->get();
+        $ts = Ts::latest()->get();
         return view('ts.index', compact('ts'));
     }
 
@@ -31,7 +31,7 @@ class TSController extends Controller
             'label_ts' => 'nullable|string|max:10',
         ]);
 
-        TS::create($request->all());
+        Ts::create($request->all());
 
         return redirect()->route('ts.index')
             ->with('success', 'Data Akademik berhasil ditambahkan.');

@@ -35,7 +35,7 @@ class RekognisiDosenController extends Controller
             'pendidikan'             => $allRekognisi->where('kategori_tridharma', 'pendidikan')->count(),
             'belum_dikategorikan'    => $allRekognisi->whereNull('kategori_tridharma')->count(),
         ];
-        $tsCounts = TS::orderBy('tahun_sekarang')
+        $tsCounts = Ts::orderBy('tahun_sekarang')
             ->get()
             ->mapWithKeys(function ($ts) use ($allRekognisi) {
                 $count = $allRekognisi->where('ts_id', $ts->id)->count();
@@ -66,7 +66,7 @@ class RekognisiDosenController extends Controller
         }
 
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
 
         return view('rekognisi_dosen.index', compact('rekognisi', 'totalRekognisi', 'levelCounts', 'tridharmaCounts', 'tsCounts', 'labelTsCounts', 'dosenCounts', 'dosens', 'tsList'));
     }
@@ -74,7 +74,7 @@ class RekognisiDosenController extends Controller
     public function create()
     {
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
         return view('rekognisi_dosen.create', compact('dosens', 'tsList'));
     }
 
@@ -106,7 +106,7 @@ class RekognisiDosenController extends Controller
     public function edit(RekognisiDosen $rekognisiDosen)
     {
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
         return view('rekognisi_dosen.edit', compact('rekognisiDosen', 'dosens', 'tsList'));
     }
 

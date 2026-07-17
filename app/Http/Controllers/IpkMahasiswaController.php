@@ -32,9 +32,9 @@ class IpkMahasiswaController extends Controller
 
         $ipkList = $query->orderBy('id', 'desc')->paginate($perPage)->withQueryString();
         
-        $tsList = TS::all();
+        $tsList = Ts::all();
         $mahasiswaList = Mahasiswa::orderBy('nama', 'asc')->get();
-        $latestTsRecords = TS::where('label_ts', 'TS')->get();
+        $latestTsRecords = Ts::where('label_ts', 'TS')->get();
         if ($latestTsRecords->count() > 0) {
             $tsIds = $latestTsRecords->pluck('id')->toArray();
             $totalIpk = IpkMahasiswa::whereIn('ts_id', $tsIds)->count();
@@ -109,7 +109,7 @@ class IpkMahasiswaController extends Controller
 
     public function create()
     {
-        $tsList = TS::all();
+        $tsList = Ts::all();
         $mahasiswaList = Mahasiswa::orderBy('nama', 'asc')->get();
         return view('ipk.create', compact('tsList', 'mahasiswaList'));
     }
@@ -131,7 +131,7 @@ class IpkMahasiswaController extends Controller
     public function edit($id)
     {
         $ipk = IpkMahasiswa::findOrFail($id);
-        $tsList = TS::all();
+        $tsList = Ts::all();
         $mahasiswaList = Mahasiswa::orderBy('nama', 'asc')->get();
         return view('ipk.edit', compact('ipk', 'tsList', 'mahasiswaList'));
     }
@@ -196,7 +196,7 @@ class IpkMahasiswaController extends Controller
             }
 
             // Find or create TS
-            $ts = TS::firstOrCreate(['tahun_sekarang' => $tsVal]);
+            $ts = Ts::firstOrCreate(['tahun_sekarang' => $tsVal]);
 
             // Avoid duplicate NIM in the same TS
             $exists = IpkMahasiswa::where('nim', $nim)->where('ts_id', $ts->id)->exists();

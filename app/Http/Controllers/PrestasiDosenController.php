@@ -72,7 +72,7 @@ class PrestasiDosenController extends Controller
             ->toArray();
 
         // Berdasarkan TA (tahun_sekarang)
-        $tsCounts = TS::orderBy('tahun_sekarang')
+        $tsCounts = Ts::orderBy('tahun_sekarang')
             ->get()
             ->mapWithKeys(function ($ts) use ($allPrestasi) {
                 $count = $allPrestasi->where('ts_id', $ts->id)->count();
@@ -101,7 +101,7 @@ class PrestasiDosenController extends Controller
         $prestasi = $query->paginate($perPage)->withQueryString();
 
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
 
         return view('prestasi_dosen.index', compact(
             'prestasi', 'dosens', 'tsList',
@@ -113,7 +113,7 @@ class PrestasiDosenController extends Controller
     public function create()
     {
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
         return view('prestasi_dosen.create', compact('dosens', 'tsList'));
     }
 
@@ -154,7 +154,7 @@ class PrestasiDosenController extends Controller
     public function edit(PrestasiDosen $prestasiDosen)
     {
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
         return view('prestasi_dosen.edit', compact('prestasiDosen', 'dosens', 'tsList'));
     }
 
@@ -216,7 +216,7 @@ class PrestasiDosenController extends Controller
         }
 
         $tsId = $request->input('ts_id');
-        $ts = TS::find($tsId);
+        $ts = Ts::find($tsId);
         $tahun = $request->input('tahun');
         if (empty($tahun) && $ts) {
             if (preg_match('/\d{4}/', $ts->tahun_sekarang, $matches)) {

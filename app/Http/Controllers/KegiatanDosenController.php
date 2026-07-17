@@ -26,7 +26,7 @@ class KegiatanDosenController extends Controller
 
         // Stats
         $allKegiatan = (clone $query)->get();
-        $totalKegiatan = $allKegiatan->count();
+        $totalkegiatan = $allKegiatan->count();
 
         // Berdasarkan Jenis
         $jenisCounts = [
@@ -46,7 +46,7 @@ class KegiatanDosenController extends Controller
             ->toArray();
 
         // Berdasarkan TA
-        $tsCounts = TS::orderBy('tahun_sekarang')
+        $tsCounts = Ts::orderBy('tahun_sekarang')
             ->get()
             ->mapWithKeys(function ($ts) use ($allKegiatan) {
                 $count = $allKegiatan->where('ts_id', $ts->id)->count();
@@ -72,7 +72,7 @@ class KegiatanDosenController extends Controller
         }
 
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
 
         return view('kegiatan_dosen.index', compact(
             'kegiatans', 'dosens', 'tsList',
@@ -83,7 +83,7 @@ class KegiatanDosenController extends Controller
     public function create()
     {
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
         return view('kegiatan_dosen.create', compact('dosens', 'tsList'));
     }
 
@@ -121,7 +121,7 @@ class KegiatanDosenController extends Controller
     {
         $kegiatanDosen = KegiatanDosen::findOrFail($id);
         $dosens = Dosen::orderBy('kode_dosen')->get();
-        $tsList = TS::orderBy('tahun_sekarang')->get();
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
         return view('kegiatan_dosen.edit', compact('kegiatanDosen', 'dosens', 'tsList'));
     }
 
