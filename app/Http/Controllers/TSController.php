@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TS;
+use App\Models\Ts;
 use Illuminate\Http\Request;
 
 class TSController extends Controller

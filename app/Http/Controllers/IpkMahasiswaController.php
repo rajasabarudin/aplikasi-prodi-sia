@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\IpkMahasiswa;
-use App\Models\TS;
+use App\Models\Ts;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;

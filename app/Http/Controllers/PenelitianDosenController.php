@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
-use App\Models\TS;
+use App\Models\Ts;
 use App\Models\PenelitianDosen;
 use App\Models\RekognisiDosen;
 use Illuminate\Http\Request;

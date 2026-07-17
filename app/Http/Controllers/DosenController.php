@@ -201,7 +201,7 @@ class DosenController extends Controller
             ->get();
 
         $mahasiswaList = \App\Models\Mahasiswa::orderBy('nama', 'asc')->get();
-        $tsList = \App\Models\TS::orderBy('tahun_sekarang', 'desc')->get();
+        $tsList = \App\Models\Ts::orderBy('tahun_sekarang', 'desc')->get();
 
         return view('dosen.show', compact(
             'dosen', 'hkis', 'hkiBersamaMhs', 'hkiMandiri', 

@@ -7,7 +7,7 @@ use App\Models\Kelas;
 use App\Models\Mahasiswa;
 use App\Models\RekognisiDosen;
 use App\Models\Praktisi;
-use App\Models\TS;
+use App\Models\Ts;
 
 use App\Models\Kegiatan;
 use App\Models\PesertaKegiatan;
@@ -424,7 +424,7 @@ class DashboardController extends Controller
         })->toArray();
 
         // Calculate student achievement trends by TS and Bidang for the dashboard chart
-        $tsList = \App\Models\TS::orderBy('tahun_sekarang', 'asc')->get();
+        $tsList = \App\Models\Ts::orderBy('tahun_sekarang', 'asc')->get();
         $prestasis = \App\Models\PrestasiMahasiswa::all();
         
         $prestasiMhsTsLabels = $tsList->pluck('tahun_sekarang')->toArray();

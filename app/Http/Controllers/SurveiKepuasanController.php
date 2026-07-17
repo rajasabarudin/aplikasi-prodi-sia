@@ -14,7 +14,7 @@ class SurveiKepuasanController extends Controller
             ->orderBy('jenis_survei')
             ->get();
             
-        $tsList = \App\Models\TS::orderBy('tahun_sekarang', 'desc')->get();
+        $tsList = \App\Models\Ts::orderBy('tahun_sekarang', 'desc')->get();
         
         return view('survei_kepuasan.index', compact('surveis', 'tsList'));
     }

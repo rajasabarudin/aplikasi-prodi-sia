@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Praktisi;
 use App\Models\Matakuliah;
 use App\Models\Kelas;
-use App\Models\TS;
+use App\Models\Ts;
 use Illuminate\Http\Request;
 
 class PraktisiController extends Controller

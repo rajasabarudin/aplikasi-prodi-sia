@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
-use App\Models\TS;
+use App\Models\Ts;
 use App\Models\PKMDosen;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KegiatanDosen;
 use App\Models\Dosen;
-use App\Models\TS;
+use App\Models\Ts;
 use Illuminate\Http\Request;
 
 class KegiatanDosenController extends Controller

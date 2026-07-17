@@ -339,7 +339,7 @@ class MahasiswaController extends Controller
     {
         $mahasiswa->load(['hki', 'prestasi.ts', 'organisasi.ts']);
         $dosenList = Dosen::orderBy('nama_dosen', 'asc')->get();
-        $tsList = \App\Models\TS::orderBy('tahun_sekarang', 'desc')->get();
+        $tsList = \App\Models\Ts::orderBy('tahun_sekarang', 'desc')->get();
         $matakuliahList = \App\Models\Matakuliah::orderBy('nama_matakuliah', 'asc')->get();
         $classmates = $mahasiswa->kelas ? Mahasiswa::where('kelas', $mahasiswa->kelas)->where('nim', '!=', $mahasiswa->nim)->orderBy('nama', 'asc')->get() : collect();
         

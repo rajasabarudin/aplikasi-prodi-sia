@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dosen;
-use App\Models\TS;
+use App\Models\Ts;
 use App\Models\PrestasiDosen;
 use App\Models\RekognisiDosen;
 use Illuminate\Http\Request;

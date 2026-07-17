@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\KeuanganProdi;
-use App\Models\TS;
+use App\Models\Ts;
 
 class KeuanganProdiController extends Controller
 {
@@ -73,7 +73,7 @@ class KeuanganProdiController extends Controller
             $keuangan->dana_pkm = max($keuangan->dana_pkm, $totalAutoPkm);
         }
         
-        $tsList = \App\Models\TS::orderBy('tahun_sekarang', 'desc')->get();
+        $tsList = \App\Models\Ts::orderBy('tahun_sekarang', 'desc')->get();
         
         return view('keuangan_prodi.index', compact('keuangans', 'tsList'));
     }
