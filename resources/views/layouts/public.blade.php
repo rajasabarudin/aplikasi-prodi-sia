@@ -266,14 +266,14 @@
             display: inline-flex;
             width: max-content;
             animation: marquee 40s linear infinite;
-            gap: 48px;
+            gap: 24px;
         }
         .marquee-content:hover {
             animation-play-state: paused;
         }
         @keyframes marquee {
             0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-50% - 24px)); }
+            100% { transform: translateX(calc(-50% - 12px)); }
         }
         .marquee-item {
             width: 250px;
