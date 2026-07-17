@@ -321,19 +321,39 @@
                                     </span>
                                 </td>
                                 <td>
-                                    @if($item->jenis == 'Internal' && $item->kegiatan_prodi_id)
+                                    @if($item->jenis == 'Internal')
                                         @php
-                                            $peserta = \App\Models\PesertaKegiatan::where('kegiatan_id', $item->kegiatan_prodi_id)
-                                                ->where('identifier', $item->kode_dosen)
-                                                ->first();
+                                            $dosenModel = $item->dosen;
+                                            $identifiers = $dosenModel ? array_filter([$dosenModel->kode_dosen, $dosenModel->nip, $dosenModel->nidn, $dosenModel->nuptk]) : [$item->kode_dosen];
+                                            $kegiatanId = $item->kegiatan_prodi_id;
+                                            if (!$kegiatanId) {
+                                                $kegSistem = \App\Models\Kegiatan::where('nama_kegiatan', $item->nama_kegiatan)->first();
+                                                if ($kegSistem) {
+                                                    $kegiatanId = $kegSistem->id;
+                                                    // Optional: update the DB so we don't query next time
+                                                    $item->update(['kegiatan_prodi_id' => $kegiatanId]);
+                                                }
+                                            }
+                                            $peserta = null;
+                                            if ($kegiatanId) {
+                                                $peserta = \App\Models\PesertaKegiatan::where('kegiatan_id', $kegiatanId)
+                                                    ->whereIn('identifier', $identifiers)
+                                                    ->first();
+                                            }
                                         @endphp
-                                        @if($peserta)
-                                            <a href="{{ route('kegiatan.sertifikat.cetak', ['kegiatan' => $item->kegiatan_prodi_id, 'peserta' => $peserta->id]) }}" target="_blank"
+                                        @if($peserta && $kegiatanId)
+                                            <a href="{{ route('kegiatan.sertifikat.cetak', ['kegiatan' => $kegiatanId, 'peserta' => $peserta->id]) }}" target="_blank"
                                                class="badge bg-primary-subtle text-primary text-decoration-none">
                                                 <i class="bi bi-award"></i> Sertifikat
                                             </a>
                                         @else
-                                            <span class="badge bg-warning-subtle text-warning"><i class="bi bi-exclamation-triangle"></i> Belum Terdaftar</span>
+                                            @if($item->link_dokumen)
+                                                <a href="{{ $item->link_dokumen }}" target="_blank" class="badge bg-info-subtle text-info text-decoration-none">
+                                                    <i class="bi bi-link-45deg"></i> Link Manual
+                                                </a>
+                                            @else
+                                                <span class="badge bg-warning-subtle text-warning"><i class="bi bi-exclamation-triangle"></i> Belum Terdaftar</span>
+                                            @endif
                                         @endif
                                     @elseif($item->link_dokumen)
                                         <a href="{{ $item->link_dokumen }}" target="_blank"
