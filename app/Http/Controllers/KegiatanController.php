@@ -180,6 +180,7 @@ class KegiatanController extends Controller
             $peserta->save();
             
             $this->syncToKegiatanDosen($kegiatan, $peserta);
+            $this->syncToKegiatanTendik($kegiatan, $peserta);
 
             return response()->json([
                 'success' => true,
@@ -205,6 +206,7 @@ class KegiatanController extends Controller
         $peserta->save();
 
         $this->syncToKegiatanDosen($kegiatan, $peserta);
+        $this->syncToKegiatanTendik($kegiatan, $peserta);
 
         return redirect()->route('kegiatan.show', $kegiatan)->with('success', 'Peserta ' . $peserta->nama . ' berhasil ditandai hadir lengkap secara manual.');
     }
@@ -260,6 +262,33 @@ class KegiatanController extends Controller
                     ],
                     [
                         'nama_dosen' => $peserta->nama,
+                        'nama_kegiatan' => $kegiatan->nama_kegiatan,
+                        'tahun' => $kegiatan->tanggal ? date('Y', strtotime($kegiatan->tanggal)) : date('Y'),
+                        'ts_id' => $tsId,
+                        'penyelenggara' => 'Internal Prodi SIA',
+                        'jenis' => 'Internal',
+                    ]
+                );
+            }
+        }
+    }
+
+    protected function syncToKegiatanTendik(Kegiatan $kegiatan, PesertaKegiatan $peserta)
+    {
+        if ($peserta->kategori === 'Tenaga Kependidikan' && $peserta->status_kehadiran === 'hadir_lengkap') {
+            $ts = \App\Models\Ts::where('label_ts', 'TS')->first() ?? \App\Models\Ts::first();
+            $tsId = $ts ? $ts->id : 1;
+            
+            $tendik = \App\Models\Tendik::where('nip_nik', $peserta->identifier)->first();
+            
+            if ($tendik) {
+                \App\Models\KegiatanTendik::updateOrCreate(
+                    [
+                        'nip_nik' => $tendik->nip_nik,
+                        'kegiatan_prodi_id' => $kegiatan->id,
+                    ],
+                    [
+                        'nama_tendik' => $peserta->nama,
                         'nama_kegiatan' => $kegiatan->nama_kegiatan,
                         'tahun' => $kegiatan->tanggal ? date('Y', strtotime($kegiatan->tanggal)) : date('Y'),
                         'ts_id' => $tsId,
