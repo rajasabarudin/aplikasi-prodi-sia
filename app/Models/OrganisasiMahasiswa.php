@@ -27,6 +27,6 @@ class OrganisasiMahasiswa extends Model
 
     public function ts()
     {
-        return $this->belongsTo(TS::class, 'ts_id');
+        return $this->belongsTo(Ts::class, 'ts_id');
     }
 }
