@@ -208,28 +208,35 @@
                 <p class="section-subtitle">Program Studi menjalin kolaborasi strategis dengan berbagai instansi untuk pengembangan pendidikan, penelitian, dan pengabdian.</p>
             </div>
             
-            <div class="row justify-content-center g-4">
-                @forelse($mitraList as $mitra)
-                <div class="col-md-4 col-sm-6">
-                    <div class="card border-0 shadow-sm rounded-4 h-100 text-center" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='translateY(0)'">
-                        <div class="card-body p-4 d-flex flex-column align-items-center justify-content-center">
-                            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-                                <i class="bi bi-buildings-fill fs-3"></i>
+            @if($mitraList->isEmpty())
+                <div class="text-center text-muted">Belum ada data mitra kerja sama yang dipublikasikan.</div>
+            @else
+                <div class="marquee">
+                    <div class="marquee-content" style="animation-direction: reverse;">
+                        {{-- Duplicated for infinite effect --}}
+                        @for($i=0; $i<2; $i++)
+                            @foreach($mitraList as $mitra)
+                            <div class="marquee-item">
+                                <div class="card border-0 shadow-sm rounded-4 h-100 text-center" style="transition: transform 0.3s ease; width: 280px; margin: 0 10px;" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='translateY(0)'">
+                                    <div class="card-body p-4 d-flex flex-column align-items-center justify-content-center">
+                                        <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                            <i class="bi bi-buildings-fill fs-3"></i>
+                                        </div>
+                                        <h5 class="fw-bold mb-2 text-truncate w-100" title="{{ $mitra->nama_mitra }}">{{ $mitra->nama_mitra }}</h5>
+                                        @if($mitra->level_pks)
+                                        <span class="badge bg-secondary bg-opacity-10 text-secondary mb-2">{{ $mitra->level_pks }}</span>
+                                        @endif
+                                        @if($mitra->kategori)
+                                        <small class="text-muted text-uppercase fw-semibold" style="font-size: 0.75rem;">{{ $mitra->kategori }}</small>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
-                            <h5 class="fw-bold mb-2">{{ $mitra->nama_mitra }}</h5>
-                            @if($mitra->level_pks)
-                            <span class="badge bg-secondary bg-opacity-10 text-secondary mb-2">{{ $mitra->level_pks }}</span>
-                            @endif
-                            @if($mitra->kategori)
-                            <small class="text-muted text-uppercase fw-semibold" style="font-size: 0.75rem;">{{ $mitra->kategori }}</small>
-                            @endif
-                        </div>
+                            @endforeach
+                        @endfor
                     </div>
                 </div>
-                @empty
-                <div class="col-12 text-center text-muted">Belum ada data mitra kerja sama yang dipublikasikan.</div>
-                @endforelse
-            </div>
+            @endif
         </div>
     </section>
 
