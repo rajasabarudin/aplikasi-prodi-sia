@@ -216,13 +216,13 @@
                         {{-- Duplicated for infinite effect --}}
                         @for($i=0; $i<2; $i++)
                             @foreach($mitraList as $mitra)
-                            <div class="marquee-item">
-                                <div class="card h-100 text-center" style="transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); width: 320px; margin: 0 24px; border-radius: 20px; background: #ffffff; border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 10px 30px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.02)';">
+                            <div class="marquee-item" style="width: auto;">
+                                <div class="card h-100 text-center" style="transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); width: 380px; margin: 0 24px; border-radius: 20px; background: #ffffff; border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 10px 30px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.02)';">
                                     <div class="card-body p-5 d-flex flex-column align-items-center justify-content-center">
                                         <div class="rounded-circle d-flex align-items-center justify-content-center mb-4" style="width: 70px; height: 70px; background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(16, 185, 129, 0.1)); color: var(--primary);">
                                             <i class="bi bi-buildings fs-2"></i>
                                         </div>
-                                        <h5 class="fw-bolder mb-3 text-truncate w-100" style="color: var(--dark); letter-spacing: -0.5px;" title="{{ $mitra->nama_mitra }}">{{ $mitra->nama_mitra }}</h5>
+                                        <h5 class="fw-bolder mb-3 w-100" style="color: var(--dark); letter-spacing: -0.5px; white-space: normal; line-height: 1.4;">{{ $mitra->nama_mitra }}</h5>
                                         <div class="d-flex flex-wrap gap-2 justify-content-center">
                                             @if($mitra->tahun_mou)
                                             <span class="badge rounded-pill" style="background: rgba(79, 70, 229, 0.08); color: var(--primary); font-weight: 600; padding: 6px 12px; font-size: 0.75rem;">Mulai: {{ $mitra->tahun_mou }}</span>
