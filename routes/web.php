@@ -1,6 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+
+// Rute Bantuan untuk menjalankan Migrasi Database di Hosting cPanel
+Route::get('/migrate-db', function () {
+    try {
+        Artisan::call('migrate', ['--force' => true]);
+        return 'Migrasi Database Berhasil! Silakan kembali ke aplikasi.';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\TendikController;
 use App\Http\Controllers\KelasController;
