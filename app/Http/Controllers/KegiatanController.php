@@ -275,7 +275,7 @@ class KegiatanController extends Controller
 
     protected function syncToKegiatanTendik(Kegiatan $kegiatan, PesertaKegiatan $peserta)
     {
-        if ($peserta->kategori === 'Tenaga Kependidikan' && $peserta->status_kehadiran === 'hadir_lengkap') {
+        if ($peserta->kategori === 'Tendik' && $peserta->status_kehadiran === 'hadir_lengkap') {
             $ts = \App\Models\Ts::where('label_ts', 'TS')->first() ?? \App\Models\Ts::first();
             $tsId = $ts ? $ts->id : 1;
             

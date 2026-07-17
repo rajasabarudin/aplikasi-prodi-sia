@@ -12,6 +12,46 @@ Route::get('/migrate-db', function () {
         return 'Error: ' . $e->getMessage();
     }
 });
+
+Route::get('/sync-tendik-kegiatan', function () {
+    try {
+        $kegiatans = \App\Models\Kegiatan::all();
+        $count = 0;
+        foreach ($kegiatans as $kegiatan) {
+            $pesertas = \App\Models\PesertaKegiatan::where('kegiatan_id', $kegiatan->id)
+                ->where('status_kehadiran', 'hadir_lengkap')
+                ->where('kategori', 'Tendik')
+                ->get();
+                
+            foreach ($pesertas as $peserta) {
+                $ts = \App\Models\Ts::where('label_ts', 'TS')->first() ?? \App\Models\Ts::first();
+                $tsId = $ts ? $ts->id : 1;
+                
+                $tendik = \App\Models\Tendik::where('nip_nik', $peserta->identifier)->first();
+                if ($tendik) {
+                    \App\Models\KegiatanTendik::updateOrCreate(
+                        [
+                            'nip_nik' => $tendik->nip_nik,
+                            'kegiatan_prodi_id' => $kegiatan->id,
+                        ],
+                        [
+                            'nama_tendik' => $peserta->nama,
+                            'nama_kegiatan' => $kegiatan->nama_kegiatan,
+                            'tahun' => $kegiatan->tanggal ? date('Y', strtotime($kegiatan->tanggal)) : date('Y'),
+                            'ts_id' => $tsId,
+                            'penyelenggara' => 'Internal Prodi SIA',
+                            'jenis' => 'Internal',
+                        ]
+                    );
+                    $count++;
+                }
+            }
+        }
+        return "Sinkronisasi Berhasil! $count data Kegiatan Tendik telah ditambahkan. Silakan kembali ke aplikasi.";
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\TendikController;
 use App\Http\Controllers\KelasController;
