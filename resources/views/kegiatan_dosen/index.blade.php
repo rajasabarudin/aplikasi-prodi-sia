@@ -321,7 +321,21 @@
                                     </span>
                                 </td>
                                 <td>
-                                    @if($item->link_dokumen)
+                                    @if($item->jenis == 'Internal' && $item->kegiatan_prodi_id)
+                                        @php
+                                            $peserta = \App\Models\PesertaKegiatan::where('kegiatan_id', $item->kegiatan_prodi_id)
+                                                ->where('identifier', $item->kode_dosen)
+                                                ->first();
+                                        @endphp
+                                        @if($peserta)
+                                            <a href="{{ route('kegiatan.sertifikat.cetak', ['kegiatan' => $item->kegiatan_prodi_id, 'peserta' => $peserta->id]) }}" target="_blank"
+                                               class="badge bg-primary-subtle text-primary text-decoration-none">
+                                                <i class="bi bi-award"></i> Sertifikat
+                                            </a>
+                                        @else
+                                            <span class="badge bg-warning-subtle text-warning"><i class="bi bi-exclamation-triangle"></i> Belum Terdaftar</span>
+                                        @endif
+                                    @elseif($item->link_dokumen)
                                         <a href="{{ $item->link_dokumen }}" target="_blank"
                                            class="badge bg-info-subtle text-info text-decoration-none">
                                             <i class="bi bi-link-45deg"></i> Link
@@ -428,12 +442,24 @@
                             <label for="modal_jenis" class="form-label fw-semibold">Jenis Kegiatan <span class="text-danger">*</span></label>
                             <select name="jenis" id="modal_jenis" class="form-select glass-input" required>
                                 <option value="">-- Pilih Jenis --</option>
-                                <option value="Internal">Internal</option>
-                                <option value="Eksternal">Eksternal</option>
+                                <option value="Internal">Internal (Kegiatan Prodi)</option>
+                                <option value="Eksternal">Eksternal (Luar Prodi)</option>
                             </select>
                         </div>
-                        <div class="col-md-12 mb-3">
-                            <label for="modal_link_dokumen" class="form-label fw-semibold">Link Dokumen Bukti</label>
+                        <div class="col-md-12 mb-3" id="wrapper_kegiatan_internal" style="display: none;">
+                            <label for="modal_kegiatan_prodi_id" class="form-label fw-semibold">Pilih Kegiatan Internal <span class="text-danger">*</span></label>
+                            <select name="kegiatan_prodi_id" id="modal_kegiatan_prodi_id" class="form-select glass-input">
+                                <option value="">-- Pilih Kegiatan --</option>
+                                @foreach($kegiatanSistem as $k)
+                                    <option value="{{ $k->id }}" data-nama="{{ $k->nama_kegiatan }}" data-tahun="{{ $k->tanggal ? date('Y', strtotime($k->tanggal)) : '' }}">
+                                        {{ $k->nama_kegiatan }} ({{ $k->tanggal ? date('Y', strtotime($k->tanggal)) : 'N/A' }})
+                                    </option>
+                                @endforeach
+                            </select>
+                            <small class="text-muted">Sertifikat akan otomatis diambil dari sistem jika dosen ini terdaftar sebagai peserta.</small>
+                        </div>
+                        <div class="col-md-12 mb-3" id="wrapper_link_dokumen">
+                            <label for="modal_link_dokumen" class="form-label fw-semibold">Link Dokumen Bukti (Sertifikat)</label>
                             <input type="url" name="link_dokumen" id="modal_link_dokumen"
                                    class="form-control glass-input" placeholder="https://example.com/sertifikat-kegiatan">
                         </div>
@@ -476,6 +502,35 @@ document.addEventListener('DOMContentLoaded', function () {
                 .catch(() => { document.getElementById('modal_nama_dosen').value = ''; });
         } else {
             document.getElementById('modal_nama_dosen').value = '';
+        }
+    // Toggle logic for Jenis Kegiatan
+    const jenisSelect = document.getElementById('modal_jenis');
+    const wrapInternal = document.getElementById('wrapper_kegiatan_internal');
+    const wrapLink = document.getElementById('wrapper_link_dokumen');
+    const inputKegiatanInternal = document.getElementById('modal_kegiatan_prodi_id');
+    const inputNamaKegiatan = document.getElementById('modal_nama_kegiatan');
+    const inputTahun = document.getElementById('modal_tahun');
+    const inputPenyelenggara = document.getElementById('modal_penyelenggara');
+
+    jenisSelect.addEventListener('change', function() {
+        if (this.value === 'Internal') {
+            wrapInternal.style.display = 'block';
+            inputKegiatanInternal.required = true;
+            wrapLink.style.display = 'none';
+        } else {
+            wrapInternal.style.display = 'none';
+            inputKegiatanInternal.required = false;
+            wrapLink.style.display = 'block';
+        }
+    });
+
+    // Auto-fill when selecting internal kegiatan
+    inputKegiatanInternal.addEventListener('change', function() {
+        const selected = this.options[this.selectedIndex];
+        if (selected.value) {
+            inputNamaKegiatan.value = selected.getAttribute('data-nama');
+            inputTahun.value = selected.getAttribute('data-tahun');
+            inputPenyelenggara.value = 'Program Studi';
         }
     });
 });

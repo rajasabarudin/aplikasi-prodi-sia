@@ -115,12 +115,24 @@
             <label for="jenis" class="form-label">Jenis Kegiatan <span class="text-danger">*</span></label>
             <select name="jenis" id="jenis" class="form-select" required>
                 <option value="">-- Pilih Jenis --</option>
-                <option value="Internal" {{ old('jenis', $kegiatanDosen->jenis) == 'Internal' ? 'selected' : '' }}>Internal</option>
-                <option value="Eksternal" {{ old('jenis', $kegiatanDosen->jenis) == 'Eksternal' ? 'selected' : '' }}>Eksternal</option>
+                <option value="Internal" {{ old('jenis', $kegiatanDosen->jenis) == 'Internal' ? 'selected' : '' }}>Internal (Kegiatan Prodi)</option>
+                <option value="Eksternal" {{ old('jenis', $kegiatanDosen->jenis) == 'Eksternal' ? 'selected' : '' }}>Eksternal (Luar Prodi)</option>
             </select>
         </div>
-        <div class="col-md-12 mb-3">
-            <label for="link_dokumen" class="form-label">Link Dokumen Bukti</label>
+        <div class="col-md-12 mb-3" id="wrapper_kegiatan_internal" style="{{ old('jenis', $kegiatanDosen->jenis) == 'Internal' ? 'display: block;' : 'display: none;' }}">
+            <label for="kegiatan_prodi_id" class="form-label">Pilih Kegiatan Internal <span class="text-danger">*</span></label>
+            <select name="kegiatan_prodi_id" id="kegiatan_prodi_id" class="form-select">
+                <option value="">-- Pilih Kegiatan --</option>
+                @foreach($kegiatanSistem as $k)
+                    <option value="{{ $k->id }}" {{ old('kegiatan_prodi_id', $kegiatanDosen->kegiatan_prodi_id) == $k->id ? 'selected' : '' }} data-nama="{{ $k->nama_kegiatan }}" data-tahun="{{ $k->tanggal ? date('Y', strtotime($k->tanggal)) : '' }}">
+                        {{ $k->nama_kegiatan }} ({{ $k->tanggal ? date('Y', strtotime($k->tanggal)) : 'N/A' }})
+                    </option>
+                @endforeach
+            </select>
+            <small class="text-muted">Sertifikat otomatis diambil jika dosen terdaftar sebagai peserta kegiatan sistem ini.</small>
+        </div>
+        <div class="col-md-12 mb-3" id="wrapper_link_dokumen" style="{{ old('jenis', $kegiatanDosen->jenis) == 'Internal' ? 'display: none;' : 'display: block;' }}">
+            <label for="link_dokumen" class="form-label">Link Dokumen Bukti (Sertifikat)</label>
             <input type="url" name="link_dokumen" id="link_dokumen" class="form-control"
                    value="{{ old('link_dokumen', $kegiatanDosen->link_dokumen) }}"
                    placeholder="https://example.com/sertifikat-kegiatan">
@@ -145,6 +157,37 @@
                 });
         } else {
             document.getElementById('nama_dosen').value = '';
+        }
+    });
+
+    // Toggle logic for Jenis Kegiatan
+    const jenisSelect = document.getElementById('jenis');
+    const wrapInternal = document.getElementById('wrapper_kegiatan_internal');
+    const wrapLink = document.getElementById('wrapper_link_dokumen');
+    const inputKegiatanInternal = document.getElementById('kegiatan_prodi_id');
+    const inputNamaKegiatan = document.getElementById('nama_kegiatan');
+    const inputTahun = document.getElementById('tahun');
+    const inputPenyelenggara = document.getElementById('penyelenggara');
+
+    jenisSelect.addEventListener('change', function() {
+        if (this.value === 'Internal') {
+            wrapInternal.style.display = 'block';
+            inputKegiatanInternal.required = true;
+            wrapLink.style.display = 'none';
+        } else {
+            wrapInternal.style.display = 'none';
+            inputKegiatanInternal.required = false;
+            wrapLink.style.display = 'block';
+        }
+    });
+
+    // Auto-fill when selecting internal kegiatan
+    inputKegiatanInternal.addEventListener('change', function() {
+        const selected = this.options[this.selectedIndex];
+        if (selected.value) {
+            inputNamaKegiatan.value = selected.getAttribute('data-nama');
+            inputTahun.value = selected.getAttribute('data-tahun');
+            inputPenyelenggara.value = 'Program Studi';
         }
     });
 </script>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\KegiatanDosen;
 use App\Models\Dosen;
 use App\Models\Ts;
+use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 
 class KegiatanDosenController extends Controller
@@ -73,9 +74,10 @@ class KegiatanDosenController extends Controller
 
         $dosens = Dosen::orderBy('kode_dosen')->get();
         $tsList = Ts::orderBy('tahun_sekarang')->get();
+        $kegiatanSistem = Kegiatan::orderBy('created_at', 'desc')->get();
 
         return view('kegiatan_dosen.index', compact(
-            'kegiatans', 'dosens', 'tsList',
+            'kegiatans', 'dosens', 'tsList', 'kegiatanSistem',
             'totalkegiatan', 'jenisCounts', 'labelTsCounts', 'tsCounts', 'dosenCounts'
         ));
     }
@@ -84,7 +86,8 @@ class KegiatanDosenController extends Controller
     {
         $dosens = Dosen::orderBy('kode_dosen')->get();
         $tsList = Ts::orderBy('tahun_sekarang')->get();
-        return view('kegiatan_dosen.create', compact('dosens', 'tsList'));
+        $kegiatanSistem = Kegiatan::orderBy('created_at', 'desc')->get();
+        return view('kegiatan_dosen.create', compact('dosens', 'tsList', 'kegiatanSistem'));
     }
 
     public function store(Request $request)
@@ -98,6 +101,7 @@ class KegiatanDosenController extends Controller
             'penyelenggara' => 'required|string|max:255',
             'jenis' => 'required|string|in:Internal,Eksternal',
             'link_dokumen' => 'nullable|url|max:255',
+            'kegiatan_prodi_id' => 'nullable|exists:kegiatans,id',
         ]);
 
         KegiatanDosen::create($request->all());
@@ -122,7 +126,8 @@ class KegiatanDosenController extends Controller
         $kegiatanDosen = KegiatanDosen::findOrFail($id);
         $dosens = Dosen::orderBy('kode_dosen')->get();
         $tsList = Ts::orderBy('tahun_sekarang')->get();
-        return view('kegiatan_dosen.edit', compact('kegiatanDosen', 'dosens', 'tsList'));
+        $kegiatanSistem = Kegiatan::orderBy('created_at', 'desc')->get();
+        return view('kegiatan_dosen.edit', compact('kegiatanDosen', 'dosens', 'tsList', 'kegiatanSistem'));
     }
 
     public function update(Request $request, $id)
@@ -138,6 +143,7 @@ class KegiatanDosenController extends Controller
             'penyelenggara' => 'required|string|max:255',
             'jenis' => 'required|string|in:Internal,Eksternal',
             'link_dokumen' => 'nullable|url|max:255',
+            'kegiatan_prodi_id' => 'nullable|exists:kegiatans,id',
         ]);
 
         $kegiatan->update($request->all());

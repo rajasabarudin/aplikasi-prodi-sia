@@ -10,6 +10,7 @@ class KegiatanDosen extends Model
     use HasFactory;
 
     protected $fillable = [
+        'kegiatan_prodi_id',
         'kode_dosen',
         'nama_dosen',
         'nama_kegiatan',
@@ -19,6 +20,11 @@ class KegiatanDosen extends Model
         'jenis',
         'link_dokumen',
     ];
+
+    public function kegiatanProdi()
+    {
+        return $this->belongsTo(Kegiatan::class, 'kegiatan_prodi_id');
+    }
 
     public function dosen()
     {
