@@ -217,18 +217,20 @@
                         @for($i=0; $i<2; $i++)
                             @foreach($mitraList as $mitra)
                             <div class="marquee-item">
-                                <div class="card border-0 shadow-sm rounded-4 h-100 text-center" style="transition: transform 0.3s ease; width: 280px; margin: 0 10px;" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='translateY(0)'">
-                                    <div class="card-body p-4 d-flex flex-column align-items-center justify-content-center">
-                                        <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-                                            <i class="bi bi-buildings-fill fs-3"></i>
+                                <div class="card h-100 text-center" style="transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); width: 320px; margin: 0 24px; border-radius: 20px; background: #ffffff; border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 10px 30px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.02)';">
+                                    <div class="card-body p-5 d-flex flex-column align-items-center justify-content-center">
+                                        <div class="rounded-circle d-flex align-items-center justify-content-center mb-4" style="width: 70px; height: 70px; background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(16, 185, 129, 0.1)); color: var(--primary);">
+                                            <i class="bi bi-buildings fs-2"></i>
                                         </div>
-                                        <h5 class="fw-bold mb-2 text-truncate w-100" title="{{ $mitra->nama_mitra }}">{{ $mitra->nama_mitra }}</h5>
-                                        @if($mitra->level_pks)
-                                        <span class="badge bg-secondary bg-opacity-10 text-secondary mb-2">{{ $mitra->level_pks }}</span>
-                                        @endif
-                                        @if($mitra->kategori)
-                                        <small class="text-muted text-uppercase fw-semibold" style="font-size: 0.75rem;">{{ $mitra->kategori }}</small>
-                                        @endif
+                                        <h5 class="fw-bolder mb-3 text-truncate w-100" style="color: var(--dark); letter-spacing: -0.5px;" title="{{ $mitra->nama_mitra }}">{{ $mitra->nama_mitra }}</h5>
+                                        <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                            @if($mitra->level_pks)
+                                            <span class="badge rounded-pill" style="background: rgba(79, 70, 229, 0.08); color: var(--primary); font-weight: 600; padding: 6px 12px; font-size: 0.75rem;">{{ $mitra->level_pks }}</span>
+                                            @endif
+                                            @if($mitra->kategori)
+                                            <span class="badge rounded-pill" style="background: rgba(16, 185, 129, 0.08); color: var(--secondary); font-weight: 600; padding: 6px 12px; font-size: 0.75rem;">{{ $mitra->kategori }}</span>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
