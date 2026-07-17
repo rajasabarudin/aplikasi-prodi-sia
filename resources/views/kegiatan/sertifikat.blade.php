@@ -465,9 +465,8 @@
                     Pontianak, {{ \Carbon\Carbon::parse($kegiatan->tanggal)->translatedFormat('d F Y') }}
                 </div>
                 
-                <!-- QR Code Signature Canvas -->
-                <div class="cert-sig-qr">
-                    <canvas id="qrSignatureCanvas" style="width: 80px; height: 80px;"></canvas>
+                <!-- QR Code Signature -->
+                <div class="cert-sig-qr" id="qrcode" style="display: flex; justify-content: center; background: #ffffff; padding: 4px; border: 2px solid #c5a85c; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: fit-content; margin: 0 auto 8px auto;">
                 </div>
 
                 <p class="cert-sig-name">{{ $kegiatan->tanda_tangan_nama ?? 'Ketua Program Studi' }}</p>
@@ -476,65 +475,19 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
-        // Draw QR code with UBSI Logo in center
-        function drawQrWithLogo(canvasId, tokenData) {
-            const canvas = document.getElementById(canvasId);
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            
-            const qrSize = 90;
-            canvas.width = qrSize;
-            canvas.height = qrSize;
-            
-            // 1. Fetch QR Image
-            const qrImg = new Image();
-            qrImg.crossOrigin = "anonymous";
-            qrImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=" + qrSize + "x" + qrSize + "&data=" + encodeURIComponent(tokenData);
-            
-            // 2. Fetch UBSI Logo
-            const logoImg = new Image();
-            logoImg.src = "{{ asset('img/logo_ubsi.png') }}";
-            
-            let qrLoaded = false;
-            let logoLoaded = false;
-            
-            function render() {
-                if (qrLoaded && logoLoaded) {
-                    ctx.drawImage(qrImg, 0, 0, qrSize, qrSize);
-                    
-                    const logoSize = qrSize * 0.24;
-                    const x = (qrSize - logoSize) / 2;
-                    const y = (qrSize - logoSize) / 2;
-                    
-                    // Logo protective border background
-                    ctx.fillStyle = "#ffffff";
-                    ctx.beginPath();
-                    ctx.arc(qrSize/2, qrSize/2, (logoSize/2) + 2, 0, 2 * Math.PI);
-                    ctx.fill();
-                    
-                    ctx.drawImage(logoImg, x, y, logoSize, logoSize);
-                }
-            }
-            
-            qrImg.onload = function() {
-                qrLoaded = true;
-                render();
-            };
-            logoImg.onload = function() {
-                logoLoaded = true;
-                render();
-            };
-            qrImg.onerror = function() {
-                qrLoaded = true;
-                render();
-            };
-        }
-
-        // Initialize Canvas QR drawing
+        // Generate Reliable QR Code for Verification
         window.addEventListener('DOMContentLoaded', () => {
-            const token = "{{ $peserta->barcode_token }}";
-            drawQrWithLogo('qrSignatureCanvas', 'VERIFIED-SIGNATURE-BY-' + encodeURIComponent("{{ $kegiatan->tanda_tangan_nama }}") + '-' + token);
+            const verifyUrl = "{{ route('portal.kegiatan.sertifikat', ['kegiatan' => $kegiatan->id, 'peserta' => $peserta->id]) }}";
+            new QRCode(document.getElementById("qrcode"), {
+                text: verifyUrl,
+                width: 85,
+                height: 85,
+                colorDark : "#0b132b",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.M
+            });
         });
     </script>
 </body>
