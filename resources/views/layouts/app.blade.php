@@ -505,14 +505,14 @@
 
                 @if(Auth::user()->hasPermission('dosen') || Auth::user()->hasPermission('ts') || Auth::user()->hasPermission('rekognisi-dosen') || Auth::user()->hasPermission('prestasi-dosen') || Auth::user()->hasPermission('kegiatan-dosen') || Auth::user()->hasPermission('penelitian-dosen') || Auth::user()->hasPermission('pkm-dosen') || Auth::user()->hasPermission('hibah-penelitian'))
                 <li class="nav-item mt-2">
-                    <a class="nav-link text-white d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#manajemenDataMenu" role="button" aria-expanded="{{ request()->routeIs('dosen.*') || request()->routeIs('tendik.*') || request()->routeIs('ts.*') || request()->routeIs('rekognisi-dosen.*') || request()->routeIs('prestasi-dosen.*') || request()->routeIs('kegiatan-dosen.*') || request()->routeIs('penelitian-dosen.*') || request()->routeIs('pkm-dosen.*') || request()->routeIs('hibah-penelitian.*') ? 'true' : 'false' }}" aria-controls="manajemenDataMenu">
+                    <a class="nav-link text-white d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#manajemenDataMenu" role="button" aria-expanded="{{ request()->routeIs('dosen.*') || request()->routeIs('tendik.*') || request()->routeIs('ts.*') || request()->routeIs('rekognisi-dosen.*') || request()->routeIs('prestasi-dosen.*') || request()->routeIs('kegiatan-dosen.*') || request()->routeIs('kegiatan-tendik.*') || request()->routeIs('penelitian-dosen.*') || request()->routeIs('pkm-dosen.*') || request()->routeIs('hibah-penelitian.*') ? 'true' : 'false' }}" aria-controls="manajemenDataMenu">
                         <span>
                             <i class="bi bi-gear-fill me-2 text-danger fs-5"></i>
                             <span class="sidebar-text">Data Dosen & Tendik</span>
                         </span>
                         <i class="bi bi-chevron-down float-end"></i>
                     </a>
-                    <div class="collapse {{ request()->routeIs('dosen.*') || request()->routeIs('tendik.*') || request()->routeIs('ts.*') || request()->routeIs('rekognisi-dosen.*') || request()->routeIs('prestasi-dosen.*') || request()->routeIs('kegiatan-dosen.*') || request()->routeIs('penelitian-dosen.*') || request()->routeIs('pkm-dosen.*') || request()->routeIs('hibah-penelitian.*') ? 'show' : '' }}" id="manajemenDataMenu">
+                    <div class="collapse {{ request()->routeIs('dosen.*') || request()->routeIs('tendik.*') || request()->routeIs('ts.*') || request()->routeIs('rekognisi-dosen.*') || request()->routeIs('prestasi-dosen.*') || request()->routeIs('kegiatan-dosen.*') || request()->routeIs('kegiatan-tendik.*') || request()->routeIs('penelitian-dosen.*') || request()->routeIs('pkm-dosen.*') || request()->routeIs('hibah-penelitian.*') ? 'show' : '' }}" id="manajemenDataMenu">
                         <ul class="nav nav-pills flex-column ms-3 mt-1">
                             @if(Auth::user()->hasPermission('dosen'))
                             <li class="nav-item">
@@ -554,9 +554,17 @@
                             @endif
                             @if(Auth::user()->hasPermission('dosen') || Auth::user()->hasPermission('kegiatan-dosen'))
                             <li class="nav-item">
-                                <a href="{{ route('kegiatan-dosen.index') }}" class="nav-link text-white {{ request()->routeIs('kegiatan-dosen.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
+                                <a href="{{ route('kegiatan-dosen.index') }}" class="nav-link text-white {{ request()->routeIs('kegiatan-dosen.*') || request()->routeIs('kegiatan-tendik.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
                                     <i class="bi bi-activity me-2 text-light"></i>
                                     <span class="sidebar-text">Data Kegiatan Dosen</span>
+                                </a>
+                            </li>
+                            @endif
+                            @if(Auth::user()->hasPermission('tendik') || Auth::user()->hasPermission('kegiatan-tendik'))
+                            <li class="nav-item">
+                                <a href="{{ route('kegiatan-tendik.index') }}" class="nav-link text-white {{ request()->routeIs('kegiatan-tendik.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
+                                    <i class="bi bi-activity me-2 text-info"></i>
+                                    <span class="sidebar-text">Data Kegiatan Tendik</span>
                                 </a>
                             </li>
                             @endif

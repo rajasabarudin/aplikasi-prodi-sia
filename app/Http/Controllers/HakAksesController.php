@@ -10,6 +10,9 @@ class HakAksesController extends Controller
     // Define the list of menus that can be configured
     private $menus = [
         'dosen' => 'Data Dosen',
+        'tendik' => 'Data Tendik',
+        'kegiatan-dosen' => 'Kegiatan Dosen',
+        'kegiatan-tendik' => 'Kegiatan Tendik',
         'mahasiswa' => 'Data Mahasiswa',
         'sertifikasi-mahasiswa' => 'Data Sertifikasi Mahasiswa',
         'kelas' => 'Data Kelas',
@@ -18,6 +21,7 @@ class HakAksesController extends Controller
         'rekognisi-dosen' => 'Data Rekognisi Dosen',
         'prestasi-dosen' => 'Data Prestasi Dosen',
         'penelitian-dosen' => 'Data Penelitian Dosen',
+        'pkm-dosen' => 'Data PKM Dosen',
         'hibah-penelitian' => 'Data Hibah Penelitian',
         'pmb' => 'Data Jumlah PMB',
         'kerjasama' => 'Data Kerjasama',

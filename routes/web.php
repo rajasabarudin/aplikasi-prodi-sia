@@ -125,6 +125,9 @@ Route::middleware(['auth', 'permission'])->prefix('admin')->group(function () {
     Route::resource('sertifikasi-dosen', SertifikasiDosenController::class);
     Route::get('kegiatan-dosen/get-dosen/{kode}', [KegiatanDosenController::class, 'getDosen'])->name('kegiatan-dosen.get-dosen');
     Route::resource('kegiatan-dosen', KegiatanDosenController::class);
+
+    Route::get('kegiatan-tendik/get-tendik/{kode}', [\App\Http\Controllers\KegiatanTendikController::class, 'getTendik'])->name('kegiatan-tendik.get-tendik');
+    Route::resource('kegiatan-tendik', \App\Http\Controllers\KegiatanTendikController::class);
     Route::get('pkm-dosen/template', [PKMDosenController::class, 'template'])->name('pkm-dosen.template');
     Route::post('pkm-dosen/import', [PKMDosenController::class, 'import'])->name('pkm-dosen.import');
     Route::get('pkm-dosen/get-dosen/{kode}', [PKMDosenController::class, 'getDosen'])->name('pkm-dosen.get-dosen');
