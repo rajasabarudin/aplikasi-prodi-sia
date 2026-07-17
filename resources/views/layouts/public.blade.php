@@ -263,7 +263,8 @@
             padding: 20px 0;
         }
         .marquee-content {
-            display: flex;
+            display: inline-flex;
+            width: max-content;
             animation: marquee 40s linear infinite;
             gap: 24px;
         }
@@ -272,7 +273,7 @@
         }
         @keyframes marquee {
             0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-250px * {{ min(count($dosenList ?? []), 10) }} - 24px * {{ min(count($dosenList ?? []), 10) }})); }
+            100% { transform: translateX(calc(-50% - 12px)); }
         }
         .marquee-item {
             width: 250px;
