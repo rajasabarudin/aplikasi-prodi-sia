@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('profil_prodis', function (Blueprint $table) {
+            $table->id();
+            $table->text('deskripsi_profil')->nullable();
+            $table->text('visi_keilmuan')->nullable();
+            $table->string('nama_kaprodi')->nullable();
+            $table->string('foto_kaprodi')->nullable();
+            $table->text('informasi_staf')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('profil_prodis');
+    }
+};

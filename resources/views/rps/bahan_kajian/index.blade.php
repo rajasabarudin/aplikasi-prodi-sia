@@ -1,0 +1,139 @@
+@extends('layouts.app')
+@section('title', 'Bahan Kajian Matakuliah')
+@section('content')
+<div class="row">
+    <div class="col-lg-3 mb-4 d-print-none">
+        <div class="card shadow-sm border-0">
+            <div class="card-header text-white py-3" style="background:#000!important">
+                <h6 class="mb-0 fw-bold"><i class="bi bi-bar-chart-line-fill me-2"></i>Statistik</h6>
+            </div>
+            <div class="card-body">
+                <div class="text-center py-3 mb-3 rounded" style="background:linear-gradient(135deg,#0891b2,#0e7490)">
+                    <span class="text-white-50 small d-block">Total Bahan Kajian</span>
+                    <h2 class="fw-bold text-white mb-0">{{ $bahanKajians->count() }}</h2>
+                </div>
+                <div class="fw-semibold text-dark mb-2 small"><i class="bi bi-list-ul me-1 text-info"></i>Per Matakuliah</div>
+                @foreach($bahanKajians->groupBy('kode_matakuliah') as $mk => $items)
+                <div class="d-flex justify-content-between align-items-center py-1 border-bottom">
+                    <small class="text-dark fw-semibold">{{ $mk }}</small>
+                    <span class="badge bg-info text-dark">{{ $items->count() }} topik</span>
+                </div>
+                @endforeach
+                <div class="alert alert-info border-0 small mb-0 mt-3" style="background:#eff6ff;color:#1e40af">
+                    <i class="bi bi-info-circle-fill me-1"></i>
+                    Bahan kajian adalah daftar topik materi yang diajarkan setiap pertemuan (maks. 16 pertemuan per matakuliah).
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-9">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h1 class="mb-0 fw-bold text-dark">Bahan Kajian Matakuliah</h1>
+                <p class="text-muted mb-0">Topik materi per pertemuan (minggu 1—16)</p>
+            </div>
+            <button class="btn btn-info text-white d-print-none" data-bs-toggle="modal" data-bs-target="#modalTambah">
+                <i class="bi bi-plus-circle me-1"></i>Tambah Bahan Kajian
+            </button>
+        </div>
+
+        @if(session('success'))<div class="alert alert-success d-print-none">{{ session('success') }}</div>@endif
+        @if($errors->any())<div class="alert alert-danger d-print-none"><ul class="mb-0">@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul></div>@endif
+
+        <div class="card shadow-sm border-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="text-center" style="width:5%">No</th>
+                            <th style="width:20%">Matakuliah</th>
+                            <th class="text-center" style="width:10%">No. Urut</th>
+                            <th style="width:30%">Topik</th>
+                            <th>Sub Topik</th>
+                            <th class="text-center d-print-none" style="width:10%">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($bahanKajians as $b)
+                        <tr>
+                            <td class="text-center fw-bold text-muted">{{ $loop->iteration }}</td>
+                            <td>
+                                <span class="fw-semibold text-dark small">{{ $b->matakuliah?->nama_matakuliah ?? $b->kode_matakuliah }}</span>
+                                <small class="text-muted d-block">{{ $b->kode_matakuliah }}</small>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-info text-dark fw-bold" style="font-size:0.9rem">{{ $b->urutan }}</span>
+                            </td>
+                            <td class="fw-semibold">{{ $b->topik }}</td>
+                            <td class="small text-muted">{{ $b->sub_topik ?? '-' }}</td>
+                            <td class="text-center d-print-none">
+                                <div class="btn-group">
+                                    <a href="{{ route('rps-bahan-kajian.edit', $b) }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
+                                    <form action="{{ route('rps-bahan-kajian.destroy', $b) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus bahan kajian ini?')">
+                                        @csrf @method('DELETE')
+                                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr><td colspan="6" class="text-center text-muted py-4">Belum ada data bahan kajian.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tambah -->
+<div class="modal fade" id="modalTambah" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form action="{{ route('rps-bahan-kajian.store') }}" method="POST">
+                @csrf
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title"><i class="bi bi-plus-circle-fill me-2"></i>Tambah Bahan Kajian</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label fw-semibold">Matakuliah <span class="text-danger">*</span></label>
+                            <select name="kode_matakuliah" class="form-select" required>
+                                <option value="">-- Pilih Matakuliah --</option>
+                                @foreach($matakuliahList as $mk)
+                                <option value="{{ $mk->kode_matakuliah }}">{{ $mk->nama_matakuliah }} ({{ $mk->kode_matakuliah }})</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">Nomor Urut <span class="text-danger">*</span></label>
+                            <input type="number" name="urutan" class="form-control" placeholder="Contoh: 1, 2, 3..." min="1" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">Topik <span class="text-danger">*</span></label>
+                            <input type="text" name="topik" class="form-control" placeholder="Contoh: Konsep Dasar Basis Data" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">Sub Topik <span class="text-muted">(Opsional)</span></label>
+                            <textarea name="sub_topik" class="form-control" rows="3" placeholder="Rincian sub-topik yang akan dibahas..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-info text-white">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if($errors->any())
+@push('scripts')
+<script>document.addEventListener('DOMContentLoaded',()=>new bootstrap.Modal(document.getElementById('modalTambah')).show())</script>
+@endpush
+@endif
+@endsection

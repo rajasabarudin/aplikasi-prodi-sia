@@ -1,0 +1,232 @@
+
+                            @php
+                                $kriteriaList = [
+                                    'C1' => 'C1: Visi, Misi, Tujuan & Strategi',
+                                    'C2' => 'C2: Tata Pamong & Kerjasama',
+                                    'C3' => 'C3: Mahasiswa / Kriteria D',
+                                    'C4' => 'C4: Sumber Daya Manusia (SDM) / Kriteria E',
+                                    'C5' => 'C5: Keuangan & Sarpras',
+                                    'C6' => 'C6: Pendidikan & Kurikulum / Kriteria A, B, C',
+                                    'C7' => 'C7: Penelitian Dosen',
+                                    'C8' => 'C8: Pengabdian Masyarakat (PkM)',
+                                    'C9' => 'C9: Luaran & Capaian Tridharma / Kriteria A'
+                                ];
+
+                                $ppeppList = [
+                                    'P1' => 'Penetapan',
+                                    'P2' => 'Pelaksanaan',
+                                    'P3' => 'Evaluasi',
+                                    'P4' => 'Pengendalian',
+                                    'P5' => 'Peningkatan'
+                                ];
+                            @endphp
+
+                            @foreach($kriteriaList as $kCode => $kName)
+                            <tr>
+                                <td class="fw-bold bg-light">
+                                    {{ $kName }}
+                                </td>
+                                
+                                @foreach($ppeppList as $pCode => $pName)
+                                <td>
+                                    <!-- SYSTEM AUTO DATA / REKAP OTOMATIS -->
+                                    @if($kCode === 'C1' && $pCode === 'P3')
+                                        <div class="alert alert-info border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px; font-size: 0.75rem;">
+                                            <span><i class="bi bi-chat-square-heart me-1"></i>{{ $surveiKepuasanCount }} Survei Kepuasan</span>
+                                            <div>
+                                                <a href="{{ route('survei-kepuasan.index') }}" class="badge bg-info text-decoration-none me-1">Lihat</a>
+                                                <a href="{{ route('obe.pdf-recap', ['kriteria' => 'Survei', 'ppepp' => 'P3']) }}" target="_blank" class="badge bg-danger text-decoration-none">PDF</a>
+                                            </div>
+                                        </div>
+                                    @elseif($kCode === 'C2' && $pCode === 'P2')
+                                        <div class="alert alert-primary border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px; font-size: 0.75rem;">
+                                            <span><i class="bi bi-link-45deg me-1"></i>Live: {{ $kerjasamaCount }} MoU</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C2', 'ppepp' => 'P2']) }}" target="_blank" class="badge bg-primary text-decoration-none">PDF</a>
+                                        </div>
+                                        <div class="alert alert-info border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px; font-size: 0.75rem;">
+                                            <span><i class="bi bi-file-earmark-text me-1"></i>{{ $pksCount }} PKS & IA</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C2', 'ppepp' => 'P3']) }}" target="_blank" class="badge bg-info text-decoration-none">PDF</a>
+                                        </div>
+                                    @elseif($kCode === 'C3' && $pCode === 'P1')
+                                        <div class="alert alert-success border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px; font-size: 0.75rem;">
+                                            <span><i class="bi bi-graph-up-arrow me-1"></i>Tren PMB: {{ $pmbCount }} Thn</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C3', 'ppepp' => 'P1']) }}" target="_blank" class="badge bg-success text-decoration-none">PDF</a>
+                                        </div>
+                                    @elseif($kCode === 'C3' && $pCode === 'P2')
+                                        <div class="alert alert-primary border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px; font-size: 0.75rem;">
+                                            <span><i class="bi bi-people-fill me-1"></i>Live: {{ $jumlahMahasiswa }} Mhs</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C3', 'ppepp' => 'P2']) }}" target="_blank" class="badge bg-primary text-decoration-none">PDF</a>
+                                        </div>
+                                        <div class="alert alert-dark border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px; font-size: 0.75rem;">
+                                            <span><i class="bi bi-table me-1"></i>Matriks Kohort</span>
+                                            <div>
+                                                <a href="{{ route('kohort.index') }}" class="badge bg-dark text-decoration-none me-1">Lihat</a>
+                                                <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C3', 'ppepp' => 'Kohort']) }}" target="_blank" class="badge bg-danger text-decoration-none">PDF</a>
+                                            </div>
+                                        </div>
+                                    @elseif($kCode === 'C3' && $pCode === 'P3')
+                                        <div class="alert alert-warning border-0 p-1 mb-2 small d-flex justify-content-between align-items-center text-dark" style="border-radius: 6px;">
+                                            <span><i class="bi bi-graph-up me-1"></i>Rerata IPK: {{ $avgIpk }}</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C3', 'ppepp' => 'P3']) }}" target="_blank" class="badge bg-warning text-dark text-decoration-none">PDF</a>
+                                        </div>
+                                    @elseif($kCode === 'C3' && $pCode === 'P4')
+                                        <div class="alert alert-secondary border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px; font-size: 0.75rem;">
+                                            <span><i class="bi bi-calendar-event me-1"></i>{{ $kegiatanProdiCount }} Kegiatan Prodi</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C3', 'ppepp' => 'P4']) }}" target="_blank" class="badge bg-secondary text-decoration-none">PDF</a>
+                                        </div>
+                                        <div class="alert alert-info border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px; font-size: 0.75rem;">
+                                            <span><i class="bi bi-people me-1"></i>{{ $pesertaMahasiswaCount }} Partisipasi Mhs</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C3', 'ppepp' => 'P4_Peserta']) }}" target="_blank" class="badge bg-info text-decoration-none">PDF</a>
+                                        </div>
+                                    @elseif($kCode === 'C3' && $pCode === 'P5')
+                                        <div class="alert alert-primary border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px;">
+                                            <span><i class="bi bi-journal-check me-1"></i>{{ $organisasiCount }} Org. Mahasiswa</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C3', 'ppepp' => 'P5']) }}" target="_blank" class="badge bg-primary text-decoration-none">PDF</a>
+                                        </div>
+                                    @elseif($kCode === 'C4' && $pCode === 'P2')
+                                        <div class="alert alert-primary border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px; font-size: 0.75rem;">
+                                            <span><i class="bi bi-person-video3 me-1"></i>Live: {{ $jumlahDosen }} Dosen</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C4', 'ppepp' => 'P2']) }}" target="_blank" class="badge bg-primary text-decoration-none">PDF</a>
+                                        </div>
+                                        <div class="alert alert-info border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px; font-size: 0.75rem;">
+                                            <span><i class="bi bi-award me-1"></i>{{ $prestasiDosenCount }} Prestasi Dosen</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C4', 'ppepp' => 'P2']) }}" target="_blank" class="badge bg-info text-decoration-none">PDF</a>
+                                        </div>
+                                        <div class="alert alert-success border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px; font-size: 0.75rem;">
+                                            <span><i class="bi bi-hand-thumbs-up me-1"></i>{{ $rekognisiDosenCount }} Rekognisi</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C4', 'ppepp' => 'P2']) }}" target="_blank" class="badge bg-success text-decoration-none">PDF</a>
+                                        </div>
+                                        <div class="alert alert-secondary border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px; font-size: 0.75rem;">
+                                            <span><i class="bi bi-shield-check me-1"></i>{{ $sertifikasiDosenCount }} Sertifikat</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C4', 'ppepp' => 'P2']) }}" target="_blank" class="badge bg-secondary text-decoration-none">PDF</a>
+                                        </div>
+                                    @elseif($kCode === 'C4' && $pCode === 'P3')
+                                        <div class="alert alert-success border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px; font-size: 0.75rem;">
+                                            <span><i class="bi bi-mortarboard me-1"></i>{{ $kegiatanDosenCount }} Keg. SDM Dosen</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C4', 'ppepp' => 'P3']) }}" target="_blank" class="badge bg-success text-decoration-none">PDF</a>
+                                        </div>
+                                    @elseif($kCode === 'C4' && $pCode === 'P4')
+                                        <div class="alert alert-info border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px; font-size: 0.75rem;">
+                                            <span><i class="bi bi-person-badge me-1"></i>{{ $pesertaDosenCount }} Partisipasi Dosen</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C4', 'ppepp' => 'P4_Peserta']) }}" target="_blank" class="badge bg-info text-decoration-none">PDF</a>
+                                        </div>
+                                    @elseif($kCode === 'C5' && $pCode === 'P2')
+                                        @php
+                                            $totalDanaKeuangan = \App\Models\KeuanganProdi::sum('dana_pendidikan') + \App\Models\KeuanganProdi::sum('dana_penelitian') + \App\Models\KeuanganProdi::sum('dana_pkm') + \App\Models\KeuanganProdi::sum('dana_investasi');
+                                            $totalDanaFormat = $totalDanaKeuangan >= 1000000000 ? 'Rp ' . number_format($totalDanaKeuangan/1000000000, 1) . 'M' : ($totalDanaKeuangan >= 1000000 ? 'Rp ' . number_format($totalDanaKeuangan/1000000, 0) . ' Jt' : 'Rp 0');
+                                        @endphp
+                                        <div class="alert alert-success border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px; font-size: 0.75rem;">
+                                            <span><i class="bi bi-wallet2 me-1"></i>Dana: {{ $totalDanaFormat }}</span>
+                                            <div>
+                                                <a href="{{ route('keuangan-prodi.index') }}" class="badge bg-success text-decoration-none me-1">Lihat</a>
+                                                <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C5', 'ppepp' => 'P2']) }}" target="_blank" class="badge bg-danger text-decoration-none">PDF</a>
+                                            </div>
+                                        </div>
+                                    @elseif($kCode === 'C6' && $pCode === 'P1')
+                                        <div class="alert alert-success border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px;">
+                                            <span><i class="bi bi-file-pdf me-1"></i>Buku Kurikulum</span>
+                                            <a href="/buku kurikulum.pdf" target="_blank" class="badge bg-success text-decoration-none">Buka</a>
+                                        </div>
+                                    @elseif($kCode === 'C6' && $pCode === 'P2')
+                                        <div class="alert alert-primary border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px;">
+                                            <span><i class="bi bi-file-earmark-check me-1"></i>Live: {{ $totalRps }} RPS</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C6', 'ppepp' => 'P2']) }}" target="_blank" class="badge bg-primary text-decoration-none">PDF</a>
+                                        </div>
+                                    @elseif($kCode === 'C6' && $pCode === 'P3')
+                                        <div class="alert alert-warning border-0 p-1 mb-2 small d-flex justify-content-between align-items-center text-dark" style="border-radius: 6px;">
+                                            <span><i class="bi bi-graph-up me-1"></i>Evaluasi CPL</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C6', 'ppepp' => 'P3']) }}" target="_blank" class="badge bg-warning text-dark text-decoration-none">PDF</a>
+                                        </div>
+                                    @elseif($kCode === 'C6' && $pCode === 'P5')
+                                        <div class="alert alert-primary border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px;">
+                                            <span><i class="bi bi-arrow-repeat me-1"></i>Live: {{ $cqiLogs->count() }} Logs</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C6', 'ppepp' => 'P5']) }}" target="_blank" class="badge bg-primary text-decoration-none">PDF</a>
+                                        </div>
+                                    @elseif($kCode === 'C7' && $pCode === 'P2')
+                                        <div class="alert alert-primary border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px;">
+                                            <span><i class="bi bi-search me-1"></i>{{ $penelitianCount }} Penelitian</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C7', 'ppepp' => 'P2']) }}" target="_blank" class="badge bg-primary text-decoration-none">PDF</a>
+                                        </div>
+                                        <div class="alert alert-warning border-0 p-1 mb-2 small d-flex justify-content-between align-items-center text-dark" style="border-radius: 6px;">
+                                            <span><i class="bi bi-cash-coin me-1"></i>{{ $hibahCount }} Hibah Penelitian</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C7', 'ppepp' => 'P2']) }}" target="_blank" class="badge bg-warning text-dark text-decoration-none">PDF</a>
+                                        </div>
+                                        <div class="alert alert-secondary border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px;">
+                                            <span><i class="bi bi-link-45deg me-1"></i>{{ $integrasiPenelitianCount }} Integrasi RPS</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C6', 'ppepp' => 'IntegrasiPenelitian']) }}" target="_blank" class="badge bg-secondary text-white text-decoration-none">PDF</a>
+                                        </div>
+                                    @elseif($kCode === 'C8' && $pCode === 'P2')
+                                        <div class="alert alert-primary border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px;">
+                                            <span><i class="bi bi-heart-pulse me-1"></i>{{ $pkmCount }} PkM Dosen</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C8', 'ppepp' => 'P2']) }}" target="_blank" class="badge bg-primary text-decoration-none">PDF</a>
+                                        </div>
+                                        <div class="alert alert-success border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px;">
+                                            <span><i class="bi bi-people me-1"></i>{{ $praktisiCount }} Praktisi/Dosen Tamu</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C8', 'ppepp' => 'P2']) }}" target="_blank" class="badge bg-success text-decoration-none">PDF</a>
+                                        </div>
+                                        <div class="alert alert-secondary border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px;">
+                                            <span><i class="bi bi-link-45deg me-1"></i>{{ $integrasiPkmCount }} Integrasi RPS</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C6', 'ppepp' => 'IntegrasiPkm']) }}" target="_blank" class="badge bg-secondary text-white text-decoration-none">PDF</a>
+                                        </div>
+                                    @elseif($kCode === 'C9' && $pCode === 'P2')
+                                        <div class="alert alert-primary border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px;">
+                                            <span><i class="bi bi-award me-1"></i>Live: {{ $serkomCount }} Serkom</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C9', 'ppepp' => 'P2']) }}" target="_blank" class="badge bg-primary text-decoration-none">PDF</a>
+                                        </div>
+                                        <div class="alert alert-warning border-0 p-1 mb-2 small d-flex justify-content-between align-items-center text-dark" style="border-radius: 6px;">
+                                            <span><i class="bi bi-trophy me-1"></i>Live: {{ $prestasiCount }} Prestasi Mhs</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C9', 'ppepp' => 'P2']) }}" target="_blank" class="badge bg-warning text-dark text-decoration-none">PDF</a>
+                                        </div>
+                                        <div class="alert alert-success border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px;">
+                                            <span><i class="bi bi-lightbulb me-1"></i>{{ $hkiCount }} HKI</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C9', 'ppepp' => 'P2']) }}" target="_blank" class="badge bg-success text-decoration-none">PDF</a>
+                                        </div>
+                                    @elseif($kCode === 'C9' && $pCode === 'P3')
+                                        <div class="alert alert-warning border-0 p-1 mb-2 small d-flex justify-content-between align-items-center text-dark" style="border-radius: 6px;">
+                                            <span><i class="bi bi-journal-code me-1"></i>{{ $capstoneCount }} Capstone/TA</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C9', 'ppepp' => 'P3']) }}" target="_blank" class="badge bg-warning text-dark text-decoration-none">PDF</a>
+                                        </div>
+                                    @elseif($kCode === 'C9' && $pCode === 'P4')
+                                        <div class="alert alert-success border-0 p-1 mb-2 small d-flex justify-content-between align-items-center text-dark" style="border-radius: 6px;">
+                                            <span><i class="bi bi-briefcase me-1"></i>Tracer Study Alumni</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C9', 'ppepp' => 'P4_Tracer']) }}" target="_blank" class="badge bg-success text-white text-decoration-none">PDF</a>
+                                        </div>
+                                    @elseif($kCode === 'C9' && $pCode === 'P5')
+                                        <div class="alert alert-primary border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px;">
+                                            <span><i class="bi bi-folder2-open me-1"></i>{{ $tugasMahasiswaCount }} Tugas Mhs</span>
+                                            <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C9', 'ppepp' => 'P5']) }}" target="_blank" class="badge bg-primary text-decoration-none">PDF</a>
+                                        </div>
+                                    @endif
+
+                                    <!-- UPLOADED PHYSICAL DOCUMENTS -->
+                                    @php
+                                        $cellKey = $kCode . '_' . $pCode;
+                                        $docsInCell = $ppeppDocs->get($cellKey) ?? collect();
+                                    @endphp
+
+                                    @foreach($docsInCell as $d)
+                                    <div class="bg-light border rounded p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px;">
+                                        <span class="text-truncate me-1 text-dark" style="max-width: 100px;" title="{{ $d->nama_dokumen }}">
+                                            <i class="bi bi-file-earmark-pdf text-danger"></i> {{ $d->nama_dokumen }}
+                                        </span>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="{{ route('obe.view-ppepp', $d->id) }}" target="_blank" class="btn btn-link p-0 text-info me-1" title="Lihat"><i class="bi bi-eye" style="font-size: 0.8rem;"></i></a>
+                                            <a href="{{ route('obe.download-ppepp', $d->id) }}" class="btn btn-link p-0 text-success me-1" title="Download"><i class="bi bi-download" style="font-size: 0.8rem;"></i></a>
+                                            <form action="{{ route('obe.delete-ppepp', $d->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-link p-0 text-danger" onclick="return confirm('Hapus dokumen ini?')" title="Hapus"><i class="bi bi-trash" style="font-size: 0.8rem;"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    @endforeach
+
+                                    <!-- QUICK UPLOAD TRIGGER -->
+                                    <button type="button" class="btn btn-xs btn-outline-secondary w-100 py-0 border-dashed" style="border-style: dashed; font-size: 0.75rem;" onclick="openQuickUpload('{{ $kCode }}', '{{ $pCode }}', '{{ $kName }}', '{{ $pName }}')">
+                                        <i class="bi bi-plus"></i> Tambah Dokumen
+                                    </button>
+                                </td>
+                                @endforeach
+                            </tr>
+                            @endforeach
+                        
