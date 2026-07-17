@@ -123,6 +123,7 @@ Route::middleware(['auth', 'permission'])->prefix('admin')->group(function () {
     Route::post('sertifikasi-mahasiswa/import', [SertifikasiMahasiswaController::class, 'import'])->name('sertifikasi-mahasiswa.import');
     Route::resource('sertifikasi-mahasiswa', SertifikasiMahasiswaController::class);
     Route::resource('sertifikasi-dosen', SertifikasiDosenController::class);
+    Route::get('kegiatan-dosen/get-dosen/{kode}', [KegiatanDosenController::class, 'getDosen'])->name('kegiatan-dosen.get-dosen');
     Route::resource('kegiatan-dosen', KegiatanDosenController::class);
     Route::get('pkm-dosen/template', [PKMDosenController::class, 'template'])->name('pkm-dosen.template');
     Route::post('pkm-dosen/import', [PKMDosenController::class, 'import'])->name('pkm-dosen.import');
