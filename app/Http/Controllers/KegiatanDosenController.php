@@ -76,7 +76,7 @@ class KegiatanDosenController extends Controller
 
         return view('kegiatan_dosen.index', compact(
             'kegiatans', 'dosens', 'tsList',
-            'totalKegiatan', 'jenisCounts', 'labelTsCounts', 'tsCounts', 'dosenCounts'
+            'totalkegiatan', 'jenisCounts', 'labelTsCounts', 'tsCounts', 'dosenCounts'
         ));
     }
 
