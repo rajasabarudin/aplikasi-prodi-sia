@@ -300,10 +300,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($kegiatan as $item)
+                        @forelse ($kegiatans as $item)
                             <tr>
                                 <td class="text-center fw-bold text-muted">
-                                    {{ ($kegiatan->currentPage() - 1) * $kegiatan->perPage() + $loop->iteration }}
+                                    {{ ($kegiatans->currentPage() - 1) * $kegiatans->perPage() + $loop->iteration }}
                                 </td>
                                 <td>
                                     <strong class="text-dark d-block" style="font-size:0.9rem;">{{ $item->nama_dosen }}</strong>
@@ -364,9 +364,9 @@
             </div>
 
             {{-- Pagination --}}
-            @if($kegiatan->hasPages())
+            @if($kegiatans->hasPages())
                 <div class="d-flex justify-content-center d-print-none mt-4">
-                    {{ $kegiatan->links('pagination::bootstrap-5') }}
+                    {{ $kegiatans->links('pagination::bootstrap-5') }}
                 </div>
             @endif
         </div>
