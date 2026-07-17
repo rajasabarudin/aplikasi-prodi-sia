@@ -204,8 +204,8 @@
         <div class="container">
             <div class="text-center mb-5">
                 <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill fw-bold mb-3 border border-danger border-opacity-25">Kolaborasi & Sinergi</span>
-                <h2 class="section-title">Mitra Kerja Sama (PKS & IA)</h2>
-                <p class="section-subtitle">Program Studi menjalin kolaborasi strategis dengan berbagai instansi untuk pengembangan pendidikan, penelitian, dan pengabdian.</p>
+                <h2 class="section-title">Mitra Kerja Sama (MoU)</h2>
+                <p class="section-subtitle">Program Studi menjalin kerjasama strategis dengan berbagai instansi untuk pengembangan pendidikan, penelitian, dan pengabdian.</p>
             </div>
             
             @if($mitraList->isEmpty())
@@ -224,11 +224,11 @@
                                         </div>
                                         <h5 class="fw-bolder mb-3 text-truncate w-100" style="color: var(--dark); letter-spacing: -0.5px;" title="{{ $mitra->nama_mitra }}">{{ $mitra->nama_mitra }}</h5>
                                         <div class="d-flex flex-wrap gap-2 justify-content-center">
-                                            @if($mitra->level_pks)
-                                            <span class="badge rounded-pill" style="background: rgba(79, 70, 229, 0.08); color: var(--primary); font-weight: 600; padding: 6px 12px; font-size: 0.75rem;">{{ $mitra->level_pks }}</span>
+                                            @if($mitra->tahun_mou)
+                                            <span class="badge rounded-pill" style="background: rgba(79, 70, 229, 0.08); color: var(--primary); font-weight: 600; padding: 6px 12px; font-size: 0.75rem;">Mulai: {{ $mitra->tahun_mou }}</span>
                                             @endif
-                                            @if($mitra->kategori)
-                                            <span class="badge rounded-pill" style="background: rgba(16, 185, 129, 0.08); color: var(--secondary); font-weight: 600; padding: 6px 12px; font-size: 0.75rem;">{{ $mitra->kategori }}</span>
+                                            @if($mitra->tahun_berakhir)
+                                            <span class="badge rounded-pill" style="background: rgba(16, 185, 129, 0.08); color: var(--secondary); font-weight: 600; padding: 6px 12px; font-size: 0.75rem;">Berakhir: {{ $mitra->tahun_berakhir }}</span>
                                             @endif
                                         </div>
                                     </div>

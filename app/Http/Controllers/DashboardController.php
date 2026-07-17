@@ -508,7 +508,7 @@ class DashboardController extends Controller
 
         $profilProdi = \App\Models\ProfilProdi::first();
         $beritaTerbaru = \App\Models\Berita::orderBy('tanggal', 'desc')->take(3)->get();
-        $mitraList = \App\Models\PksIa::orderBy('created_at', 'desc')->get();
+        $mitraList = \App\Models\Kerjasama::orderBy('created_at', 'desc')->get();
 
         return compact(
             'jumlahDosen', 'jumlahMahasiswa', 'jumlahKelas',
