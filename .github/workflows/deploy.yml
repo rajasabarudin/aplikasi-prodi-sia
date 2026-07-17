@@ -1,0 +1,38 @@
+name: Deploy to cPanel via FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Checkout code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1' # Sesuaikan dengan versi PHP hosting Anda (misal: 8.0, 8.1, atau 8.2)
+
+      - name: 📦 Install Composer Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
+
+      - name: 🚀 Sync files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Folder yang diabaikan dan tidak akan dikirim ke hosting
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            node_modules/**
+            tests/**
+            phpunit.xml
+            README.md
+            .env.example
