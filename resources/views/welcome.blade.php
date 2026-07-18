@@ -8,17 +8,25 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-7 position-relative z-1 text-center text-lg-start" data-aos="fade-right">
-                    <div>
-                        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold mb-4 border border-primary border-opacity-25">Sistem Informasi Akademik</span>
+                    <div class="mb-3">
+                        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold mb-2 border border-primary border-opacity-25">Sistem Informasi Akademik</span>
                         @if($profilProdi && $profilProdi->akreditasi)
-                            <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill fw-bold mb-4 border border-success border-opacity-25 ms-0 ms-md-2 mt-2 mt-md-0"><i class="bi bi-award-fill me-1"></i>Akreditasi: {{ $profilProdi->akreditasi }}</span>
+                            <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill fw-bold mb-2 border border-success border-opacity-25 ms-0 ms-md-2 mt-2 mt-md-0"><i class="bi bi-award-fill me-1"></i>Akreditasi: {{ $profilProdi->akreditasi }}</span>
                         @endif
                         @if($profilProdi && $profilProdi->lama_masa_studi)
-                            <span class="badge bg-info bg-opacity-10 text-info px-3 py-2 rounded-pill fw-bold mb-4 border border-info border-opacity-25 ms-0 ms-md-2 mt-2 mt-md-0"><i class="bi bi-clock-history me-1"></i>Masa Studi: {{ $profilProdi->lama_masa_studi }}</span>
+                            <span class="badge bg-info bg-opacity-10 text-info px-3 py-2 rounded-pill fw-bold mb-2 border border-info border-opacity-25 ms-0 ms-md-2 mt-2 mt-md-0"><i class="bi bi-clock-history me-1"></i>Masa Studi: {{ $profilProdi->lama_masa_studi }}</span>
                         @endif
                     </div>
-                    <h1>Mewujudkan Lulusan <span>Unggul & Berkualitas</span></h1>
-                    <p class="pe-lg-5">Portal resmi program studi yang transparan dan terintegrasi. Pantau pencapaian, inovasi, dan profil akademik secara real-time.</p>
+                    
+                    @if($profilProdi && $profilProdi->visi_keilmuan)
+                        <div class="mb-4 p-3 rounded-4" style="background: rgba(30, 58, 138, 0.05); border-left: 4px solid var(--primary);">
+                            <span class="fw-bold d-block mb-1" style="color: var(--primary); font-size: 0.85rem; letter-spacing: 0.5px; text-transform: uppercase;"><i class="bi bi-bullseye me-1"></i> Visi Keilmuan</span>
+                            <p class="mb-0 text-dark" style="font-size: 0.95rem; line-height: 1.6; font-style: italic;">"{{ $profilProdi->visi_keilmuan }}"</p>
+                        </div>
+                    @endif
+
+                    <h1 class="mb-3">Mewujudkan Lulusan <span>Unggul & Berkualitas</span></h1>
+                    <p class="pe-lg-5 mb-4">Portal resmi program studi yang transparan dan terintegrasi. Pantau pencapaian, inovasi, dan profil akademik secara real-time.</p>
                     <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
                         <a href="{{ route('portal.kegiatan') }}" class="btn btn-login btn-lg px-4 py-3" style="border-radius: 16px;">
                             Lihat Kegiatan Terbaru
