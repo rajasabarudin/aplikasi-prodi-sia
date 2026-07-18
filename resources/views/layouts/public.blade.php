@@ -4,7 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Beranda') - Prodi Sistem Informasi Akuntansi UBSI Kampus Kota Pontianak</title>
-    <meta name="description" content="@yield('meta_description', 'Portal Akademik Prodi Sistem Informasi Akuntansi UBSI Kampus Kota Pontianak. Dapatkan informasi terbaru seputar berita, profil, dan kegiatan program studi.')">
+    <meta name="description" content="@yield('meta_description', 'Portal Akademik resmi Program Studi Sistem Informasi Akuntansi (SIA) Universitas Bina Sarana Informatika (UBSI) Kampus Kota Pontianak. Dapatkan informasi pendaftaran, berita terbaru, dan kegiatan akademik.')">
+    <meta name="keywords" content="UBSI Pontianak, Sistem Informasi Akuntansi, Prodi SIA, Kuliah Pontianak, Universitas Bina Sarana Informatika, Portal Akademik, Sistem Informasi">
+    <meta name="author" content="Prodi Sistem Informasi Akuntansi UBSI Pontianak">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social Media Meta -->
+    <meta property="og:title" content="@yield('title', 'Beranda') - Prodi Sistem Informasi Akuntansi UBSI Pontianak">
+    <meta property="og:description" content="@yield('meta_description', 'Portal Akademik resmi Program Studi Sistem Informasi Akuntansi (SIA) Universitas Bina Sarana Informatika (UBSI) Kampus Kota Pontianak.')">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ asset('img/logo_ubsi.png') }}">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">

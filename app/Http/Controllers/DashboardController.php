@@ -530,4 +530,43 @@ class DashboardController extends Controller
         $berita = \App\Models\Berita::where('slug', $slug)->firstOrFail();
         return view('berita.show', compact('berita'));
     }
+
+    public function sitemap()
+    {
+        $berita = \App\Models\Berita::where('status_publish', 'published')->latest()->get();
+        
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>';
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+
+        // Static routes
+        $urls = [
+            route('welcome'),
+            route('profil-prodi.public'),
+            route('berita.public'),
+            route('portal.kegiatan'),
+            route('portal.beasiswa'),
+        ];
+
+        foreach ($urls as $url) {
+            $xml .= '<url>';
+            $xml .= '<loc>' . htmlspecialchars($url) . '</loc>';
+            $xml .= '<changefreq>weekly</changefreq>';
+            $xml .= '<priority>0.8</priority>';
+            $xml .= '</url>';
+        }
+
+        // Dynamic routes (Berita)
+        foreach ($berita as $b) {
+            $xml .= '<url>';
+            $xml .= '<loc>' . htmlspecialchars(route('berita.baca', $b->slug)) . '</loc>';
+            $xml .= '<lastmod>' . $b->updated_at->tz('UTC')->toAtomString() . '</lastmod>';
+            $xml .= '<changefreq>monthly</changefreq>';
+            $xml .= '<priority>0.6</priority>';
+            $xml .= '</url>';
+        }
+
+        $xml .= '</urlset>';
+
+        return response($xml, 200)->header('Content-Type', 'text/xml');
+    }
 }

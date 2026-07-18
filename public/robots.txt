@@ -1,2 +1,10 @@
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /login
+
+Allow: /
+Allow: /sitemap.xml
+
+# Sitemap akan dihasilkan secara dinamis di /sitemap.xml
+Sitemap: /sitemap.xml

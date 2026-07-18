@@ -55,6 +55,9 @@ Route::get('/profil', [DashboardController::class, 'profilProdiPublic'])->name('
 Route::get('/berita', [DashboardController::class, 'beritaPublic'])->name('berita.public');
 Route::get('/berita/{slug}', [DashboardController::class, 'bacaBerita'])->name('berita.baca');
 
+// SEO Sitemap
+Route::get('/sitemap.xml', [DashboardController::class, 'sitemap'])->name('sitemap');
+
 // Temporary route for migration on cPanel
 Route::get('/run-migrate', function () {
     try {
