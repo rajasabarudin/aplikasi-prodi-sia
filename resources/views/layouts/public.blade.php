@@ -8,6 +8,7 @@
     <meta name="keywords" content="UBSI Pontianak, Sistem Informasi Akuntansi, Prodi SIA, Kuliah Pontianak, Universitas Bina Sarana Informatika, Portal Akademik, Sistem Informasi">
     <meta name="author" content="Prodi Sistem Informasi Akuntansi UBSI Pontianak">
     <meta name="robots" content="index, follow">
+    <meta name="google-site-verification" content="A42mM0DpJngiVvmKh9cnbVYufjYuUktpKMeFTn51lnE" />
     
     <!-- Open Graph / Social Media Meta -->
     <meta property="og:title" content="@yield('title', 'Beranda') - Prodi Sistem Informasi Akuntansi UBSI Pontianak">
