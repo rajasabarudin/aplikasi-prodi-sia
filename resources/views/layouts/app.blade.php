@@ -14,6 +14,8 @@
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             color: #1e293b;
             min-height: 100vh;
+            overflow-x: hidden;
+            max-width: 100vw;
         }
 
         /* Collapsible Sidebar Styles */
