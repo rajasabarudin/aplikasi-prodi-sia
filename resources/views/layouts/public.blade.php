@@ -288,9 +288,7 @@
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('welcome') }}">
-                <div class="bg-primary text-white rounded p-1 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
-                    <i class="bi bi-mortarboard-fill fs-5"></i>
-                </div>
+                <img src="{{ asset('img/logo_ubsi.png') }}" alt="Logo UBSI" style="width: 45px; height: auto;">
                 <div class="d-flex flex-column lh-1">
                     <span class="fs-6 fw-bold">Prodi Sistem Informasi Akuntansi</span>
                     <span class="fs-6 fw-bold">UBSI Kampus Kota Pontianak</span>
