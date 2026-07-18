@@ -90,51 +90,7 @@
         </div>
     </section>
 
-    <!-- Directory Dosen -->
-    <section class="py-5 overflow-hidden">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="section-title">Tenaga Pengajar Profesional</h2>
-                <p class="section-subtitle">Didukung oleh dosen-dosen berdedikasi dengan kualifikasi terbaik.</p>
-            </div>
-            
-            @if($dosenList->isEmpty())
-                <div class="text-center text-muted p-5">Belum ada data dosen.</div>
-            @else
-                <div class="marquee">
-                    <div class="marquee-content">
-                        {{-- Duplicated for infinite effect --}}
-                        @for($i=0; $i<2; $i++)
-                            @foreach($dosenList as $d)
-                            <div class="marquee-item">
-                                <div class="dosen-card">
-                                    @if ($d->foto)
-                                        <img src="{{ asset('storage/' . $d->foto) }}" class="dosen-img" alt="{{ $d->nama_dosen }}">
-                                    @else
-                                        <div class="dosen-img-placeholder">
-                                            @php
-                                                $words = explode(' ', $d->nama_dosen);
-                                                $initials = '';
-                                                foreach ($words as $w) {
-                                                    if (preg_match('/^[A-Za-z]/', $w)) $initials .= strtoupper($w[0]);
-                                                    if (strlen($initials) >= 2) break;
-                                                }
-                                                if(empty($initials)) $initials = 'DS';
-                                            @endphp
-                                            {{ $initials }}
-                                        </div>
-                                    @endif
-                                    <h4 class="dosen-name text-truncate" title="{{ $d->nama_dosen }}">{{ $d->nama_dosen }}</h4>
-                                    <div class="dosen-role mt-2">{{ $d->pendidikan ?: 'Pengajar Utama' }}</div>
-                                </div>
-                            </div>
-                            @endforeach
-                        @endfor
-                    </div>
-                </div>
-            @endif
-        </div>
-    </section>
+    <!-- Directory Dosen dipindahkan ke bawah -->
 
     <!-- Statistik & Tren Pencapaian Grafik -->
     <section class="py-5 mb-5 glass-card rounded-5 shadow-sm mx-lg-4 p-lg-5" data-aos="fade-up">
@@ -190,7 +146,53 @@
         </div>
     </section>
 
-    <!-- Highlight Mitra Kerja Sama (Hanya Marquee) -->
+    <!-- Directory Dosen -->
+    <section class="py-5 overflow-hidden">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Tenaga Pengajar Profesional</h2>
+                <p class="section-subtitle">Didukung oleh dosen-dosen berdedikasi dengan kualifikasi terbaik.</p>
+            </div>
+            
+            @if($dosenList->isEmpty())
+                <div class="text-center text-muted p-5">Belum ada data dosen.</div>
+            @else
+                <div class="marquee">
+                    <div class="marquee-content">
+                        {{-- Duplicated for infinite effect --}}
+                        @for($i=0; $i<2; $i++)
+                            @foreach($dosenList as $d)
+                            <div class="marquee-item">
+                                <div class="dosen-card">
+                                    @if ($d->foto)
+                                        <img src="{{ asset('storage/' . $d->foto) }}" class="dosen-img" alt="{{ $d->nama_dosen }}">
+                                    @else
+                                        <div class="dosen-img-placeholder">
+                                            @php
+                                                $words = explode(' ', $d->nama_dosen);
+                                                $initials = '';
+                                                foreach ($words as $w) {
+                                                    if (preg_match('/^[A-Za-z]/', $w)) $initials .= strtoupper($w[0]);
+                                                    if (strlen($initials) >= 2) break;
+                                                }
+                                                if(empty($initials)) $initials = 'DS';
+                                            @endphp
+                                            {{ $initials }}
+                                        </div>
+                                    @endif
+                                    <h4 class="dosen-name text-truncate" title="{{ $d->nama_dosen }}">{{ $d->nama_dosen }}</h4>
+                                    <div class="dosen-role mt-2">{{ $d->pendidikan ?: 'Pengajar Utama' }}</div>
+                                </div>
+                            </div>
+                            @endforeach
+                        @endfor
+                    </div>
+                </div>
+            @endif
+        </div>
+    </section>
+
+    <!-- Highlight Mitra Kerja Sama -->
     <section class="py-5 bg-light rounded-5 shadow-sm mx-lg-4 p-lg-5 mb-5 border">
         <div class="container">
             <div class="text-center mb-5">
@@ -202,32 +204,27 @@
             @if($mitraList->isEmpty())
                 <div class="text-center text-muted">Belum ada data mitra kerja sama yang dipublikasikan.</div>
             @else
-                <div class="marquee">
-                    <div class="marquee-content" style="animation-direction: reverse;">
-                        {{-- Duplicated for infinite effect --}}
-                        @for($i=0; $i<2; $i++)
-                            @foreach($mitraList as $mitra)
-                            <div class="marquee-item" style="width: auto;">
-                                <div class="card h-100 text-center" style="transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); width: 380px; margin: 0 10px; border-radius: 20px; background: #ffffff; border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 10px 30px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.02)';">
-                                    <div class="card-body p-5 d-flex flex-column align-items-center justify-content-center">
-                                        <div class="rounded-circle d-flex align-items-center justify-content-center mb-4" style="width: 70px; height: 70px; background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(16, 185, 129, 0.1)); color: var(--primary);">
-                                            <i class="bi bi-buildings fs-2"></i>
-                                        </div>
-                                        <h5 class="fw-bolder mb-3 w-100" style="color: var(--dark); letter-spacing: -0.5px; white-space: normal; line-height: 1.4;">{{ $mitra->nama_mitra }}</h5>
-                                        <div class="d-flex flex-wrap gap-2 justify-content-center">
-                                            @if($mitra->tahun_mou)
-                                            <span class="badge rounded-pill" style="background: rgba(79, 70, 229, 0.08); color: var(--primary); font-weight: 600; padding: 6px 12px; font-size: 0.75rem;">Mulai: {{ $mitra->tahun_mou }}</span>
-                                            @endif
-                                            @if($mitra->tahun_berakhir)
-                                            <span class="badge rounded-pill" style="background: rgba(16, 185, 129, 0.08); color: var(--secondary); font-weight: 600; padding: 6px 12px; font-size: 0.75rem;">Berakhir: {{ $mitra->tahun_berakhir }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center">
+                    @foreach($mitraList as $mitra)
+                    <div class="col">
+                        <div class="card h-100 text-center" style="transition: all 0.4s ease; border-radius: 20px; background: #ffffff; border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 5px 20px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 20px rgba(0,0,0,0.02)';">
+                            <div class="card-body p-4 d-flex flex-column align-items-center justify-content-center">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px; background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(16, 185, 129, 0.1)); color: var(--primary);">
+                                    <i class="bi bi-buildings fs-3"></i>
+                                </div>
+                                <h5 class="fw-bolder mb-3 w-100" style="color: var(--dark); font-size: 1.1rem; line-height: 1.3;">{{ $mitra->nama_mitra }}</h5>
+                                <div class="d-flex flex-wrap gap-2 justify-content-center mt-auto">
+                                    @if($mitra->tahun_mou)
+                                    <span class="badge rounded-pill" style="background: rgba(79, 70, 229, 0.08); color: var(--primary); font-weight: 600;">Mulai: {{ $mitra->tahun_mou }}</span>
+                                    @endif
+                                    @if($mitra->tahun_berakhir)
+                                    <span class="badge rounded-pill" style="background: rgba(16, 185, 129, 0.08); color: var(--secondary); font-weight: 600;">Akhir: {{ $mitra->tahun_berakhir }}</span>
+                                    @endif
                                 </div>
                             </div>
-                            @endforeach
-                        @endfor
+                        </div>
                     </div>
+                    @endforeach
                 </div>
             @endif
         </div>
