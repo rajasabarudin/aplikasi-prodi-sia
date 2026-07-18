@@ -136,17 +136,18 @@
         </div>
     </section>
 
-    <!-- Highlight Prestasi & Rekognisi Grafik -->
+    <!-- Statistik & Tren Pencapaian Grafik -->
     <section class="py-5 mb-5 glass-card rounded-5 shadow-sm mx-lg-4 p-lg-5" data-aos="fade-up">
         <div class="container">
             <div class="row align-items-center mb-5">
-                <div class="col-lg-8">
+                <div class="col-lg-10">
                     <h2 class="section-title">Statistik & Tren Pencapaian</h2>
-                    <p class="section-subtitle mb-0">Pemantauan visual terhadap rekam jejak prestasi mahasiswa dan tingkat rekognisi dosen dari tahun ke tahun.</p>
+                    <p class="section-subtitle mb-0">Pemantauan visual terhadap rekam jejak prestasi, kualitas akademik, kompetensi, serta tren jaringan kerja sama Program Studi secara komprehensif.</p>
                 </div>
             </div>
 
-            <div class="row g-4">
+            <!-- Baris 1: Prestasi & Rekognisi -->
+            <div class="row g-4 mb-4">
                 <div class="col-lg-7">
                     <div class="card border-0 shadow-sm rounded-4 h-100 p-4" style="background: rgba(255,255,255,0.9);">
                         <h5 class="fw-bold mb-4 text-dark"><i class="bi bi-bar-chart-line-fill text-primary me-2"></i>Grafik Prestasi Mahasiswa</h5>
@@ -164,52 +165,40 @@
                     </div>
                 </div>
             </div>
-        </div>
-    <!-- Kualitas Akademik & Kompetensi -->
-    <section class="py-5 mb-5 glass-card rounded-5 shadow-sm mx-lg-4 p-lg-5" data-aos="fade-up">
-        <div class="container">
-            <div class="row align-items-center mb-5">
-                <div class="col-lg-8">
-                    <h2 class="section-title">Kualitas Akademik & Kompetensi</h2>
-                    <p class="section-subtitle mb-0">Visualisasi profil kualifikasi dosen dan sebaran sertifikasi kompetensi yang diakui industri untuk mahasiswa kami.</p>
-                </div>
-            </div>
 
+            <!-- Baris 2: Sertifikasi, Pendidikan Dosen, Kerjasama -->
             <div class="row g-4">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <div class="card border-0 shadow-sm rounded-4 h-100 p-4" style="background: rgba(255,255,255,0.9);">
-                        <h5 class="fw-bold mb-4 text-dark"><i class="bi bi-patch-check-fill text-success me-2"></i>Sertifikasi Kompetensi Mahasiswa</h5>
+                        <h5 class="fw-bold mb-4 text-dark"><i class="bi bi-patch-check-fill text-success me-2"></i>Sertifikasi Kompetensi</h5>
                         <div id="serkomChart"></div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <div class="card border-0 shadow-sm rounded-4 h-100 p-4" style="background: rgba(255,255,255,0.9);">
-                        <h5 class="fw-bold mb-4 text-dark"><i class="bi bi-mortarboard-fill text-danger me-2"></i>Kualifikasi Pendidikan Dosen</h5>
+                        <h5 class="fw-bold mb-4 text-dark"><i class="bi bi-mortarboard-fill text-danger me-2"></i>Kualifikasi Pendidikan</h5>
                         <div id="pendidikanChart" class="d-flex justify-content-center"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 p-4" style="background: rgba(255,255,255,0.9);">
+                        <h5 class="fw-bold mb-4 text-dark"><i class="bi bi-globe-americas text-info me-2"></i>Tren Realisasi Kerjasama</h5>
+                        <div id="kerjasamaChart"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Highlight Mitra Kerja Sama -->
+    <!-- Highlight Mitra Kerja Sama (Hanya Marquee) -->
     <section class="py-5 bg-light rounded-5 shadow-sm mx-lg-4 p-lg-5 mb-5 border">
         <div class="container">
             <div class="text-center mb-5">
                 <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill fw-bold mb-3 border border-danger border-opacity-25">Kolaborasi & Sinergi</span>
-                <h2 class="section-title">Mitra Kerja Sama (MoU, PKS, IA)</h2>
+                <h2 class="section-title">Jaringan Mitra (MoU)</h2>
                 <p class="section-subtitle">Program Studi menjalin kerjasama strategis dengan berbagai instansi untuk pengembangan pendidikan, penelitian, dan pengabdian.</p>
             </div>
             
-            <div class="row mb-5 justify-content-center">
-                <div class="col-lg-8">
-                    <div class="card border-0 shadow-sm rounded-4 p-4" style="background: rgba(255,255,255,0.9);">
-                        <h5 class="fw-bold mb-4 text-dark text-center"><i class="bi bi-globe-americas text-primary me-2"></i>Tren Realisasi Kerjasama (PKS & IA)</h5>
-                        <div id="kerjasamaChart"></div>
-                    </div>
-                </div>
-            </div>
-
             @if($mitraList->isEmpty())
                 <div class="text-center text-muted">Belum ada data mitra kerja sama yang dipublikasikan.</div>
             @else
