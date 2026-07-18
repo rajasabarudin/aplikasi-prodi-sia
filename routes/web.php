@@ -55,6 +55,16 @@ Route::get('/profil', [DashboardController::class, 'profilProdiPublic'])->name('
 Route::get('/berita', [DashboardController::class, 'beritaPublic'])->name('berita.public');
 Route::get('/berita/{slug}', [DashboardController::class, 'bacaBerita'])->name('berita.baca');
 
+// Temporary route for migration on cPanel
+Route::get('/run-migrate', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        return 'Migrasi database berhasil dijalankan di server hosting!';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
+
 // Public Kegiatan Registration Routes
 Route::get('/kegiatan-portal/cek-identitas', [DashboardController::class, 'cekIdentitas'])->name('portal.kegiatan.cek-identitas');
 Route::get('/kegiatan-portal', [DashboardController::class, 'portalKegiatan'])->name('portal.kegiatan');
