@@ -152,6 +152,19 @@
                         </span>
                     </div>
 
+                    <!-- Beasiswa -->
+                    <div class="d-flex justify-content-between align-items-center bg-white p-2 rounded border border-light shadow-sm">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="bg-primary text-white rounded-3 px-2 py-1 fs-5">
+                                <i class="bi bi-wallet2"></i>
+                            </span>
+                            <span class="fw-semibold text-dark small">Total Beasiswa</span>
+                        </div>
+                        <span class="badge bg-primary rounded-pill px-2.5 py-1.5 fw-bold" style="font-size: 0.8rem;">
+                            {{ $mahasiswa->beasiswas->count() }}
+                        </span>
+                    </div>
+
                     <!-- Sertifikasi -->
                     <div class="d-flex justify-content-between align-items-center bg-white p-2 rounded border border-light shadow-sm">
                         <div class="d-flex align-items-center gap-2">
@@ -220,6 +233,11 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link fw-bold px-3 py-2" id="prestasi-tab" data-bs-toggle="tab" data-bs-target="#prestasi" type="button" role="tab" aria-controls="prestasi" aria-selected="false" style="border-radius: 8px;">
                     <i class="bi bi-trophy-fill me-1 text-warning"></i> Prestasi
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link fw-bold px-3 py-2" id="beasiswa-tab" data-bs-toggle="tab" data-bs-target="#beasiswa" type="button" role="tab" aria-controls="beasiswa" aria-selected="false" style="border-radius: 8px;">
+                    <i class="bi bi-wallet2 me-1 text-primary"></i> Beasiswa
                 </button>
             </li>
             <li class="nav-item" role="presentation">
@@ -420,6 +438,57 @@
                                             <td colspan="6" class="text-center text-muted py-4">
                                                 <i class="bi bi-trophy display-6 d-block mb-2 text-secondary"></i>
                                                 Belum ada data prestasi untuk mahasiswa ini.
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Beasiswa -->
+            <div class="tab-pane fade animate-fade-in" id="beasiswa" role="tabpanel" aria-labelledby="beasiswa-tab">
+                <div class="card border-0 shadow-sm" style="border-radius: 16px;">
+                    <div class="card-body p-4">
+                        <h5 class="card-title mb-4 fw-bold"><i class="bi bi-wallet2 me-2 text-primary"></i>Data Beasiswa Mahasiswa</h5>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="text-center" width="5%">No</th>
+                                        <th>Jenis Beasiswa</th>
+                                        <th>Kategori Beasiswa</th>
+                                        <th class="text-center">Link Dokumen</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($mahasiswa->beasiswas as $index => $beasiswa)
+                                        <tr>
+                                            <td class="text-center">{{ $index + 1 }}</td>
+                                            <td>
+                                                @if($beasiswa->jenis_beasiswa == 'internal')
+                                                    <span class="badge bg-primary rounded-pill px-3">Internal</span>
+                                                @else
+                                                    <span class="badge bg-success rounded-pill px-3">Eksternal</span>
+                                                @endif
+                                            </td>
+                                            <td class="fw-bold">{{ $beasiswa->kategori_beasiswa }}</td>
+                                            <td class="text-center">
+                                                @if($beasiswa->link_dokumen)
+                                                    <a href="{{ $beasiswa->link_dokumen }}" target="_blank" class="btn btn-sm btn-outline-info rounded-pill">
+                                                        <i class="bi bi-link-45deg"></i> Link
+                                                    </a>
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="4" class="text-center text-muted py-4">
+                                                Belum ada data beasiswa untuk mahasiswa ini.
                                             </td>
                                         </tr>
                                     @endforelse

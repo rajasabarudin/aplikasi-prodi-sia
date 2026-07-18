@@ -36,6 +36,7 @@ use App\Http\Controllers\RpsBahanKajianController;
 use App\Http\Controllers\RpsReferensiController;
 use App\Http\Controllers\ProfilProdiController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\BeasiswaMahasiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,6 +114,11 @@ Route::middleware(['auth', 'permission'])->prefix('admin')->group(function () {
     Route::get('ipk/template', [IpkMahasiswaController::class, 'template'])->name('ipk.template');
     Route::post('ipk/import', [IpkMahasiswaController::class, 'import'])->name('ipk.import');
     Route::resource('ipk', IpkMahasiswaController::class);
+
+    Route::get('beasiswa-mahasiswa/get-mahasiswa/{nim}', [BeasiswaMahasiswaController::class, 'getMahasiswa'])->name('beasiswa-mahasiswa.get-mahasiswa');
+    Route::resource('beasiswa-mahasiswa', BeasiswaMahasiswaController::class)->parameters([
+        'beasiswa-mahasiswa' => 'beasiswa_mahasiswa'
+    ]);
     
     Route::resource('kelas', KelasController::class)->parameters(['kelas' => 'kelas']);
     Route::resource('matakuliah', MatakuliahController::class);

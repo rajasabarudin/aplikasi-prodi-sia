@@ -39,4 +39,9 @@ class Mahasiswa extends Model
     {
         return $this->hasMany(CapstoneMahasiswa::class, 'nim', 'nim');
     }
+
+    public function beasiswas()
+    {
+        return $this->hasMany(BeasiswaMahasiswa::class, 'nim', 'nim');
+    }
 }

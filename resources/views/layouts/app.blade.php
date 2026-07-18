@@ -485,12 +485,20 @@
                             </li>
                             @endif
                             @if(Auth::user()->hasPermission('sertifikasi-mahasiswa'))
-                            <li class="nav-item">
+                                <li class="nav-item mb-1">
                                 <a href="{{ route('sertifikasi-mahasiswa.index') }}" class="nav-link text-white {{ request()->routeIs('sertifikasi-mahasiswa.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
-                                    <i class="bi bi-patch-check me-2 text-success"></i>
+                                    <i class="bi bi-award ps-2 ms-2 me-3 fs-5"></i>
                                     <span class="sidebar-text">Sertifikasi Mahasiswa</span>
                                 </a>
-                            </li>
+                                </li>
+                            @endif
+                            @if(Auth::user()->hasPermission('mahasiswa'))
+                                <li class="nav-item mb-1">
+                                <a href="{{ route('beasiswa-mahasiswa.index') }}" class="nav-link text-white {{ request()->routeIs('beasiswa-mahasiswa.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
+                                    <i class="bi bi-wallet2 ps-2 ms-2 me-3 fs-5"></i>
+                                    <span class="sidebar-text">Beasiswa Mahasiswa</span>
+                                </a>
+                                </li>
                             @endif
                             @if(Auth::user()->hasPermission('ipk'))
                             <li class="nav-item">
