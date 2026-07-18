@@ -329,13 +329,11 @@
     <!-- FOOTER SIGNATURE -->
     <div class="footer">
         <p>Pontianak, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
-        <p style="margin-bottom: 70px;">Mengetahui,<br>Ketua Program Studi</p>
-        <p style="font-weight: bold;">
-            @php 
-                $profil = \App\Models\ProfilProdi::first();
-                echo $profil && $profil->nama_kaprodi ? $profil->nama_kaprodi : 'Raja Sabaruddin, M.Kom';
-            @endphp
+        <p style="margin-bottom: 70px;">Mengetahui,<br>Mahasiswa Yang Bersangkutan</p>
+        <p style="font-weight: bold; text-decoration: underline;">
+            {{ $mahasiswa->nama }}
         </p>
+        <p>NIM. {{ $mahasiswa->nim }}</p>
     </div>
 </body>
 </html>
