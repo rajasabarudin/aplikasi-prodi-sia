@@ -10,11 +10,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-dark: #4338ca;
-            --secondary: #10b981;
+            --primary: #1e3a8a; /* Deep royal blue for premium feel */
+            --primary-dark: #172554;
+            --secondary: #d97706; /* Rich gold/amber accent */
             --dark: #0f172a;
             --light: #f8fafc;
             --gray: #64748b;
@@ -22,12 +23,27 @@
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #f8fafc;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(220, 100%, 80%, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(35, 100%, 75%, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(220, 100%, 80%, 0.15) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(35, 100%, 75%, 0.15) 0px, transparent 50%);
+            background-attachment: fixed;
             color: var(--dark);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
             max-width: 100vw;
+        }
+
+        /* Glassmorphism Classes for Premium Look */
+        .glass-card, .card, .stat-card, .prestasi-card, .dosen-card {
+            background: rgba(255, 255, 255, 0.65) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.8) !important;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04) !important;
         }
 
         /* Navbar */
@@ -368,5 +384,14 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 50
+        });
+    </script>
 </body>
 </html>

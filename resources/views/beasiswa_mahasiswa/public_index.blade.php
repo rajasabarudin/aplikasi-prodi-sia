@@ -3,7 +3,7 @@
 @section('title', 'Portal Beasiswa Mahasiswa')
 
 @section('content')
-<div class="hero mb-5" style="padding: 60px 0 40px;">
+<div class="hero mb-5" style="padding: 60px 0 40px;" data-aos="fade-down">
     <div class="hero-shape hero-shape-1"></div>
     <div class="hero-shape hero-shape-2"></div>
     <div class="container position-relative z-1">
@@ -36,7 +36,7 @@
 
     <div class="row g-4">
         <!-- Form Section -->
-        <div class="col-lg-4">
+        <div class="col-lg-4" data-aos="fade-right" data-aos-delay="100">
             <div class="card border-0 shadow-sm rounded-4 h-100">
                 <div class="card-body p-4">
                     <h5 class="fw-bold mb-4"><i class="bi bi-plus-circle me-2 text-primary"></i>Input Data Baru</h5>
@@ -81,7 +81,7 @@
         </div>
 
         <!-- Table Section -->
-        <div class="col-lg-8">
+        <div class="col-lg-8" data-aos="fade-left" data-aos-delay="200">
             <div class="card border-0 shadow-sm rounded-4 h-100">
                 <div class="card-body p-4">
                     <h5 class="fw-bold mb-4"><i class="bi bi-table me-2 text-primary"></i>Daftar Beasiswa yang Masuk</h5>

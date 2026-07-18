@@ -7,7 +7,7 @@
         <div class="hero-shape hero-shape-2"></div>
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-7 position-relative z-1 text-center text-lg-start">
+                <div class="col-lg-7 position-relative z-1 text-center text-lg-start" data-aos="fade-right">
                     <div>
                         <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold mb-4 border border-primary border-opacity-25">Sistem Informasi Akademik</span>
                         @if($profilProdi && $profilProdi->akreditasi)
@@ -28,7 +28,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-5 d-none d-lg-block text-center position-relative z-1">
+                <div class="col-lg-5 d-none d-lg-block text-center position-relative z-1" data-aos="fade-left" data-aos-delay="200">
                     <img src="https://illustrations.popsy.co/amber/student-going-to-school.svg" alt="Student" style="width: 100%; max-width: 450px;">
                 </div>
             </div>
@@ -41,8 +41,8 @@
     <section id="statistik" class="py-5" style="margin-top: 0px; position: relative; z-index: 10;">
         <div class="container">
             <div class="row row-cols-2 row-cols-md-5 g-4 justify-content-center">
-                <div class="col">
-                    <div class="stat-card">
+                <div class="col" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="stat-card glass-card">
                         <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--secondary);">
                             <i class="bi bi-people-fill"></i>
                         </div>
@@ -50,8 +50,8 @@
                         <div class="stat-label">Mahasiswa Aktif</div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="stat-card">
+                <div class="col" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="stat-card glass-card">
                         <div class="stat-icon" style="background: rgba(79, 70, 229, 0.1); color: var(--primary);">
                             <i class="bi bi-person-workspace"></i>
                         </div>
@@ -59,8 +59,8 @@
                         <div class="stat-label">Dosen Ahli</div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="stat-card">
+                <div class="col" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="stat-card glass-card">
                         <div class="stat-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">
                             <i class="bi bi-trophy-fill"></i>
                         </div>
@@ -68,8 +68,8 @@
                         <div class="stat-label">Penghargaan</div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="stat-card">
+                <div class="col" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="stat-card glass-card">
                         <div class="stat-icon" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">
                             <i class="bi bi-file-earmark-text"></i>
                         </div>
@@ -77,8 +77,8 @@
                         <div class="stat-label">Kerja Sama (PKS)</div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="stat-card">
+                <div class="col" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="stat-card glass-card">
                         <div class="stat-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">
                             <i class="bi bi-journal-check"></i>
                         </div>
@@ -137,7 +137,7 @@
     </section>
 
     <!-- Highlight Prestasi -->
-    <section class="py-5 mb-5 bg-white rounded-5 shadow-sm mx-lg-4 p-lg-5">
+    <section class="py-5 mb-5 glass-card rounded-5 shadow-sm mx-lg-4 p-lg-5" data-aos="fade-up">
         <div class="container">
             <div class="row align-items-center mb-5">
                 <div class="col-lg-8">
