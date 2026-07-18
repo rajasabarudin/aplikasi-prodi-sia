@@ -13,7 +13,7 @@
                     <i class="bi bi-journal-text me-1"></i> Tridharma Perguruan Tinggi
                 </span>
                 <h1 class="mb-3">Portal Pendataan <span>Penelitian Dosen</span></h1>
-                <p class="mb-0">Silakan masukkan data publikasi/penelitian Anda di bawah ini. Cukup gunakan Kode Dosen Anda untuk mengisi data.</p>
+                <p class="mb-0">Silakan masukkan data publikasi/penelitian Anda di bawah ini. Jika ini adalah penelitian kolaborasi, Anda dapat menambahkan beberapa Dosen, Mahasiswa, maupun Mitra sekaligus.</p>
             </div>
         </div>
     </div>
@@ -36,33 +36,89 @@
 
     <div class="row g-4">
         <!-- Form Section -->
-        <div class="col-lg-4" data-aos="fade-right" data-aos-delay="100">
+        <div class="col-lg-5" data-aos="fade-right" data-aos-delay="100">
             <div class="card border-0 shadow-sm rounded-4 h-100">
-                <div class="card-body p-4">
-                    <h5 class="fw-bold mb-4"><i class="bi bi-plus-circle me-2 text-primary"></i>Input Data Baru</h5>
+                <div class="card-body p-4 p-lg-5">
+                    <h5 class="fw-bold mb-4"><i class="bi bi-plus-circle me-2 text-primary"></i>Input Data Penelitian</h5>
                     <form action="{{ route('portal.penelitian.store') }}" method="POST">
                         @csrf
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label class="form-label fw-semibold">Tahun Akademik <span class="text-danger">*</span></label>
-                            <select name="ts_id" class="form-select" required>
-                                <option value="">-- Pilih TS --</option>
+                            <select name="ts_id" class="form-select bg-light" required>
+                                <option value="">-- Pilih TA --</option>
                                 @foreach($tsList as $ts)
                                     <option value="{{ $ts->id }}">{{ $ts->tahun_sekarang }} ({{ $ts->semester }})</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Kode Dosen <span class="text-danger">*</span></label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="kode_dosen[]" id="public-kode-dosen" required placeholder="Cth: DSN01">
-                                <button class="btn btn-outline-primary" type="button" id="public-cek-dosen">Cek</button>
+
+                        <!-- Dosen Section -->
+                        <div class="mb-4 pb-3 border-bottom">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <label class="form-label fw-bold text-primary mb-0"><i class="bi bi-person-fill me-1"></i> Dosen Pelaksana <span class="text-danger">*</span></label>
+                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill" id="btn-add-dosen"><i class="bi bi-plus"></i> Tambah</button>
                             </div>
-                            <small id="public-feedback-dosen" class="text-danger d-none mt-1">Kode Dosen tidak ditemukan.</small>
+                            <div id="dosen-rows-container">
+                                <div class="p-3 bg-light rounded-4 mb-3 dosen-row border">
+                                    <div class="row g-2 align-items-center">
+                                        <div class="col-12">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control input-kode-dosen" name="kode_dosen[]" required placeholder="Kode Dosen (Cth: DSN01)">
+                                                <button class="btn btn-primary btn-cek-dosen" type="button">Cek</button>
+                                            </div>
+                                            <small class="feedback-dosen text-danger d-none mt-1">Kode Dosen tidak ditemukan.</small>
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <input type="text" class="form-control input-nama-dosen border-0 bg-white" name="nama_dosen[]" readonly required placeholder="Nama Dosen (Otomatis)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Nama Dosen</label>
-                            <input type="text" class="form-control bg-light" name="nama_dosen[]" id="public-nama-dosen" readonly placeholder="Otomatis terisi">
+
+                        <!-- Mahasiswa Section -->
+                        <div class="mb-4 pb-3 border-bottom">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <label class="form-label fw-bold text-success mb-0"><i class="bi bi-mortarboard-fill me-1"></i> Mahasiswa (Opsional)</label>
+                                <button type="button" class="btn btn-sm btn-outline-success rounded-pill" id="btn-add-mahasiswa"><i class="bi bi-plus"></i> Tambah</button>
+                            </div>
+                            <div id="mahasiswa-rows-container">
+                                <div class="p-3 bg-light rounded-4 mb-3 mahasiswa-row border">
+                                    <div class="row g-2">
+                                        <div class="col-10">
+                                            <input type="text" class="form-control input-nim-mhs" name="nim_mhs[]" placeholder="NIM Mahasiswa">
+                                        </div>
+                                        <div class="col-2">
+                                            <button type="button" class="btn btn-outline-danger w-100 btn-remove-mahasiswa"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <input type="text" class="form-control input-nama-mahasiswa border-0 bg-white" name="nama_mahasiswa[]" readonly placeholder="Nama Mahasiswa (Otomatis)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+                        <!-- Mitra Section -->
+                        <div class="mb-4 pb-3 border-bottom">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <label class="form-label fw-bold text-dark mb-0"><i class="bi bi-buildings-fill me-1"></i> Mitra (Opsional)</label>
+                                <button type="button" class="btn btn-sm btn-outline-dark rounded-pill" id="btn-add-mitra"><i class="bi bi-plus"></i> Tambah</button>
+                            </div>
+                            <div id="mitra-rows-container">
+                                <div class="p-3 bg-light rounded-4 mb-3 mitra-row border">
+                                    <div class="row g-2">
+                                        <div class="col-10">
+                                            <input type="text" class="form-control" name="anggota_mitra[]" placeholder="Nama / Instansi Mitra">
+                                        </div>
+                                        <div class="col-2">
+                                            <button type="button" class="btn btn-outline-danger w-100 btn-remove-mitra"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Judul / Nama Jurnal <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="nama_jurnal" required>
@@ -89,13 +145,16 @@
                             <label class="form-label fw-semibold">Link Jurnal/Publikasi (Opsional)</label>
                             <input type="url" class="form-control" name="link_jurnal" placeholder="https://...">
                         </div>
+                        
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary rounded-pill py-2 fw-bold" id="public-submit-btn" disabled>
-                                <i class="bi bi-send me-1"></i> Kirim Data
+                            <button type="submit" class="btn btn-primary rounded-pill py-3 fw-bold fs-5" id="public-submit-btn" disabled>
+                                <i class="bi bi-send-fill me-2"></i> Kirim Data Penelitian
                             </button>
                         </div>
-                        <div class="mt-3 text-center">
-                            <small class="text-muted"><i class="bi bi-info-circle me-1"></i>Data yang dikirim tidak dapat diedit/dihapus secara publik. Hubungi Kaprodi untuk perubahan.</small>
+                        <div class="mt-4 text-center">
+                            <div class="alert alert-warning py-2 mb-0" style="font-size: 0.85rem;">
+                                <i class="bi bi-info-circle-fill me-1"></i> Data yang dikirim tidak dapat diedit/dihapus secara publik. Hubungi Kaprodi untuk perubahan.
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -103,14 +162,14 @@
         </div>
 
         <!-- Table Section -->
-        <div class="col-lg-8" data-aos="fade-left" data-aos-delay="200">
+        <div class="col-lg-7" data-aos="fade-left" data-aos-delay="200">
             <div class="card border-0 shadow-sm rounded-4 h-100">
-                <div class="card-body p-4">
+                <div class="card-body p-4 p-lg-5">
                     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
-                        <h5 class="fw-bold mb-0"><i class="bi bi-table me-2 text-primary"></i>Daftar Penelitian Dosen</h5>
+                        <h4 class="fw-bold mb-0 text-dark"><i class="bi bi-table me-2 text-primary"></i>Daftar Penelitian</h4>
                         <form action="{{ route('portal.penelitian') }}" method="GET" class="d-flex gap-2" style="max-width: 300px;">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="search" placeholder="Cari..." value="{{ request('search') }}">
+                                <input type="text" class="form-control bg-light border-0" name="search" placeholder="Cari dosen, jurnal..." value="{{ request('search') }}">
                                 <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
                             </div>
                         </form>
@@ -120,9 +179,8 @@
                             <thead class="table-light">
                                 <tr>
                                     <th class="text-center" width="5%">No</th>
-                                    <th>Kode & Nama Dosen</th>
+                                    <th>Peneliti (Dosen)</th>
                                     <th>Penelitian / Jurnal</th>
-                                    <th>Tahun Akademik</th>
                                     <th class="text-center">Link</th>
                                 </tr>
                             </thead>
@@ -131,18 +189,26 @@
                                 <tr>
                                     <td class="text-center">{{ $penelitian->firstItem() + $index }}</td>
                                     <td>
-                                        <div class="fw-bold text-dark">{{ $item->nama_dosen }}</div>
-                                        <div class="small text-muted">{{ $item->kode_dosen }}</div>
+                                        @php
+                                            $namas = explode(', ', $item->nama_dosen);
+                                        @endphp
+                                        @foreach($namas as $nama)
+                                            <div class="fw-bold text-dark" style="font-size: 0.9rem;">- {{ $nama }}</div>
+                                        @endforeach
+                                        @if($item->nama_mahasiswa)
+                                            <div class="small text-success mt-1"><i class="bi bi-mortarboard-fill me-1"></i> + Mhs Terlibat</div>
+                                        @endif
                                     </td>
                                     <td>
-                                        <div class="fw-semibold">{{ Str::limit($item->nama_jurnal, 50) }}</div>
-                                        <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-2 mt-1" style="font-size: 0.7rem;">{{ $item->jenis_jurnal }}</span>
+                                        <div class="fw-semibold text-dark" style="line-height: 1.3;">{{ Str::limit($item->nama_jurnal, 60) }}</div>
+                                        <div class="mt-2">
+                                            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-2" style="font-size: 0.7rem;">{{ $item->jenis_jurnal }}</span>
+                                        </div>
                                     </td>
-                                    <td>{{ $item->ts->tahun_sekarang ?? '-' }}</td>
                                     <td class="text-center">
                                         @if($item->link_jurnal)
-                                            <a href="{{ $item->link_jurnal }}" target="_blank" class="badge bg-info-subtle text-info text-decoration-none py-1.5 px-2.5" style="border-radius: 6px;">
-                                                <i class="bi bi-link-45deg"></i> Link
+                                            <a href="{{ $item->link_jurnal }}" target="_blank" class="btn btn-sm btn-light rounded-pill border shadow-sm">
+                                                <i class="bi bi-link-45deg fs-5"></i>
                                             </a>
                                         @else
                                             <span class="text-muted small">-</span>
@@ -151,7 +217,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="5" class="text-center py-4 text-muted">Belum ada data penelitian yang disubmit.</td>
+                                    <td colspan="4" class="text-center py-5 text-muted">Belum ada data penelitian yang disubmit.</td>
                                 </tr>
                                 @endforelse
                             </tbody>
@@ -168,51 +234,186 @@
 
 @push('scripts')
 <script>
-    document.getElementById('public-cek-dosen').addEventListener('click', function() {
-        let kode = document.getElementById('public-kode-dosen').value;
-        let btn = this;
-        let btnSubmit = document.getElementById('public-submit-btn');
-        let feedback = document.getElementById('public-feedback-dosen');
-        
-        if (!kode) {
-            alert('Masukkan Kode Dosen terlebih dahulu!');
-            return;
-        }
+    function checkAllDosenValid() {
+        let allValid = true;
+        let inputs = document.querySelectorAll('.input-nama-dosen');
+        inputs.forEach(function(input) {
+            if(input.value.trim() === '') {
+                allValid = false;
+            }
+        });
+        document.getElementById('public-submit-btn').disabled = !allValid;
+    }
 
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
-        btn.disabled = true;
+    function attachDosenEvent(row) {
+        let btnCek = row.querySelector('.btn-cek-dosen');
+        let inputKode = row.querySelector('.input-kode-dosen');
+        let inputNama = row.querySelector('.input-nama-dosen');
+        let feedback = row.querySelector('.feedback-dosen');
 
-        fetch(`{{ url('portal-penelitian/get-dosen') }}/${kode}`)
-            .then(response => {
-                if (!response.ok) throw new Error('Not found');
-                return response.json();
-            })
-            .then(data => {
-                document.getElementById('public-nama-dosen').value = data.nama_dosen;
-                feedback.classList.add('d-none');
-                btnSubmit.disabled = false;
-                btn.innerHTML = 'Cek';
-                btn.disabled = false;
-                btn.classList.replace('btn-outline-primary', 'btn-success');
-                btn.innerHTML = '<i class="bi bi-check-lg"></i>';
-                setTimeout(() => {
-                    btn.classList.replace('btn-success', 'btn-outline-primary');
-                    btn.innerHTML = 'Cek';
-                }, 2000);
-            })
-            .catch(error => {
-                document.getElementById('public-nama-dosen').value = '';
-                feedback.classList.remove('d-none');
-                btnSubmit.disabled = true;
-                btn.innerHTML = 'Cek';
-                btn.disabled = false;
+        btnCek.addEventListener('click', function() {
+            let kode = inputKode.value.trim();
+            if (!kode) {
+                alert('Masukkan Kode Dosen terlebih dahulu!');
+                return;
+            }
+
+            btnCek.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+            btnCek.disabled = true;
+
+            fetch(`{{ url('portal-penelitian/get-dosen') }}/${kode}`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Not found');
+                    return response.json();
+                })
+                .then(data => {
+                    inputNama.value = data.nama_dosen;
+                    feedback.classList.add('d-none');
+                    btnCek.classList.replace('btn-primary', 'btn-success');
+                    btnCek.innerHTML = '<i class="bi bi-check-lg"></i>';
+                    setTimeout(() => {
+                        btnCek.classList.replace('btn-success', 'btn-primary');
+                        btnCek.innerHTML = 'Cek';
+                        btnCek.disabled = false;
+                    }, 1500);
+                    checkAllDosenValid();
+                })
+                .catch(error => {
+                    inputNama.value = '';
+                    feedback.classList.remove('d-none');
+                    btnCek.innerHTML = 'Cek';
+                    btnCek.disabled = false;
+                    checkAllDosenValid();
+                });
+        });
+
+        inputKode.addEventListener('input', function() {
+            inputNama.value = '';
+            feedback.classList.add('d-none');
+            checkAllDosenValid();
+        });
+
+        let btnRemove = row.querySelector('.btn-remove-dosen');
+        if(btnRemove) {
+            btnRemove.addEventListener('click', function() {
+                row.remove();
+                checkAllDosenValid();
             });
+        }
+    }
+
+    function attachMahasiswaEvent(row) {
+        let inputNim = row.querySelector('.input-nim-mhs');
+        let inputNama = row.querySelector('.input-nama-mahasiswa');
+        
+        inputNim.addEventListener('input', function() {
+            let nim = this.value.trim();
+            if (nim.length >= 3) {
+                // Gunakan route yang sama dengan backend
+                fetch(`{{ url('portal-beasiswa/get-mahasiswa') }}/${nim}`)
+                    .then(res => {
+                        if(!res.ok) throw new Error('Not found');
+                        return res.json();
+                    })
+                    .then(data => {
+                        inputNama.value = data.nama;
+                    })
+                    .catch(() => {
+                        inputNama.value = 'Tidak ditemukan (Otomatis menyesuaikan jika nim benar)';
+                    });
+            } else {
+                inputNama.value = '';
+            }
+        });
+
+        let btnRemove = row.querySelector('.btn-remove-mahasiswa');
+        if(btnRemove) {
+            btnRemove.addEventListener('click', function() {
+                row.remove();
+            });
+        }
+    }
+
+    function attachMitraEvent(row) {
+        let btnRemove = row.querySelector('.btn-remove-mitra');
+        if(btnRemove) {
+            btnRemove.addEventListener('click', function() {
+                row.remove();
+            });
+        }
+    }
+
+    // Initialize first rows
+    document.querySelectorAll('.dosen-row').forEach(attachDosenEvent);
+    document.querySelectorAll('.mahasiswa-row').forEach(attachMahasiswaEvent);
+    document.querySelectorAll('.mitra-row').forEach(attachMitraEvent);
+
+    // Add Dosen
+    document.getElementById('btn-add-dosen').addEventListener('click', function() {
+        let container = document.getElementById('dosen-rows-container');
+        let newRow = document.createElement('div');
+        newRow.className = 'p-3 bg-light rounded-4 mb-3 dosen-row border';
+        newRow.innerHTML = `
+            <div class="row g-2 align-items-center">
+                <div class="col-10">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-kode-dosen" name="kode_dosen[]" required placeholder="Kode Dosen">
+                        <button class="btn btn-primary btn-cek-dosen" type="button">Cek</button>
+                    </div>
+                    <small class="feedback-dosen text-danger d-none mt-1">Kode Dosen tidak ditemukan.</small>
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-outline-danger w-100 btn-remove-dosen"><i class="bi bi-trash"></i></button>
+                </div>
+                <div class="col-12 mt-2">
+                    <input type="text" class="form-control input-nama-dosen border-0 bg-white" name="nama_dosen[]" readonly required placeholder="Nama Dosen (Otomatis)">
+                </div>
+            </div>
+        `;
+        container.appendChild(newRow);
+        attachDosenEvent(newRow);
+        checkAllDosenValid();
     });
 
-    document.getElementById('public-kode-dosen').addEventListener('input', function() {
-        document.getElementById('public-submit-btn').disabled = true;
-        document.getElementById('public-nama-dosen').value = '';
-        document.getElementById('public-feedback-dosen').classList.add('d-none');
+    // Add Mahasiswa
+    document.getElementById('btn-add-mahasiswa').addEventListener('click', function() {
+        let container = document.getElementById('mahasiswa-rows-container');
+        let newRow = document.createElement('div');
+        newRow.className = 'p-3 bg-light rounded-4 mb-3 mahasiswa-row border';
+        newRow.innerHTML = `
+            <div class="row g-2">
+                <div class="col-10">
+                    <input type="text" class="form-control input-nim-mhs" name="nim_mhs[]" placeholder="NIM Mahasiswa">
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-outline-danger w-100 btn-remove-mahasiswa"><i class="bi bi-trash"></i></button>
+                </div>
+                <div class="col-12 mt-2">
+                    <input type="text" class="form-control input-nama-mahasiswa border-0 bg-white" name="nama_mahasiswa[]" readonly placeholder="Nama Mahasiswa (Otomatis)">
+                </div>
+            </div>
+        `;
+        container.appendChild(newRow);
+        attachMahasiswaEvent(newRow);
+    });
+
+    // Add Mitra
+    document.getElementById('btn-add-mitra').addEventListener('click', function() {
+        let container = document.getElementById('mitra-rows-container');
+        let newRow = document.createElement('div');
+        newRow.className = 'p-3 bg-light rounded-4 mb-3 mitra-row border';
+        newRow.innerHTML = `
+            <div class="row g-2">
+                <div class="col-10">
+                    <input type="text" class="form-control" name="anggota_mitra[]" placeholder="Nama / Instansi Mitra">
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-outline-danger w-100 btn-remove-mitra"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+        `;
+        container.appendChild(newRow);
+        attachMitraEvent(newRow);
     });
 </script>
 @endpush
