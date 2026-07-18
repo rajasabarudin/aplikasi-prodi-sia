@@ -370,4 +370,52 @@ class PenelitianDosenController extends Controller
         }
         return response()->json(['nama' => ''], 404);
     }
+
+    public function publicIndex(Request $request)
+    {
+        $query = PenelitianDosen::with('ts')->latest();
+        $penelitian = $query->paginate(10);
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
+        return view('penelitian_dosen.public_index', compact('penelitian', 'tsList'));
+    }
+
+    public function publicStore(Request $request)
+    {
+        $request->validate([
+            'kode_dosen' => 'required|array|min:1',
+            'kode_dosen.*' => 'required|string|exists:dosens,kode_dosen',
+            'nama_dosen' => 'required|array|min:1',
+            'nama_dosen.*' => 'required|string',
+            'jenis_jurnal' => 'required',
+            'jenis_penelitian' => 'required',
+            'nama_jurnal' => 'required',
+            'link_jurnal' => 'nullable|url',
+            'ts_id' => 'required|exists:ts,id',
+            'nim_mhs' => 'nullable|array',
+            'nama_mahasiswa' => 'nullable|array',
+            'anggota_mitra' => 'nullable|array',
+        ]);
+
+        $data = $request->all();
+        $data['kode_dosen'] = implode(', ', $request->kode_dosen);
+        $data['nama_dosen'] = implode(', ', $request->nama_dosen);
+        
+        if (!empty($request->nim_mhs)) {
+            $data['nim_mhs'] = implode(', ', array_filter($request->nim_mhs));
+            $data['nama_mahasiswa'] = implode(', ', array_filter($request->nama_mahasiswa ?? []));
+        } else {
+            $data['nim_mhs'] = null;
+            $data['nama_mahasiswa'] = null;
+        }
+
+        if (!empty($request->anggota_mitra)) {
+            $data['anggota_mitra'] = implode(', ', array_filter($request->anggota_mitra));
+        } else {
+            $data['anggota_mitra'] = null;
+        }
+
+        PenelitianDosen::create($data);
+
+        return redirect()->route('portal.penelitian')->with('success', 'Data Penelitian berhasil dikirim. Hubungi Kaprodi jika terdapat kesalahan input.');
+    }
 }

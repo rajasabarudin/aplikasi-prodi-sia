@@ -88,6 +88,16 @@ Route::put('/portal-beasiswa/{id}', [BeasiswaMahasiswaController::class, 'public
 Route::delete('/portal-beasiswa/{id}', [BeasiswaMahasiswaController::class, 'publicDestroy'])->name('portal.beasiswa.destroy');
 Route::get('/portal-beasiswa/get-mahasiswa/{nim}', [BeasiswaMahasiswaController::class, 'getMahasiswa'])->name('portal.beasiswa.get-mahasiswa');
 
+// Public Penelitian Dosen Portal
+Route::get('/portal-penelitian', [PenelitianDosenController::class, 'publicIndex'])->name('portal.penelitian');
+Route::post('/portal-penelitian', [PenelitianDosenController::class, 'publicStore'])->name('portal.penelitian.store');
+Route::get('/portal-penelitian/get-dosen/{kode}', [PenelitianDosenController::class, 'getDosen'])->name('portal.penelitian.get-dosen');
+
+// Public PkM Dosen Portal
+Route::get('/portal-pkm', [PKMDosenController::class, 'publicIndex'])->name('portal.pkm');
+Route::post('/portal-pkm', [PKMDosenController::class, 'publicStore'])->name('portal.pkm.store');
+Route::get('/portal-pkm/get-dosen/{kode}', [PKMDosenController::class, 'getDosen'])->name('portal.pkm.get-dosen');
+
 // Authentication Routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);

@@ -345,6 +345,15 @@
                     <li class="nav-item">
                         <a class="nav-link text-warning fw-bold {{ request()->routeIs('portal.beasiswa*') ? 'active' : '' }}" href="{{ route('portal.beasiswa') }}"><i class="bi bi-star-fill me-1"></i>Beasiswa</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold {{ request()->routeIs('portal.penelitian*') || request()->routeIs('portal.pkm*') ? 'active' : '' }}" href="#" id="navbarTridharma" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-briefcase-fill me-1 text-secondary"></i>Tridharma Dosen
+                        </a>
+                        <ul class="dropdown-menu border-0 shadow-sm rounded-4 mt-2" aria-labelledby="navbarTridharma">
+                            <li><a class="dropdown-item fw-semibold py-2" href="{{ route('portal.penelitian') }}"><i class="bi bi-journal-text me-2 text-primary"></i>Penelitian Dosen</a></li>
+                            <li><a class="dropdown-item fw-semibold py-2" href="{{ route('portal.pkm') }}"><i class="bi bi-people-fill me-2 text-secondary"></i>Pengabdian (PkM)</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <div class="d-flex align-items-center gap-3">
                     @auth

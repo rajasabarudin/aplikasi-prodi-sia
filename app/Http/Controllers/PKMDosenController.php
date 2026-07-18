@@ -397,4 +397,60 @@ class PKMDosenController extends Controller
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ])->deleteFileAfterSend(true);
     }
+
+    public function getDosen($kode)
+    {
+        $dosen = \App\Models\Dosen::where('kode_dosen', $kode)->first();
+        if ($dosen) {
+            return response()->json(['nama_dosen' => $dosen->nama_dosen]);
+        }
+        return response()->json(['nama_dosen' => ''], 404);
+    }
+
+    public function publicIndex(Request $request)
+    {
+        $query = PKMDosen::with('ts')->latest();
+        $pkm = $query->paginate(10);
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
+        return view('pkm_dosen.public_index', compact('pkm', 'tsList'));
+    }
+
+    public function publicStore(Request $request)
+    {
+        $request->validate([
+            'kode_dosen' => 'required|array|min:1',
+            'kode_dosen.*' => 'required|string|exists:dosens,kode_dosen',
+            'nama_dosen' => 'required|array|min:1',
+            'nama_dosen.*' => 'required|string|max:100',
+            'tema_pkm' => 'required|string|max:200',
+            'mitra' => 'required|string|max:200',
+            'jenis_pkm' => 'required|in:Mitra Non Produktif,Mitra Produktif',
+            'sumber_iptek' => 'required|string|max:100',
+            'nim_mhs' => 'nullable|array',
+            'nim_mhs.*' => 'nullable|string|max:20',
+            'nama_mahasiswa' => 'nullable|array',
+            'nama_mahasiswa.*' => 'nullable|string|max:100',
+            'ts_id' => 'required|exists:ts,id',
+            'link_dokumen' => 'nullable|url|max:255',
+            'link_publikasi' => 'nullable|url|max:255',
+        ]);
+
+        $data = $request->all();
+        $data['kode_dosen'] = implode(', ', array_filter($request->input('kode_dosen', [])));
+        $data['nama_dosen'] = implode(', ', array_filter($request->input('nama_dosen', [])));
+
+        $nimArray = array_filter($request->input('nim_mhs', []));
+        $mhsNamaArray = array_filter($request->input('nama_mahasiswa', []));
+        if (!empty($nimArray)) {
+            $data['nim_mhs'] = implode(', ', $nimArray);
+            $data['nama_mahasiswa'] = implode(', ', $mhsNamaArray);
+        } else {
+            $data['nim_mhs'] = null;
+            $data['nama_mahasiswa'] = null;
+        }
+
+        PKMDosen::create($data);
+
+        return redirect()->route('portal.pkm')->with('success', 'Data PKM berhasil dikirim. Hubungi Kaprodi jika terdapat kesalahan input.');
+    }
 }
