@@ -129,7 +129,7 @@
                         </div>
                         
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-secondary text-white rounded-pill py-3 fw-bold fs-5" id="public-submit-btn" disabled>
+                            <button type="submit" class="btn btn-primary text-white rounded-pill py-3 fw-bold fs-5" id="public-submit-btn" disabled>
                                 <i class="bi bi-send-fill me-2"></i> Kirim Data PkM
                             </button>
                         </div>
