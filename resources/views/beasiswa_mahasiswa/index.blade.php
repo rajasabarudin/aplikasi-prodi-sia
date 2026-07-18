@@ -89,74 +89,7 @@
                             </td>
                         </tr>
 
-                        <!-- Edit Modal -->
-                        <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content border-0 shadow rounded-4">
-                                    <form action="{{ route('beasiswa-mahasiswa.update', $item->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="modal-header border-bottom-0 pb-0">
-                                            <h5 class="modal-title fw-bold" id="editModalLabel{{ $item->id }}">Edit Data Beasiswa</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="mb-3">
-                                                <label class="form-label fw-semibold">NIM Mahasiswa</label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control edit-nim-input" name="nim" value="{{ $item->nim }}" data-id="{{ $item->id }}" required>
-                                                    <button class="btn btn-outline-secondary edit-cek-nim-btn" type="button" data-id="{{ $item->id }}">Cek</button>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label fw-semibold">Nama Mahasiswa</label>
-                                                <input type="text" class="form-control bg-light edit-nama-input" id="edit-nama-{{ $item->id }}" value="{{ $item->mahasiswa->nama ?? '' }}" readonly>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label fw-semibold">Jenis Beasiswa</label>
-                                                <select class="form-select" name="jenis_beasiswa" required>
-                                                    <option value="internal" {{ $item->jenis_beasiswa == 'internal' ? 'selected' : '' }}>Internal</option>
-                                                    <option value="eksternal" {{ $item->jenis_beasiswa == 'eksternal' ? 'selected' : '' }}>Eksternal</option>
-                                                </select>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label fw-semibold">Kategori Beasiswa</label>
-                                                <input type="text" class="form-control" name="kategori_beasiswa" value="{{ $item->kategori_beasiswa }}" required placeholder="Contoh: KIP-Kuliah, Beasiswa Prestasi, dll">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label fw-semibold">Link Dokumen (Opsional)</label>
-                                                <input type="url" class="form-control" name="link_dokumen" value="{{ $item->link_dokumen }}" placeholder="https://...">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer border-top-0 pt-0">
-                                            <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
-                                            <button type="submit" class="btn btn-primary rounded-pill px-4">Simpan Perubahan</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Delete Modal -->
-                        <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content border-0 shadow rounded-4">
-                                    <div class="modal-body text-center p-5">
-                                        <div class="text-danger mb-4">
-                                            <i class="bi bi-exclamation-circle" style="font-size: 4rem;"></i>
-                                        </div>
-                                        <h4 class="mb-3 fw-bold">Konfirmasi Hapus</h4>
-                                        <p class="text-muted mb-4">Apakah Anda yakin ingin menghapus data beasiswa mahasiswa <b>{{ $item->mahasiswa->nama ?? $item->nim }}</b>?</p>
-                                        <form action="{{ route('beasiswa-mahasiswa.destroy', $item->id) }}" method="POST" class="d-flex justify-content-center gap-2">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
-                                            <button type="submit" class="btn btn-danger rounded-pill px-4">Ya, Hapus Data</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         @empty
                         <tr>
                             <td colspan="7" class="text-center text-muted py-4">Belum ada data beasiswa mahasiswa.</td>
@@ -168,6 +101,78 @@
         </div>
     </div>
 </div>
+
+<!-- Render Modals Outside Table -->
+@foreach($beasiswas as $item)
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal{{ $item->id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow rounded-4">
+            <form action="{{ route('beasiswa-mahasiswa.update', $item->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-header border-bottom-0 pb-0">
+                    <h5 class="modal-title fw-bold" id="editModalLabel{{ $item->id }}">Edit Data Beasiswa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">NIM Mahasiswa</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control edit-nim-input" name="nim" value="{{ $item->nim }}" data-id="{{ $item->id }}" required>
+                            <button class="btn btn-outline-secondary edit-cek-nim-btn" type="button" data-id="{{ $item->id }}">Cek</button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Nama Mahasiswa</label>
+                        <input type="text" class="form-control bg-light edit-nama-input" id="edit-nama-{{ $item->id }}" value="{{ $item->mahasiswa->nama ?? '' }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Jenis Beasiswa</label>
+                        <select class="form-select" name="jenis_beasiswa" required>
+                            <option value="internal" {{ $item->jenis_beasiswa == 'internal' ? 'selected' : '' }}>Internal</option>
+                            <option value="eksternal" {{ $item->jenis_beasiswa == 'eksternal' ? 'selected' : '' }}>Eksternal</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Kategori Beasiswa</label>
+                        <input type="text" class="form-control" name="kategori_beasiswa" value="{{ $item->kategori_beasiswa }}" required placeholder="Contoh: KIP-Kuliah, Beasiswa Prestasi, dll">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Link Dokumen (Opsional)</label>
+                        <input type="url" class="form-control" name="link_dokumen" value="{{ $item->link_dokumen }}" placeholder="https://...">
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0 pt-0">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal{{ $item->id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow rounded-4">
+            <div class="modal-body text-center p-5">
+                <div class="text-danger mb-4">
+                    <i class="bi bi-exclamation-circle" style="font-size: 4rem;"></i>
+                </div>
+                <h4 class="mb-3 fw-bold">Konfirmasi Hapus</h4>
+                <p class="text-muted mb-4">Apakah Anda yakin ingin menghapus data beasiswa mahasiswa <b>{{ $item->mahasiswa->nama ?? $item->nim }}</b>?</p>
+                <form action="{{ route('beasiswa-mahasiswa.destroy', $item->id) }}" method="POST" class="d-flex justify-content-center gap-2">
+                    @csrf
+                    @method('DELETE')
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-danger rounded-pill px-4">Ya, Hapus Data</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 
 <!-- Add Modal -->
 <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
