@@ -398,15 +398,6 @@ class PKMDosenController extends Controller
         ])->deleteFileAfterSend(true);
     }
 
-    public function getDosen($kode)
-    {
-        $dosen = \App\Models\Dosen::where('kode_dosen', $kode)->first();
-        if ($dosen) {
-            return response()->json(['nama_dosen' => $dosen->nama_dosen]);
-        }
-        return response()->json(['nama_dosen' => ''], 404);
-    }
-
     public function publicIndex(Request $request)
     {
         $query = PKMDosen::with('ts')->latest();
