@@ -204,8 +204,8 @@
         <div class="container">
             <div class="text-center mb-5">
                 <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill fw-bold mb-3 border border-danger border-opacity-25">Kolaborasi & Sinergi</span>
-                <h2 class="section-title">Mitra Kerja Sama (MoU)</h2>
-                <p class="section-subtitle">Program Studi menjalin kerjasama strategis dengan berbagai instansi untuk pengembangan pendidikan, penelitian, dan pengabdian.</p>
+                <h2 class="section-title">Implementasi Kerja Sama (PKS & IA)</h2>
+                <p class="section-subtitle">Program Studi menjalin dan mengimplementasikan kerjasama strategis dengan berbagai instansi untuk pengembangan pendidikan, penelitian, dan pengabdian.</p>
             </div>
             
             @if($mitraList->isEmpty())
@@ -223,12 +223,20 @@
                                             <i class="bi bi-buildings fs-2"></i>
                                         </div>
                                         <h5 class="fw-bolder mb-3 w-100" style="color: var(--dark); letter-spacing: -0.5px; white-space: normal; line-height: 1.4;">{{ $mitra->nama_mitra }}</h5>
+                                        <p class="text-muted small mb-3" style="line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 65px;">
+                                            {{ $mitra->judul_ia ?: $mitra->tema_pks ?: 'Implementasi Tridharma Perguruan Tinggi' }}
+                                        </p>
                                         <div class="d-flex flex-wrap gap-2 justify-content-center">
-                                            @if($mitra->tahun_mou)
-                                            <span class="badge rounded-pill" style="background: rgba(79, 70, 229, 0.08); color: var(--primary); font-weight: 600; padding: 6px 12px; font-size: 0.75rem;">Mulai: {{ $mitra->tahun_mou }}</span>
+                                            @if($mitra->level_pks)
+                                            <span class="badge rounded-pill" style="background: rgba(79, 70, 229, 0.08); color: var(--primary); font-weight: 600; padding: 6px 12px; font-size: 0.75rem;"><i class="bi bi-globe me-1"></i>{{ $mitra->level_pks }}</span>
                                             @endif
-                                            @if($mitra->tahun_berakhir)
-                                            <span class="badge rounded-pill" style="background: rgba(16, 185, 129, 0.08); color: var(--secondary); font-weight: 600; padding: 6px 12px; font-size: 0.75rem;">Berakhir: {{ $mitra->tahun_berakhir }}</span>
+                                            @if($mitra->kategori)
+                                            <span class="badge rounded-pill" style="background: rgba(16, 185, 129, 0.08); color: var(--secondary); font-weight: 600; padding: 6px 12px; font-size: 0.75rem;"><i class="bi bi-tag-fill me-1"></i>{{ $mitra->kategori }}</span>
+                                            @endif
+                                            @if($mitra->tgl_ia)
+                                            <span class="badge rounded-pill" style="background: rgba(245, 158, 11, 0.08); color: #f59e0b; font-weight: 600; padding: 6px 12px; font-size: 0.75rem;"><i class="bi bi-calendar-check me-1"></i>IA: {{ \Carbon\Carbon::parse($mitra->tgl_ia)->format('Y') }}</span>
+                                            @elseif($mitra->tgl_pks)
+                                            <span class="badge rounded-pill" style="background: rgba(245, 158, 11, 0.08); color: #f59e0b; font-weight: 600; padding: 6px 12px; font-size: 0.75rem;"><i class="bi bi-calendar-check me-1"></i>PKS: {{ \Carbon\Carbon::parse($mitra->tgl_pks)->format('Y') }}</span>
                                             @endif
                                         </div>
                                     </div>
