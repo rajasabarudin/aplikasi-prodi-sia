@@ -325,6 +325,7 @@
                 ],
                 chart: { type: 'area', height: 350, toolbar: { show: false }, fontFamily: 'Outfit, sans-serif' },
                 stroke: { curve: 'smooth', width: 2 },
+                markers: { size: 5, hover: { size: 7 } },
                 xaxis: { categories: pksLabels },
                 colors: ['#4f46e5', '#ec4899'],
                 dataLabels: { enabled: false },
