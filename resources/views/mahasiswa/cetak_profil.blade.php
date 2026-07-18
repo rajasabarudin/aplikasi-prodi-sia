@@ -212,7 +212,7 @@
                 <th style="width: 5%;">No</th>
                 <th style="width: 35%;">Nama Organisasi</th>
                 <th style="width: 20%;">Jabatan</th>
-                <th style="width: 20%;">Tahun (TS)</th>
+                <th style="width: 20%;">Tahun</th>
                 <th style="width: 20%;">Link Dokumen</th>
             </tr>
         </thead>
@@ -222,7 +222,7 @@
                     <td class="text-center">{{ $index + 1 }}</td>
                     <td>{{ $org->nama_organisasi }}</td>
                     <td class="text-center">{{ $org->jabatan }}</td>
-                    <td class="text-center">{{ optional($org->ts)->tahun_akademik ?? '-' }}</td>
+                    <td class="text-center">{{ $org->periode ?? '-' }}</td>
                     <td class="text-center">
                         @if($org->link_dokumen)
                             <a href="{{ $org->link_dokumen }}" target="_blank" style="text-decoration: none; color: #4f46e5;">Lihat Dokumen</a>
