@@ -43,19 +43,19 @@
                             @endif
                         </div>
                     @endif
-                    @if($profilProdi->deskripsi_profil)
-                        <div class="mb-4 bg-white p-4 rounded-4 shadow-sm border border-light position-relative" style="transition: all 0.3s ease;">
-                            <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); border-top-left-radius: 1rem; border-bottom-left-radius: 1rem;"></div>
-                            <h5 class="fw-bold mb-3 text-dark"><i class="bi bi-info-circle-fill text-primary me-2"></i>Tentang Prodi</h5>
-                            <p class="text-muted mb-0 lh-lg" style="text-align: justify;">{{ $profilProdi->deskripsi_profil }}</p>
-                        </div>
-                    @endif
-
                     @if($profilProdi->visi_keilmuan)
                         <div class="mb-4 bg-white p-4 rounded-4 shadow-sm border border-light position-relative" style="transition: all 0.3s ease;">
                             <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--secondary); border-top-left-radius: 1rem; border-bottom-left-radius: 1rem;"></div>
                             <h5 class="fw-bold mb-3 text-dark"><i class="bi bi-eye-fill text-secondary me-2"></i>Visi Keilmuan</h5>
                             <p class="text-muted mb-0 lh-lg" style="text-align: justify;">{{ $profilProdi->visi_keilmuan }}</p>
+                        </div>
+                    @endif
+
+                    @if($profilProdi->deskripsi_profil)
+                        <div class="mb-4 bg-white p-4 rounded-4 shadow-sm border border-light position-relative" style="transition: all 0.3s ease;">
+                            <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); border-top-left-radius: 1rem; border-bottom-left-radius: 1rem;"></div>
+                            <h5 class="fw-bold mb-3 text-dark"><i class="bi bi-info-circle-fill text-primary me-2"></i>Tentang Prodi</h5>
+                            <p class="text-muted mb-0 lh-lg" style="text-align: justify;">{{ $profilProdi->deskripsi_profil }}</p>
                         </div>
                     @endif
                 </div>
