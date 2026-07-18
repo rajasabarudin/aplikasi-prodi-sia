@@ -313,6 +313,9 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('portal.kegiatan*') ? 'active' : '' }}" href="{{ route('portal.kegiatan') }}">Kegiatan & Event</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-warning fw-bold {{ request()->routeIs('portal.beasiswa*') ? 'active' : '' }}" href="{{ route('portal.beasiswa') }}"><i class="bi bi-star-fill me-1"></i>Beasiswa</a>
+                    </li>
                 </ul>
                 <div class="d-flex align-items-center gap-3">
                     @auth

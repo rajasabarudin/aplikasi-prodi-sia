@@ -56,4 +56,39 @@ class BeasiswaMahasiswaController extends Controller
         $beasiswa_mahasiswa->delete();
         return redirect()->route('beasiswa-mahasiswa.index')->with('success', 'Data beasiswa berhasil dihapus.');
     }
+
+    // --- PUBLIC METHODS ---
+
+    public function publicIndex()
+    {
+        $beasiswas = BeasiswaMahasiswa::with('mahasiswa')->orderBy('created_at', 'desc')->get();
+        return view('beasiswa_mahasiswa.public_index', compact('beasiswas'));
+    }
+
+    public function publicStore(Request $request)
+    {
+        $request->validate([
+            'nim' => 'required',
+            'jenis_beasiswa' => 'required|in:internal,eksternal',
+            'kategori_beasiswa' => 'required',
+            'link_dokumen' => 'nullable|url',
+        ]);
+
+        // Cek apakah mahasiswa valid
+        $mahasiswa = Mahasiswa::where('nim', $request->nim)->first();
+        if (!$mahasiswa) {
+            return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan.');
+        }
+
+        BeasiswaMahasiswa::create($request->all());
+
+        return redirect()->route('portal.beasiswa')->with('success', 'Data beasiswa berhasil didaftarkan.');
+    }
+
+    public function publicDestroy($id)
+    {
+        $beasiswa = BeasiswaMahasiswa::findOrFail($id);
+        $beasiswa->delete();
+        return redirect()->route('portal.beasiswa')->with('success', 'Data beasiswa berhasil dihapus.');
+    }
 }
