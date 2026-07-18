@@ -405,5 +405,6 @@
             offset: 50
         });
     </script>
+    @stack('scripts')
 </body>
 </html>

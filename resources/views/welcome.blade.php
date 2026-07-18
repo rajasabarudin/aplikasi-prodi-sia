@@ -136,74 +136,33 @@
         </div>
     </section>
 
-    <!-- Highlight Prestasi -->
+    <!-- Highlight Prestasi & Rekognisi Grafik -->
     <section class="py-5 mb-5 glass-card rounded-5 shadow-sm mx-lg-4 p-lg-5" data-aos="fade-up">
         <div class="container">
             <div class="row align-items-center mb-5">
                 <div class="col-lg-8">
                     <h2 class="section-title">Pusat Keunggulan & Prestasi</h2>
-                    <p class="section-subtitle mb-0">Deretan pencapaian membanggakan dari mahasiswa dan dosen kami.</p>
+                    <p class="section-subtitle mb-0">Visualisasi data pencapaian membanggakan dari mahasiswa dan rekognisi dosen kami berdasarkan Tahun Akademik (TS).</p>
                 </div>
             </div>
 
             <div class="row g-4">
-                <!-- Prestasi Mahasiswa (Limit to 3) -->
-                @forelse($prestasiList->take(3) as $p)
-                <div class="col-md-4">
-                    <div class="prestasi-card">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
-                                <i class="bi bi-award-fill fs-4"></i>
-                            </div>
-                            <div>
-                                <h6 class="mb-0 fw-bold text-dark">{{ $p->mahasiswa->nama ?? 'NIM: '.$p->nim }}</h6>
-                                <small class="text-muted">Mahasiswa</small>
-                            </div>
-                        </div>
-                        <h5 class="fw-bold mb-2">{{ $p->nama_prestasi }}</h5>
-                        <div class="mt-auto">
-                            <span class="prestasi-badge">{{ $p->prestasi_diraih }}</span>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="badge bg-light text-secondary border">{{ $p->level_prestasi }}</span>
-                                <span class="text-muted small fw-bold">{{ $p->tahun }}</span>
-                            </div>
-                        </div>
+                <div class="col-lg-7">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 p-4" style="background: rgba(255,255,255,0.9);">
+                        <h5 class="fw-bold mb-4 text-dark"><i class="bi bi-bar-chart-line-fill text-primary me-2"></i>Grafik Prestasi Mahasiswa</h5>
+                        <div id="prestasiChart"></div>
                     </div>
                 </div>
-                @empty
-                <div class="col-12 text-center text-muted">Belum ada data prestasi mahasiswa yang dipublikasikan.</div>
-                @endforelse
-
-                <!-- Prestasi Dosen (Limit to 3) -->
-                @forelse($prestasiDosenList->take(3) as $p)
-                <div class="col-md-4">
-                    <div class="prestasi-card">
-                        <div class="d-flex align-items-center mb-3">
-                            @if($p->dosen && $p->dosen->foto)
-                                <img src="{{ asset('storage/' . $p->dosen->foto) }}" class="rounded-circle me-3 border" style="width: 48px; height: 48px; object-fit:cover;">
-                            @else
-                                <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
-                                    <i class="bi bi-person-badge-fill fs-4"></i>
-                                </div>
-                            @endif
-                            <div>
-                                <h6 class="mb-0 fw-bold text-dark text-truncate" style="max-width: 150px;">{{ $p->nama_dosen }}</h6>
-                                <small class="text-muted">Dosen</small>
-                            </div>
-                        </div>
-                        <h5 class="fw-bold mb-2">{{ $p->nama_prestasi }}</h5>
-                        <div class="mt-auto">
-                            <span class="prestasi-badge" style="background: rgba(16, 185, 129, 0.1); color: var(--secondary);">{{ $p->prestasi_diraih }}</span>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="badge bg-light text-secondary border">{{ $p->level_prestasi }}</span>
-                                <span class="text-muted small fw-bold">{{ $p->tahun }}</span>
-                            </div>
-                        </div>
+                <div class="col-lg-5">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 p-4" style="background: rgba(255,255,255,0.9);">
+                        <h5 class="fw-bold mb-4 text-dark"><i class="bi bi-pie-chart-fill text-warning me-2"></i>Rekognisi Dosen</h5>
+                        @if(empty($rekognisiPerTSLabeled))
+                            <div class="text-center text-muted py-5">Belum ada data rekognisi dosen.</div>
+                        @else
+                            <div id="rekognisiChart" class="d-flex justify-content-center"></div>
+                        @endif
                     </div>
                 </div>
-                @empty
-                <!-- Hidden if empty -->
-                @endforelse
             </div>
         </div>
     </section>
@@ -252,3 +211,52 @@
     </section>
 
 @endsection
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Data Prestasi
+        var prestasiLabels = {!! json_encode($prestasiMhsTsLabels) !!};
+        var prestasiData = {!! json_encode($prestasiMhsTsData) !!};
+        
+        var prestasiSeries = [];
+        for (var field in prestasiData) {
+            prestasiSeries.push({
+                name: field,
+                data: prestasiData[field]
+            });
+        }
+
+        var prestasiOptions = {
+            series: prestasiSeries,
+            chart: { type: 'bar', height: 350, stacked: true, toolbar: { show: false }, fontFamily: 'Outfit, sans-serif' },
+            plotOptions: { bar: { horizontal: false, borderRadius: 4 } },
+            xaxis: { categories: prestasiLabels },
+            colors: ['#4f46e5', '#10b981', '#f59e0b', '#ec4899'],
+            dataLabels: { enabled: false },
+            legend: { position: 'top', markers: { radius: 12 } },
+            fill: { opacity: 1 }
+        };
+        new ApexCharts(document.querySelector("#prestasiChart"), prestasiOptions).render();
+
+        // Data Rekognisi
+        @if(!empty($rekognisiPerTSLabeled))
+            var rekognisiLabels = {!! json_encode(array_keys($rekognisiPerTSLabeled)) !!};
+            var rekognisiSeries = {!! json_encode(array_values($rekognisiPerTSLabeled)) !!};
+
+            var rekognisiOptions = {
+                series: rekognisiSeries,
+                chart: { type: 'donut', height: 350, fontFamily: 'Outfit, sans-serif' },
+                labels: rekognisiLabels,
+                colors: ['#8b5cf6', '#f59e0b', '#ec4899', '#10b981', '#4f46e5'],
+                dataLabels: { enabled: true, dropShadow: { enabled: false } },
+                legend: { position: 'bottom', markers: { radius: 12 } },
+                plotOptions: { pie: { donut: { size: '65%' } } },
+                stroke: { width: 0 }
+            };
+            new ApexCharts(document.querySelector("#rekognisiChart"), rekognisiOptions).render();
+        @endif
+    });
+</script>
+@endpush
