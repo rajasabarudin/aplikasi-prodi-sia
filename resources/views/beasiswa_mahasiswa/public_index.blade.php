@@ -122,15 +122,63 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        <form action="{{ route('portal.beasiswa.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data Anda ini?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger rounded-circle" title="Hapus Data">
-                                                <i class="bi bi-trash"></i>
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <button type="button" class="btn btn-sm btn-outline-warning rounded-circle" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}" title="Edit Data">
+                                                <i class="bi bi-pencil"></i>
                                             </button>
-                                        </form>
+                                            <form action="{{ route('portal.beasiswa.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data Anda ini?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-circle" title="Hapus Data">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
+
+                                <!-- Modal Edit Beasiswa -->
+                                <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content border-0 shadow" style="border-radius: 16px;">
+                                            <div class="modal-header bg-warning text-dark border-0" style="border-radius: 16px 16px 0 0;">
+                                                <h5 class="modal-title fw-bold"><i class="bi bi-pencil-square me-2"></i>Edit Data Beasiswa</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form action="{{ route('portal.beasiswa.update', $item->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="modal-body p-4 text-start">
+                                                    <div class="mb-3">
+                                                        <label class="form-label fw-semibold">NIM & Nama</label>
+                                                        <input type="text" class="form-control bg-light" value="{{ $item->nim }} - {{ $item->mahasiswa->nama ?? '' }}" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label fw-semibold">Jenis Beasiswa <span class="text-danger">*</span></label>
+                                                        <select class="form-select" name="jenis_beasiswa" required>
+                                                            <option value="internal" {{ $item->jenis_beasiswa == 'internal' ? 'selected' : '' }}>Internal (Kampus)</option>
+                                                            <option value="eksternal" {{ $item->jenis_beasiswa == 'eksternal' ? 'selected' : '' }}>Eksternal (Pemerintah/Swasta)</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label fw-semibold">Kategori Beasiswa <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control" name="kategori_beasiswa" value="{{ $item->kategori_beasiswa }}" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label fw-semibold">Link Dokumen Bukti</label>
+                                                        <input type="url" class="form-control" name="link_dokumen" value="{{ $item->link_dokumen }}">
+                                                        <small class="text-muted">Masukkan link valid dari Google Drive dsb jika ada perubahan dokumen.</small>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer border-0 pt-0 pb-4 px-4">
+                                                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
+                                                    <button type="submit" class="btn btn-warning rounded-pill px-4 fw-bold"><i class="bi bi-save me-1"></i> Simpan Perubahan</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Modal Edit -->
                                 @empty
                                 <tr>
                                     <td colspan="5" class="text-center text-muted py-5">

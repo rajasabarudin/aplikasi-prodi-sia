@@ -80,6 +80,7 @@ Route::post('/kegiatan-portal/{kegiatan}/absensi-mandiri', [DashboardController:
 // Public Beasiswa Portal
 Route::get('/portal-beasiswa', [BeasiswaMahasiswaController::class, 'publicIndex'])->name('portal.beasiswa');
 Route::post('/portal-beasiswa', [BeasiswaMahasiswaController::class, 'publicStore'])->name('portal.beasiswa.store');
+Route::put('/portal-beasiswa/{id}', [BeasiswaMahasiswaController::class, 'publicUpdate'])->name('portal.beasiswa.update');
 Route::delete('/portal-beasiswa/{id}', [BeasiswaMahasiswaController::class, 'publicDestroy'])->name('portal.beasiswa.destroy');
 Route::get('/portal-beasiswa/get-mahasiswa/{nim}', [BeasiswaMahasiswaController::class, 'getMahasiswa'])->name('portal.beasiswa.get-mahasiswa');
 

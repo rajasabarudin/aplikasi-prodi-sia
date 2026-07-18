@@ -85,6 +85,20 @@ class BeasiswaMahasiswaController extends Controller
         return redirect()->route('portal.beasiswa')->with('success', 'Data beasiswa berhasil didaftarkan.');
     }
 
+    public function publicUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'jenis_beasiswa' => 'required|in:internal,eksternal',
+            'kategori_beasiswa' => 'required',
+            'link_dokumen' => 'nullable|url',
+        ]);
+
+        $beasiswa = BeasiswaMahasiswa::findOrFail($id);
+        $beasiswa->update($request->all());
+
+        return redirect()->route('portal.beasiswa')->with('success', 'Data beasiswa berhasil diperbarui.');
+    }
+
     public function publicDestroy($id)
     {
         $beasiswa = BeasiswaMahasiswa::findOrFail($id);
