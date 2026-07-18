@@ -87,7 +87,7 @@
             </div>
             <div class="col">
                 <div class="label">Status Akademik Terakhir</div>
-                <div class="val">{{ count($ipkList) > 0 ? $ipkList->first()->status_akademik : 'Aktif' }}</div>
+                <div class="val">Aktif</div>
             </div>
             <div class="col">
                 <div class="label">IPK Terakhir</div>
@@ -185,10 +185,8 @@
         <thead>
             <tr>
                 <th style="width: 5%;">No</th>
-                <th style="width: 25%;">Tahun Akademik</th>
-                <th style="width: 15%;">Semester</th>
-                <th style="width: 15%;">IPS</th>
-                <th style="width: 15%;">IPK</th>
+                <th style="width: 45%;">Tahun Akademik</th>
+                <th style="width: 25%;">IPK</th>
                 <th style="width: 25%;">Status Akademik</th>
             </tr>
         </thead>
@@ -196,14 +194,12 @@
             @forelse($ipkList as $index => $ipk)
                 <tr>
                     <td class="text-center">{{ $index + 1 }}</td>
-                    <td class="text-center">{{ optional($ipk->ts)->tahun_akademik ?? '-' }}</td>
-                    <td class="text-center">{{ $ipk->semester }}</td>
-                    <td class="text-center">{{ number_format($ipk->ips, 2) }}</td>
+                    <td class="text-center">{{ $ipk->ts ? $ipk->ts->tahun_sekarang : '-' }}</td>
                     <td class="text-center">{{ number_format($ipk->ipk, 2) }}</td>
-                    <td class="text-center">{{ $ipk->status_akademik }}</td>
+                    <td class="text-center">Aktif</td>
                 </tr>
             @empty
-                <tr class="empty-row"><td colspan="6">Belum ada data nilai/IPK tercatat.</td></tr>
+                <tr class="empty-row"><td colspan="4">Belum ada data nilai/IPK tercatat.</td></tr>
             @endforelse
         </tbody>
     </table>
