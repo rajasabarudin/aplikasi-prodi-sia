@@ -61,8 +61,9 @@ Route::get('/sitemap.xml', [DashboardController::class, 'sitemap'])->name('sitem
 // Temporary route for migration on cPanel
 Route::get('/run-migrate', function () {
     try {
+        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
         \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
-        return 'Migrasi database berhasil dijalankan di server hosting!';
+        return 'Cache berhasil dibersihkan dan migrasi database berhasil dijalankan di server hosting!';
     } catch (\Exception $e) {
         return 'Error: ' . $e->getMessage();
     }
