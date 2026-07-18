@@ -230,13 +230,13 @@
 
         var prestasiOptions = {
             series: prestasiSeries,
-            chart: { type: 'bar', height: 350, stacked: true, toolbar: { show: false }, fontFamily: 'Outfit, sans-serif' },
-            plotOptions: { bar: { horizontal: false, borderRadius: 4 } },
+            chart: { type: 'line', height: 350, toolbar: { show: false }, fontFamily: 'Outfit, sans-serif' },
+            stroke: { curve: 'smooth', width: 3 },
+            markers: { size: 5, hover: { size: 7 } },
             xaxis: { categories: prestasiLabels },
             colors: ['#4f46e5', '#10b981', '#f59e0b', '#ec4899'],
             dataLabels: { enabled: false },
-            legend: { position: 'top', markers: { radius: 12 } },
-            fill: { opacity: 1 }
+            legend: { position: 'top', markers: { radius: 12 } }
         };
         new ApexCharts(document.querySelector("#prestasiChart"), prestasiOptions).render();
 
