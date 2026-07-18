@@ -8,10 +8,21 @@ use Illuminate\Http\Request;
 
 class BeasiswaMahasiswaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $beasiswas = BeasiswaMahasiswa::with('mahasiswa')->orderBy('created_at', 'desc')->get();
-        return view('beasiswa_mahasiswa.index', compact('beasiswas'));
+        $search = $request->input('search');
+        $beasiswas = BeasiswaMahasiswa::with('mahasiswa')
+            ->when($search, function ($query, $search) {
+                return $query->where('nim', 'like', "%{$search}%")
+                    ->orWhere('kategori_beasiswa', 'like', "%{$search}%")
+                    ->orWhereHas('mahasiswa', function ($q) use ($search) {
+                        $q->where('nama', 'like', "%{$search}%");
+                    });
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+            
+        return view('beasiswa_mahasiswa.index', compact('beasiswas', 'search'));
     }
 
     public function getMahasiswa($nim)
@@ -59,10 +70,21 @@ class BeasiswaMahasiswaController extends Controller
 
     // --- PUBLIC METHODS ---
 
-    public function publicIndex()
+    public function publicIndex(Request $request)
     {
-        $beasiswas = BeasiswaMahasiswa::with('mahasiswa')->orderBy('created_at', 'desc')->get();
-        return view('beasiswa_mahasiswa.public_index', compact('beasiswas'));
+        $search = $request->input('search');
+        $beasiswas = BeasiswaMahasiswa::with('mahasiswa')
+            ->when($search, function ($query, $search) {
+                return $query->where('nim', 'like', "%{$search}%")
+                    ->orWhere('kategori_beasiswa', 'like', "%{$search}%")
+                    ->orWhereHas('mahasiswa', function ($q) use ($search) {
+                        $q->where('nama', 'like', "%{$search}%");
+                    });
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+            
+        return view('beasiswa_mahasiswa.public_index', compact('beasiswas', 'search'));
     }
 
     public function publicStore(Request $request)

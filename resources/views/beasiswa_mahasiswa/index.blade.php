@@ -30,6 +30,17 @@
 
     <div class="card border-0 shadow-sm rounded-4">
         <div class="card-body p-4">
+            <div class="d-flex justify-content-end mb-3">
+                <form action="{{ route('beasiswa-mahasiswa.index') }}" method="GET" class="d-flex gap-2" style="width: 300px;">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search" placeholder="Cari NIM, Nama..." value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                    </div>
+                    @if(request('search'))
+                        <a href="{{ route('beasiswa-mahasiswa.index') }}" class="btn btn-outline-danger" title="Reset"><i class="bi bi-x-lg"></i></a>
+                    @endif
+                </form>
+            </div>
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
                     <thead class="table-light">

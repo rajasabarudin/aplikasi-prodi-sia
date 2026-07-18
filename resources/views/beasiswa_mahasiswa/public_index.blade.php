@@ -84,7 +84,18 @@
         <div class="col-lg-8" data-aos="fade-left" data-aos-delay="200">
             <div class="card border-0 shadow-sm rounded-4 h-100">
                 <div class="card-body p-4">
-                    <h5 class="fw-bold mb-4"><i class="bi bi-table me-2 text-primary"></i>Daftar Beasiswa yang Masuk</h5>
+                    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-table me-2 text-primary"></i>Daftar Beasiswa yang Masuk</h5>
+                        <form action="{{ route('portal.beasiswa') }}" method="GET" class="d-flex gap-2" style="max-width: 300px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="search" placeholder="Cari NIM, Nama..." value="{{ request('search') }}">
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                            </div>
+                            @if(request('search'))
+                                <a href="{{ route('portal.beasiswa') }}" class="btn btn-outline-danger" title="Reset"><i class="bi bi-x-lg"></i></a>
+                            @endif
+                        </form>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle">
                             <thead class="table-light">
