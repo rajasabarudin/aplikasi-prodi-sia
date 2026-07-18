@@ -141,8 +141,8 @@
         <div class="container">
             <div class="row align-items-center mb-5">
                 <div class="col-lg-8">
-                    <h2 class="section-title">Pusat Keunggulan & Prestasi</h2>
-                    <p class="section-subtitle mb-0">Visualisasi data pencapaian membanggakan dari mahasiswa dan rekognisi dosen kami berdasarkan Tahun Akademik (TS).</p>
+                    <h2 class="section-title">Statistik & Tren Pencapaian</h2>
+                    <p class="section-subtitle mb-0">Pemantauan visual terhadap rekam jejak prestasi mahasiswa dan tingkat rekognisi dosen dari tahun ke tahun.</p>
                 </div>
             </div>
 
