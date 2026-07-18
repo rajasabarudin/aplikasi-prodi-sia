@@ -26,5 +26,7 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') === 'production' || $this->app->environment('production')) {
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
+        
+        \Illuminate\Pagination\Paginator::useBootstrapFive();
     }
 }

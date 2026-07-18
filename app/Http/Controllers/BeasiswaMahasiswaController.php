@@ -20,7 +20,7 @@ class BeasiswaMahasiswaController extends Controller
                     });
             })
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(10);
             
         return view('beasiswa_mahasiswa.index', compact('beasiswas', 'search'));
     }
@@ -82,7 +82,7 @@ class BeasiswaMahasiswaController extends Controller
                     });
             })
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(10);
             
         return view('beasiswa_mahasiswa.public_index', compact('beasiswas', 'search'));
     }
