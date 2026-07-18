@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5 d-none d-lg-block text-center position-relative z-1" data-aos="fade-left" data-aos-delay="200">
-                    <img src="https://illustrations.popsy.co/amber/student-going-to-school.svg" alt="Student" style="width: 100%; max-width: 450px;">
+                    <img src="{{ asset('img/kampus_ubsi.jpg') }}" alt="Kampus UBSI Pontianak" style="width: 100%; max-width: 500px; border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); border: 8px solid rgba(255,255,255,0.8); object-fit: cover;">
                 </div>
             </div>
         </div>
