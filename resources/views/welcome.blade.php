@@ -165,6 +165,31 @@
                 </div>
             </div>
         </div>
+    <!-- Kualitas Akademik & Kompetensi -->
+    <section class="py-5 mb-5 glass-card rounded-5 shadow-sm mx-lg-4 p-lg-5" data-aos="fade-up">
+        <div class="container">
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-8">
+                    <h2 class="section-title">Kualitas Akademik & Kompetensi</h2>
+                    <p class="section-subtitle mb-0">Visualisasi profil kualifikasi dosen dan sebaran sertifikasi kompetensi yang diakui industri untuk mahasiswa kami.</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 p-4" style="background: rgba(255,255,255,0.9);">
+                        <h5 class="fw-bold mb-4 text-dark"><i class="bi bi-patch-check-fill text-success me-2"></i>Sertifikasi Kompetensi Mahasiswa</h5>
+                        <div id="serkomChart"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 p-4" style="background: rgba(255,255,255,0.9);">
+                        <h5 class="fw-bold mb-4 text-dark"><i class="bi bi-mortarboard-fill text-danger me-2"></i>Kualifikasi Pendidikan Dosen</h5>
+                        <div id="pendidikanChart" class="d-flex justify-content-center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Highlight Mitra Kerja Sama -->
@@ -172,10 +197,19 @@
         <div class="container">
             <div class="text-center mb-5">
                 <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill fw-bold mb-3 border border-danger border-opacity-25">Kolaborasi & Sinergi</span>
-                <h2 class="section-title">Mitra Kerja Sama (MoU)</h2>
+                <h2 class="section-title">Mitra Kerja Sama (MoU, PKS, IA)</h2>
                 <p class="section-subtitle">Program Studi menjalin kerjasama strategis dengan berbagai instansi untuk pengembangan pendidikan, penelitian, dan pengabdian.</p>
             </div>
             
+            <div class="row mb-5 justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm rounded-4 p-4" style="background: rgba(255,255,255,0.9);">
+                        <h5 class="fw-bold mb-4 text-dark text-center"><i class="bi bi-globe-americas text-primary me-2"></i>Tren Realisasi Kerjasama (PKS & IA)</h5>
+                        <div id="kerjasamaChart"></div>
+                    </div>
+                </div>
+            </div>
+
             @if($mitraList->isEmpty())
                 <div class="text-center text-muted">Belum ada data mitra kerja sama yang dipublikasikan.</div>
             @else
@@ -257,6 +291,59 @@
             };
             new ApexCharts(document.querySelector("#rekognisiChart"), rekognisiOptions).render();
         @endif
+
+        // Data Sertifikasi (Bar Horizontal)
+        var serkomLabels = {!! json_encode($serkomChartLabels) !!};
+        var serkomData = {!! json_encode($serkomChartData) !!};
+        if(serkomLabels.length > 0) {
+            var serkomOptions = {
+                series: [{ name: 'Sertifikasi', data: serkomData }],
+                chart: { type: 'bar', height: 350, toolbar: { show: false }, fontFamily: 'Outfit, sans-serif' },
+                plotOptions: { bar: { horizontal: true, borderRadius: 4, distributed: true } },
+                xaxis: { categories: serkomLabels },
+                colors: ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ec4899', '#06b6d4'],
+                dataLabels: { enabled: true, style: { colors: ['#fff'] } },
+                legend: { show: false }
+            };
+            new ApexCharts(document.querySelector("#serkomChart"), serkomOptions).render();
+        }
+
+        // Data Pendidikan Dosen (Donut)
+        var pendidikanLabels = {!! json_encode(array_keys($pendidikanData->toArray())) !!};
+        var pendidikanData = {!! json_encode(array_values($pendidikanData->toArray())) !!};
+        if(pendidikanLabels.length > 0) {
+            var pendidikanOptions = {
+                series: pendidikanData,
+                chart: { type: 'pie', height: 350, fontFamily: 'Outfit, sans-serif' },
+                labels: pendidikanLabels,
+                colors: ['#3b82f6', '#f59e0b', '#ef4444', '#10b981'],
+                dataLabels: { enabled: true, dropShadow: { enabled: false } },
+                legend: { position: 'bottom', markers: { radius: 12 } },
+                stroke: { width: 0 }
+            };
+            new ApexCharts(document.querySelector("#pendidikanChart"), pendidikanOptions).render();
+        }
+
+        // Data Kerjasama (Area/Line)
+        var pksLabels = {!! json_encode($pksChartLabels) !!};
+        var pksData = {!! json_encode($pksChartData) !!};
+        var iaData = {!! json_encode($iaChartData) !!};
+        if(pksLabels.length > 0) {
+            var kerjasamaOptions = {
+                series: [
+                    { name: 'Perjanjian Kerja Sama (PKS)', data: pksData },
+                    { name: 'Implementasi (IA)', data: iaData }
+                ],
+                chart: { type: 'area', height: 350, toolbar: { show: false }, fontFamily: 'Outfit, sans-serif' },
+                stroke: { curve: 'smooth', width: 2 },
+                xaxis: { categories: pksLabels },
+                colors: ['#4f46e5', '#ec4899'],
+                dataLabels: { enabled: false },
+                fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.4, opacityTo: 0.05, stops: [0, 90, 100] } },
+                legend: { position: 'top', markers: { radius: 12 } }
+            };
+            new ApexCharts(document.querySelector("#kerjasamaChart"), kerjasamaOptions).render();
+        }
     });
 </script>
 @endpush
