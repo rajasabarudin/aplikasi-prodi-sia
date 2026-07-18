@@ -96,8 +96,91 @@
         </div>
     </div>
 
+    <!-- HKI -->
+    <h3 class="section-title">B. Hak Kekayaan Intelektual (HKI)</h3>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">No</th>
+                <th style="width: 40%;">Judul Ciptaan / HKI</th>
+                <th style="width: 20%;">Jenis Ciptaan</th>
+                <th style="width: 20%;">Nomor Permohonan</th>
+                <th style="width: 15%;">Tgl Permohonan</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($mahasiswa->hki as $index => $hki)
+                <tr>
+                    <td class="text-center">{{ $index + 1 }}</td>
+                    <td>{{ $hki->judul_ciptaan }}</td>
+                    <td class="text-center">{{ $hki->jenis_ciptaan }}</td>
+                    <td class="text-center">{{ $hki->no_permohonan ?? '-' }}</td>
+                    <td class="text-center">{{ $hki->tgl_permohonan ? \Carbon\Carbon::parse($hki->tgl_permohonan)->format('d/m/Y') : '-' }}</td>
+                </tr>
+            @empty
+                <tr class="empty-row"><td colspan="5">Belum ada data HKI.</td></tr>
+            @endforelse
+        </tbody>
+    </table>
+
+    <!-- PRESTASI -->
+    <h3 class="section-title">C. Prestasi & Penghargaan</h3>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">No</th>
+                <th style="width: 40%;">Nama Prestasi / Kejuaraan</th>
+                <th style="width: 20%;">Level / Tingkat</th>
+                <th style="width: 15%;">Prestasi Diraih</th>
+                <th style="width: 20%;">Tahun (TS)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($mahasiswa->prestasi as $index => $prestasi)
+                <tr>
+                    <td class="text-center">{{ $index + 1 }}</td>
+                    <td>{{ $prestasi->nama_prestasi }}</td>
+                    <td class="text-center">{{ $prestasi->level_prestasi }}</td>
+                    <td class="text-center">{{ $prestasi->prestasi_diraih }}</td>
+                    <td class="text-center">{{ optional($prestasi->ts)->tahun_akademik ?? $prestasi->tahun }}</td>
+                </tr>
+            @empty
+                <tr class="empty-row"><td colspan="5">Belum ada riwayat prestasi perlombaan.</td></tr>
+            @endforelse
+        </tbody>
+    </table>
+
+    <!-- SERTIFIKASI KOMPETENSI -->
+    <h3 class="section-title">D. Sertifikasi Kompetensi</h3>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">No</th>
+                <th style="width: 75%;">Skema Sertifikasi</th>
+                <th style="width: 20%;">Dokumen / Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($sertifikasiList as $index => $sert)
+                <tr>
+                    <td class="text-center">{{ $index + 1 }}</td>
+                    <td>{{ $sert->skema_serkom }}</td>
+                    <td class="text-center">
+                        @if($sert->link_dokumen)
+                            <a href="{{ $sert->link_dokumen }}" target="_blank" style="text-decoration: none; color: #4f46e5;">Lihat Dokumen</a>
+                        @else
+                            -
+                        @endif
+                    </td>
+                </tr>
+            @empty
+                <tr class="empty-row"><td colspan="3">Belum ada data sertifikasi kompetensi.</td></tr>
+            @endforelse
+        </tbody>
+    </table>
+
     <!-- REKAM AKADEMIK & IPK -->
-    <h3 class="section-title">B. Rekam Akademik & Indeks Prestasi (IP)</h3>
+    <h3 class="section-title">E. Indeks Prestasi Kumulatif (IPK)</h3>
     <table class="data-table">
         <thead>
             <tr>
@@ -125,124 +208,48 @@
         </tbody>
     </table>
 
-    <!-- KEGIATAN & SEMINAR -->
-    <h3 class="section-title">C. Partisipasi Kegiatan & Seminar</h3>
+    <!-- ORGANISASI -->
+    <h3 class="section-title">F. Organisasi Mahasiswa</h3>
     <table class="data-table">
         <thead>
             <tr>
                 <th style="width: 5%;">No</th>
-                <th style="width: 45%;">Nama Kegiatan</th>
-                <th style="width: 20%;">Tanggal</th>
-                <th style="width: 15%;">Status Kehadiran</th>
-                <th style="width: 15%;">Sertifikat</th>
+                <th style="width: 35%;">Nama Organisasi</th>
+                <th style="width: 20%;">Jabatan</th>
+                <th style="width: 20%;">Tahun (TS)</th>
+                <th style="width: 20%;">Link Dokumen</th>
             </tr>
         </thead>
         <tbody>
-            @forelse($kegiatans as $index => $k)
+            @forelse($mahasiswa->organisasi as $index => $org)
                 <tr>
                     <td class="text-center">{{ $index + 1 }}</td>
-                    <td>{{ optional($k->kegiatan)->nama_kegiatan ?? '-' }}</td>
-                    <td class="text-center">{{ optional($k->kegiatan)->tanggal ? \Carbon\Carbon::parse($k->kegiatan->tanggal)->format('d/m/Y') : '-' }}</td>
-                    <td class="text-center">{{ ucfirst(str_replace('_', ' ', $k->status_kehadiran)) }}</td>
-                    <td class="text-center">{{ $k->status_kehadiran == 'hadir_lengkap' ? 'Ada' : '-' }}</td>
-                </tr>
-            @empty
-                <tr class="empty-row"><td colspan="5">Belum ada riwayat mengikuti kegiatan.</td></tr>
-            @endforelse
-        </tbody>
-    </table>
-
-    <!-- SERTIFIKASI KOMPETENSI -->
-    <h3 class="section-title">D. Sertifikasi Kompetensi</h3>
-    <table class="data-table">
-        <thead>
-            <tr>
-                <th style="width: 5%;">No</th>
-                <th style="width: 25%;">Skema Sertifikasi</th>
-                <th style="width: 25%;">Dokumen / Link</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($sertifikasiList as $index => $sert)
-                <tr>
-                    <td class="text-center">{{ $index + 1 }}</td>
-                    <td>{{ $sert->skema_serkom }}</td>
+                    <td>{{ $org->nama_organisasi }}</td>
+                    <td class="text-center">{{ $org->jabatan }}</td>
+                    <td class="text-center">{{ optional($org->ts)->tahun_akademik ?? '-' }}</td>
                     <td class="text-center">
-                        @if($sert->link_dokumen)
-                            <a href="{{ $sert->link_dokumen }}" target="_blank" style="text-decoration: none; color: #4f46e5;">Lihat Dokumen</a>
+                        @if($org->link_dokumen)
+                            <a href="{{ $org->link_dokumen }}" target="_blank" style="text-decoration: none; color: #4f46e5;">Lihat Dokumen</a>
                         @else
                             -
                         @endif
                     </td>
                 </tr>
             @empty
-                <tr class="empty-row"><td colspan="6">Belum ada data sertifikasi kompetensi.</td></tr>
-            @endforelse
-        </tbody>
-    </table>
-
-    <!-- PRESTASI -->
-    <h3 class="section-title">E. Prestasi & Penghargaan</h3>
-    <table class="data-table">
-        <thead>
-            <tr>
-                <th style="width: 5%;">No</th>
-                <th style="width: 40%;">Nama Prestasi / Kejuaraan</th>
-                <th style="width: 20%;">Level / Tingkat</th>
-                <th style="width: 15%;">Prestasi Diraih</th>
-                <th style="width: 20%;">Tahun (TS)</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($mahasiswa->prestasi as $index => $prestasi)
-                <tr>
-                    <td class="text-center">{{ $index + 1 }}</td>
-                    <td>{{ $prestasi->nama_prestasi }}</td>
-                    <td class="text-center">{{ $prestasi->level_prestasi }}</td>
-                    <td class="text-center">{{ $prestasi->prestasi_diraih }}</td>
-                    <td class="text-center">{{ optional($prestasi->ts)->tahun_akademik ?? $prestasi->tahun }}</td>
-                </tr>
-            @empty
-                <tr class="empty-row"><td colspan="5">Belum ada riwayat prestasi perlombaan.</td></tr>
-            @endforelse
-        </tbody>
-    </table>
-
-    <!-- HASIL KARYA ILMIAH (HKI) -->
-    <h3 class="section-title">F. Hak Kekayaan Intelektual (HKI)</h3>
-    <table class="data-table">
-        <thead>
-            <tr>
-                <th style="width: 5%;">No</th>
-                <th style="width: 40%;">Judul Ciptaan / HKI</th>
-                <th style="width: 20%;">Jenis Ciptaan</th>
-                <th style="width: 20%;">Nomor Permohonan</th>
-                <th style="width: 15%;">Tgl Permohonan</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($mahasiswa->hki as $index => $hki)
-                <tr>
-                    <td class="text-center">{{ $index + 1 }}</td>
-                    <td>{{ $hki->judul_ciptaan }}</td>
-                    <td class="text-center">{{ $hki->jenis_ciptaan }}</td>
-                    <td class="text-center">{{ $hki->no_permohonan ?? '-' }}</td>
-                    <td class="text-center">{{ $hki->tgl_permohonan ? \Carbon\Carbon::parse($hki->tgl_permohonan)->format('d/m/Y') : '-' }}</td>
-                </tr>
-            @empty
-                <tr class="empty-row"><td colspan="5">Belum ada produk Hak Kekayaan Intelektual.</td></tr>
+                <tr class="empty-row"><td colspan="5">Belum ada riwayat organisasi.</td></tr>
             @endforelse
         </tbody>
     </table>
 
     <!-- TUGAS MANDIRI / KELOMPOK -->
-    <h3 class="section-title">G. Tugas Mandiri & Matakuliah</h3>
+    <h3 class="section-title">G. Tugas Mandiri & Kelompok</h3>
     <table class="data-table">
         <thead>
             <tr>
                 <th style="width: 5%;">No</th>
                 <th style="width: 35%;">Matakuliah</th>
-                <th style="width: 45%;">Link Dokumen / Tugas</th>
+                <th style="width: 35%;">Judul Tugas</th>
+                <th style="width: 25%;">Link Dokumen</th>
             </tr>
         </thead>
         <tbody>
@@ -250,6 +257,7 @@
                 <tr>
                     <td class="text-center">{{ $index + 1 }}</td>
                     <td>{{ optional($tugas->matakuliah)->nama_matakuliah ?? '-' }}</td>
+                    <td>{{ $tugas->judul_tugas }}</td>
                     <td class="text-center">
                         @if($tugas->link_dokumen)
                             <a href="{{ $tugas->link_dokumen }}" target="_blank" style="text-decoration: none; color: #4f46e5;">Lihat Dokumen</a>
@@ -259,7 +267,65 @@
                     </td>
                 </tr>
             @empty
-                <tr class="empty-row"><td colspan="3">Belum ada portofolio tugas / luaran matakuliah.</td></tr>
+                <tr class="empty-row"><td colspan="4">Belum ada data tugas mandiri / kelompok.</td></tr>
+            @endforelse
+        </tbody>
+    </table>
+
+    <!-- CAPSTONE -->
+    <h3 class="section-title">H. Proyek Capstone</h3>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">No</th>
+                <th style="width: 35%;">Judul Capstone</th>
+                <th style="width: 25%;">Kategori</th>
+                <th style="width: 20%;">Peran</th>
+                <th style="width: 15%;">Nilai</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($capstoneList as $index => $capstone)
+                <tr>
+                    <td class="text-center">{{ $index + 1 }}</td>
+                    <td>{{ $capstone->judul_capstone }}</td>
+                    <td class="text-center">{{ $capstone->kategori_capstone }}</td>
+                    <td class="text-center">{{ $capstone->nim == $mahasiswa->nim ? 'Ketua' : 'Anggota' }}</td>
+                    <td class="text-center">{{ $capstone->nilai_akhir ?? '-' }}</td>
+                </tr>
+            @empty
+                <tr class="empty-row"><td colspan="5">Belum ada data proyek capstone.</td></tr>
+            @endforelse
+        </tbody>
+    </table>
+
+    <!-- BEASISWA -->
+    <h3 class="section-title">I. Beasiswa Mahasiswa</h3>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">No</th>
+                <th style="width: 25%;">Jenis Beasiswa</th>
+                <th style="width: 50%;">Kategori Beasiswa</th>
+                <th style="width: 20%;">Link Dokumen</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($mahasiswa->beasiswas as $index => $beasiswa)
+                <tr>
+                    <td class="text-center">{{ $index + 1 }}</td>
+                    <td class="text-center">{{ ucfirst($beasiswa->jenis_beasiswa) }}</td>
+                    <td>{{ $beasiswa->kategori_beasiswa }}</td>
+                    <td class="text-center">
+                        @if($beasiswa->link_dokumen)
+                            <a href="{{ $beasiswa->link_dokumen }}" target="_blank" style="text-decoration: none; color: #4f46e5;">Lihat Dokumen</a>
+                        @else
+                            -
+                        @endif
+                    </td>
+                </tr>
+            @empty
+                <tr class="empty-row"><td colspan="4">Belum ada data beasiswa.</td></tr>
             @endforelse
         </tbody>
     </table>

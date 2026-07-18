@@ -364,7 +364,7 @@ class MahasiswaController extends Controller
 
     public function cetakProfil(Mahasiswa $mahasiswa)
     {
-        $mahasiswa->load(['hki', 'prestasi.ts', 'organisasi.ts']);
+        $mahasiswa->load(['hki', 'prestasi.ts', 'organisasi.ts', 'beasiswas']);
         
         $tugasList = \App\Models\TugasMahasiswa::with('matakuliah')
             ->where('nim', $mahasiswa->nim)
