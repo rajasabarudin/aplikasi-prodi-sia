@@ -61,9 +61,10 @@
         /* Navbar */
         .navbar {
             background: rgba(255, 255, 255, 0.8) !important;
-            backdrop-filter: blur(12px) !important;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.03);
             padding: 15px 0;
             transition: all 0.3s ease;
         }
