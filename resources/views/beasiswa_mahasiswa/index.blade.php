@@ -57,7 +57,7 @@
                     <tbody>
                         @forelse($beasiswas as $index => $item)
                         <tr>
-                            <td class="text-center">{{ $index + 1 }}</td>
+                            <td class="text-center">{{ $beasiswas->firstItem() + $index }}</td>
                             <td><span class="badge bg-secondary bg-opacity-10 text-secondary border">{{ $item->nim }}</span></td>
                             <td class="fw-bold">{{ $item->mahasiswa->nama ?? 'Data Tidak Ditemukan' }}</td>
                             <td>

@@ -110,7 +110,7 @@
                             <tbody>
                                 @forelse($beasiswas as $index => $item)
                                 <tr>
-                                    <td class="text-center">{{ $index + 1 }}</td>
+                                    <td class="text-center">{{ $beasiswas->firstItem() + $index }}</td>
                                     <td>
                                         <div class="fw-bold text-dark">{{ $item->mahasiswa->nama ?? 'Tidak Diketahui' }}</div>
                                         <div class="small text-muted">{{ $item->nim }}</div>
