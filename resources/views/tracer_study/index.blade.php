@@ -174,8 +174,8 @@
                             <input type="file" name="foto" class="form-control" accept="image/*">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">URL LinkedIn</label>
-                            <input type="url" name="linkedin_url" class="form-control" placeholder="https://linkedin.com/in/...">
+                            <label class="form-label fw-semibold">URL Instagram</label>
+                            <input type="url" name="instagram_url" class="form-control" placeholder="https://instagram.com/...">
                         </div>
                         <div class="col-md-12 mb-3">
                             <label class="form-label fw-semibold">Testimoni / Kesan Pesan</label>
@@ -291,8 +291,8 @@
                             @endif
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">URL LinkedIn</label>
-                            <input type="url" name="linkedin_url" class="form-control" value="{{ $alumni->linkedin_url }}" placeholder="https://linkedin.com/in/...">
+                            <label class="form-label fw-semibold">URL Instagram</label>
+                            <input type="url" name="instagram_url" class="form-control" value="{{ $alumni->instagram_url }}" placeholder="https://instagram.com/...">
                         </div>
                         <div class="col-md-12 mb-3">
                             <label class="form-label fw-semibold">Testimoni / Kesan Pesan</label>

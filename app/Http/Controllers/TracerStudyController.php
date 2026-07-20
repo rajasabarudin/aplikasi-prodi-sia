@@ -31,7 +31,7 @@ class TracerStudyController extends Controller
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $data = $request->only(['nim', 'nama', 'tahun_masuk', 'tahun_lulus', 'ipk', 'no_telepon', 'email', 'testimoni', 'linkedin_url']);
+        $data = $request->only(['nim', 'nama', 'tahun_masuk', 'tahun_lulus', 'ipk', 'no_telepon', 'email', 'testimoni', 'instagram_url']);
         $data['is_featured'] = $request->has('is_featured') ? true : false;
 
         if ($request->hasFile('foto')) {
@@ -66,7 +66,7 @@ class TracerStudyController extends Controller
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $data = $request->only(['nama', 'tahun_masuk', 'tahun_lulus', 'ipk', 'no_telepon', 'email', 'testimoni', 'linkedin_url']);
+        $data = $request->only(['nama', 'tahun_masuk', 'tahun_lulus', 'ipk', 'no_telepon', 'email', 'testimoni', 'instagram_url']);
         $data['is_featured'] = $request->has('is_featured') ? true : false;
 
         if ($request->hasFile('foto')) {
@@ -129,7 +129,7 @@ class TracerStudyController extends Controller
 
         $alumni = Alumni::where('nim', $request->nim)->first();
 
-        $data = $request->only(['nama', 'tahun_masuk', 'tahun_lulus', 'ipk', 'no_telepon', 'email', 'testimoni', 'linkedin_url']);
+        $data = $request->only(['nama', 'tahun_masuk', 'tahun_lulus', 'ipk', 'no_telepon', 'email', 'testimoni', 'instagram_url']);
         
         if ($request->hasFile('foto')) {
             if ($alumni && $alumni->foto && \Illuminate\Support\Facades\Storage::disk('public')->exists($alumni->foto)) {

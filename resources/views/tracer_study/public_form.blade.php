@@ -147,8 +147,8 @@
                                 <input type="file" name="foto" class="form-control" accept="image/*">
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label fw-semibold">URL LinkedIn</label>
-                                <input type="url" name="linkedin_url" id="linkedin_url" class="form-control" placeholder="https://linkedin.com/in/nama">
+                                <label class="form-label fw-semibold">URL Instagram</label>
+                                <input type="url" name="instagram_url" id="instagram_url" class="form-control" placeholder="https://instagram.com/nama">
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label fw-semibold">Testimoni / Pesan Kesan</label>
@@ -210,7 +210,7 @@
                         document.getElementById('pendapatan_pertama').value = ts.pendapatan_pertama || '';
                     }
                     
-                    document.getElementById('linkedin_url').value = data.linkedin_url || '';
+                    document.getElementById('instagram_url').value = data.instagram_url || '';
                     document.getElementById('testimoni').value = data.testimoni || '';
 
                     resultDiv.className = 'small mt-2 text-success fw-bold';

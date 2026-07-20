@@ -17,7 +17,7 @@ class Alumni extends Model
         'email',
         'foto',
         'testimoni',
-        'linkedin_url',
+        'instagram_url',
         'is_featured',
     ];
 

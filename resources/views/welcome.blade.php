@@ -222,9 +222,9 @@
                         <div class="card-body p-4 text-center d-flex flex-column">
                             <div class="mb-4 position-relative mx-auto" style="width: 120px; height: 120px;">
                                 <img src="{{ asset('storage/' . $alumni->foto) }}" alt="{{ $alumni->nama }}" class="rounded-circle object-fit-cover shadow w-100 h-100" style="border: 4px solid white;">
-                                @if($alumni->linkedin_url)
-                                    <a href="{{ $alumni->linkedin_url }}" target="_blank" class="position-absolute bottom-0 end-0 bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; text-decoration: none;">
-                                        <i class="bi bi-linkedin" style="font-size: 14px;"></i>
+                                @if($alumni->instagram_url)
+                                    <a href="{{ $alumni->instagram_url }}" target="_blank" class="position-absolute bottom-0 end-0 text-white rounded-circle d-flex align-items-center justify-content-center" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); width: 32px; height: 32px; text-decoration: none;">
+                                        <i class="bi bi-instagram" style="font-size: 14px;"></i>
                                     </a>
                                 @endif
                             </div>
