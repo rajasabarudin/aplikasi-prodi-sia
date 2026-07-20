@@ -37,7 +37,7 @@
                         <div class="card-body p-4 text-center d-flex flex-column">
                             <div class="mb-3 position-relative mx-auto" style="width: 80px; height: 80px;">
                                 @if($alumni->foto && \Storage::disk('public')->exists($alumni->foto))
-                                    <img src="{{ asset('storage/' . $alumni->foto) }}" alt="{{ $alumni->nama }}" class="rounded-4 object-fit-cover shadow-sm w-100 h-100">
+                                    <img src="{{ asset('storage/' . $alumni->foto) }}" alt="{{ $alumni->nama }}" class="rounded-4 shadow-sm w-100 h-100" style="object-fit: cover;">
                                 @else
                                     <div class="rounded-4 bg-light d-flex align-items-center justify-content-center shadow-sm w-100 h-100 text-primary fw-bold fs-3">
                                         {{ strtoupper(substr($alumni->nama, 0, 1)) }}

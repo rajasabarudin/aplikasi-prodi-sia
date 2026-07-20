@@ -221,7 +221,7 @@
                     <div class="card h-100 border-0 rounded-4 shadow-sm" style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); transition: transform 0.3s ease;">
                         <div class="card-body p-4 text-center d-flex flex-column">
                             <div class="mb-4 position-relative mx-auto" style="width: 120px; height: 120px;">
-                                <img src="{{ asset('storage/' . $alumni->foto) }}" alt="{{ $alumni->nama }}" class="rounded-4 object-fit-cover shadow w-100 h-100" style="border: 4px solid white;">
+                                <img src="{{ asset('storage/' . $alumni->foto) }}" alt="{{ $alumni->nama }}" class="rounded-4 shadow w-100 h-100" style="border: 4px solid white; object-fit: cover;">
                                 @if($alumni->instagram_url)
                                     <a href="{{ $alumni->instagram_url }}" target="_blank" class="position-absolute bottom-0 end-0 text-white rounded-circle d-flex align-items-center justify-content-center" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); width: 32px; height: 32px; text-decoration: none;">
                                         <i class="bi bi-instagram" style="font-size: 14px;"></i>
