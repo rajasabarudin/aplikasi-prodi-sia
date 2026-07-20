@@ -334,9 +334,10 @@ class DashboardController extends Controller
             ->groupBy('kepangkatan')
             ->pluck('total', 'kepangkatan');
 
-        $totalRekognisi = RekognisiDosen::count();
+        $totalRekognisi = RekognisiDosen::where('is_keanggotaan', false)->count();
 
-        $rekognisiPerTS = RekognisiDosen::select('ts_id')
+        $rekognisiPerTS = RekognisiDosen::where('is_keanggotaan', false)
+            ->select('ts_id')
             ->selectRaw('count(*) as total')
             ->groupBy('ts_id')
             ->pluck('total', 'ts_id');
@@ -348,7 +349,8 @@ class DashboardController extends Controller
             $rekognisiPerTSLabeled[$label] = $total;
         }
 
-        $rekognisiPerDosen = RekognisiDosen::select('kode_dosen', 'nama_dosen')
+        $rekognisiPerDosen = RekognisiDosen::where('is_keanggotaan', false)
+            ->select('kode_dosen', 'nama_dosen')
             ->selectRaw('count(*) as total')
             ->groupBy('kode_dosen', 'nama_dosen')
             ->orderByDesc('total')
