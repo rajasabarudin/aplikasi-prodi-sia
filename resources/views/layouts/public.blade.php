@@ -342,11 +342,14 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('portal.kegiatan*') ? 'active' : '' }}" href="{{ route('portal.kegiatan') }}">Kegiatan & Event</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-warning fw-bold {{ request()->routeIs('portal.beasiswa*') ? 'active' : '' }}" href="{{ route('portal.beasiswa') }}"><i class="bi bi-star-fill me-1"></i>Beasiswa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('direktori-alumni') ? 'active' : '' }}" href="{{ route('direktori-alumni') }}">Direktori Alumni</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold {{ request()->routeIs('portal.beasiswa*') || request()->routeIs('direktori-alumni') ? 'active' : '' }}" href="#" id="navbarMahasiswa" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-mortarboard-fill me-1 text-warning"></i>Mahasiswa & Alumni
+                        </a>
+                        <ul class="dropdown-menu border-0 shadow-sm rounded-4 mt-2" aria-labelledby="navbarMahasiswa">
+                            <li><a class="dropdown-item fw-semibold py-2" href="{{ route('portal.beasiswa') }}"><i class="bi bi-star-fill me-2 text-warning"></i>Beasiswa</a></li>
+                            <li><a class="dropdown-item fw-semibold py-2" href="{{ route('direktori-alumni') }}"><i class="bi bi-people-fill me-2 text-primary"></i>Direktori Alumni</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-bold {{ request()->routeIs('portal.penelitian*') || request()->routeIs('portal.pkm*') ? 'active' : '' }}" href="#" id="navbarTridharma" role="button" data-bs-toggle="dropdown" aria-expanded="false">
