@@ -14,7 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::table('alumnis', function (Blueprint $table) {
-            $table->renameColumn('linkedin_url', 'instagram_url');
+            if (Schema::hasColumn('alumnis', 'linkedin_url')) {
+                $table->dropColumn('linkedin_url');
+            }
+            if (!Schema::hasColumn('alumnis', 'instagram_url')) {
+                $table->string('instagram_url')->nullable();
+            }
         });
     }
 
@@ -26,7 +31,12 @@ return new class extends Migration
     public function down()
     {
         Schema::table('alumnis', function (Blueprint $table) {
-            $table->renameColumn('instagram_url', 'linkedin_url');
+            if (Schema::hasColumn('alumnis', 'instagram_url')) {
+                $table->dropColumn('instagram_url');
+            }
+            if (!Schema::hasColumn('alumnis', 'linkedin_url')) {
+                $table->string('linkedin_url')->nullable();
+            }
         });
     }
 };
