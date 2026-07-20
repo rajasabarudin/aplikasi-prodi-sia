@@ -84,7 +84,11 @@ class BeasiswaMahasiswaController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
             
-        return view('beasiswa_mahasiswa.public_index', compact('beasiswas', 'search'));
+        $statTotal = BeasiswaMahasiswa::count();
+        $statInternal = BeasiswaMahasiswa::where('jenis_beasiswa', 'internal')->count();
+        $statEksternal = BeasiswaMahasiswa::where('jenis_beasiswa', 'eksternal')->count();
+            
+        return view('beasiswa_mahasiswa.public_index', compact('beasiswas', 'search', 'statTotal', 'statInternal', 'statEksternal'));
     }
 
     public function publicStore(Request $request)
