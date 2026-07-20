@@ -72,11 +72,20 @@ Route::get('/run-migrate', function () {
 // Temporary route to clean duplicate rekognisi
 Route::get('/clean-rekognisi', function () {
     try {
-        $count = \App\Models\RekognisiDosen::whereNotNull('prestasi_dosen_id')
+        // Hapus rekognisi yang nempel di Prestasi dari Hibah
+        $count1 = \App\Models\RekognisiDosen::whereNotNull('prestasi_dosen_id')
             ->whereHas('prestasiDosen', function($q) {
                 $q->whereNotNull('hibah_penelitian_id');
             })->delete();
-        return "Pembersihan berhasil! Sebanyak {$count} data rekognisi ganda telah dihapus dari database.";
+            
+        // Hapus rekognisi yang nempel di Hibah Eksternal (karena sudah dianggap Prestasi)
+        $count2 = \App\Models\RekognisiDosen::whereNotNull('hibah_penelitian_id')
+            ->whereHas('hibahPenelitian', function($q) {
+                $q->where('jenis_hibah', 'eksternal');
+            })->delete();
+            
+        $total = $count1 + $count2;
+        return "Pembersihan total berhasil! Sebanyak {$total} data rekognisi yang tumpang tindih dengan Hibah Eksternal telah dihapus dari database.";
     } catch (\Exception $e) {
         return 'Error: ' . $e->getMessage();
     }
