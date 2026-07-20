@@ -106,13 +106,19 @@
                         <div class="card-body d-flex flex-column justify-content-between p-4">
                             <div>
                                 <div class="d-flex justify-content-between align-items-start mb-3">
-                                    @if ($statusPendaftaran === 'belum_buka')
-                                        <span class="badge bg-warning text-dark badge-status"><i class="bi bi-clock me-1"></i>Belum Buka</span>
-                                    @elseif ($statusPendaftaran === 'tutup')
-                                        <span class="badge bg-danger badge-status"><i class="bi bi-x-circle me-1"></i>Tutup</span>
-                                    @else
-                                        <span class="badge bg-success badge-status"><i class="bi bi-check-circle me-1"></i>Buka</span>
-                                    @endif
+                                    <div>
+                                        @if ($statusPendaftaran === 'belum_buka')
+                                            <span class="badge bg-warning text-dark badge-status"><i class="bi bi-clock me-1"></i>Belum Buka</span>
+                                        @elseif ($statusPendaftaran === 'tutup')
+                                            <span class="badge bg-danger badge-status"><i class="bi bi-x-circle me-1"></i>Tutup</span>
+                                        @else
+                                            <span class="badge bg-success badge-status"><i class="bi bi-check-circle me-1"></i>Buka</span>
+                                        @endif
+
+                                        @if($loop->first)
+                                            <span class="badge bg-primary text-white badge-status ms-1" style="background: linear-gradient(45deg, #4f46e5, #ec4899) !important; border: none; box-shadow: 0 4px 10px rgba(236,72,153,0.3);"><i class="bi bi-stars me-1 text-warning"></i>Terbaru</span>
+                                        @endif
+                                    </div>
 
                                     <!-- Price Badge -->
                                     @if($k->jenis_kegiatan === 'berbayar')
