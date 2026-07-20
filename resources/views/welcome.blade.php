@@ -8,13 +8,13 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-7 position-relative z-1 text-center text-lg-start" data-aos="fade-right">
-                    <div class="mb-3">
-                        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold mb-2 border border-primary border-opacity-25">Sistem Informasi Akademik</span>
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start gap-2 mb-3">
+                        <span class="badge bg-primary text-white px-3 py-2 rounded-pill fw-bold shadow-sm fs-6">Sistem Informasi Akademik</span>
                         @if($profilProdi && $profilProdi->akreditasi)
-                            <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill fw-bold mb-2 border border-success border-opacity-25 ms-0 ms-md-2 mt-2 mt-md-0"><i class="bi bi-award-fill me-1"></i>Akreditasi: {{ $profilProdi->akreditasi }}</span>
+                            <span class="badge bg-success text-white px-3 py-2 rounded-pill fw-bold shadow-sm fs-6"><i class="bi bi-award-fill me-1"></i>Akreditasi: {{ $profilProdi->akreditasi }}</span>
                         @endif
                         @if($profilProdi && $profilProdi->lama_masa_studi)
-                            <span class="badge bg-info bg-opacity-10 text-info px-3 py-2 rounded-pill fw-bold mb-2 border border-info border-opacity-25 ms-0 ms-md-2 mt-2 mt-md-0"><i class="bi bi-clock-history me-1"></i>Masa Studi: {{ $profilProdi->lama_masa_studi }}</span>
+                            <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold shadow-sm fs-6"><i class="bi bi-clock-history me-1"></i>Masa Studi: {{ $profilProdi->lama_masa_studi }}</span>
                         @endif
                     </div>
                     
