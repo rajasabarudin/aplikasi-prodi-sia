@@ -362,13 +362,14 @@
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 5%;">No</th>
-                            <th style="width: 25%;">Dosen Pelaksana</th>
-                            <th style="width: 25%;">Anggota (Mahasiswa & Mitra)</th>
-                            <th style="width: 20%;">Jenis Jurnal & Penelitian</th>
+                            <th style="width: 15%;">Dosen Pelaksana</th>
+                            <th style="width: 15%;">Anggota (Mahasiswa & Mitra)</th>
+                            <th style="width: 20%;">Judul Penelitian</th>
+                            <th style="width: 15%;">Jenis Jurnal & Penelitian</th>
                             <th style="width: 15%;">Nama Jurnal</th>
                             <th class="text-center" style="width: 5%;">TA</th>
-                            <th class="text-center" style="width: 10%;">Link Pendukung</th>
-                            <th class="text-center d-print-none" style="width: 10%;">Aksi</th>
+                            <th class="text-center" style="width: 5%;">Link</th>
+                            <th class="text-center d-print-none" style="width: 5%;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -422,6 +423,9 @@
                                     @if (!$item->nim_mhs && !$item->anggota_mitra)
                                         <span class="text-muted small">-</span>
                                     @endif
+                                </td>
+                                <td>
+                                    <div class="fw-bold text-dark" style="font-size: 0.95rem;">{{ $item->judul_penelitian }}</div>
                                 </td>
                                 <td>
                                     <span class="badge bg-primary-subtle text-primary mb-1 custom-badge-pill" style="font-size: 10px;">{{ $item->jenis_jurnal }}</span>

@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Tambah Penelitian Dosen')
 
@@ -111,6 +111,10 @@
     <div class="card p-4 mb-4">
         <h5 class="card-title mb-3 text-primary"><i class="bi bi-journal-bookmark-fill"></i> Detail Jurnal & Penelitian</h5>
         <div class="row">
+            <div class="col-md-12 mb-3">
+                <label for="judul_penelitian" class="form-label">Judul Penelitian <span class="text-danger">*</span></label>
+                <input type="text" name="judul_penelitian" id="judul_penelitian" class="form-control" value="{{ old('judul_penelitian') }}" required>
+            </div>
             <div class="col-md-6 mb-3">
                 <label for="jenis_jurnal" class="form-label">Jenis Jurnal <span class="text-danger">*</span></label>
                 <select name="jenis_jurnal" id="jenis_jurnal" class="form-select" required>

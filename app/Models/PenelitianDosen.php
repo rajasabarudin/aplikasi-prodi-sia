@@ -14,6 +14,7 @@ class PenelitianDosen extends Model
     protected $fillable = [
         'kode_dosen',
         'nama_dosen',
+        'judul_penelitian',
         'jenis_jurnal',
         'jenis_penelitian',
         'biaya',

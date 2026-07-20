@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Detail Penelitian Dosen')
 
@@ -88,6 +88,10 @@
                     <tr>
                         <th>Jenis Penelitian</th>
                         <td>{{ $penelitianDosen->jenis_penelitian }}</td>
+                    </tr>
+                    <tr>
+                        <th>Judul Penelitian</th>
+                        <td><span class="fw-bold">{{ $penelitianDosen->judul_penelitian }}</span></td>
                     </tr>
                     <tr>
                         <th>Nama Jurnal</th>

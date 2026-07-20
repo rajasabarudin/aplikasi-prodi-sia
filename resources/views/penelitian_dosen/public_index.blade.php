@@ -120,7 +120,11 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Judul / Nama Jurnal <span class="text-danger">*</span></label>
+                            <label class="form-label fw-semibold">Judul Penelitian <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="judul_penelitian" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Nama Jurnal <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="nama_jurnal" required>
                         </div>
                         <div class="mb-3">
@@ -200,7 +204,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <div class="fw-semibold text-dark" style="line-height: 1.3;">{{ Str::limit($item->nama_jurnal, 60) }}</div>
+                                        <div class="fw-semibold text-dark" style="line-height: 1.3;">{{ Str::limit($item->judul_penelitian, 60) }}</div>
+                                        <div class="text-muted small mt-1"><i class="bi bi-journal-text me-1"></i>{{ Str::limit($item->nama_jurnal, 40) }}</div>
                                         <div class="mt-2">
                                             <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-2" style="font-size: 0.7rem;">{{ $item->jenis_jurnal }}</span>
                                         </div>
