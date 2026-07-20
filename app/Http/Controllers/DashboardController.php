@@ -40,7 +40,7 @@ class DashboardController extends Controller
 
     public function portalKegiatan()
     {
-        $kegiatans = Kegiatan::with('pesertas')->orderBy('tanggal', 'desc')->get();
+        $kegiatans = Kegiatan::with('pesertas')->orderBy('created_at', 'desc')->get();
         return view('kegiatan.portal', compact('kegiatans'));
     }
 
