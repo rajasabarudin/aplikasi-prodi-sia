@@ -315,14 +315,6 @@ class HibahPenelitianController extends Controller
         // Delete any existing rekognisi records linked to this hibah
         $hibahPenelitian->rekognisiDosen()->delete();
 
-        $jenisHibah = $request->input('jenis_hibah');
-
-        // Jika hibah eksternal, maka ia dianggap sebagai Prestasi.
-        // Berdasarkan instruksi: jangan dihitung lagi di Rekognisi agar tidak double.
-        if ($jenisHibah === 'eksternal') {
-            return;
-        }
-
         // Get arrays of kode_dosen and nama_dosen
         $kodeDosens = array_filter($request->input('kode_dosen', []));
         $namaDosens = array_filter($request->input('nama_dosen', []));
