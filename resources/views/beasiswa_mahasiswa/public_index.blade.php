@@ -23,40 +23,40 @@
     <!-- Statistics Section -->
     <div class="row g-4 mb-4">
         <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="card border-0 shadow-sm rounded-4 h-100 bg-primary text-white">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
                 <div class="card-body p-4 d-flex align-items-center">
-                    <div class="bg-white bg-opacity-25 rounded-circle p-3 me-3">
+                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-3 me-3">
                         <i class="bi bi-people-fill fs-3"></i>
                     </div>
                     <div>
-                        <h6 class="mb-1 fw-semibold text-white-50">Total Penerima</h6>
-                        <h3 class="mb-0 fw-bold">{{ $statTotal }} <span class="fs-6 fw-normal">Mahasiswa</span></h3>
+                        <h6 class="mb-1 fw-semibold text-muted">Total Penerima</h6>
+                        <h3 class="mb-0 fw-bold text-dark">{{ $statTotal }} <span class="fs-6 fw-normal text-muted">Mahasiswa</span></h3>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="card border-0 shadow-sm rounded-4 h-100 bg-success text-white">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
                 <div class="card-body p-4 d-flex align-items-center">
-                    <div class="bg-white bg-opacity-25 rounded-circle p-3 me-3">
+                    <div class="bg-success bg-opacity-10 text-success rounded-circle p-3 me-3">
                         <i class="bi bi-building fs-3"></i>
                     </div>
                     <div>
-                        <h6 class="mb-1 fw-semibold text-white-50">Beasiswa Internal</h6>
-                        <h3 class="mb-0 fw-bold">{{ $statInternal }} <span class="fs-6 fw-normal">Penerima</span></h3>
+                        <h6 class="mb-1 fw-semibold text-muted">Beasiswa Internal</h6>
+                        <h3 class="mb-0 fw-bold text-dark">{{ $statInternal }} <span class="fs-6 fw-normal text-muted">Penerima</span></h3>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-            <div class="card border-0 shadow-sm rounded-4 h-100 bg-info text-white">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
                 <div class="card-body p-4 d-flex align-items-center">
-                    <div class="bg-white bg-opacity-25 rounded-circle p-3 me-3">
+                    <div class="bg-info bg-opacity-10 text-info rounded-circle p-3 me-3">
                         <i class="bi bi-globe fs-3"></i>
                     </div>
                     <div>
-                        <h6 class="mb-1 fw-semibold text-white-50">Beasiswa Eksternal</h6>
-                        <h3 class="mb-0 fw-bold">{{ $statEksternal }} <span class="fs-6 fw-normal">Penerima</span></h3>
+                        <h6 class="mb-1 fw-semibold text-muted">Beasiswa Eksternal</h6>
+                        <h3 class="mb-0 fw-bold text-dark">{{ $statEksternal }} <span class="fs-6 fw-normal text-muted">Penerima</span></h3>
                     </div>
                 </div>
             </div>
