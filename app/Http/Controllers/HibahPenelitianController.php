@@ -433,20 +433,8 @@ class HibahPenelitianController extends Controller
                     'link_dokumen' => $linkDokumen,
                     'hibah_penelitian_id' => $hibahPenelitian->id,
                 ]);
-
-                // Create a RekognisiDosen record linked to this PrestasiDosen
-                RekognisiDosen::create([
-                    'kode_dosen' => $kode,
-                    'nama_dosen' => $nama,
-                    'nama_rekognisi' => $namaPrestasi,
-                    'tahun' => $tahun,
-                    'ts_id' => $tsId,
-                    'level' => $level,
-                    'link_dokumen' => $linkDokumen,
-                    'is_keanggotaan' => false,
-                    'prestasi_dosen_id' => $prestasi->id,
-                ]);
             }
+
 
             // Sync PrestasiMahasiswa
             $nimMhsList = array_filter($request->input('nim_mhs', []));

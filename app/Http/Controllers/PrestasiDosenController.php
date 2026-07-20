@@ -203,7 +203,15 @@ class PrestasiDosenController extends Controller
     private function syncToRekognisi($prestasiDosen, Request $request)
     {
         // Delete any existing rekognisi records linked to this prestasi
+        // Delete any existing rekognisi records linked to this prestasi
         $prestasiDosen->rekognisiDosen()->delete();
+
+        // Mencegah double perhitungan: 
+        // Jika prestasi ini bersumber dari Hibah Penelitian (yang sudah otomatis masuk ke Rekognisi via Hibah), 
+        // maka jangan buat lagi Rekognisi dari sisi Prestasi.
+        if ($prestasiDosen->hibah_penelitian_id) {
+            return;
+        }
 
         $kodeDosenStr = $request->input('kode_dosen', '');
         $namaDosenStr = $request->input('nama_dosen', '');
