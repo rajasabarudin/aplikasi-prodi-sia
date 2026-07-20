@@ -26,7 +26,7 @@
                     @endif
 
                     <h1 class="mb-3">Mewujudkan Lulusan <span>Unggul & Berkualitas</span></h1>
-                    <p class="pe-lg-5 mb-4">Portal resmi program studi yang transparan dan terintegrasi. Pantau pencapaian, inovasi, dan profil akademik secara real-time.</p>
+                    <p class="pe-lg-5 mb-4">Sistem Manajemen Data Program Studi yang transparan dan terintegrasi. Platform pusat untuk mengelola dan memantau seluruh profil akademik, inovasi, serta rekam jejak pencapaian Dosen dan Mahasiswa secara real-time.</p>
                     <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
                         <a href="{{ route('portal.kegiatan') }}" class="btn btn-login btn-lg px-4 py-3" style="border-radius: 16px;">
                             Lihat Kegiatan Terbaru
