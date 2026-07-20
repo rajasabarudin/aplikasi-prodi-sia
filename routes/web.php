@@ -69,6 +69,19 @@ Route::get('/run-migrate', function () {
     }
 });
 
+// Temporary route to clean duplicate rekognisi
+Route::get('/clean-rekognisi', function () {
+    try {
+        $count = \App\Models\RekognisiDosen::whereNotNull('prestasi_dosen_id')
+            ->whereHas('prestasiDosen', function($q) {
+                $q->whereNotNull('hibah_penelitian_id');
+            })->delete();
+        return "Pembersihan berhasil! Sebanyak {$count} data rekognisi ganda telah dihapus dari database.";
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
+
 // Public Kegiatan Registration Routes
 Route::get('/kegiatan-portal/cek-identitas', [DashboardController::class, 'cekIdentitas'])->name('portal.kegiatan.cek-identitas');
 Route::get('/kegiatan-portal', [DashboardController::class, 'portalKegiatan'])->name('portal.kegiatan');
