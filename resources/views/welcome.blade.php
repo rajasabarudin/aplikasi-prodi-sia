@@ -200,17 +200,22 @@
         </div>
     </section>
 
-    <!-- Alumni Inspiratif -->
-    @if(isset($alumniInspiratif) && $alumniInspiratif->count() > 0)
+    <!-- Alumni Inspiratif & Tracer Study -->
     <section class="py-5" style="background: linear-gradient(135deg, rgba(30, 58, 138, 0.05), rgba(79, 70, 229, 0.05));">
         <div class="container">
             <div class="text-center mb-5">
                 <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-3 shadow-sm"><i class="bi bi-star-fill me-1"></i> Kisah Sukses Lulusan</span>
-                <h2 class="section-title">Alumni Inspiratif</h2>
-                <p class="section-subtitle">Jejak langkah membanggakan dari para alumni yang telah sukses berkarier di berbagai bidang.</p>
+                <h2 class="section-title">Alumni Inspiratif & Tracer Study</h2>
+                <p class="section-subtitle">Jejak langkah membanggakan dari para alumni yang telah sukses berkarier di berbagai bidang. Mari lengkapi data Tracer Study Anda untuk kemajuan program studi.</p>
+                <div class="mt-4">
+                    <a href="{{ route('portal.alumni') }}" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm">
+                        <i class="bi bi-pencil-square me-2"></i> Isi Data Tracer Study Anda
+                    </a>
+                </div>
             </div>
             
-            <div class="row g-4 justify-content-center">
+            @if(isset($alumniInspiratif) && $alumniInspiratif->count() > 0)
+            <div class="row g-4 justify-content-center mt-4">
                 @foreach($alumniInspiratif as $alumni)
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
                     <div class="card h-100 border-0 rounded-4 shadow-sm" style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); transition: transform 0.3s ease;">
@@ -240,9 +245,9 @@
                 </div>
                 @endforeach
             </div>
+            @endif
         </div>
     </section>
-    @endif
 
     <!-- Highlight Mitra Kerja Sama -->
     <section class="py-5 bg-light rounded-5 shadow-sm mx-lg-4 p-lg-5 mb-5 border">

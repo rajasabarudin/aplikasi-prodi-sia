@@ -55,6 +55,10 @@ Route::get('/profil', [DashboardController::class, 'profilProdiPublic'])->name('
 Route::get('/berita', [DashboardController::class, 'beritaPublic'])->name('berita.public');
 Route::get('/berita/{slug}', [DashboardController::class, 'bacaBerita'])->name('berita.baca');
 
+// Public Alumni & Tracer Study Portal
+Route::get('/portal-alumni', [\App\Http\Controllers\TracerStudyController::class, 'publicForm'])->name('portal.alumni');
+Route::post('/portal-alumni', [\App\Http\Controllers\TracerStudyController::class, 'publicSubmit'])->name('portal.alumni.submit');
+Route::get('/portal-alumni/get-alumni/{nim}', [\App\Http\Controllers\TracerStudyController::class, 'getAlumni'])->name('portal.alumni.get-alumni');
 // SEO Sitemap
 Route::get('/sitemap.xml', [DashboardController::class, 'sitemap'])->name('sitemap');
 
