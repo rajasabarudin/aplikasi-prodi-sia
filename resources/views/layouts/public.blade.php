@@ -345,6 +345,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-warning fw-bold {{ request()->routeIs('portal.beasiswa*') ? 'active' : '' }}" href="{{ route('portal.beasiswa') }}"><i class="bi bi-star-fill me-1"></i>Beasiswa</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('direktori-alumni') ? 'active' : '' }}" href="{{ route('direktori-alumni') }}">Direktori Alumni</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-bold {{ request()->routeIs('portal.penelitian*') || request()->routeIs('portal.pkm*') ? 'active' : '' }}" href="#" id="navbarTridharma" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-briefcase-fill me-1 text-secondary"></i>Tridharma Dosen

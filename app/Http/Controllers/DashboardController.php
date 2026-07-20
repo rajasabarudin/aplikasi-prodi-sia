@@ -26,6 +26,28 @@ class DashboardController extends Controller
         return view('welcome', $this->getDashboardData());
     }
 
+    public function direktoriAlumni(Request $request)
+    {
+        $query = \App\Models\Alumni::query();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where('nama', 'like', "%{$search}%")
+                  ->orWhere('tahun_lulus', 'like', "%{$search}%")
+                  ->orWhereHas('tracerStudy', function($q) use ($search) {
+                      $q->where('nama_perusahaan', 'like', "%{$search}%")
+                        ->orWhere('jabatan', 'like', "%{$search}%");
+                  });
+        }
+
+        $alumniList = $query->with('tracerStudy')
+                           ->orderBy('tahun_lulus', 'desc')
+                           ->orderBy('nama', 'asc')
+                           ->paginate(12);
+
+        return view('direktori_alumni', compact('alumniList'));
+    }
+
     public function profilProdiPublic()
     {
         $profilProdi = \App\Models\ProfilProdi::first();
@@ -516,7 +538,7 @@ class DashboardController extends Controller
             ->whereNotNull('foto')
             ->whereNotNull('testimoni')
             ->orderBy('tahun_lulus', 'desc')
-            ->take(5)
+            ->take(6)
             ->get();
 
         return compact(

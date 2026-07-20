@@ -59,6 +59,8 @@ Route::get('/berita/{slug}', [DashboardController::class, 'bacaBerita'])->name('
 Route::get('/portal-alumni', [\App\Http\Controllers\TracerStudyController::class, 'publicForm'])->name('portal.alumni');
 Route::post('/portal-alumni', [\App\Http\Controllers\TracerStudyController::class, 'publicSubmit'])->name('portal.alumni.submit');
 Route::get('/portal-alumni/get-alumni/{nim}', [\App\Http\Controllers\TracerStudyController::class, 'getAlumni'])->name('portal.alumni.get-alumni');
+Route::get('/direktori-alumni', [DashboardController::class, 'direktoriAlumni'])->name('direktori-alumni');
+
 // SEO Sitemap
 Route::get('/sitemap.xml', [DashboardController::class, 'sitemap'])->name('sitemap');
 
