@@ -67,75 +67,7 @@
                             </td>
                         </tr>
 
-                        <!-- Edit Modal -->
-                        <div class="modal fade" id="editTendikModal{{ $tendik->id }}" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Edit Data Tenaga Kependidikan</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <form action="{{ route('tendik.update', $tendik->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="modal-body text-start">
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label fw-bold">NIP / NIK</label>
-                                                    <input type="text" name="nip_nik" class="form-control" value="{{ $tendik->nip_nik }}">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label fw-bold">Nama Lengkap <span class="text-danger">*</span></label>
-                                                    <input type="text" name="nama_lengkap" class="form-control" value="{{ $tendik->nama_lengkap }}" required>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label fw-bold">Jenis Kelamin <span class="text-danger">*</span></label>
-                                                    <select name="jenis_kelamin" class="form-select" required>
-                                                        <option value="L" {{ $tendik->jenis_kelamin == 'L' ? 'selected' : '' }}>Laki-Laki (L)</option>
-                                                        <option value="P" {{ $tendik->jenis_kelamin == 'P' ? 'selected' : '' }}>Perempuan (P)</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label fw-bold">Pendidikan Terakhir</label>
-                                                    <select name="pendidikan_terakhir" class="form-select">
-                                                        <option value="">-- Pilih --</option>
-                                                        @foreach(['SMA/SMK/Sederajat', 'D1/D2/D3', 'D4/S1', 'S2', 'S3'] as $pendidikan)
-                                                            <option value="{{ $pendidikan }}" {{ $tendik->pendidikan_terakhir == $pendidikan ? 'selected' : '' }}>{{ $pendidikan }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label fw-bold">Jabatan / TugasPokok</label>
-                                                    <input type="text" name="jabatan_tugas" class="form-control" value="{{ $tendik->jabatan_tugas }}" placeholder="Contoh: Pustakawan, Teknisi, Tata Usaha">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label fw-bold">Status Pegawai</label>
-                                                    <select name="status_pegawai" class="form-select">
-                                                        <option value="">-- Pilih --</option>
-                                                        <option value="Tetap" {{ $tendik->status_pegawai == 'Tetap' ? 'selected' : '' }}>Tetap</option>
-                                                        <option value="Tidak Tetap" {{ $tendik->status_pegawai == 'Tidak Tetap' ? 'selected' : '' }}>Tidak Tetap</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-12">
-                                                    <label class="form-label fw-bold">Unit Kerja</label>
-                                                    <input type="text" name="unit_kerja" class="form-control" value="{{ $tendik->unit_kerja }}" placeholder="Contoh: Fakultas Ilmu Komputer">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                            <button type="submit" class="btn btn-primary">Update Data</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+
                         @empty
                         <tr>
                             <td colspan="8" class="text-center text-muted">Belum ada data tenaga kependidikan.</td>
@@ -216,5 +148,76 @@
         </div>
     </div>
 </div>
+@foreach($tendiks as $tendik)
+<!-- Edit Modal -->
+<div class="modal fade" id="editTendikModal{{ $tendik->id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Data Tenaga Kependidikan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('tendik.update', $tendik->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body text-start">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">NIP / NIK</label>
+                            <input type="text" name="nip_nik" class="form-control" value="{{ $tendik->nip_nik }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Nama Lengkap <span class="text-danger">*</span></label>
+                            <input type="text" name="nama_lengkap" class="form-control" value="{{ $tendik->nama_lengkap }}" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Jenis Kelamin <span class="text-danger">*</span></label>
+                            <select name="jenis_kelamin" class="form-select" required>
+                                <option value="L" {{ $tendik->jenis_kelamin == 'L' ? 'selected' : '' }}>Laki-Laki (L)</option>
+                                <option value="P" {{ $tendik->jenis_kelamin == 'P' ? 'selected' : '' }}>Perempuan (P)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Pendidikan Terakhir</label>
+                            <select name="pendidikan_terakhir" class="form-select">
+                                <option value="">-- Pilih --</option>
+                                @foreach(['SMA/SMK/Sederajat', 'D1/D2/D3', 'D4/S1', 'S2', 'S3'] as $pendidikan)
+                                    <option value="{{ $pendidikan }}" {{ $tendik->pendidikan_terakhir == $pendidikan ? 'selected' : '' }}>{{ $pendidikan }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Jabatan / TugasPokok</label>
+                            <input type="text" name="jabatan_tugas" class="form-control" value="{{ $tendik->jabatan_tugas }}" placeholder="Contoh: Pustakawan, Teknisi, Tata Usaha">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Status Pegawai</label>
+                            <select name="status_pegawai" class="form-select">
+                                <option value="">-- Pilih --</option>
+                                <option value="Tetap" {{ $tendik->status_pegawai == 'Tetap' ? 'selected' : '' }}>Tetap</option>
+                                <option value="Tidak Tetap" {{ $tendik->status_pegawai == 'Tidak Tetap' ? 'selected' : '' }}>Tidak Tetap</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label class="form-label fw-bold">Unit Kerja</label>
+                            <input type="text" name="unit_kerja" class="form-control" value="{{ $tendik->unit_kerja }}" placeholder="Contoh: Fakultas Ilmu Komputer">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Update Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
 
 @endsection
