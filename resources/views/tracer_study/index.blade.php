@@ -136,7 +136,7 @@
 <div class="modal fade" id="tambahAlumniModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form action="{{ route('tracer-study.store') }}" method="POST">
+            <form action="{{ route('tracer-study.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header bg-dark text-white">
                     <h5 class="modal-title"><i class="bi bi-plus-circle-fill me-2 text-primary"></i>Tambah Data Alumni & Tracer Study</h5>
@@ -165,6 +165,27 @@
                         <div class="col-md-4 mb-3">
                             <label class="form-label fw-semibold">IPK Akhir <span class="text-danger">*</span></label>
                             <input type="number" step="0.01" name="ipk" class="form-control" min="0" max="4" required placeholder="Contoh: 3.75">
+                        </div>
+
+                        <!-- Data Publik / Kisah Sukses -->
+                        <h6 class="fw-bold mt-3 mb-3 text-info border-bottom pb-2">Profil Publik (Opsional - Untuk Beranda)</h6>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Foto Alumni (Max 2MB)</label>
+                            <input type="file" name="foto" class="form-control" accept="image/*">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">URL LinkedIn</label>
+                            <input type="url" name="linkedin_url" class="form-control" placeholder="https://linkedin.com/in/...">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label fw-semibold">Testimoni / Kesan Pesan</label>
+                            <textarea name="testimoni" class="form-control" rows="3" placeholder="Pesan inspiratif dari alumni untuk ditampilkan di beranda..."></textarea>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="is_featured" id="is_featured_add" value="1">
+                                <label class="form-check-label fw-semibold" for="is_featured_add">Tampilkan Profil ini di Beranda Utama (Alumni Inspiratif)</label>
+                            </div>
                         </div>
 
                         <!-- Data Tracer Study -->
@@ -226,7 +247,7 @@
 <div class="modal fade" id="editAlumniModal{{ $alumni->id }}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg text-start">
         <div class="modal-content">
-            <form action="{{ route('tracer-study.update', $alumni->id) }}" method="POST">
+            <form action="{{ route('tracer-study.update', $alumni->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="modal-header bg-dark text-white">
@@ -256,6 +277,32 @@
                         <div class="col-md-4 mb-3">
                             <label class="form-label fw-semibold">IPK Akhir <span class="text-danger">*</span></label>
                             <input type="number" step="0.01" name="ipk" class="form-control" value="{{ $alumni->ipk }}" min="0" max="4" required>
+                        </div>
+
+                        <!-- Data Publik / Kisah Sukses -->
+                        <h6 class="fw-bold mt-3 mb-3 text-info border-bottom pb-2">Profil Publik (Opsional - Untuk Beranda)</h6>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Foto Alumni (Max 2MB)</label>
+                            <input type="file" name="foto" class="form-control" accept="image/*">
+                            @if($alumni->foto)
+                                <div class="mt-2 small text-muted">
+                                    <i class="bi bi-check-circle text-success"></i> Sudah ada foto. Unggah baru untuk mengganti.
+                                </div>
+                            @endif
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">URL LinkedIn</label>
+                            <input type="url" name="linkedin_url" class="form-control" value="{{ $alumni->linkedin_url }}" placeholder="https://linkedin.com/in/...">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label fw-semibold">Testimoni / Kesan Pesan</label>
+                            <textarea name="testimoni" class="form-control" rows="3" placeholder="Pesan inspiratif dari alumni untuk ditampilkan di beranda...">{{ $alumni->testimoni }}</textarea>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="is_featured" id="is_featured_edit_{{ $alumni->id }}" value="1" {{ $alumni->is_featured ? 'checked' : '' }}>
+                                <label class="form-check-label fw-semibold" for="is_featured_edit_{{ $alumni->id }}">Tampilkan Profil ini di Beranda Utama (Alumni Inspiratif)</label>
+                            </div>
                         </div>
 
                         <!-- Data Tracer Study -->

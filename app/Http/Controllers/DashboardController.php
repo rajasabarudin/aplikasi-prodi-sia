@@ -511,6 +511,13 @@ class DashboardController extends Controller
         $profilProdi = \App\Models\ProfilProdi::first();
         $beritaTerbaru = \App\Models\Berita::orderBy('tanggal', 'desc')->take(3)->get();
         $mitraList = \App\Models\Kerjasama::orderBy('created_at', 'desc')->get();
+        
+        $alumniInspiratif = \App\Models\Alumni::where('is_featured', true)
+            ->whereNotNull('foto')
+            ->whereNotNull('testimoni')
+            ->orderBy('tahun_lulus', 'desc')
+            ->take(5)
+            ->get();
 
         return compact(
             'jumlahDosen', 'jumlahMahasiswa', 'jumlahKelas',
@@ -523,7 +530,7 @@ class DashboardController extends Controller
             'totalMhsPunyaHkiCount', 'totalDosenPunyaHkiCount', 'persenMhsHki', 'persenDosenHki',
             'prestasiMhsTsLabels', 'prestasiMhsTsData', 'serkomChartLabels', 'serkomChartData',
             'praktisiChartLabels', 'praktisiChartData', 'totalPraktisi', 'rpsIntegrasi',
-            'profilProdi', 'beritaTerbaru'
+            'profilProdi', 'beritaTerbaru', 'alumniInspiratif'
         );
     }
 

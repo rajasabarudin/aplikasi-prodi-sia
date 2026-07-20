@@ -28,16 +28,24 @@ class TracerStudyController extends Controller
             'tahun_lulus' => 'required|integer|gte:tahun_masuk',
             'ipk' => 'required|numeric|min:0|max:4',
             'status_kerja' => 'required|string',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $alumni = Alumni::create($request->only(['nim', 'nama', 'tahun_masuk', 'tahun_lulus', 'ipk', 'no_telepon', 'email']));
+        $data = $request->only(['nim', 'nama', 'tahun_masuk', 'tahun_lulus', 'ipk', 'no_telepon', 'email', 'testimoni', 'linkedin_url']);
+        $data['is_featured'] = $request->has('is_featured') ? true : false;
+
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('alumni', 'public');
+        }
+
+        $alumni = Alumni::create($data);
         
         $alumni->tracerStudy()->create($request->only([
             'status_kerja', 'waktu_tunggu', 'kesesuaian_bidang', 
             'tingkat_tempat_kerja', 'nama_perusahaan', 'jabatan', 'pendapatan_pertama'
         ]));
 
-        return redirect()->route('tracer-study.index')->with('success', 'Data Tracer Study berhasil ditambahkan.');
+        return redirect()->route('tracer-study.index')->with('success', 'Data Tracer Study & Alumni berhasil ditambahkan.');
     }
 
     public function show($id)
@@ -55,9 +63,20 @@ class TracerStudyController extends Controller
             'tahun_lulus' => 'required|integer|gte:tahun_masuk',
             'ipk' => 'required|numeric|min:0|max:4',
             'status_kerja' => 'required|string',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $alumni->update($request->only(['nama', 'tahun_masuk', 'tahun_lulus', 'ipk', 'no_telepon', 'email']));
+        $data = $request->only(['nama', 'tahun_masuk', 'tahun_lulus', 'ipk', 'no_telepon', 'email', 'testimoni', 'linkedin_url']);
+        $data['is_featured'] = $request->has('is_featured') ? true : false;
+
+        if ($request->hasFile('foto')) {
+            if ($alumni->foto && \Illuminate\Support\Facades\Storage::disk('public')->exists($alumni->foto)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($alumni->foto);
+            }
+            $data['foto'] = $request->file('foto')->store('alumni', 'public');
+        }
+
+        $alumni->update($data);
         
         if ($alumni->tracerStudy) {
             $alumni->tracerStudy->update($request->only([
@@ -71,7 +90,7 @@ class TracerStudyController extends Controller
             ]));
         }
 
-        return redirect()->route('tracer-study.index')->with('success', 'Data Tracer Study berhasil diperbarui.');
+        return redirect()->route('tracer-study.index')->with('success', 'Data Tracer Study & Alumni berhasil diperbarui.');
     }
 
     public function destroy($id)

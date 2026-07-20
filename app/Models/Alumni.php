@@ -15,6 +15,10 @@ class Alumni extends Model
         'ipk',
         'no_telepon',
         'email',
+        'foto',
+        'testimoni',
+        'linkedin_url',
+        'is_featured',
     ];
 
     public function tracerStudy()

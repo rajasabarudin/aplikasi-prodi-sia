@@ -200,6 +200,50 @@
         </div>
     </section>
 
+    <!-- Alumni Inspiratif -->
+    @if(isset($alumniInspiratif) && $alumniInspiratif->count() > 0)
+    <section class="py-5" style="background: linear-gradient(135deg, rgba(30, 58, 138, 0.05), rgba(79, 70, 229, 0.05));">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-3 shadow-sm"><i class="bi bi-star-fill me-1"></i> Kisah Sukses Lulusan</span>
+                <h2 class="section-title">Alumni Inspiratif</h2>
+                <p class="section-subtitle">Jejak langkah membanggakan dari para alumni yang telah sukses berkarier di berbagai bidang.</p>
+            </div>
+            
+            <div class="row g-4 justify-content-center">
+                @foreach($alumniInspiratif as $alumni)
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
+                    <div class="card h-100 border-0 rounded-4 shadow-sm" style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); transition: transform 0.3s ease;">
+                        <div class="card-body p-4 text-center d-flex flex-column">
+                            <div class="mb-4 position-relative mx-auto" style="width: 120px; height: 120px;">
+                                <img src="{{ asset('storage/' . $alumni->foto) }}" alt="{{ $alumni->nama }}" class="rounded-circle object-fit-cover shadow w-100 h-100" style="border: 4px solid white;">
+                                @if($alumni->linkedin_url)
+                                    <a href="{{ $alumni->linkedin_url }}" target="_blank" class="position-absolute bottom-0 end-0 bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; text-decoration: none;">
+                                        <i class="bi bi-linkedin" style="font-size: 14px;"></i>
+                                    </a>
+                                @endif
+                            </div>
+                            <h5 class="fw-bold text-dark mb-1">{{ $alumni->nama }}</h5>
+                            <div class="text-muted small mb-3">Lulusan {{ $alumni->tahun_lulus }}</div>
+                            
+                            @if($alumni->tracerStudy)
+                                <div class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2 rounded-pill mx-auto">
+                                    <i class="bi bi-briefcase-fill me-1"></i> {{ $alumni->tracerStudy->jabatan ?: $alumni->tracerStudy->status_kerja }} di {{ $alumni->tracerStudy->nama_perusahaan ?: 'Perusahaan/Instansi' }}
+                                </div>
+                            @endif
+                            
+                            <p class="mt-auto mb-0 fst-italic text-secondary" style="font-size: 0.95rem; line-height: 1.6;">
+                                "{{ $alumni->testimoni }}"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
+
     <!-- Highlight Mitra Kerja Sama -->
     <section class="py-5 bg-light rounded-5 shadow-sm mx-lg-4 p-lg-5 mb-5 border">
         <div class="container">
