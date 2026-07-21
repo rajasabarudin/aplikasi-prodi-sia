@@ -621,6 +621,12 @@
                         <span class="sidebar-text">Hak Akses</span>
                     </a>
                 </li>
+                <li class="nav-item mt-2">
+                    <a href="{{ route('digital-twin.index') }}" class="nav-link text-white {{ request()->routeIs('digital-twin.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
+                        <i class="bi bi-cloud-arrow-down-fill me-2 text-success fs-5"></i>
+                        <span class="sidebar-text">Digital Twin (IoT)</span>
+                    </a>
+                </li>
                 @endif
             </ul>
         </div>
