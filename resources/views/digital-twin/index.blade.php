@@ -1,0 +1,150 @@
+@extends('layouts.app')
+
+@section('title', 'Digital Twin - Kebun Sawit')
+
+@section('content')
+<div class="container-fluid">
+    <div class="row mb-3 align-items-center">
+        <div class="col-md-6">
+            <h1 class="h3 mb-0 text-gray-800">IoT Digital Twin Dashboard</h1>
+            <p class="text-muted">Dataset Penelitian Perkebunan Sawit</p>
+        </div>
+        <div class="col-md-6 text-right">
+            <form action="{{ route('digital-twin.sync') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-primary shadow-sm">
+                    <i class="fas fa-sync fa-sm text-white-50"></i> Tarik Data Sekarang
+                </button>
+            </form>
+        </div>
+    </div>
+
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+
+    <div class="row">
+        <!-- Kelembaban Tanah -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2" style="border-left: 4px solid #4e73df;">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Kelembapan Tanah</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{ $dataset->first()->kelembaban_tanah_persen ?? 0 }} %
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-tint fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suhu Tanah -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2" style="border-left: 4px solid #1cc88a;">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Suhu Tanah</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{ $dataset->first()->suhu_tanah_celcius ?? 0 }} &deg;C
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-seedling fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suhu Udara -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2" style="border-left: 4px solid #f6c23e;">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Suhu Udara</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{ $dataset->first()->suhu_udara_celcius ?? 0 }} &deg;C
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-temperature-high fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kelembaban Udara -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2" style="border-left: 4px solid #36b9cc;">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Kelembapan Udara</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{ $dataset->first()->kelembaban_udara_persen ?? 0 }} %
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-cloud fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Histori Dataset (100 Data Terakhir)</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" width="100%" cellspacing="0">
+                    <thead class="bg-primary text-white">
+                        <tr>
+                            <th>Waktu (WIB)</th>
+                            <th>Device ID</th>
+                            <th>Suhu Udara (&deg;C)</th>
+                            <th>Kelembapan Udara (%)</th>
+                            <th>Suhu Tanah (&deg;C)</th>
+                            <th>Kelembapan Tanah (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($dataset as $data)
+                        <tr>
+                            <td>{{ $data->waktu }}</td>
+                            <td>{{ $data->device_id }}</td>
+                            <td>{{ $data->suhu_udara_celcius ?? '-' }}</td>
+                            <td>{{ $data->kelembaban_udara_persen ?? '-' }}</td>
+                            <td>{{ $data->suhu_tanah_celcius ?? '-' }}</td>
+                            <td>{{ $data->kelembaban_tanah_persen ?? '-' }}</td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="6" class="text-center">Belum ada dataset. Silakan klik tombol "Tarik Data Sekarang".</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

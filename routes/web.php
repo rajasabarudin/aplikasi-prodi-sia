@@ -283,4 +283,8 @@ Route::middleware(['auth', 'permission'])->prefix('admin')->group(function () {
 
     // Survei Kepuasan
     Route::resource('survei-kepuasan', \App\Http\Controllers\SurveiKepuasanController::class)->except(['create', 'edit', 'show', 'update']);
+
+    // Digital Twin (Disertasi)
+    Route::get('digital-twin', [\App\Http\Controllers\DigitalTwinController::class, 'index'])->name('digital-twin.index');
+    Route::post('digital-twin/sync', [\App\Http\Controllers\DigitalTwinController::class, 'syncData'])->name('digital-twin.sync');
 });
