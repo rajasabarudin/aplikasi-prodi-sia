@@ -137,6 +137,48 @@
                 </div>
                 @endforeach
             </div>
+            
+            @if(count($photos) > 4)
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-outline-primary shadow-sm" data-toggle="modal" data-target="#modalRekapFoto">
+                    <i class="fas fa-images"></i> Lihat Rekap Semua Foto ({{ count($photos) }})
+                </button>
+            </div>
+            @endif
+        </div>
+    </div>
+
+    <!-- Modal Rekap Foto -->
+    <div class="modal fade" id="modalRekapFoto" tabindex="-1" role="dialog" aria-labelledby="modalRekapFotoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="modalRekapFotoLabel">Rekap Pemantauan Visual Keseluruhan</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-light">
+                    <div class="row">
+                        @foreach($photos as $photo)
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <a href="{{ $photo['url_foto'] }}" target="_blank">
+                                    <img src="{{ $photo['url_foto'] }}" class="card-img-top" alt="Pemantauan Sawit" style="height: 150px; object-fit: cover;">
+                                </a>
+                                <div class="card-body p-2 text-center">
+                                    <p class="small text-muted mb-1"><i class="fas fa-clock me-1"></i> {{ date('d M Y H:i', strtotime($photo['waktu'])) }}</p>
+                                    <span class="badge badge-info">{{ $photo['status_cuaca'] }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
         </div>
     </div>
     @endif
