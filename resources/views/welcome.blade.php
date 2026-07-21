@@ -229,11 +229,14 @@
                                 @endif
                             </div>
                             <h5 class="fw-bold text-dark mb-1">{{ $alumni->nama }}</h5>
-                            <div class="text-muted small mb-3">Lulusan {{ $alumni->tahun_lulus }}</div>
+                            <div class="text-muted small mb-1">Lulusan {{ $alumni->tahun_lulus }}</div>
                             
                             @if($alumni->tracerStudy)
-                                <div class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2 rounded-pill mx-auto text-wrap" style="line-height: 1.5; font-weight: 500;">
-                                    <i class="bi bi-briefcase-fill me-1"></i> {{ $alumni->tracerStudy->jabatan ?: $alumni->tracerStudy->status_kerja }} di {{ $alumni->tracerStudy->nama_perusahaan ?: 'Perusahaan/Instansi' }}
+                                <div class="fw-bold text-primary small mb-3">
+                                    {{ $alumni->tracerStudy->jabatan ?: $alumni->tracerStudy->status_kerja }}
+                                </div>
+                                <div class="badge bg-light text-dark border mb-3 px-3 py-2 rounded-pill mx-auto text-wrap" style="line-height: 1.5; font-weight: 500;">
+                                    <i class="bi bi-building me-1 text-secondary"></i> {{ $alumni->tracerStudy->nama_perusahaan ?: 'Perusahaan/Instansi' }}
                                 </div>
                             @endif
                             
