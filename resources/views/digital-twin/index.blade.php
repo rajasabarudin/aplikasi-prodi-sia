@@ -9,8 +9,11 @@
             <h1 class="h3 mb-0 text-gray-800">IoT Digital Twin Dashboard</h1>
             <p class="text-muted">Dataset Penelitian Perkebunan Sawit</p>
         </div>
-        <div class="col-md-6 text-right">
-            <form action="{{ route('digital-twin.sync') }}" method="POST">
+        <div class="col-md-6 text-right d-flex justify-content-end align-items-center gap-2">
+            <a href="{{ route('digital-twin.export') }}" class="btn btn-success shadow-sm">
+                <i class="fas fa-file-excel fa-sm text-white-50"></i> Export CSV
+            </a>
+            <form action="{{ route('digital-twin.sync') }}" method="POST" class="m-0">
                 @csrf
                 <button type="submit" class="btn btn-primary shadow-sm">
                     <i class="fas fa-sync fa-sm text-white-50"></i> Tarik Data Sekarang
