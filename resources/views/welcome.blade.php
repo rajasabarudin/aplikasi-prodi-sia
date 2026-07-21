@@ -232,7 +232,7 @@
                             <div class="text-muted small mb-3">Lulusan {{ $alumni->tahun_lulus }}</div>
                             
                             @if($alumni->tracerStudy)
-                                <div class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2 rounded-pill mx-auto">
+                                <div class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2 rounded-pill mx-auto text-wrap" style="line-height: 1.5; font-weight: 500;">
                                     <i class="bi bi-briefcase-fill me-1"></i> {{ $alumni->tracerStudy->jabatan ?: $alumni->tracerStudy->status_kerja }} di {{ $alumni->tracerStudy->nama_perusahaan ?: 'Perusahaan/Instansi' }}
                                 </div>
                             @endif
