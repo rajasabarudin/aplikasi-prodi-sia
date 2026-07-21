@@ -111,6 +111,36 @@
         </div>
     </div>
 
+    <!-- Visual Monitoring Gallery -->
+    @if(isset($photos) && count($photos) > 0)
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Galeri Pemantauan Visual (IoT Camera)</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                @foreach(array_slice($photos, 0, 4) as $photo)
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="{{ $photo['url_foto'] }}" class="card-img-top" alt="Pemantauan Sawit" style="height: 200px; object-fit: cover;">
+                        <div class="card-body p-3">
+                            <h6 class="font-weight-bold text-dark mb-1"><i class="fas fa-camera me-1"></i> {{ $photo['device_id'] }}</h6>
+                            <p class="small text-muted mb-2"><i class="fas fa-clock me-1"></i> {{ $photo['waktu'] }}</p>
+                            <span class="badge badge-info">{{ $photo['status_cuaca'] }}</span>
+                            <div class="mt-2 small text-muted">
+                                <div>Kecerahan: {{ $photo['kecerahan'] }}</div>
+                                <div>Kontras: {{ $photo['kontras'] }}</div>
+                                <div>Saturasi: {{ $photo['saturasi'] }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    @endif
+
     <!-- Data Table -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">

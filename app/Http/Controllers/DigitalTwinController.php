@@ -10,7 +10,19 @@ class DigitalTwinController extends Controller
     {
         // Get the latest 100 data points for the dashboard
         $dataset = \App\Models\IotData::orderBy('waktu', 'desc')->take(100)->get();
-        return view('digital-twin.index', compact('dataset'));
+        
+        // Fetch photos from the new API
+        $photos = [];
+        try {
+            $response = \Illuminate\Support\Facades\Http::timeout(5)->get('https://iotproject.my.id/api/api_public_photos.php');
+            if ($response->successful()) {
+                $photos = $response->json('data') ?? [];
+            }
+        } catch (\Exception $e) {
+            // Silently ignore if API fails, so page still loads
+        }
+
+        return view('digital-twin.index', compact('dataset', 'photos'));
     }
 
     public function syncData()
