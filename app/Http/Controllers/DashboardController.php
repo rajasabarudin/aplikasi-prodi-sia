@@ -79,7 +79,7 @@ class DashboardController extends Controller
             'jenis_ciptaan' => 'required|string',
             'no_permohonan' => 'required|string',
             'tgl_permohonan' => 'required|date',
-            'kode_dosen' => 'nullable|string',
+            'kode_dosen' => 'nullable|array',
             'link_dokumen' => 'nullable|url',
         ]);
 
@@ -89,17 +89,58 @@ class DashboardController extends Controller
         $hki->jenis_ciptaan = $request->jenis_ciptaan;
         $hki->no_permohonan = $request->no_permohonan;
         $hki->tgl_permohonan = $request->tgl_permohonan;
-        $hki->kode_dosen = $request->kode_dosen;
         $hki->link_dokumen = $request->link_dokumen;
         
-        if ($request->filled('kode_dosen')) {
-            $dosen = \App\Models\Dosen::where('kode_dosen', $request->kode_dosen)->first();
-            if ($dosen) {
-                $hki->nama_dosen = $dosen->nama_dosen;
+        $kodeDosens = $request->input('kode_dosen', []);
+        $kodeDosens = array_filter($kodeDosens); // remove empty values
+
+        if (!empty($kodeDosens)) {
+            $dosens = \App\Models\Dosen::whereIn('kode_dosen', $kodeDosens)->get();
+            $hki->kode_dosen = implode(',', $kodeDosens);
+            
+            $namaDosens = [];
+            foreach ($kodeDosens as $kode) {
+                $d = $dosens->firstWhere('kode_dosen', $kode);
+                if ($d) $namaDosens[] = $d->nama_dosen;
             }
+            $hki->nama_dosen = implode(',', $namaDosens);
         }
         
         $hki->save();
+
+        // Sync to Rekognisi Dosen
+        if (!empty($kodeDosens) && !empty($hki->no_permohonan)) {
+            $tahun = date('Y', strtotime($hki->tgl_permohonan));
+            $ts = \App\Models\Ts::where('tahun_sekarang', 'like', "%{$tahun}%")->first();
+            if (!$ts) $ts = \App\Models\Ts::orderBy('tahun_sekarang', 'desc')->first();
+            
+            if ($ts) {
+                $level = 'nasional';
+                $jenis = strtolower($hki->jenis_ciptaan);
+                $judulCiptaan = strtolower($hki->judul_ciptaan);
+                if (str_contains($jenis, 'internasional') || str_contains($judulCiptaan, 'internasional') || str_contains($jenis, 'international') || str_contains($judulCiptaan, 'international')) {
+                    $level = 'internasional';
+                }
+
+                $namaRekognisi = "HKI ({$hki->jenis_ciptaan}): {$hki->judul_ciptaan}";
+                if (strlen($namaRekognisi) > 200) $namaRekognisi = substr($namaRekognisi, 0, 197) . '...';
+
+                foreach ($kodeDosens as $index => $kode) {
+                    $nama = $namaDosens[$index] ?? '';
+                    \App\Models\RekognisiDosen::create([
+                        'kode_dosen' => $kode,
+                        'nama_dosen' => $nama,
+                        'nama_rekognisi' => $namaRekognisi,
+                        'tahun' => $tahun,
+                        'ts_id' => $ts->id,
+                        'level' => $level,
+                        'link_dokumen' => $hki->link_dokumen,
+                        'is_keanggotaan' => false,
+                        'hki_id' => $hki->id,
+                    ]);
+                }
+            }
+        }
 
         return redirect()->back()->with('success', 'Data HKI berhasil ditambahkan ke direktori! Terima kasih atas kontribusi Anda.');
     }

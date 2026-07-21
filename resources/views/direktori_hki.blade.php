@@ -153,13 +153,12 @@
 
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Dosen Pembimbing / Kolaborator (Opsional)</label>
-                            <select class="form-select" name="kode_dosen">
-                                <option value="">-- Tidak Ada --</option>
+                            <select class="form-select" name="kode_dosen[]" multiple size="4">
                                 @foreach($dosenList ?? [] as $dosen)
                                     <option value="{{ $dosen->kode_dosen }}">{{ $dosen->nama_dosen }}</option>
                                 @endforeach
                             </select>
-                            <div class="form-text">Pilih jika HKI ini hasil kolaborasi dengan Dosen.</div>
+                            <div class="form-text">Pilih jika HKI hasil kolaborasi (Tahan tombol <strong>Ctrl</strong> atau <strong>Cmd</strong> untuk memilih lebih dari satu dosen). Biarkan kosong jika tidak ada.</div>
                         </div>
 
                         <div class="col-md-12">
