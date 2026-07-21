@@ -13,16 +13,23 @@ class DigitalTwinController extends Controller
         
         // Fetch photos from the new API
         $photos = [];
+        $photosByDate = [];
         try {
             $response = \Illuminate\Support\Facades\Http::timeout(5)->get('https://iotproject.my.id/api/api_public_photos.php');
             if ($response->successful()) {
                 $photos = $response->json('data') ?? [];
+                
+                // Group by Date
+                foreach ($photos as $photo) {
+                    $date = date('Y-m-d', strtotime($photo['waktu']));
+                    $photosByDate[$date][] = $photo;
+                }
             }
         } catch (\Exception $e) {
             // Silently ignore if API fails, so page still loads
         }
 
-        return view('digital-twin.index', compact('dataset', 'photos'));
+        return view('digital-twin.index', compact('dataset', 'photos', 'photosByDate'));
     }
 
     public function syncData()

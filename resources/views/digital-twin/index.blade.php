@@ -157,21 +157,35 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body bg-light">
+                    @forelse($photosByDate as $date => $dailyPhotos)
+                    <h6 class="border-bottom pb-2 mb-3 {{ $loop->first ? '' : 'mt-4' }} text-primary font-weight-bold">
+                        <i class="fas fa-calendar-day me-1"></i> {{ \Carbon\Carbon::parse($date)->translatedFormat('l, d F Y') }}
+                    </h6>
                     <div class="row">
-                        @foreach($photos as $photo)
+                        @foreach($dailyPhotos as $photo)
                         <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                             <div class="card h-100 border-0 shadow-sm">
                                 <a href="{{ $photo['url_foto'] }}" target="_blank">
                                     <img src="{{ $photo['url_foto'] }}" class="card-img-top" alt="Pemantauan Sawit" style="height: 150px; object-fit: cover;">
                                 </a>
                                 <div class="card-body p-2 text-center">
-                                    <p class="small text-muted mb-1"><i class="fas fa-clock me-1"></i> {{ date('d M Y H:i', strtotime($photo['waktu'])) }}</p>
-                                    <span class="badge badge-info">{{ $photo['status_cuaca'] }}</span>
+                                    <p class="small text-muted mb-1"><i class="fas fa-clock me-1"></i> {{ date('H:i', strtotime($photo['waktu'])) }} WIB</p>
+                                    <span class="badge badge-info mb-2">{{ $photo['status_cuaca'] }}</span>
+                                    <div>
+                                        <a href="{{ $photo['url_foto'] }}" download="Foto_{{ $photo['device_id'] }}_{{ date('Ymd_His', strtotime($photo['waktu'])) }}.jpg" target="_blank" class="btn btn-sm btn-outline-primary w-100">
+                                            <i class="fas fa-download"></i> Unduh Foto
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         @endforeach
                     </div>
+                    @empty
+                    <div class="text-center py-4 text-muted">
+                        Belum ada data foto.
+                    </div>
+                    @endforelse
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
