@@ -11,6 +11,9 @@ class DigitalTwinController extends Controller
         // Get paginated data instead of only the latest 100
         $dataset = \App\Models\IotData::orderBy('waktu', 'desc')->paginate(50);
         
+        // Get data for chart (latest 30 data points, reversed for chronological order)
+        $chartData = \App\Models\IotData::orderBy('waktu', 'desc')->take(30)->get()->reverse()->values();
+        
         // Fetch photos from the new API
         $photos = [];
         $photosByDate = [];
@@ -29,7 +32,7 @@ class DigitalTwinController extends Controller
             // Silently ignore if API fails, so page still loads
         }
 
-        return view('digital-twin.index', compact('dataset', 'photos', 'photosByDate'));
+        return view('digital-twin.index', compact('dataset', 'chartData', 'photos', 'photosByDate'));
     }
 
     public function syncData()

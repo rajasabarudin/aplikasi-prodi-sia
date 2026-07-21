@@ -111,6 +111,20 @@
         </div>
     </div>
 
+    <!-- Grafik Tren Sensor -->
+    @if(isset($chartData) && count($chartData) > 0)
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Grafik Tren Sensor (30 Data Terakhir)</h6>
+        </div>
+        <div class="card-body">
+            <div style="height: 300px; width: 100%;">
+                <canvas id="iotChart"></canvas>
+            </div>
+        </div>
+    </div>
+    @endif
+
     <!-- Visual Monitoring Gallery -->
     @if(isset($photos) && count($photos) > 0)
     <div class="card shadow mb-4">
@@ -240,4 +254,120 @@
         </div>
     </div>
 </div>
+
+@push('styles')
+<style>
+    /* Prevent chart container from overflowing */
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+@endpush
+
+@if(isset($chartData) && count($chartData) > 0)
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('iotChart');
+    if (!ctx) return;
+
+    // Persiapkan data
+    const labels = {!! json_encode($chartData->pluck('waktu')->map(function($w) { return date('H:i', strtotime($w)); })) !!};
+    const suhuUdara = {!! json_encode($chartData->pluck('suhu_udara_celcius')) !!};
+    const kelembapanUdara = {!! json_encode($chartData->pluck('kelembaban_udara_persen')) !!};
+    const suhuTanah = {!! json_encode($chartData->pluck('suhu_tanah_celcius')) !!};
+    const kelembapanTanah = {!! json_encode($chartData->pluck('kelembaban_tanah_persen')) !!};
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Suhu Udara (°C)',
+                    data: suhuUdara,
+                    borderColor: '#f6c23e',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    pointRadius: 3,
+                    yAxisID: 'y'
+                },
+                {
+                    label: 'Suhu Tanah (°C)',
+                    data: suhuTanah,
+                    borderColor: '#1cc88a',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    pointRadius: 3,
+                    yAxisID: 'y'
+                },
+                {
+                    label: 'Kelembapan Udara (%)',
+                    data: kelembapanUdara,
+                    borderColor: '#36b9cc',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    pointRadius: 3,
+                    borderDash: [5, 5],
+                    yAxisID: 'y1'
+                },
+                {
+                    label: 'Kelembapan Tanah (%)',
+                    data: kelembapanTanah,
+                    borderColor: '#4e73df',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    pointRadius: 3,
+                    borderDash: [5, 5],
+                    yAxisID: 'y1'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += context.parsed.y;
+                            }
+                            return label;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false }
+                },
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    title: { display: true, text: 'Suhu (°C)' }
+                },
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    title: { display: true, text: 'Kelembapan (%)' },
+                    grid: { drawOnChartArea: false }
+                }
+            }
+        }
+    });
+});
+</script>
+@endif
 @endsection
