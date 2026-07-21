@@ -541,6 +541,13 @@ class DashboardController extends Controller
             ->take(6)
             ->get();
 
+        $hkiMahasiswaList = \App\Models\Hki::with('mahasiswa')
+            ->whereNotNull('nim')
+            ->where('nim', '!=', '')
+            ->orderBy('tgl_permohonan', 'desc')
+            ->take(6)
+            ->get();
+
         return compact(
             'jumlahDosen', 'jumlahMahasiswa', 'jumlahKelas',
             'jfaData', 'kepangkatanData',
@@ -552,7 +559,7 @@ class DashboardController extends Controller
             'totalMhsPunyaHkiCount', 'totalDosenPunyaHkiCount', 'persenMhsHki', 'persenDosenHki',
             'prestasiMhsTsLabels', 'prestasiMhsTsData', 'serkomChartLabels', 'serkomChartData',
             'praktisiChartLabels', 'praktisiChartData', 'totalPraktisi', 'rpsIntegrasi',
-            'profilProdi', 'beritaTerbaru', 'alumniInspiratif'
+            'profilProdi', 'beritaTerbaru', 'alumniInspiratif', 'hkiMahasiswaList'
         );
     }
 

@@ -252,6 +252,67 @@
         </div>
     </section>
 
+    <!-- Galeri Inovasi & HKI Mahasiswa -->
+    <section class="py-5" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(52, 211, 153, 0.05));">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill fw-bold mb-3 border border-success border-opacity-25">
+                    <i class="bi bi-lightbulb-fill me-1"></i> Inovasi & Kekayaan Intelektual
+                </span>
+                <h2 class="section-title">HKI & Karya Mahasiswa</h2>
+                <p class="section-subtitle">Daftar inovasi, karya cipta, dan hak kekayaan intelektual yang telah berhasil didaftarkan oleh mahasiswa unggulan kami.</p>
+            </div>
+            
+            @if(isset($hkiMahasiswaList) && $hkiMahasiswaList->count() > 0)
+            <div class="row g-4 justify-content-center">
+                @foreach($hkiMahasiswaList as $hki)
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
+                    <div class="card h-100 border-0 rounded-4 shadow-sm" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(0,0,0,0.05)';">
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success me-3" style="width: 48px; height: 48px;">
+                                    <i class="bi bi-award-fill fs-4"></i>
+                                </div>
+                                <div>
+                                    <div class="badge bg-success mb-1">{{ $hki->jenis_ciptaan }}</div>
+                                    <div class="text-muted small"><i class="bi bi-calendar3 me-1"></i> {{ \Carbon\Carbon::parse($hki->tgl_permohonan)->format('d M Y') }}</div>
+                                </div>
+                            </div>
+                            
+                            <h5 class="fw-bold text-dark mb-2" style="font-size: 1.1rem; line-height: 1.4;">{{ $hki->judul_ciptaan }}</h5>
+                            
+                            <div class="mt-3 mb-3 p-3 bg-light rounded-3 border">
+                                <div class="text-muted small mb-1">Pencipta (Mahasiswa):</div>
+                                <div class="fw-bold text-primary">{{ $hki->mahasiswa ? $hki->mahasiswa->nama : 'Mahasiswa' }}</div>
+                                @if($hki->nim)
+                                    <div class="small text-muted">{{ $hki->nim }}</div>
+                                @endif
+                            </div>
+
+                            <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                                <div class="small fw-bold text-secondary">
+                                    <i class="bi bi-upc-scan me-1"></i> {{ $hki->no_permohonan }}
+                                </div>
+                                @if($hki->link_dokumen)
+                                    <a href="{{ $hki->link_dokumen }}" target="_blank" class="btn btn-sm btn-outline-success rounded-pill px-3">
+                                        <i class="bi bi-file-earmark-pdf me-1"></i> Lihat
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @else
+                <div class="text-center text-muted p-4 bg-white rounded-4 shadow-sm">
+                    <i class="bi bi-inbox fs-2 text-secondary mb-2 d-block"></i>
+                    Belum ada data HKI Mahasiswa yang dipublikasikan.
+                </div>
+            @endif
+        </div>
+    </section>
+
     <!-- Highlight Mitra Kerja Sama -->
     <section class="py-5 bg-light rounded-5 shadow-sm mx-lg-4 p-lg-5 mb-5 border">
         <div class="container">
