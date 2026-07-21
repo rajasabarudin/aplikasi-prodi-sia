@@ -392,7 +392,7 @@ class PenelitianDosenController extends Controller
             'jenis_jurnal' => 'required',
             'jenis_penelitian' => 'required',
             'nama_jurnal' => 'required',
-            'link_jurnal' => 'nullable|url',
+            'link_jurnal' => 'nullable|string',
             'ts_id' => 'required|exists:ts,id',
             'nim_mhs' => 'nullable|array',
             'nama_mahasiswa' => 'nullable|array',
@@ -400,8 +400,8 @@ class PenelitianDosenController extends Controller
         ]);
 
         $data = $request->all();
-        $data['kode_dosen'] = implode(', ', $request->kode_dosen);
-        $data['nama_dosen'] = implode(', ', $request->nama_dosen);
+        $data['kode_dosen'] = implode(', ', array_filter($request->kode_dosen));
+        $data['nama_dosen'] = implode(', ', array_filter($request->nama_dosen));
         
         if (!empty($request->nim_mhs)) {
             $data['nim_mhs'] = implode(', ', array_filter($request->nim_mhs));
@@ -417,7 +417,8 @@ class PenelitianDosenController extends Controller
             $data['anggota_mitra'] = null;
         }
 
-        PenelitianDosen::create($data);
+        $penelitian = PenelitianDosen::create($data);
+        $this->syncToRekognisi($penelitian, $request);
 
         return redirect()->route('portal.penelitian')->with('success', 'Data Penelitian berhasil dikirim. Hubungi Kaprodi jika terdapat kesalahan input.');
     }

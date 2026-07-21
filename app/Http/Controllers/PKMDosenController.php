@@ -422,8 +422,8 @@ class PKMDosenController extends Controller
             'nama_mahasiswa' => 'nullable|array',
             'nama_mahasiswa.*' => 'nullable|string|max:100',
             'ts_id' => 'required|exists:ts,id',
-            'link_dokumen' => 'nullable|url|max:255',
-            'link_publikasi' => 'nullable|url|max:255',
+            'link_dokumen' => 'nullable|string|max:255',
+            'link_publikasi' => 'nullable|string|max:255',
         ]);
 
         $data = $request->all();
@@ -440,7 +440,7 @@ class PKMDosenController extends Controller
             $data['nama_mahasiswa'] = null;
         }
 
-        PKMDosen::create($data);
+        $pkm = PKMDosen::create($data);
 
         return redirect()->route('portal.pkm')->with('success', 'Data PKM berhasil dikirim. Hubungi Kaprodi jika terdapat kesalahan input.');
     }
