@@ -75,6 +75,16 @@ Route::get('/run-migrate', function () {
     }
 });
 
+// Web Cron Route for IoT Sync (Disertasi Digital Twin)
+Route::get('/cron/run-iot-sync', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('iot:sync');
+        return \Illuminate\Support\Facades\Artisan::output();
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
+
 // Temporary route to clean duplicate rekognisi
 Route::get('/clean-rekognisi', function () {
     try {
