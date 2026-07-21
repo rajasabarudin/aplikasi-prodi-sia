@@ -8,8 +8,8 @@ class DigitalTwinController extends Controller
 {
     public function index()
     {
-        // Get the latest 100 data points for the dashboard
-        $dataset = \App\Models\IotData::orderBy('waktu', 'desc')->take(100)->get();
+        // Get paginated data instead of only the latest 100
+        $dataset = \App\Models\IotData::orderBy('waktu', 'desc')->paginate(50);
         
         // Fetch photos from the new API
         $photos = [];

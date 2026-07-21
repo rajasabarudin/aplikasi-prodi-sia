@@ -197,8 +197,11 @@
 
     <!-- Data Table -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Histori Dataset (100 Data Terakhir)</h6>
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Histori Dataset Keseluruhan</h6>
+            <a href="{{ route('digital-twin.export') }}" class="btn btn-sm btn-success shadow-sm">
+                <i class="fas fa-file-excel fa-sm text-white-50"></i> Export CSV
+            </a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -230,6 +233,9 @@
                         @endforelse
                     </tbody>
                 </table>
+            </div>
+            <div class="mt-3 d-flex justify-content-center">
+                {{ $dataset->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>
