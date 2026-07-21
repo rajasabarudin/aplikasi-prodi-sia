@@ -66,7 +66,42 @@ class DashboardController extends Controller
 
         $hkiList = $query->orderBy('tgl_permohonan', 'desc')->paginate(12);
 
-        return view('direktori_hki', compact('hkiList'));
+        $dosenList = \App\Models\Dosen::orderBy('nama_dosen', 'asc')->get();
+
+        return view('direktori_hki', compact('hkiList', 'dosenList'));
+    }
+
+    public function storeHkiPublic(Request $request)
+    {
+        $request->validate([
+            'nim' => 'required|exists:mahasiswas,nim',
+            'judul_ciptaan' => 'required|string|max:255',
+            'jenis_ciptaan' => 'required|string',
+            'no_permohonan' => 'required|string',
+            'tgl_permohonan' => 'required|date',
+            'kode_dosen' => 'nullable|string',
+            'link_dokumen' => 'nullable|url',
+        ]);
+
+        $hki = new \App\Models\Hki();
+        $hki->nim = $request->nim;
+        $hki->judul_ciptaan = $request->judul_ciptaan;
+        $hki->jenis_ciptaan = $request->jenis_ciptaan;
+        $hki->no_permohonan = $request->no_permohonan;
+        $hki->tgl_permohonan = $request->tgl_permohonan;
+        $hki->kode_dosen = $request->kode_dosen;
+        $hki->link_dokumen = $request->link_dokumen;
+        
+        if ($request->filled('kode_dosen')) {
+            $dosen = \App\Models\Dosen::where('kode_dosen', $request->kode_dosen)->first();
+            if ($dosen) {
+                $hki->nama_dosen = $dosen->nama_dosen;
+            }
+        }
+        
+        $hki->save();
+
+        return redirect()->back()->with('success', 'Data HKI berhasil ditambahkan ke direktori! Terima kasih atas kontribusi Anda.');
     }
 
     public function profilProdiPublic()

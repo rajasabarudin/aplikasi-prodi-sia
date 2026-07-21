@@ -11,6 +11,11 @@
             <p class="text-muted lead fs-6">Eksplorasi seluruh karya cipta, inovasi, dan hak kekayaan intelektual (HKI) hasil kolaborasi luar biasa antara mahasiswa dan dosen program studi kami.</p>
         </div>
         <div class="col-lg-6" data-aos="fade-left">
+            <div class="d-flex justify-content-lg-end mb-3">
+                <button type="button" class="btn btn-warning rounded-pill fw-bold shadow-sm px-4" data-bs-toggle="modal" data-bs-target="#modalTambahHki">
+                    <i class="bi bi-plus-circle me-1"></i> Laporkan HKI Baru
+                </button>
+            </div>
             <form action="{{ route('direktori-hki') }}" method="GET" class="d-flex p-2 bg-white rounded-pill shadow-sm border">
                 <input type="text" name="search" class="form-control border-0 bg-transparent ms-3" placeholder="Cari judul, jenis HKI, nama..." value="{{ request('search') }}" style="box-shadow: none;">
                 <button type="submit" class="btn btn-success rounded-pill px-4 fw-bold">Cari</button>
@@ -78,4 +83,144 @@
         </div>
     @endif
 </div>
+
+<!-- Modal Tambah HKI -->
+<div class="modal fade" id="modalTambahHki" tabindex="-1" aria-labelledby="modalTambahHkiLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 border-0 shadow">
+            <div class="modal-header bg-success text-white rounded-top-4 border-0">
+                <h5 class="modal-title fw-bold" id="modalTambahHkiLabel"><i class="bi bi-lightbulb-fill me-2"></i>Form Pelaporan HKI Mahasiswa</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('direktori-hki.store') }}" method="POST">
+                @csrf
+                <div class="modal-body p-4">
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show rounded-3" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    @if($errors->any())
+                        <div class="alert alert-danger rounded-3">
+                            <ul class="mb-0">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <label class="form-label fw-bold">NIM Mahasiswa <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="bi bi-person-badge"></i></span>
+                                <input type="text" class="form-control" name="nim" id="nim" required placeholder="Masukkan NIM Anda">
+                                <button class="btn btn-outline-secondary" type="button" id="btnCekNim">Cek NIM</button>
+                            </div>
+                            <div id="namaMahasiswaResult" class="form-text text-success fw-bold mt-1" style="display: none;"></div>
+                            <div id="namaMahasiswaError" class="form-text text-danger fw-bold mt-1" style="display: none;">NIM tidak ditemukan.</div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label fw-bold">Judul Ciptaan / Inovasi <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="judul_ciptaan" required placeholder="Misal: Sistem Informasi Manajemen...">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Jenis Ciptaan <span class="text-danger">*</span></label>
+                            <select class="form-select" name="jenis_ciptaan" required>
+                                <option value="">-- Pilih Jenis --</option>
+                                <option value="Hak Cipta">Hak Cipta (Copyright)</option>
+                                <option value="Paten">Paten</option>
+                                <option value="Paten Sederhana">Paten Sederhana</option>
+                                <option value="Desain Industri">Desain Industri</option>
+                                <option value="Merek">Merek</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Nomor Permohonan / Pencatatan <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="no_permohonan" required placeholder="Contoh: EC002023...">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Tanggal Permohonan <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" name="tgl_permohonan" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Dosen Pembimbing / Kolaborator (Opsional)</label>
+                            <select class="form-select" name="kode_dosen">
+                                <option value="">-- Tidak Ada --</option>
+                                @foreach($dosenList ?? [] as $dosen)
+                                    <option value="{{ $dosen->kode_dosen }}">{{ $dosen->nama_dosen }}</option>
+                                @endforeach
+                            </select>
+                            <div class="form-text">Pilih jika HKI ini hasil kolaborasi dengan Dosen.</div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label fw-bold">Link Dokumen Sertifikat (Opsional)</label>
+                            <input type="url" class="form-control" name="link_dokumen" placeholder="Contoh: https://drive.google.com/...">
+                            <div class="form-text">Pastikan link Google Drive atau penyimpanan lain bisa diakses publik (Anyone with the link).</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 bg-light rounded-bottom-4">
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success rounded-pill px-4 fw-bold"><i class="bi bi-save me-1"></i> Simpan Data HKI</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        @if(session('success') || $errors->any())
+            var myModal = new bootstrap.Modal(document.getElementById('modalTambahHki'));
+            myModal.show();
+        @endif
+
+        const btnCekNim = document.getElementById('btnCekNim');
+        const inputNim = document.getElementById('nim');
+        const resultDiv = document.getElementById('namaMahasiswaResult');
+        const errorDiv = document.getElementById('namaMahasiswaError');
+
+        btnCekNim.addEventListener('click', function() {
+            const nim = inputNim.value.trim();
+            if (!nim) return;
+            
+            btnCekNim.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cek...';
+            btnCekNim.disabled = true;
+            resultDiv.style.display = 'none';
+            errorDiv.style.display = 'none';
+
+            fetch("{{ route('portal.kegiatan.cek-identitas') }}?identifier=" + nim)
+                .then(response => response.json())
+                .then(data => {
+                    btnCekNim.innerHTML = 'Cek NIM';
+                    btnCekNim.disabled = false;
+                    
+                    if (data.success && data.kategori === 'Mahasiswa') {
+                        resultDiv.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> Ditemukan: ' + data.nama;
+                        resultDiv.style.display = 'block';
+                    } else {
+                        errorDiv.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    btnCekNim.innerHTML = 'Cek NIM';
+                    btnCekNim.disabled = false;
+                    console.error('Error:', error);
+                });
+        });
+    });
+</script>
+@endpush
