@@ -60,6 +60,7 @@ Route::get('/portal-alumni', [\App\Http\Controllers\TracerStudyController::class
 Route::post('/portal-alumni', [\App\Http\Controllers\TracerStudyController::class, 'publicSubmit'])->name('portal.alumni.submit');
 Route::get('/portal-alumni/get-alumni/{nim}', [\App\Http\Controllers\TracerStudyController::class, 'getAlumni'])->name('portal.alumni.get-alumni');
 Route::get('/direktori-alumni', [DashboardController::class, 'direktoriAlumni'])->name('direktori-alumni');
+Route::get('/direktori-hki', [DashboardController::class, 'direktoriHki'])->name('direktori-hki');
 
 // SEO Sitemap
 Route::get('/sitemap.xml', [DashboardController::class, 'sitemap'])->name('sitemap');

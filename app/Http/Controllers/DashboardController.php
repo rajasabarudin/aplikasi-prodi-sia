@@ -48,6 +48,27 @@ class DashboardController extends Controller
         return view('direktori_alumni', compact('alumniList'));
     }
 
+    public function direktoriHki(Request $request)
+    {
+        $query = \App\Models\Hki::query()->with('mahasiswa');
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where('judul_ciptaan', 'like', "%{$search}%")
+                  ->orWhere('no_permohonan', 'like', "%{$search}%")
+                  ->orWhere('jenis_ciptaan', 'like', "%{$search}%")
+                  ->orWhere('nama_dosen', 'like', "%{$search}%")
+                  ->orWhereHas('mahasiswa', function($q) use ($search) {
+                      $q->where('nama', 'like', "%{$search}%")
+                        ->orWhere('nim', 'like', "%{$search}%");
+                  });
+        }
+
+        $hkiList = $query->orderBy('tgl_permohonan', 'desc')->paginate(12);
+
+        return view('direktori_hki', compact('hkiList'));
+    }
+
     public function profilProdiPublic()
     {
         $profilProdi = \App\Models\ProfilProdi::first();
@@ -541,9 +562,11 @@ class DashboardController extends Controller
             ->take(6)
             ->get();
 
-        $hkiMahasiswaList = \App\Models\Hki::with('mahasiswa')
+        $hkiKolaborasiList = \App\Models\Hki::with('mahasiswa')
             ->whereNotNull('nim')
             ->where('nim', '!=', '')
+            ->whereNotNull('kode_dosen')
+            ->where('kode_dosen', '!=', '')
             ->orderBy('tgl_permohonan', 'desc')
             ->take(6)
             ->get();
@@ -559,7 +582,7 @@ class DashboardController extends Controller
             'totalMhsPunyaHkiCount', 'totalDosenPunyaHkiCount', 'persenMhsHki', 'persenDosenHki',
             'prestasiMhsTsLabels', 'prestasiMhsTsData', 'serkomChartLabels', 'serkomChartData',
             'praktisiChartLabels', 'praktisiChartData', 'totalPraktisi', 'rpsIntegrasi',
-            'profilProdi', 'beritaTerbaru', 'alumniInspiratif', 'hkiMahasiswaList'
+            'profilProdi', 'beritaTerbaru', 'alumniInspiratif', 'hkiKolaborasiList'
         );
     }
 

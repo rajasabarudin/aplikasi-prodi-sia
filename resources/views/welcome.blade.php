@@ -252,20 +252,20 @@
         </div>
     </section>
 
-    <!-- Galeri Inovasi & HKI Mahasiswa -->
+    <!-- Galeri Inovasi & HKI Kolaborasi -->
     <section class="py-5" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(52, 211, 153, 0.05));">
         <div class="container">
             <div class="text-center mb-5">
                 <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill fw-bold mb-3 border border-success border-opacity-25">
                     <i class="bi bi-lightbulb-fill me-1"></i> Inovasi & Kekayaan Intelektual
                 </span>
-                <h2 class="section-title">HKI & Karya Mahasiswa</h2>
-                <p class="section-subtitle">Daftar inovasi, karya cipta, dan hak kekayaan intelektual yang telah berhasil didaftarkan oleh mahasiswa unggulan kami.</p>
+                <h2 class="section-title">HKI Kolaborasi (Dosen & Mahasiswa)</h2>
+                <p class="section-subtitle">Daftar inovasi, karya cipta, dan hak kekayaan intelektual hasil kolaborasi hebat antara Dosen dan Mahasiswa.</p>
             </div>
             
-            @if(isset($hkiMahasiswaList) && $hkiMahasiswaList->count() > 0)
+            @if(isset($hkiKolaborasiList) && $hkiKolaborasiList->count() > 0)
             <div class="row g-4 justify-content-center">
-                @foreach($hkiMahasiswaList as $hki)
+                @foreach($hkiKolaborasiList as $hki)
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
                     <div class="card h-100 border-0 rounded-4 shadow-sm" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(0,0,0,0.05)';">
                         <div class="card-body p-4 d-flex flex-column">
@@ -282,11 +282,9 @@
                             <h5 class="fw-bold text-dark mb-2" style="font-size: 1.1rem; line-height: 1.4;">{{ $hki->judul_ciptaan }}</h5>
                             
                             <div class="mt-3 mb-3 p-3 bg-light rounded-3 border">
-                                <div class="text-muted small mb-1">Pencipta (Mahasiswa):</div>
-                                <div class="fw-bold text-primary">{{ $hki->mahasiswa ? $hki->mahasiswa->nama : 'Mahasiswa' }}</div>
-                                @if($hki->nim)
-                                    <div class="small text-muted">{{ $hki->nim }}</div>
-                                @endif
+                                <div class="text-muted small mb-1">Kolaborator:</div>
+                                <div class="fw-bold text-primary mb-1"><i class="bi bi-person-video3 me-1"></i> {{ $hki->nama_dosen }}</div>
+                                <div class="fw-bold text-success"><i class="bi bi-person-fill me-1"></i> {{ $hki->mahasiswa ? $hki->mahasiswa->nama : 'Mahasiswa' }}</div>
                             </div>
 
                             <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
@@ -304,10 +302,16 @@
                 </div>
                 @endforeach
             </div>
+            
+            <div class="text-center mt-5">
+                <a href="{{ route('direktori-hki') }}" class="btn btn-success btn-lg rounded-pill px-4 py-2 shadow-sm fw-bold">
+                    <i class="bi bi-grid-fill me-2"></i> Lihat Semua Direktori HKI
+                </a>
+            </div>
             @else
                 <div class="text-center text-muted p-4 bg-white rounded-4 shadow-sm">
                     <i class="bi bi-inbox fs-2 text-secondary mb-2 d-block"></i>
-                    Belum ada data HKI Mahasiswa yang dipublikasikan.
+                    Belum ada data HKI Kolaborasi yang dipublikasikan.
                 </div>
             @endif
         </div>
