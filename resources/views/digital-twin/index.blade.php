@@ -140,7 +140,7 @@
             
             @if(count($photos) > 4)
             <div class="text-center mt-3">
-                <button type="button" class="btn btn-outline-primary shadow-sm" data-toggle="modal" data-target="#modalRekapFoto">
+                <button type="button" class="btn btn-outline-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#modalRekapFoto">
                     <i class="fas fa-images"></i> Lihat Rekap Semua Foto ({{ count($photos) }})
                 </button>
             </div>
@@ -154,9 +154,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="modalRekapFotoLabel">Rekap Pemantauan Visual Keseluruhan</h5>
-                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body bg-light">
                     <div class="row">
@@ -176,7 +174,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 </div>
             </div>
         </div>
