@@ -301,3 +301,9 @@ Route::middleware(['auth', 'permission'])->prefix('admin')->group(function () {
     Route::post('digital-twin/sync', [\App\Http\Controllers\DigitalTwinController::class, 'syncData'])->name('digital-twin.sync');
     Route::get('digital-twin/export', [\App\Http\Controllers\DigitalTwinController::class, 'exportCsv'])->name('digital-twin.export');
 });
+
+// Temporary route to allow user to easily run clear-manual rekognisi on production
+Route::get('/clear-manual-rekognisi', function () {
+    \Illuminate\Support\Facades\Artisan::call('rekognisi:clear-manual');
+    return nl2br(\Illuminate\Support\Facades\Artisan::output());
+});
