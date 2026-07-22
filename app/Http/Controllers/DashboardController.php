@@ -634,7 +634,7 @@ class DashboardController extends Controller
         $alumniInspiratif = \App\Models\Alumni::where('is_featured', true)
             ->whereNotNull('testimoni')
             ->orderBy('tahun_lulus', 'desc')
-            ->take(6)
+            ->take(9)
             ->get();
 
         $hkiKolaborasiList = \App\Models\Hki::with('mahasiswa')
