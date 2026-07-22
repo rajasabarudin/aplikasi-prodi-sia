@@ -193,6 +193,28 @@
     <span><i class="bi bi-link-45deg me-1"></i>Implementation Arrangement (IA)</span>
     <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C2', 'ppepp' => 'P2_IA']) }}" target="_blank" class="badge bg-info text-decoration-none">PDF</a>
 </div>
+<div class="alert alert-success border-0 p-2 mb-2 small" style="border-radius: 6px;">
+    <div class="d-flex justify-content-between align-items-center mb-1">
+        <span class="fw-bold"><i class="bi bi-trophy me-1"></i>Prestasi Mahasiswa</span>
+        <span class="badge bg-success">{{ $prestasiMahasiswas->count() }} Total</span>
+    </div>
+    <div style="max-height: 150px; overflow-y: auto;" class="custom-scroll pe-1 mt-2">
+        @foreach($prestasiMahasiswas->groupBy('bidang_prestasi') as $bidang => $prestasis)
+            <div class="fw-bold text-dark mb-1 mt-1 border-bottom pb-1" style="font-size: 0.8rem;">
+                {{ $bidang }} <span class="badge bg-secondary ms-1">{{ count($prestasis) }}</span>
+            </div>
+            @foreach($prestasis as $p)
+                <div class="d-flex justify-content-between align-items-center border-bottom border-light py-1" style="font-size: 0.75rem;">
+                    <div class="text-truncate" style="max-width: 180px;" title="{{ $p->nama_prestasi }}">
+                        <strong>{{ $p->mahasiswa->nama ?? $p->nim }}</strong><br>
+                        <span class="text-muted">{{ $p->nama_prestasi }}</span>
+                    </div>
+                    <span class="badge bg-light text-dark border">{{ $p->level_prestasi }}</span>
+                </div>
+            @endforeach
+        @endforeach
+    </div>
+</div>
 @include("obe.partials.ppepp_docs", ["kCode" => "C2", "pCode" => "P2", "kName" => "C.2 Relevansi Pendidikan", "pName" => "Pelaksanaan"])</td>
                                         <td>
 <div class="alert alert-warning border-0 p-1 mb-2 small d-flex justify-content-between align-items-center text-dark" style="border-radius: 6px;">

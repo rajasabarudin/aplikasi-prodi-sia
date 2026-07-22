@@ -142,6 +142,9 @@ class ObePortalController extends Controller
         })->count();
         $pesertaTendikCount = DB::table('peserta_kegiatans')->where('kategori', 'Tendik')->count();
 
+        // Data prestasi mahasiswa untuk OBE C.2 Pendidikan
+        $prestasiMahasiswas = \App\Models\PrestasiMahasiswa::with('mahasiswa')->orderBy('tahun', 'desc')->get();
+
         $ppeppDocs = ObePpeppDocument::all()->groupBy(function($item) {
             return $item->kriteria . '_' . $item->ppepp;
         });
@@ -168,7 +171,8 @@ class ObePortalController extends Controller
             'integrasiPenelitianCount', 'integrasiPkmCount',
             'pesertaMahasiswaCount', 'pesertaDosenCount', 'pesertaTendikCount',
             'ppeppDocs', 'surveiKepuasanCount', 'narratives', 'mkUnggulanCount',
-            'tracerStudyCount', 'publikasiNasionalCount', 'publikasiInternasionalCount', 'jumlahTendik'
+            'tracerStudyCount', 'publikasiNasionalCount', 'publikasiInternasionalCount', 'jumlahTendik',
+            'prestasiMahasiswas'
         ));
     }
 
