@@ -662,6 +662,13 @@ class ObePortalController extends Controller
                 ];
             });
             $statistics = ['Total Prestasi ' . $bidang => $rawData->count() . ' Prestasi'];
+            
+            // Tambahan statistik berdasarkan nama prestasi / kegiatan
+            foreach ($rawData->groupBy('nama_prestasi') as $namaKey => $group) {
+                $label = empty($namaKey) ? 'Tidak Diketahui' : $namaKey;
+                $statistics['- ' . $label] = $group->count() . ' Orang';
+            }
+
             $key = "Skipped_Switch"; // Bypass switch below
         }
 
