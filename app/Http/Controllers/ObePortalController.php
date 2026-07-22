@@ -1061,13 +1061,13 @@ class ObePortalController extends Controller
                 $rawData = \Illuminate\Support\Facades\DB::table("peserta_kegiatans")
                     ->join('kegiatans', 'kegiatans.id', '=', 'peserta_kegiatans.kegiatan_id')
                     ->where('peserta_kegiatans.kategori', 'Dosen')
-                    ->select('peserta_kegiatans.nama as Nama_Dosen', 'peserta_kegiatans.identifier as NIDN_NIP', 'kegiatans.nama_kegiatan as Kegiatan', 'kegiatans.tanggal_mulai as Tanggal', 'kegiatans.tingkat as Tingkat', 'peserta_kegiatans.status_kehadiran as Status_Kehadiran')
+                    ->select('peserta_kegiatans.nama as Nama_Dosen', 'peserta_kegiatans.identifier as NIDN_NIP', 'kegiatans.nama_kegiatan as Kegiatan', 'kegiatans.tanggal as Tanggal', 'kegiatans.jenis_kegiatan as Jenis_Kegiatan', 'peserta_kegiatans.status_kehadiran as Status_Kehadiran')
                     ->get();
                 $data = $rawData;
                 $statistics = ['Total Kehadiran Dosen' => $rawData->count() . ' Kehadiran'];
-                foreach ($rawData->groupBy('Tingkat') as $key => $group) {
+                foreach ($rawData->groupBy('Jenis_Kegiatan') as $key => $group) {
                     $label = empty($key) ? 'Belum Diatur' : $key;
-                    $statistics['Tingkat ' . $label] = $group->count() . ' Kegiatan';
+                    $statistics['Jenis ' . $label] = $group->count() . ' Kegiatan';
                 }
                 break;
                 
@@ -1076,13 +1076,13 @@ class ObePortalController extends Controller
                 $rawData = \Illuminate\Support\Facades\DB::table("peserta_kegiatans")
                     ->join('kegiatans', 'kegiatans.id', '=', 'peserta_kegiatans.kegiatan_id')
                     ->where('peserta_kegiatans.kategori', 'Tendik')
-                    ->select('peserta_kegiatans.nama as Nama_Tendik', 'peserta_kegiatans.identifier as NIP_NIK', 'kegiatans.nama_kegiatan as Kegiatan', 'kegiatans.tanggal_mulai as Tanggal', 'kegiatans.tingkat as Tingkat', 'peserta_kegiatans.status_kehadiran as Status_Kehadiran')
+                    ->select('peserta_kegiatans.nama as Nama_Tendik', 'peserta_kegiatans.identifier as NIP_NIK', 'kegiatans.nama_kegiatan as Kegiatan', 'kegiatans.tanggal as Tanggal', 'kegiatans.jenis_kegiatan as Jenis_Kegiatan', 'peserta_kegiatans.status_kehadiran as Status_Kehadiran')
                     ->get();
                 $data = $rawData;
                 $statistics = ['Total Kehadiran Tendik' => $rawData->count() . ' Kehadiran'];
-                foreach ($rawData->groupBy('Tingkat') as $key => $group) {
+                foreach ($rawData->groupBy('Jenis_Kegiatan') as $key => $group) {
                     $label = empty($key) ? 'Belum Diatur' : $key;
-                    $statistics['Tingkat ' . $label] = $group->count() . ' Kegiatan';
+                    $statistics['Jenis ' . $label] = $group->count() . ' Kegiatan';
                 }
                 break;
                 
