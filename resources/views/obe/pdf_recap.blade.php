@@ -57,12 +57,17 @@
     @if(isset($statistics) && is_array($statistics))
         <div style="margin-top: 15px; margin-bottom: 20px;">
             <h4 style="margin-top: 0; margin-bottom: 8px; font-size: 1rem; color: #333; text-transform: uppercase;">Statistik Ringkas</h4>
-            <table class="data-table" style="margin-top: 0; width: 50%;">
+            <table class="data-table" style="margin-top: 0; width: 75%;">
                 <tbody>
                     @foreach($statistics as $label => $value)
+                        @php $isSub = str_starts_with($label, '- '); @endphp
                         <tr>
-                            <td style="font-weight: bold; width: 70%; background-color: #fafafa;">{{ $label }}</td>
-                            <td style="width: 30%; text-align: center;">{{ $value }}</td>
+                            <td style="{{ $isSub ? 'padding-left: 20px; font-weight: normal;' : 'font-weight: bold;' }} width: 70%; background-color: #fafafa;">
+                                {{ $isSub ? substr($label, 2) : $label }}
+                            </td>
+                            <td style="width: 30%; text-align: center; {{ $isSub ? 'font-weight: normal;' : 'font-weight: bold;' }}">
+                                {{ $value }}
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
