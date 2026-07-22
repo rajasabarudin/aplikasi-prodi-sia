@@ -267,6 +267,11 @@
                                         <a href="{{ route('penelitian-dosen.show', $item->penelitian_dosen_id) }}" class="badge bg-info-subtle text-info text-decoration-none" style="font-size: 10px;">
                                             <i class="bi bi-journal-text me-1"></i> Penelitian Dosen
                                         </a>
+                                        @if($item->penelitianDosen && $item->penelitianDosen->nama_mahasiswa)
+                                            <span class="badge bg-secondary-subtle text-secondary" style="font-size: 10px;">
+                                                <i class="bi bi-person-fill me-1"></i> Mhs: {{ $item->penelitianDosen->nama_mahasiswa }} ({{ $item->penelitianDosen->nim_mhs }})
+                                            </span>
+                                        @endif
                                     </div>
                                 @endif
                                 @if($item->hibah_penelitian_id)
@@ -274,6 +279,11 @@
                                         <a href="{{ route('hibah-penelitian.show', $item->hibah_penelitian_id) }}" class="badge bg-warning-subtle text-warning text-decoration-none" style="font-size: 10px;">
                                             <i class="bi bi-cash-coin me-1"></i> Hibah Penelitian
                                         </a>
+                                        @if($item->hibahPenelitian && $item->hibahPenelitian->nama_mahasiswa)
+                                            <span class="badge bg-secondary-subtle text-secondary" style="font-size: 10px;">
+                                                <i class="bi bi-person-fill me-1"></i> Mhs: {{ $item->hibahPenelitian->nama_mahasiswa }} ({{ $item->hibahPenelitian->nim_mhs }})
+                                            </span>
+                                        @endif
                                     </div>
                                 @endif
                                 @if($item->hki_id)

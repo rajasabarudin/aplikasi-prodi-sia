@@ -239,6 +239,10 @@
                         {{ $rekognisi->nama_rekognisi }}
                         @if($rekognisi->hki_id && $rekognisi->hki && $rekognisi->hki->mahasiswa)
                             <br><small style="color: #6c757d;">(Bersama Mhs: {{ $rekognisi->hki->mahasiswa->nama }})</small>
+                        @elseif($rekognisi->penelitian_dosen_id && $rekognisi->penelitianDosen && $rekognisi->penelitianDosen->nama_mahasiswa)
+                            <br><small style="color: #6c757d;">(Bersama Mhs: {{ $rekognisi->penelitianDosen->nama_mahasiswa }})</small>
+                        @elseif($rekognisi->hibah_penelitian_id && $rekognisi->hibahPenelitian && $rekognisi->hibahPenelitian->nama_mahasiswa)
+                            <br><small style="color: #6c757d;">(Bersama Mhs: {{ $rekognisi->hibahPenelitian->nama_mahasiswa }})</small>
                         @endif
                     </td>
                     <td class="text-center">{{ $rekognisi->level }}</td>

@@ -835,8 +835,18 @@
                                         <div class="fw-bold text-dark">{{ $rek->nama_rekognisi }}</div>
                                         @if($rek->penelitian_dosen_id)
                                             <span class="badge bg-primary-subtle text-primary" style="font-size: 10px;">Penelitian</span>
+                                            @if($rek->penelitianDosen && $rek->penelitianDosen->nama_mahasiswa)
+                                                <span class="badge bg-secondary-subtle text-secondary ms-1" style="font-size: 10px;">
+                                                    <i class="bi bi-person-fill me-1"></i> Mhs: {{ $rek->penelitianDosen->nama_mahasiswa }}
+                                                </span>
+                                            @endif
                                         @elseif($rek->hibah_penelitian_id)
                                             <span class="badge bg-warning-subtle text-warning text-dark" style="font-size: 10px;">Hibah</span>
+                                            @if($rek->hibahPenelitian && $rek->hibahPenelitian->nama_mahasiswa)
+                                                <span class="badge bg-secondary-subtle text-secondary ms-1" style="font-size: 10px;">
+                                                    <i class="bi bi-person-fill me-1"></i> Mhs: {{ $rek->hibahPenelitian->nama_mahasiswa }}
+                                                </span>
+                                            @endif
                                         @elseif($rek->hki_id)
                                             <span class="badge bg-success-subtle text-success" style="font-size: 10px;">HKI</span>
                                             @if($rek->hki && $rek->hki->mahasiswa)
