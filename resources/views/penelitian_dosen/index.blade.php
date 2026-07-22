@@ -215,6 +215,24 @@
                         </div>
                     </div>
 
+                    <!-- Berdasarkan Jenis Penelitian -->
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="bg-success text-white rounded p-1 px-2 me-2">
+                                <i class="bi bi-diagram-3-fill"></i>
+                            </div>
+                            <span class="fw-bold text-dark">Jenis Penelitian</span>
+                        </div>
+                        <div class="ps-1">
+                            @foreach ($jenisPenelitianCounts as $jenis => $count)
+                                <div class="d-flex justify-content-between text-muted small py-1 border-bottom border-light">
+                                    <span class="text-truncate text-dark" style="max-width: 160px;" title="{{ $jenis }}">{{ $jenis }}</span>
+                                    <span class="badge bg-success rounded-pill">{{ $count }}</span>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
                     <!-- Berdasarkan TS -->
                     <div class="mb-4">
                         <div class="d-flex align-items-center mb-2">

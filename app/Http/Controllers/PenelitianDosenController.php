@@ -44,6 +44,12 @@ class PenelitianDosenController extends Controller
             'Jurnal Internasional Bereputasi (Scopus/WoS)' => $allPenelitian->where('jenis_jurnal', 'Jurnal Internasional Bereputasi (Scopus/WoS)')->count(),
         ];
 
+        // Berdasarkan Jenis Penelitian
+        $jenisPenelitianCounts = [
+            'Penelitian Mandiri' => $allPenelitian->where('jenis_penelitian', 'Penelitian Mandiri')->count(),
+            'Publikasi Karya Ilmiah hasil Penelitian' => $allPenelitian->where('jenis_penelitian', 'Publikasi Karya Ilmiah hasil Penelitian')->count(),
+        ];
+
         // Berdasarkan TS
         $tsCounts = Ts::orderBy('tahun_sekarang')
             ->get()
@@ -118,7 +124,7 @@ class PenelitianDosenController extends Controller
         $mahasiswas = Mahasiswa::orderBy('nim')->get();
 
         return view('penelitian_dosen.index', compact(
-            'penelitian', 'totalPenelitian', 'jenisJurnalCounts', 'tsCounts', 'labelTsCounts', 'dosenCounts', 'mhsCounts', 'dosens', 'tsList', 'mahasiswas', 'kolaborasiCount', 'nonKolaborasiCount'
+            'penelitian', 'totalPenelitian', 'jenisJurnalCounts', 'jenisPenelitianCounts', 'tsCounts', 'labelTsCounts', 'dosenCounts', 'mhsCounts', 'dosens', 'tsList', 'mahasiswas', 'kolaborasiCount', 'nonKolaborasiCount'
         ));
     }
 
