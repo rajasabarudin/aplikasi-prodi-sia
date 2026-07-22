@@ -816,7 +816,17 @@ class ObePortalController extends Controller
                 break;
             case "C2_P4_Tracer":
                 $title = "Laporan Tracer Study Alumni (Pengendalian C.2)";
-                $data = \App\Models\TracerStudy::all();
+                $data = \App\Models\TracerStudy::join('alumnis', 'tracer_studies.alumni_id', '=', 'alumnis.id')
+                    ->select(
+                        'alumnis.nama as Nama_Alumni',
+                        'tracer_studies.status_kerja as Status_Kerja',
+                        'tracer_studies.waktu_tunggu as Waktu_Tunggu_(Bulan)',
+                        'tracer_studies.kesesuaian_bidang as Kesesuaian_Bidang',
+                        'tracer_studies.tingkat_tempat_kerja as Tingkat_Tempat_Kerja',
+                        'tracer_studies.nama_perusahaan as Nama_Perusahaan',
+                        'tracer_studies.jabatan as Jabatan'
+                    )
+                    ->get();
                 break;
             case "C2_P5_Capstone":
                 $title = "Laporan Capstone Project / Tugas Akhir (Peningkatan C.2)";
