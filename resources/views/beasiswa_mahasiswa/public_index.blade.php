@@ -83,39 +83,39 @@
             <div class="card border-0 shadow-sm rounded-4 h-100">
                 <div class="card-body p-4">
                     <h5 class="fw-bold mb-4"><i class="bi bi-plus-circle me-2 text-primary"></i>Input Data Baru</h5>
-                    <form action="{{ route('portal.beasiswa.store') }}" method="POST">
+                    <div class="alert alert-warning border-0 shadow-sm rounded-3 mb-4">
+                        <i class="bi bi-info-circle-fill me-2"></i><strong>Informasi:</strong> Pengisian data beasiswa sedang ditutup sementara.
+                    </div>
+                    <form action="#" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label fw-semibold">NIM Anda <span class="text-danger">*</span></label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="nim" id="public-nim" required placeholder="Masukkan NIM">
-                                <button class="btn btn-outline-primary" type="button" id="public-cek-nim">Cek</button>
+                                <input type="text" class="form-control" name="nim" id="public-nim" required placeholder="Masukkan NIM" disabled>
+                                <button class="btn btn-outline-primary" type="button" id="public-cek-nim" disabled>Cek</button>
                             </div>
-                            <small id="public-feedback" class="text-danger d-none mt-1">NIM tidak ditemukan dalam sistem kami.</small>
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Nama Mahasiswa</label>
-                            <input type="text" class="form-control bg-light" id="public-nama" readonly placeholder="Otomatis terisi setelah cek NIM">
+                            <input type="text" class="form-control bg-light" id="public-nama" readonly placeholder="Otomatis terisi setelah cek NIM" disabled>
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Jenis Beasiswa <span class="text-danger">*</span></label>
-                            <select class="form-select" name="jenis_beasiswa" required>
+                            <select class="form-select" name="jenis_beasiswa" required disabled>
                                 <option value="">-- Pilih Jenis --</option>
-                                <option value="internal">Internal (Kampus)</option>
-                                <option value="eksternal">Eksternal (Pemerintah/Swasta)</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Kategori Beasiswa <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="kategori_beasiswa" required placeholder="Contoh: KIP-Kuliah, Beasiswa BCA, dll">
+                            <input type="text" class="form-control" name="kategori_beasiswa" required placeholder="Contoh: KIP-Kuliah, Beasiswa BCA, dll" disabled>
                         </div>
                         <div class="mb-4">
                             <label class="form-label fw-semibold">Link Dokumen Bukti (Opsional)</label>
-                            <input type="url" class="form-control" name="link_dokumen" placeholder="https://drive.google.com/...">
+                            <input type="url" class="form-control" name="link_dokumen" placeholder="https://drive.google.com/..." disabled>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary rounded-pill py-2 fw-bold" id="public-submit-btn" disabled>
-                                <i class="bi bi-send me-1"></i> Kirim Data
+                            <button type="button" class="btn btn-secondary rounded-pill py-2 fw-bold" disabled>
+                                <i class="bi bi-lock-fill me-1"></i> Form Ditutup
                             </button>
                         </div>
                     </form>
