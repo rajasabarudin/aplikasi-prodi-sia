@@ -196,7 +196,7 @@
 @foreach($prestasiMahasiswas->groupBy('bidang_prestasi') as $bidang => $prestasis)
 <div class="alert alert-success border-0 p-1 mb-2 small d-flex justify-content-between align-items-center" style="border-radius: 6px;">
     <span><i class="bi bi-trophy-fill me-1"></i>Prestasi {{ $bidang }}: {{ count($prestasis) }}</span>
-    <a href="{{ route('mahasiswa.index') }}" target="_blank" class="badge bg-success text-decoration-none">Lihat</a>
+    <a href="{{ route('obe.pdf-recap', ['kriteria' => 'C2', 'ppepp' => 'P2_Prestasi_' . str_replace(' ', '_', $bidang)]) }}" target="_blank" class="badge bg-danger text-decoration-none">PDF</a>
 </div>
 @endforeach
 @include("obe.partials.ppepp_docs", ["kCode" => "C2", "pCode" => "P2", "kName" => "C.2 Relevansi Pendidikan", "pName" => "Pelaksanaan"])</td>
