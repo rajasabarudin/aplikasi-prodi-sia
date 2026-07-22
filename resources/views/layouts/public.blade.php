@@ -78,6 +78,7 @@
             color: var(--dark) !important;
             margin: 0 10px;
             transition: color 0.3s ease;
+            white-space: nowrap;
         }
         .nav-link:hover, .nav-link.active {
             color: var(--primary) !important;
