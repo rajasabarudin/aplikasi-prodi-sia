@@ -510,7 +510,11 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="modal_jenis_penelitian" class="form-label fw-semibold">Jenis Penelitian <span class="text-danger">*</span></label>
-                            <input type="text" name="jenis_penelitian" id="modal_jenis_penelitian" class="form-control glass-input" placeholder="Contoh: Mandiri, Kerja Sama" required>
+                            <select name="jenis_penelitian" id="modal_jenis_penelitian" class="form-select glass-input" required>
+                                <option value="">-- Pilih Jenis Penelitian --</option>
+                                <option value="Penelitian Mandiri">Penelitian Mandiri</option>
+                                <option value="Publikasi Karya Ilmiah hasil Penelitian">Publikasi Karya Ilmiah hasil Penelitian</option>
+                            </select>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="modal_ts_id" class="form-label fw-semibold">Pilihan TA <span class="text-danger">*</span></label>
@@ -829,6 +833,24 @@
         `;
         container.appendChild(newRow);
         attachMitraEvents(newRow);
+    });
+
+    document.getElementById('modal_jenis_penelitian').addEventListener('change', function() {
+        var val = this.value;
+        var prop = document.getElementById('modal_proposal');
+        var lap = document.getElementById('modal_laporan');
+        
+        if(val === 'Penelitian Mandiri') {
+            prop.setAttribute('required', 'required');
+            lap.setAttribute('required', 'required');
+            document.querySelector('label[for="modal_proposal"]').innerHTML = 'Link Proposal <span class="text-danger">*</span>';
+            document.querySelector('label[for="modal_laporan"]').innerHTML = 'Link Laporan <span class="text-danger">*</span>';
+        } else {
+            prop.removeAttribute('required');
+            lap.removeAttribute('required');
+            document.querySelector('label[for="modal_proposal"]').innerHTML = 'Link Proposal';
+            document.querySelector('label[for="modal_laporan"]').innerHTML = 'Link Laporan';
+        }
     });
 </script>
 @endpush

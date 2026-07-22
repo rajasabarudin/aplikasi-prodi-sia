@@ -145,8 +145,8 @@ class PenelitianDosenController extends Controller
             'ts_id' => 'required|exists:ts,id',
             'berkas_sertifikat' => 'nullable|string',
             'berkas_paper' => 'nullable|string',
-            'proposal' => 'nullable|string',
-            'laporan' => 'nullable|string',
+            'proposal' => 'required_if:jenis_penelitian,Penelitian Mandiri|nullable|string',
+            'laporan' => 'required_if:jenis_penelitian,Penelitian Mandiri|nullable|string',
             'lainnya' => 'nullable|string',
             'nim_mhs' => 'nullable|array',
             'nim_mhs.*' => 'nullable|string',
@@ -218,8 +218,8 @@ class PenelitianDosenController extends Controller
             'ts_id' => 'required|exists:ts,id',
             'berkas_sertifikat' => 'nullable|string',
             'berkas_paper' => 'nullable|string',
-            'proposal' => 'nullable|string',
-            'laporan' => 'nullable|string',
+            'proposal' => 'required_if:jenis_penelitian,Penelitian Mandiri|nullable|string',
+            'laporan' => 'required_if:jenis_penelitian,Penelitian Mandiri|nullable|string',
             'lainnya' => 'nullable|string',
             'nim_mhs' => 'nullable|array',
             'nim_mhs.*' => 'nullable|string',
@@ -397,6 +397,8 @@ class PenelitianDosenController extends Controller
             'nim_mhs' => 'nullable|array',
             'nama_mahasiswa' => 'nullable|array',
             'anggota_mitra' => 'nullable|array',
+            'proposal' => 'required_if:jenis_penelitian,Penelitian Mandiri|nullable|string',
+            'laporan' => 'required_if:jenis_penelitian,Penelitian Mandiri|nullable|string',
         ]);
 
         $data = $request->all();

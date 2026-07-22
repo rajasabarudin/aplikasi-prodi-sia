@@ -131,8 +131,8 @@
                             <label class="form-label fw-semibold">Jenis Penelitian <span class="text-danger">*</span></label>
                             <select class="form-select" name="jenis_penelitian" required>
                                 <option value="">-- Pilih --</option>
-                                <option value="Sesuai Bidang Ilmu">Sesuai Bidang Ilmu</option>
-                                <option value="Tidak Sesuai Bidang Ilmu">Tidak Sesuai Bidang Ilmu</option>
+                                <option value="Penelitian Mandiri">Penelitian Mandiri</option>
+                                <option value="Publikasi Karya Ilmiah hasil Penelitian">Publikasi Karya Ilmiah hasil Penelitian</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -148,6 +148,15 @@
                         <div class="mb-4">
                             <label class="form-label fw-semibold">Link Jurnal/Publikasi (Opsional)</label>
                             <input type="url" class="form-control" name="link_jurnal" placeholder="https://...">
+                        </div>
+                        
+                        <div class="mb-3 proposal-laporan-fields" style="display: none;">
+                            <label class="form-label fw-semibold">Link Proposal <span class="text-danger">*</span></label>
+                            <input type="url" class="form-control" name="proposal" id="portal_proposal" placeholder="https://...">
+                        </div>
+                        <div class="mb-3 proposal-laporan-fields" style="display: none;">
+                            <label class="form-label fw-semibold">Link Laporan <span class="text-danger">*</span></label>
+                            <input type="url" class="form-control" name="laporan" id="portal_laporan" placeholder="https://...">
                         </div>
                         
                         <div class="d-grid">
@@ -419,6 +428,23 @@
         `;
         container.appendChild(newRow);
         attachMitraEvent(newRow);
+    });
+
+    document.querySelector('select[name="jenis_penelitian"]').addEventListener('change', function() {
+        var val = this.value;
+        var fields = document.querySelectorAll('.proposal-laporan-fields');
+        var prop = document.getElementById('portal_proposal');
+        var lap = document.getElementById('portal_laporan');
+        
+        if(val === 'Penelitian Mandiri') {
+            fields.forEach(f => f.style.display = 'block');
+            prop.setAttribute('required', 'required');
+            lap.setAttribute('required', 'required');
+        } else {
+            fields.forEach(f => f.style.display = 'none');
+            prop.removeAttribute('required');
+            lap.removeAttribute('required');
+        }
     });
 </script>
 @endpush

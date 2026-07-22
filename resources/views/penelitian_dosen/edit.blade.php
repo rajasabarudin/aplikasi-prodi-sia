@@ -166,7 +166,11 @@
             </div>
             <div class="col-md-6 mb-3">
                 <label for="jenis_penelitian" class="form-label">Jenis Penelitian <span class="text-danger">*</span></label>
-                <input type="text" name="jenis_penelitian" id="jenis_penelitian" class="form-control" value="{{ old('jenis_penelitian', $penelitianDosen->jenis_penelitian) }}" required>
+                <select name="jenis_penelitian" id="jenis_penelitian" class="form-select" required>
+                    <option value="">-- Pilih Jenis Penelitian --</option>
+                    <option value="Penelitian Mandiri" {{ old('jenis_penelitian', $penelitianDosen->jenis_penelitian) == 'Penelitian Mandiri' ? 'selected' : '' }}>Penelitian Mandiri</option>
+                    <option value="Publikasi Karya Ilmiah hasil Penelitian" {{ old('jenis_penelitian', $penelitianDosen->jenis_penelitian) == 'Publikasi Karya Ilmiah hasil Penelitian' ? 'selected' : '' }}>Publikasi Karya Ilmiah hasil Penelitian</option>
+                </select>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="nama_jurnal" class="form-label">Nama Jurnal <span class="text-danger">*</span></label>
@@ -360,6 +364,27 @@
         container.appendChild(newRow);
         attachMitraEvents(newRow);
     });
+
+    function toggleRequired() {
+        var val = document.getElementById('jenis_penelitian').value;
+        var prop = document.getElementById('proposal');
+        var lap = document.getElementById('laporan');
+        
+        if(val === 'Penelitian Mandiri') {
+            prop.setAttribute('required', 'required');
+            lap.setAttribute('required', 'required');
+            document.querySelector('label[for="proposal"]').innerHTML = 'Link Proposal <span class="text-danger">*</span>';
+            document.querySelector('label[for="laporan"]').innerHTML = 'Link Laporan <span class="text-danger">*</span>';
+        } else {
+            prop.removeAttribute('required');
+            lap.removeAttribute('required');
+            document.querySelector('label[for="proposal"]').innerHTML = 'Link Proposal';
+            document.querySelector('label[for="laporan"]').innerHTML = 'Link Laporan';
+        }
+    }
+    document.getElementById('jenis_penelitian').addEventListener('change', toggleRequired);
+    // Jalankan saat pertama load
+    toggleRequired();
 </script>
 @endpush
 @endsection

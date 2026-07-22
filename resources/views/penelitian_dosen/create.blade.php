@@ -127,7 +127,11 @@
             </div>
             <div class="col-md-6 mb-3">
                 <label for="jenis_penelitian" class="form-label">Jenis Penelitian <span class="text-danger">*</span></label>
-                <input type="text" name="jenis_penelitian" id="jenis_penelitian" class="form-control" placeholder="Contoh: Mandiri, Kerja Sama, Institusi" required>
+                <select name="jenis_penelitian" id="jenis_penelitian" class="form-select" required>
+                    <option value="">-- Pilih Jenis Penelitian --</option>
+                    <option value="Penelitian Mandiri">Penelitian Mandiri</option>
+                    <option value="Publikasi Karya Ilmiah hasil Penelitian">Publikasi Karya Ilmiah hasil Penelitian</option>
+                </select>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="nama_jurnal" class="form-label">Nama Jurnal <span class="text-danger">*</span></label>
@@ -320,6 +324,24 @@
         `;
         container.appendChild(newRow);
         attachMitraEvents(newRow);
+    });
+
+    document.getElementById('jenis_penelitian').addEventListener('change', function() {
+        var val = this.value;
+        var prop = document.getElementById('proposal');
+        var lap = document.getElementById('laporan');
+        
+        if(val === 'Penelitian Mandiri') {
+            prop.setAttribute('required', 'required');
+            lap.setAttribute('required', 'required');
+            document.querySelector('label[for="proposal"]').innerHTML = 'Link Proposal <span class="text-danger">*</span>';
+            document.querySelector('label[for="laporan"]').innerHTML = 'Link Laporan <span class="text-danger">*</span>';
+        } else {
+            prop.removeAttribute('required');
+            lap.removeAttribute('required');
+            document.querySelector('label[for="proposal"]').innerHTML = 'Link Proposal';
+            document.querySelector('label[for="laporan"]').innerHTML = 'Link Laporan';
+        }
     });
 </script>
 @endpush
