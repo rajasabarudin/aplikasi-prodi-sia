@@ -68,7 +68,15 @@ class DashboardController extends Controller
 
         $dosenList = \App\Models\Dosen::orderBy('nama_dosen', 'asc')->get();
 
-        return view('direktori_hki', compact('hkiList', 'dosenList'));
+        // Statistik HKI
+        $allHki = \App\Models\Hki::all();
+        $statTotalHki = $allHki->count();
+        $statHkiPerJenis = $allHki->groupBy('jenis_ciptaan')->map->count();
+        $statHkiPerTahun = $allHki->groupBy(function($item) {
+            return \Carbon\Carbon::parse($item->tgl_permohonan)->year;
+        })->map->count()->sortKeysDesc()->take(5);
+
+        return view('direktori_hki', compact('hkiList', 'dosenList', 'statTotalHki', 'statHkiPerJenis', 'statHkiPerTahun'));
     }
 
     public function storeHkiPublic(Request $request)

@@ -29,6 +29,50 @@
         </div>
     </div>
 
+    <!-- Statistik HKI Section -->
+    <div class="row mb-5" data-aos="fade-up">
+        <div class="col-12">
+            <div class="card border-0 rounded-4 shadow-sm p-4" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(52, 211, 153, 0.1)); border-left: 5px solid var(--bs-success) !important;">
+                <div class="row align-items-center">
+                    <div class="col-md-3 text-center border-end mb-3 mb-md-0">
+                        <div class="display-4 fw-bold text-success mb-2">{{ $statTotalHki }}</div>
+                        <div class="text-muted text-uppercase fw-bold" style="font-size: 0.85rem; letter-spacing: 1px;">Total HKI Terdaftar</div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row g-4">
+                            <div class="col-md-7">
+                                <h6 class="fw-bold mb-3 text-dark"><i class="bi bi-pie-chart-fill text-primary me-2"></i>Sebaran Jenis HKI</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    @forelse($statHkiPerJenis as $jenis => $jumlah)
+                                        <div class="bg-white px-3 py-2 rounded-pill shadow-sm border d-flex align-items-center" style="font-size: 0.9rem;">
+                                            <span class="fw-semibold me-2 text-dark">{{ $jenis }}</span>
+                                            <span class="badge bg-primary rounded-pill">{{ $jumlah }}</span>
+                                        </div>
+                                    @empty
+                                        <div class="text-muted small">Belum ada data jenis HKI</div>
+                                    @endforelse
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <h6 class="fw-bold mb-3 text-dark"><i class="bi bi-bar-chart-fill text-warning me-2"></i>Tren 5 Tahun Terakhir</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    @forelse($statHkiPerTahun as $tahun => $jumlah)
+                                        <div class="bg-white px-3 py-2 rounded-pill shadow-sm border d-flex align-items-center" style="font-size: 0.9rem;">
+                                            <span class="fw-semibold me-2 text-dark">{{ $tahun }}</span>
+                                            <span class="badge bg-warning text-dark rounded-pill">{{ $jumlah }}</span>
+                                        </div>
+                                    @empty
+                                        <div class="text-muted small">Belum ada data tren tahun</div>
+                                    @endforelse
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @if($hkiList->isEmpty())
         <div class="text-center py-5">
             <div class="display-1 text-muted mb-3"><i class="bi bi-search"></i></div>
