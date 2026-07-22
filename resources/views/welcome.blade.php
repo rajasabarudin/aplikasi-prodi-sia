@@ -31,7 +31,7 @@
                         <a href="{{ route('portal.kegiatan') }}" class="btn btn-login btn-lg px-4 py-3" style="border-radius: 16px;">
                             Lihat Kegiatan Terbaru
                         </a>
-                        <a href="#statistik" class="btn btn-light btn-lg px-4 py-3 fw-bold" style="border-radius: 16px; border: 1px solid rgba(0,0,0,0.1); color: var(--dark);">
+                        <a href="{{ route('profil-prodi.public') }}" class="btn btn-light btn-lg px-4 py-3 fw-bold" style="border-radius: 16px; border: 1px solid rgba(0,0,0,0.1); color: var(--dark);">
                             Jelajahi Profil
                         </a>
                     </div>

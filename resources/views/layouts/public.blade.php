@@ -335,9 +335,6 @@
                         <a class="nav-link {{ request()->routeIs('welcome') ? 'active' : '' }}" href="{{ route('welcome') }}">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('profil-prodi.public') ? 'active' : '' }}" href="{{ route('profil-prodi.public') }}">Profil</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('direktori-hki') ? 'active' : '' }}" href="{{ route('direktori-hki') }}">Direktori HKI</a>
                     </li>
                     <li class="nav-item">
