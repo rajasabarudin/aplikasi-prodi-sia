@@ -76,7 +76,10 @@ class DashboardController extends Controller
             return \Carbon\Carbon::parse($item->tgl_permohonan)->year;
         })->map->count()->sortKeysDesc()->take(5);
 
-        return view('direktori_hki', compact('hkiList', 'dosenList', 'statTotalHki', 'statHkiPerJenis', 'statHkiPerTahun'));
+        // Sorotan HKI (4 data acak)
+        $sorotanHki = \App\Models\Hki::with('mahasiswa')->inRandomOrder()->take(4)->get();
+
+        return view('direktori_hki', compact('hkiList', 'dosenList', 'statTotalHki', 'statHkiPerJenis', 'statHkiPerTahun', 'sorotanHki'));
     }
 
     public function storeHkiPublic(Request $request)

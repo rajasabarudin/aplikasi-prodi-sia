@@ -73,6 +73,47 @@
         </div>
     </div>
 
+    @if($sorotanHki->isNotEmpty() && !request('search'))
+    <div class="mb-5" data-aos="fade-up">
+        <h4 class="fw-bold mb-4 text-dark border-bottom pb-2" style="border-width: 3px !important; border-color: var(--bs-warning) !important; display: inline-block;"><i class="bi bi-star-fill text-warning me-2"></i>Sorotan Acak Karya HKI</h4>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+            @foreach($sorotanHki as $hki)
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm" style="background: linear-gradient(to bottom right, #fff, #fff9f0); border-radius: 16px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 25px rgba(255, 193, 7, 0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)';">
+                        <div class="card-body p-3 d-flex flex-column">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center bg-warning bg-opacity-25 text-warning me-2" style="width: 35px; height: 35px;">
+                                    <i class="bi bi-award-fill fs-5"></i>
+                                </div>
+                                <div class="badge bg-warning text-dark">{{ $hki->jenis_ciptaan }}</div>
+                            </div>
+                            
+                            <h6 class="fw-bold text-dark mb-2 mt-2" style="font-size: 1rem; line-height: 1.3;">{{ Str::limit($hki->judul_ciptaan, 60) }}</h6>
+                            
+                            <div class="mt-2 mb-2 p-2 bg-white rounded border border-warning border-opacity-25 shadow-sm">
+                                @if($hki->kode_dosen)
+                                    <div class="fw-bold text-primary mb-1" style="font-size: 0.8rem;"><i class="bi bi-person-video3 me-1"></i> {{ Str::limit($hki->nama_dosen, 25) }}</div>
+                                @endif
+                                @if($hki->nim)
+                                    <div class="fw-bold text-success" style="font-size: 0.8rem;"><i class="bi bi-person-fill me-1"></i> {{ Str::limit($hki->mahasiswa ? $hki->mahasiswa->nama : 'Mahasiswa', 25) }}</div>
+                                @endif
+                            </div>
+
+                            <div class="mt-auto pt-2 text-muted" style="font-size: 0.75rem;">
+                                <i class="bi bi-calendar3 me-1"></i> {{ \Carbon\Carbon::parse($hki->tgl_permohonan)->format('d M Y') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+    @endif
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold mb-0 text-dark border-bottom pb-2" style="border-width: 3px !important; border-color: var(--bs-success) !important; display: inline-block;"><i class="bi bi-list-ul text-success me-2"></i>Daftar HKI Terbaru</h4>
+    </div>
+
     @if($hkiList->isEmpty())
         <div class="text-center py-5">
             <div class="display-1 text-muted mb-3"><i class="bi bi-search"></i></div>
