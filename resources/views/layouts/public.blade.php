@@ -348,7 +348,7 @@
                             <i class="bi bi-mortarboard-fill me-1 text-warning"></i>Mahasiswa & Alumni
                         </a>
                         <ul class="dropdown-menu border-0 shadow-sm rounded-4 mt-2" aria-labelledby="navbarMahasiswa">
-                            <li><a class="dropdown-item fw-semibold py-2" href="{{ route('portal.beasiswa') }}"><i class="bi bi-star-fill me-2 text-warning"></i>Beasiswa</a></li>
+                            {{-- <li><a class="dropdown-item fw-semibold py-2" href="{{ route('portal.beasiswa') }}"><i class="bi bi-star-fill me-2 text-warning"></i>Beasiswa</a></li> --}}
                             <li><a class="dropdown-item fw-semibold py-2" href="{{ route('direktori-alumni') }}"><i class="bi bi-people-fill me-2 text-primary"></i>Direktori Alumni</a></li>
                         </ul>
                     </li>
