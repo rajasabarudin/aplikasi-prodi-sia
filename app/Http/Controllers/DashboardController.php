@@ -632,7 +632,6 @@ class DashboardController extends Controller
         $mitraList = \App\Models\Kerjasama::orderBy('created_at', 'desc')->get();
         
         $alumniInspiratif = \App\Models\Alumni::where('is_featured', true)
-            ->whereNotNull('foto')
             ->whereNotNull('testimoni')
             ->orderBy('tahun_lulus', 'desc')
             ->take(6)
