@@ -359,7 +359,12 @@ class MahasiswaController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
-        return view('mahasiswa.show', compact('mahasiswa', 'dosenList', 'tsList', 'matakuliahList', 'classmates', 'tugasList', 'capstoneList', 'sertifikasiList', 'ipkList'));
+        $hibahList = \Illuminate\Support\Facades\DB::table('hibah_penelitians')
+            ->where('nim_mhs', 'like', "%{$mahasiswa->nim}%")
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('mahasiswa.show', compact('mahasiswa', 'dosenList', 'tsList', 'matakuliahList', 'classmates', 'tugasList', 'capstoneList', 'sertifikasiList', 'ipkList', 'hibahList'));
     }
 
     public function cetakProfil(Mahasiswa $mahasiswa)

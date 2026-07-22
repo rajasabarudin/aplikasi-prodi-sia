@@ -148,7 +148,7 @@
                             <span class="fw-semibold text-dark small">Total Prestasi</span>
                         </div>
                         <span class="badge bg-danger rounded-pill px-2.5 py-1.5 fw-bold" style="font-size: 0.8rem;">
-                            {{ $mahasiswa->prestasi->count() }}
+                            {{ $mahasiswa->prestasi->count() + (isset($hibahList) ? $hibahList->count() : 0) }}
                         </span>
                     </div>
 
@@ -376,9 +376,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($mahasiswa->prestasi as $prestasi)
+                                    @php $no = 1; @endphp
+                                    @foreach ($mahasiswa->prestasi as $prestasi)
                                         <tr>
-                                            <td class="text-center fw-bold text-muted">{{ $loop->iteration }}</td>
+                                            <td class="text-center fw-bold text-muted">{{ $no++ }}</td>
                                             <td>
                                                 <div class="fw-bold text-dark">{{ $prestasi->nama_prestasi }}</div>
                                                 <div class="text-muted small">
@@ -433,14 +434,49 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    @empty
+                                    @endforeach
+
+                                    @if(isset($hibahList))
+                                        @foreach ($hibahList as $hibah)
+                                            <tr>
+                                                <td class="text-center fw-bold text-muted">{{ $no++ }}</td>
+                                                <td>
+                                                    <div class="fw-bold text-dark">{{ $hibah->judul }}</div>
+                                                    <div class="text-muted small">
+                                                        Bidang: <span class="fw-semibold text-secondary me-2">Prestasi Akademik (Non-Lomba)</span>
+                                                        Hasil: <span class="fw-semibold text-success">Penerima Hibah {{ ucfirst($hibah->jenis_hibah ?? 'Eksternal') }}</span>
+                                                    </div>
+                                                    @if($hibah->link_proposal)
+                                                        <a href="{{ $hibah->link_proposal }}" target="_blank" class="badge bg-info-subtle text-info text-decoration-none mt-1" style="border-radius: 6px;">
+                                                            <i class="bi bi-link-45deg"></i> Lihat Proposal
+                                                        </a>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <div class="fw-semibold text-dark">{{ \Carbon\Carbon::parse($hibah->created_at)->format('Y') }}</div>
+                                                    <div class="text-muted small">TA: N/A</div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-dark fw-semibold">{{ $hibah->pemberi_hibah }}</div>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-primary px-2.5 py-1.5" style="border-radius: 6px; font-size: 0.75rem;">Nasional</span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span class="badge bg-light text-muted border">Dari Data Hibah</span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+
+                                    @if($mahasiswa->prestasi->isEmpty() && (!isset($hibahList) || $hibahList->isEmpty()))
                                         <tr>
                                             <td colspan="6" class="text-center text-muted py-4">
                                                 <i class="bi bi-trophy display-6 d-block mb-2 text-secondary"></i>
                                                 Belum ada data prestasi untuk mahasiswa ini.
                                             </td>
                                         </tr>
-                                    @endforelse
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
