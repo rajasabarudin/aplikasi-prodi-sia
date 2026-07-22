@@ -839,6 +839,11 @@
                                             <span class="badge bg-warning-subtle text-warning text-dark" style="font-size: 10px;">Hibah</span>
                                         @elseif($rek->hki_id)
                                             <span class="badge bg-success-subtle text-success" style="font-size: 10px;">HKI</span>
+                                            @if($rek->hki && $rek->hki->mahasiswa)
+                                                <span class="badge bg-secondary-subtle text-secondary ms-1" style="font-size: 10px;">
+                                                    <i class="bi bi-person-fill me-1"></i> Mhs: {{ $rek->hki->mahasiswa->nama }}
+                                                </span>
+                                            @endif
                                         @elseif($rek->prestasi_dosen_id)
                                             <span class="badge bg-danger-subtle text-danger" style="font-size: 10px;">Prestasi</span>
                                         @endif

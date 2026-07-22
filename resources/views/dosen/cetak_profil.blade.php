@@ -235,7 +235,12 @@
             @forelse($rekognisiList as $index => $rekognisi)
                 <tr>
                     <td class="text-center">{{ $index + 1 }}</td>
-                    <td>{{ $rekognisi->nama_rekognisi }}</td>
+                    <td>
+                        {{ $rekognisi->nama_rekognisi }}
+                        @if($rekognisi->hki_id && $rekognisi->hki && $rekognisi->hki->mahasiswa)
+                            <br><small style="color: #6c757d;">(Bersama Mhs: {{ $rekognisi->hki->mahasiswa->nama }})</small>
+                        @endif
+                    </td>
                     <td class="text-center">{{ $rekognisi->level }}</td>
                     <td class="text-center">{{ optional($rekognisi->ts)->tahun_akademik ?? $rekognisi->tahun ?? '-' }}</td>
                     <td class="text-center">
