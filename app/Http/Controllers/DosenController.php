@@ -212,7 +212,12 @@ class DosenController extends Controller
 
     public function cetakProfil(Dosen $dosen)
     {
-        $dosen->load(['sertifikasi', 'kegiatan.ts', 'prestasi.ts', 'rekognisi']);
+        $dosen->load(['sertifikasi', 'kegiatan' => function($q) {
+            $q->where(function($query) {
+                $query->whereNull('kegiatan_prodi_id')
+                      ->orWhereHas('kegiatanProdi');
+            });
+        }, 'kegiatan.ts', 'prestasi.ts', 'rekognisi']);
         
         $hkis = \App\Models\Hki::with('mahasiswa')
             ->where('kode_dosen', 'like', "%{$dosen->kode_dosen}%")
@@ -235,13 +240,20 @@ class DosenController extends Controller
             
         $rekognisiList = \App\Models\RekognisiDosen::with('ts')
             ->where('kode_dosen', $dosen->kode_dosen)
+            ->where('is_keanggotaan', false)
+            ->orderBy('tahun', 'desc')
+            ->get();
+
+        $keanggotaanList = \App\Models\RekognisiDosen::with('ts')
+            ->where('kode_dosen', $dosen->kode_dosen)
+            ->where('is_keanggotaan', true)
             ->orderBy('tahun', 'desc')
             ->get();
 
         $title = "Profil & Portofolio Dosen - " . $dosen->nama_dosen;
 
         return view('dosen.cetak_profil', compact(
-            'dosen', 'hkis', 'penelitianList', 'pkmList', 'hibahList', 'rekognisiList', 'title'
+            'dosen', 'hkis', 'penelitianList', 'pkmList', 'hibahList', 'rekognisiList', 'keanggotaanList', 'title'
         ));
     }
 

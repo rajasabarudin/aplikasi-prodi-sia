@@ -351,11 +351,47 @@
         </tbody>
     </table>
 
+    <!-- KEANGGOTAAN ORGANISASI -->
+    <h3 class="section-title">J. Keanggotaan Organisasi / Profesi</h3>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">No</th>
+                <th style="width: 40%;">Nama Organisasi</th>
+                <th style="width: 20%;">Peran / Jabatan</th>
+                <th style="width: 15%;">Tahun (TS)</th>
+                <th style="width: 20%;">Dokumen / Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($keanggotaanList as $index => $keanggotaan)
+                <tr>
+                    <td class="text-center">{{ $index + 1 }}</td>
+                    <td>{{ $keanggotaan->nama_rekognisi }}</td>
+                    <td class="text-center">{{ $keanggotaan->level }}</td>
+                    <td class="text-center">{{ optional($keanggotaan->ts)->tahun_akademik ?? $keanggotaan->tahun ?? '-' }}</td>
+                    <td class="text-center">
+                        @if($keanggotaan->link_dokumen)
+                            <a href="{{ $keanggotaan->link_dokumen }}" target="_blank" style="text-decoration: none; color: #4f46e5;">Lihat Dokumen</a>
+                        @else
+                            -
+                        @endif
+                    </td>
+                </tr>
+            @empty
+                <tr class="empty-row"><td colspan="5">Belum ada data keanggotaan organisasi.</td></tr>
+            @endforelse
+        </tbody>
+    </table>
+
     <!-- FOOTER SIGNATURE -->
     <div class="footer">
         <p>Pontianak, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
-        <p style="margin-bottom: 70px;">Mengetahui,<br>Dosen yang bersangkutan,</p>
-        <p style="font-weight: bold; text-decoration: underline;">
+        <p style="margin-bottom: 10px;">Mengetahui,<br>Dosen yang bersangkutan,</p>
+        <div style="margin-bottom: 10px;">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data={{ urlencode(route('portal.dosen.profil', $dosen->id)) }}" alt="QR Code" style="width: 90px; height: 90px; display: inline-block;">
+        </div>
+        <p style="font-weight: bold; text-decoration: underline; margin-top: 5px;">
             {{ $dosen->nama_dosen }}
         </p>
         @if($dosen->nidn)
