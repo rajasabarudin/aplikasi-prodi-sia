@@ -84,17 +84,20 @@
             color: var(--primary) !important;
         }
         .btn-login {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), #3b82f6) !important;
             color: white !important;
             border-radius: 12px;
             padding: 8px 24px;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+            border: none;
+            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
             transition: all 0.3s ease;
         }
         .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+            background: linear-gradient(135deg, var(--primary-dark), #2563eb) !important;
+            color: white !important;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.5);
         }
 
         /* Hero */
