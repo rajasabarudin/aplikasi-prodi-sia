@@ -132,6 +132,7 @@
                                     <th>Dosen</th>
                                     <th>Rekognisi & Tingkat</th>
                                     <th class="text-center">Tahun</th>
+                                    <th class="text-center">Dokumen</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -148,10 +149,19 @@
                                         </div>
                                     </td>
                                     <td class="text-center">{{ $item->tahun ?? '-' }}</td>
+                                    <td class="text-center">
+                                        @if($item->link_dokumen)
+                                            <a href="{{ $item->link_dokumen }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-3" style="font-size: 0.75rem;">
+                                                <i class="bi bi-box-arrow-up-right me-1"></i> Lihat
+                                            </a>
+                                        @else
+                                            <span class="text-muted small">-</span>
+                                        @endif
+                                    </td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="4" class="text-center py-5 text-muted">Belum ada data Rekognisi yang disubmit.</td>
+                                    <td colspan="5" class="text-center py-5 text-muted">Belum ada data Rekognisi yang disubmit.</td>
                                 </tr>
                                 @endforelse
                             </tbody>
