@@ -129,6 +129,11 @@ Route::get('/portal-pkm', [PKMDosenController::class, 'publicIndex'])->name('por
 Route::post('/portal-pkm', [PKMDosenController::class, 'publicStore'])->name('portal.pkm.store');
 Route::get('/portal-pkm/get-dosen/{kode}', [PKMDosenController::class, 'getDosen'])->name('portal.pkm.get-dosen');
 
+// Public Rekognisi Dosen Portal
+Route::get('/portal-rekognisi', [RekognisiDosenController::class, 'publicIndex'])->name('portal.rekognisi');
+Route::post('/portal-rekognisi', [RekognisiDosenController::class, 'publicStore'])->name('portal.rekognisi.store');
+Route::get('/portal-rekognisi/get-dosen/{kode}', [RekognisiDosenController::class, 'getDosen'])->name('portal.rekognisi.get-dosen');
+
 // Public Dosen Profil
 Route::get('/portal-dosen/{dosen}/profil', [DosenController::class, 'cetakProfil'])->name('portal.dosen.profil');
 

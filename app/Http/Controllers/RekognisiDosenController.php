@@ -145,4 +145,31 @@ class RekognisiDosenController extends Controller
         }
         return response()->json(['nama_dosen' => ''], 404);
     }
+
+    public function publicIndex(Request $request)
+    {
+        $query = RekognisiDosen::with('ts')->latest();
+        $rekognisi = $query->paginate(10);
+        $tsList = Ts::orderBy('tahun_sekarang')->get();
+        return view('rekognisi_dosen.public_index', compact('rekognisi', 'tsList'));
+    }
+
+    public function publicStore(Request $request)
+    {
+        $request->validate([
+            'kode_dosen'         => 'required',
+            'nama_dosen'         => 'required',
+            'nama_rekognisi'     => 'required',
+            'tahun'              => 'required',
+            'ts_id'              => 'required|exists:ts,id',
+            'level'              => 'required|in:lokal,nasional,internasional',
+            'link_dokumen'       => 'nullable|url',
+            'kategori_tridharma' => 'nullable|in:penelitian,pengabdian_masyarakat,pendidikan',
+        ]);
+
+        RekognisiDosen::create($request->all());
+
+        return redirect()->route('portal.rekognisi')
+            ->with('success', 'Data rekognisi / keanggotaan Anda berhasil ditambahkan dan akan ditinjau oleh Admin.');
+    }
 }

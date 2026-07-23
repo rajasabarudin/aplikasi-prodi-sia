@@ -353,12 +353,13 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle fw-bold {{ request()->routeIs('portal.penelitian*') || request()->routeIs('portal.pkm*') ? 'active' : '' }}" href="#" id="navbarTridharma" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle fw-bold {{ request()->routeIs('portal.penelitian*') || request()->routeIs('portal.pkm*') || request()->routeIs('portal.rekognisi*') ? 'active' : '' }}" href="#" id="navbarTridharma" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-briefcase-fill me-1 text-secondary"></i>Tridharma Dosen
                         </a>
                         <ul class="dropdown-menu border-0 shadow-sm rounded-4 mt-2" aria-labelledby="navbarTridharma">
                             <li><a class="dropdown-item fw-semibold py-2" href="{{ route('portal.penelitian') }}"><i class="bi bi-journal-text me-2 text-primary"></i>Penelitian Dosen</a></li>
                             <li><a class="dropdown-item fw-semibold py-2" href="{{ route('portal.pkm') }}"><i class="bi bi-people-fill me-2 text-secondary"></i>Pengabdian (PkM)</a></li>
+                            <li><a class="dropdown-item fw-semibold py-2" href="{{ route('portal.rekognisi') }}"><i class="bi bi-award-fill me-2 text-warning"></i>Rekognisi Dosen</a></li>
                         </ul>
                     </li>
                 </ul>
