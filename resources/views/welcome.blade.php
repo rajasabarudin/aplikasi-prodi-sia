@@ -190,6 +190,11 @@
                                     @endif
                                     <h4 class="dosen-name text-truncate" title="{{ $d->nama_dosen }}">{{ $d->nama_dosen }}</h4>
                                     <div class="dosen-role mt-2">{{ $d->pendidikan ?: 'Pengajar Utama' }}</div>
+                                    <div class="mt-3">
+                                        <a href="{{ route('portal.dosen.profil', $d->id) }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold shadow-sm" style="transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='var(--primary)'; this.style.color='white';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary)';">
+                                            <i class="bi bi-person-lines-fill me-1"></i> Lihat Profil
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                             @endforeach

@@ -129,6 +129,9 @@ Route::get('/portal-pkm', [PKMDosenController::class, 'publicIndex'])->name('por
 Route::post('/portal-pkm', [PKMDosenController::class, 'publicStore'])->name('portal.pkm.store');
 Route::get('/portal-pkm/get-dosen/{kode}', [PKMDosenController::class, 'getDosen'])->name('portal.pkm.get-dosen');
 
+// Public Dosen Profil
+Route::get('/portal-dosen/{dosen}/profil', [DosenController::class, 'cetakProfil'])->name('portal.dosen.profil');
+
 // Authentication Routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
