@@ -117,10 +117,11 @@
         <thead>
             <tr>
                 <th style="width: 5%;">No</th>
-                <th style="width: 40%;">Judul Penelitian</th>
-                <th style="width: 25%;">Peran</th>
+                <th style="width: 35%;">Judul Penelitian</th>
+                <th style="width: 20%;">Peran</th>
                 <th style="width: 15%;">Jenis Publikasi</th>
-                <th style="width: 15%;">Tahun (TS)</th>
+                <th style="width: 10%;">Tahun (TS)</th>
+                <th style="width: 15%;">Dokumen / Link</th>
             </tr>
         </thead>
         <tbody>
@@ -130,10 +131,17 @@
                     <td>{{ $penelitian->nama_jurnal }}</td>
                     <td class="text-center">{{ $penelitian->jenis_penelitian }}</td>
                     <td class="text-center">{{ $penelitian->jenis_jurnal }}</td>
-                    <td class="text-center">{{ optional($penelitian->ts)->tahun_akademik ?? '-' }}</td>
+                    <td class="text-center">{{ optional($penelitian->ts)->tahun_sekarang ?? '-' }}</td>
+                    <td class="text-center">
+                        @if($penelitian->link_jurnal)
+                            <a href="{{ $penelitian->link_jurnal }}" target="_blank" style="text-decoration: none; color: #4f46e5;">Lihat Dokumen</a>
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
             @empty
-                <tr class="empty-row"><td colspan="5">Belum ada data publikasi penelitian.</td></tr>
+                <tr class="empty-row"><td colspan="6">Belum ada data publikasi penelitian.</td></tr>
             @endforelse
         </tbody>
     </table>
@@ -144,10 +152,11 @@
         <thead>
             <tr>
                 <th style="width: 5%;">No</th>
-                <th style="width: 40%;">Tema PkM</th>
-                <th style="width: 25%;">Mitra</th>
+                <th style="width: 35%;">Tema PkM</th>
+                <th style="width: 20%;">Mitra</th>
                 <th style="width: 15%;">Sumber Dana</th>
-                <th style="width: 15%;">Tahun (TS)</th>
+                <th style="width: 10%;">Tahun (TS)</th>
+                <th style="width: 15%;">Dokumen / Link</th>
             </tr>
         </thead>
         <tbody>
@@ -157,10 +166,17 @@
                     <td>{{ $pkm->tema_pkm }}</td>
                     <td class="text-center">{{ $pkm->mitra }}</td>
                     <td class="text-center">{{ $pkm->sumber_dana ?? '-' }}</td>
-                    <td class="text-center">{{ optional($pkm->ts)->tahun_akademik ?? '-' }}</td>
+                    <td class="text-center">{{ optional($pkm->ts)->tahun_sekarang ?? '-' }}</td>
+                    <td class="text-center">
+                        @if($pkm->proposal)
+                            <a href="{{ asset('storage/' . $pkm->proposal) }}" target="_blank" style="text-decoration: none; color: #4f46e5;">Lihat Dokumen</a>
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
             @empty
-                <tr class="empty-row"><td colspan="5">Belum ada data PkM.</td></tr>
+                <tr class="empty-row"><td colspan="6">Belum ada data PkM.</td></tr>
             @endforelse
         </tbody>
     </table>
@@ -171,10 +187,11 @@
         <thead>
             <tr>
                 <th style="width: 5%;">No</th>
-                <th style="width: 40%;">Judul Hibah</th>
-                <th style="width: 20%;">Jenis Hibah</th>
+                <th style="width: 35%;">Judul Hibah</th>
+                <th style="width: 15%;">Jenis Hibah</th>
                 <th style="width: 20%;">Pemberi Hibah / Mitra</th>
-                <th style="width: 15%;">Tahun (TS)</th>
+                <th style="width: 10%;">Tahun (TS)</th>
+                <th style="width: 15%;">Dokumen / Link</th>
             </tr>
         </thead>
         <tbody>
@@ -184,10 +201,17 @@
                     <td>{{ $hibah->judul }}</td>
                     <td class="text-center">{{ $hibah->jenis_hibah }}</td>
                     <td class="text-center">{{ $hibah->pemberi_hibah }}</td>
-                    <td class="text-center">{{ optional($hibah->ts)->tahun_akademik ?? '-' }}</td>
+                    <td class="text-center">{{ optional($hibah->ts)->tahun_sekarang ?? '-' }}</td>
+                    <td class="text-center">
+                        @if($hibah->proposal)
+                            <a href="{{ asset('storage/' . $hibah->proposal) }}" target="_blank" style="text-decoration: none; color: #4f46e5;">Lihat Dokumen</a>
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
             @empty
-                <tr class="empty-row"><td colspan="5">Belum ada data hibah penelitian / PkM.</td></tr>
+                <tr class="empty-row"><td colspan="6">Belum ada data hibah penelitian / PkM.</td></tr>
             @endforelse
         </tbody>
     </table>
@@ -198,10 +222,11 @@
         <thead>
             <tr>
                 <th style="width: 5%;">No</th>
-                <th style="width: 40%;">Judul Ciptaan / HKI</th>
+                <th style="width: 30%;">Judul Ciptaan / HKI</th>
                 <th style="width: 20%;">Jenis Ciptaan</th>
-                <th style="width: 20%;">Nomor Permohonan</th>
+                <th style="width: 15%;">Nomor Permohonan</th>
                 <th style="width: 15%;">Tgl Permohonan</th>
+                <th style="width: 15%;">Dokumen / Link</th>
             </tr>
         </thead>
         <tbody>
@@ -212,9 +237,16 @@
                     <td class="text-center">{{ $hki->jenis_ciptaan }}</td>
                     <td class="text-center">{{ $hki->no_permohonan ?? '-' }}</td>
                     <td class="text-center">{{ $hki->tgl_permohonan ? \Carbon\Carbon::parse($hki->tgl_permohonan)->format('d/m/Y') : '-' }}</td>
+                    <td class="text-center">
+                        @if($hki->link_dokumen)
+                            <a href="{{ $hki->link_dokumen }}" target="_blank" style="text-decoration: none; color: #4f46e5;">Lihat Dokumen</a>
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
             @empty
-                <tr class="empty-row"><td colspan="5">Belum ada produk Hak Kekayaan Intelektual.</td></tr>
+                <tr class="empty-row"><td colspan="6">Belum ada produk Hak Kekayaan Intelektual.</td></tr>
             @endforelse
         </tbody>
     </table>
@@ -246,7 +278,7 @@
                         @endif
                     </td>
                     <td class="text-center">{{ $rekognisi->level }}</td>
-                    <td class="text-center">{{ optional($rekognisi->ts)->tahun_akademik ?? $rekognisi->tahun ?? '-' }}</td>
+                    <td class="text-center">{{ optional($rekognisi->ts)->tahun_sekarang ?? $rekognisi->tahun ?? '-' }}</td>
                     <td class="text-center">
                         @if($rekognisi->link_dokumen)
                             <a href="{{ $rekognisi->link_dokumen }}" target="_blank" style="text-decoration: none; color: #4f46e5;">Lihat Dokumen</a>
@@ -267,9 +299,10 @@
         <thead>
             <tr>
                 <th style="width: 5%;">No</th>
-                <th style="width: 40%;">Nama Kegiatan</th>
-                <th style="width: 30%;">Jenis Kegiatan Tri Dharma</th>
-                <th style="width: 25%;">Tahun & Penyelenggara</th>
+                <th style="width: 35%;">Nama Kegiatan</th>
+                <th style="width: 25%;">Jenis Kegiatan Tri Dharma</th>
+                <th style="width: 20%;">Tahun & Penyelenggara</th>
+                <th style="width: 15%;">Dokumen / Link</th>
             </tr>
         </thead>
         <tbody>
@@ -279,8 +312,15 @@
                     <td>{{ $kegiatan->nama_kegiatan }}</td>
                     <td class="text-center">{{ $kegiatan->jenis }}</td>
                     <td class="text-center">
-                        {{ optional($kegiatan->ts)->tahun_akademik ?? $kegiatan->tahun ?? '-' }}<br>
+                        {{ optional($kegiatan->ts)->tahun_sekarang ?? $kegiatan->tahun ?? '-' }}<br>
                         <small>{{ $kegiatan->penyelenggara ?? '-' }}</small>
+                    </td>
+                    <td class="text-center">
+                        @if($kegiatan->link_dokumen)
+                            <a href="{{ $kegiatan->link_dokumen }}" target="_blank" style="text-decoration: none; color: #4f46e5;">Lihat Dokumen</a>
+                        @else
+                            -
+                        @endif
                     </td>
                 </tr>
             @empty
@@ -330,10 +370,11 @@
         <thead>
             <tr>
                 <th style="width: 5%;">No</th>
-                <th style="width: 40%;">Nama Prestasi / Kejuaraan</th>
+                <th style="width: 30%;">Nama Prestasi / Kejuaraan</th>
                 <th style="width: 20%;">Tingkat</th>
                 <th style="width: 15%;">Prestasi Diraih</th>
-                <th style="width: 20%;">Tahun (TS)</th>
+                <th style="width: 15%;">Tahun (TS)</th>
+                <th style="width: 15%;">Dokumen / Link</th>
             </tr>
         </thead>
         <tbody>
@@ -343,10 +384,19 @@
                     <td>{{ $prestasi->nama_prestasi }}</td>
                     <td class="text-center">{{ $prestasi->level_prestasi ?? $prestasi->tingkat ?? '-' }}</td>
                     <td class="text-center">{{ $prestasi->prestasi_diraih ?? $prestasi->prestasi ?? '-' }}</td>
-                    <td class="text-center">{{ optional($prestasi->ts)->tahun_akademik ?? $prestasi->tahun ?? '-' }}</td>
+                    <td class="text-center">{{ optional($prestasi->ts)->tahun_sekarang ?? $prestasi->tahun ?? '-' }}</td>
+                    <td class="text-center">
+                        @if($prestasi->link_dokumen)
+                            <a href="{{ $prestasi->link_dokumen }}" target="_blank" style="text-decoration: none; color: #4f46e5;">Lihat Dokumen</a>
+                        @elseif($prestasi->berkas_sertifikat)
+                            <a href="{{ asset('storage/' . $prestasi->berkas_sertifikat) }}" target="_blank" style="text-decoration: none; color: #4f46e5;">Lihat Dokumen</a>
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
             @empty
-                <tr class="empty-row"><td colspan="5">Belum ada data prestasi perlombaan.</td></tr>
+                <tr class="empty-row"><td colspan="6">Belum ada data prestasi perlombaan.</td></tr>
             @endforelse
         </tbody>
     </table>
@@ -369,7 +419,7 @@
                     <td class="text-center">{{ $index + 1 }}</td>
                     <td>{{ $keanggotaan->nama_rekognisi }}</td>
                     <td class="text-center">{{ $keanggotaan->level }}</td>
-                    <td class="text-center">{{ optional($keanggotaan->ts)->tahun_akademik ?? $keanggotaan->tahun ?? '-' }}</td>
+                    <td class="text-center">{{ optional($keanggotaan->ts)->tahun_sekarang ?? $keanggotaan->tahun ?? '-' }}</td>
                     <td class="text-center">
                         @if($keanggotaan->link_dokumen)
                             <a href="{{ $keanggotaan->link_dokumen }}" target="_blank" style="text-decoration: none; color: #4f46e5;">Lihat Dokumen</a>
