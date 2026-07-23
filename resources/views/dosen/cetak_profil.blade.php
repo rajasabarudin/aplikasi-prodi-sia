@@ -120,7 +120,7 @@
                 <th style="width: 35%;">Judul Penelitian</th>
                 <th style="width: 20%;">Peran</th>
                 <th style="width: 15%;">Jenis Publikasi</th>
-                <th style="width: 10%;">Tahun (TS)</th>
+                <th style="width: 10%;">Tahun Akademik (TA)</th>
                 <th style="width: 15%;">Dokumen / Link</th>
             </tr>
         </thead>
@@ -155,7 +155,7 @@
                 <th style="width: 35%;">Tema PkM</th>
                 <th style="width: 20%;">Mitra</th>
                 <th style="width: 15%;">Sumber Dana</th>
-                <th style="width: 10%;">Tahun (TS)</th>
+                <th style="width: 10%;">Tahun Akademik (TA)</th>
                 <th style="width: 15%;">Dokumen / Link</th>
             </tr>
         </thead>
@@ -190,7 +190,7 @@
                 <th style="width: 35%;">Judul Hibah</th>
                 <th style="width: 15%;">Jenis Hibah</th>
                 <th style="width: 20%;">Pemberi Hibah / Mitra</th>
-                <th style="width: 10%;">Tahun (TS)</th>
+                <th style="width: 10%;">Tahun Akademik (TA)</th>
                 <th style="width: 15%;">Dokumen / Link</th>
             </tr>
         </thead>
@@ -259,7 +259,7 @@
                 <th style="width: 5%;">No</th>
                 <th style="width: 40%;">Bentuk Rekognisi / Nama Pengakuan</th>
                 <th style="width: 20%;">Tingkat</th>
-                <th style="width: 15%;">Tahun (TS)</th>
+                <th style="width: 15%;">Tahun Akademik (TA)</th>
                 <th style="width: 20%;">Dokumen / Link</th>
             </tr>
         </thead>
@@ -373,7 +373,7 @@
                 <th style="width: 30%;">Nama Prestasi / Kejuaraan</th>
                 <th style="width: 20%;">Tingkat</th>
                 <th style="width: 15%;">Prestasi Diraih</th>
-                <th style="width: 15%;">Tahun (TS)</th>
+                <th style="width: 15%;">Tahun Akademik (TA)</th>
                 <th style="width: 15%;">Dokumen / Link</th>
             </tr>
         </thead>
@@ -409,7 +409,7 @@
                 <th style="width: 5%;">No</th>
                 <th style="width: 40%;">Nama Organisasi</th>
                 <th style="width: 20%;">Peran / Jabatan</th>
-                <th style="width: 15%;">Tahun (TS)</th>
+                <th style="width: 15%;">Tahun Akademik (TA)</th>
                 <th style="width: 20%;">Dokumen / Link</th>
             </tr>
         </thead>
