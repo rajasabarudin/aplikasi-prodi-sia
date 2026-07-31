@@ -35,6 +35,13 @@ class DigitalTwinController extends Controller
         return view('digital-twin.index', compact('dataset', 'chartData', 'photos', 'photosByDate'));
     }
 
+    public function zonasi()
+    {
+        // Ambil data IoT terbaru sebagai parameter mikroklimat untuk simulasi penyebaran
+        $currentIot = \App\Models\IotData::orderBy('waktu', 'desc')->first();
+        return view('digital-twin.zonasi', compact('currentIot'));
+    }
+
     public function syncData()
     {
         try {

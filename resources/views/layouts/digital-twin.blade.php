@@ -87,7 +87,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="alert('Fitur Peta Zonasi AST-DSRA v2 sedang dikembangkan.'); return false;">
+                        <a class="nav-link {{ request()->routeIs('digital-twin.zonasi') ? 'active' : '' }}" href="{{ route('digital-twin.zonasi') }}">
                             <i class="fas fa-map-marked-alt me-2"></i>Peta Zonasi
                         </a>
                     </li>

@@ -306,6 +306,7 @@ Route::middleware(['auth', 'permission'])->prefix('admin')->group(function () {
 
     // Digital Twin (Disertasi)
     Route::get('digital-twin', [\App\Http\Controllers\DigitalTwinController::class, 'index'])->name('digital-twin.index');
+    Route::get('digital-twin/zonasi', [\App\Http\Controllers\DigitalTwinController::class, 'zonasi'])->name('digital-twin.zonasi');
     Route::post('digital-twin/sync', [\App\Http\Controllers\DigitalTwinController::class, 'syncData'])->name('digital-twin.sync');
     Route::get('digital-twin/export', [\App\Http\Controllers\DigitalTwinController::class, 'exportCsv'])->name('digital-twin.export');
 });
