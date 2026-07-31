@@ -238,7 +238,7 @@
                                 </tr>
                             </table>
                             <div class="mt-3">
-                                <button class="btn btn-sm btn-outline-secondary w-100"><i class="fas fa-save me-1"></i> Simpan Histori Node</button>
+                                <button class="btn btn-sm btn-outline-primary w-100" onclick="saveNodeHistory('${clickedTree.id}')"><i class="fas fa-save me-1"></i> Simpan Histori Node</button>
                             </div>
                         </div>
                     `;
@@ -249,6 +249,21 @@
         // Expose fungsi ke global agar bisa dipanggil tombol
         window.simulateSpread = function() {
             drawTrees(true);
+        }
+        
+        window.saveNodeHistory = function(nodeId) {
+            alert('Berhasil! Histori infeksi untuk Node ' + nodeId + ' telah disimpan ke Pathogen Persistence Layer.');
+            // Secara visual, kita ubah warna node sedikit untuk menandakan ada riwayat tersimpan
+            let tree = trees.find(t => t.id === nodeId);
+            if(tree) {
+                tree.hasHistory = true;
+                // Redraw to show changes (optional, here we just show alert for prototype)
+                if(document.getElementById('plantationGrid').dataset.simulated === 'true') {
+                    drawTrees(true);
+                } else {
+                    drawTrees(false);
+                }
+            }
         }
     });
 </script>

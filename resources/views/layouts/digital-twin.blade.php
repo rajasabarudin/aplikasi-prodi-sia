@@ -67,7 +67,7 @@
 <body>
     
     <!-- Top Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-custom py-3">
+    <nav class="navbar navbar-expand-xl navbar-custom py-3">
         <div class="container-fluid px-4">
             <a class="navbar-brand d-flex align-items-center" href="{{ route('digital-twin.index') }}">
                 <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; box-shadow: 0 0 15px rgba(25, 135, 84, 0.5);">
