@@ -87,18 +87,23 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="alert('Fitur Data Histori Sensor sedang dikembangkan.'); return false;">
-                            <i class="fas fa-database me-2"></i>Data Histori
+                        <a class="nav-link" href="#" onclick="alert('Fitur Peta Zonasi AST-DSRA v2 sedang dikembangkan.'); return false;">
+                            <i class="fas fa-map-marked-alt me-2"></i>Peta Zonasi
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="alert('Fitur Galeri CCTV sedang dikembangkan.'); return false;">
-                            <i class="fas fa-video me-2"></i>Kamera CCTV
+                        <a class="nav-link" href="#" onclick="alert('Fitur Simulasi Fuzzy Logic sedang dikembangkan.'); return false;">
+                            <i class="fas fa-brain me-2"></i>Simulasi Fuzzy
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="alert('Fitur Pengaturan Device sedang dikembangkan.'); return false;">
-                            <i class="fas fa-cogs me-2"></i>Pengaturan
+                        <a class="nav-link" href="#" onclick="alert('Fitur Riwayat Infeksi (Pathogen Persistence) sedang dikembangkan.'); return false;">
+                            <i class="fas fa-history me-2"></i>Riwayat Infeksi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="alert('Fitur Data Akuisisi (IoT & Drone) sedang dikembangkan.'); return false;">
+                            <i class="fas fa-database me-2"></i>Data Akuisisi
                         </a>
                     </li>
                 </ul>
