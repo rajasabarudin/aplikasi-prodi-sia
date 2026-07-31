@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.digital-twin')
 
 @section('title', 'Digital Twin - Kebun Sawit')
 
