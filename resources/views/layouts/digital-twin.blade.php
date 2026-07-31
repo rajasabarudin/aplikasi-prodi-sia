@@ -67,49 +67,49 @@
 <body>
     
     <!-- Top Navigation -->
-    <nav class="navbar navbar-expand-xl navbar-custom py-3">
-        <div class="container-fluid px-4">
+    <nav class="navbar navbar-expand-lg navbar-custom py-2">
+        <div class="container-fluid px-3">
             <a class="navbar-brand d-flex align-items-center" href="{{ route('digital-twin.index') }}">
-                <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; box-shadow: 0 0 15px rgba(25, 135, 84, 0.5);">
-                    <i class="fas fa-satellite-dish text-white"></i>
+                <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px; box-shadow: 0 0 10px rgba(25, 135, 84, 0.5);">
+                    <i class="fas fa-satellite-dish text-white fs-6"></i>
                 </div>
-                <span>Digital Twin <span class="text-success">IoT</span></span>
+                <span class="fs-5">Digital Twin</span>
             </a>
             <button class="navbar-toggler text-white border-0" type="button" data-bs-toggle="collapse" data-bs-target="#digitalTwinNav" aria-controls="digitalTwinNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars fs-4"></i>
             </button>
             
             <div class="collapse navbar-collapse" id="digitalTwinNav">
-                <ul class="navbar-nav ms-4 me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('digital-twin.index') ? 'active' : '' }}" href="{{ route('digital-twin.index') }}">
-                            <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                        <a class="nav-link {{ request()->routeIs('digital-twin.index') ? 'active' : '' }} px-3" href="{{ route('digital-twin.index') }}">
+                            <i class="fas fa-tachometer-alt me-1"></i> Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('digital-twin.zonasi') ? 'active' : '' }}" href="{{ route('digital-twin.zonasi') }}">
-                            <i class="fas fa-map-marked-alt me-2"></i>Peta Zonasi
+                        <a class="nav-link {{ request()->routeIs('digital-twin.zonasi') ? 'active' : '' }} px-3" href="{{ route('digital-twin.zonasi') }}">
+                            <i class="fas fa-map-marked-alt me-1"></i> Peta Zonasi
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="alert('Fitur Simulasi Fuzzy Logic sedang dikembangkan.'); return false;">
-                            <i class="fas fa-brain me-2"></i>Simulasi Fuzzy
+                        <a class="nav-link px-3" href="#" onclick="alert('Fitur Simulasi Fuzzy Logic sedang dikembangkan.'); return false;">
+                            <i class="fas fa-brain me-1"></i> Simulasi Fuzzy
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="alert('Fitur Riwayat Infeksi (Pathogen Persistence) sedang dikembangkan.'); return false;">
-                            <i class="fas fa-history me-2"></i>Riwayat Infeksi
+                        <a class="nav-link px-3" href="#" onclick="alert('Fitur Riwayat Infeksi sedang dikembangkan.'); return false;">
+                            <i class="fas fa-history me-1"></i> Riwayat
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="alert('Fitur Data Akuisisi (IoT & Drone) sedang dikembangkan.'); return false;">
-                            <i class="fas fa-database me-2"></i>Data Akuisisi
+                        <a class="nav-link px-3" href="#" onclick="alert('Fitur Data IoT & Drone sedang dikembangkan.'); return false;">
+                            <i class="fas fa-database me-1"></i> Data IoT
                         </a>
                     </li>
                 </ul>
                 <div class="d-flex align-items-center">
-                    <a href="{{ route('dashboard') }}" class="btn btn-back btn-sm rounded-pill px-4 py-2">
-                        <i class="fas fa-arrow-left me-2"></i>Kembali ke SIA
+                    <a href="{{ route('dashboard') }}" class="btn btn-back btn-sm rounded-pill px-3 py-1">
+                        <i class="fas fa-arrow-left me-1"></i> Ke SIA
                     </a>
                 </div>
             </div>
