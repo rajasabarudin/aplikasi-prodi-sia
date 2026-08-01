@@ -243,9 +243,9 @@
                                 <tr>
                                     <td class="text-muted">Kondisi Histori</td>
                                     <td>: <select class="form-select form-select-sm mt-1" id="history_${clickedTree.id}">
-                                            <option value="0">Aman (Tidak ada riwayat)</option>
-                                            <option value="20">Pernah terserang 2 thn lalu (+20% Risiko)</option>
-                                            <option value="40">Ada sisa tunggul mati (+40% Risiko)</option>
+                                            <option value="0" ${(!clickedTree.savedHistoryValue || clickedTree.savedHistoryValue === 0) ? 'selected' : ''}>Aman (Tidak ada riwayat)</option>
+                                            <option value="20" ${clickedTree.savedHistoryValue === 20 ? 'selected' : ''}>Pernah terserang 2 thn lalu (+20% Risiko)</option>
+                                            <option value="40" ${clickedTree.savedHistoryValue === 40 ? 'selected' : ''}>Ada sisa tunggul mati (+40% Risiko)</option>
                                           </select>
                                     </td>
                                 </tr>
@@ -276,10 +276,12 @@
             let tree = trees.find(t => t.id === nodeId);
             if(tree) {
                 // Update properties
+                tree.savedHistoryValue = addedRisk;
+                
                 if (addedRisk > 0) {
                     tree.hasHistory = true;
                     // Tingkatkan risiko berdasarkan histori
-                    tree.risk = Math.min(99, tree.originalRisk !== undefined ? tree.originalRisk + addedRisk : tree.risk + addedRisk);
+                    tree.risk = Math.min(99, (tree.originalRisk !== undefined ? tree.originalRisk : tree.risk) + addedRisk);
                     if (tree.originalRisk === undefined) {
                         tree.originalRisk = tree.risk - addedRisk;
                     }
@@ -299,8 +301,16 @@
                     drawTrees(false);
                 }
                 
-                // Refresh modal content by simulating a click on the canvas at tree's position?
-                // Or just let user click again.
+                // Refresh modal content by simulating a click on the canvas at tree's position
+                const rect = canvas.getBoundingClientRect();
+                const screenX = centerX + tree.x * scale;
+                const screenY = centerY + tree.y * scale;
+                // Dispatch click event to trigger the info panel update
+                const clickEvent = new MouseEvent('click', {
+                    clientX: rect.left + screenX,
+                    clientY: rect.top + screenY
+                });
+                canvas.dispatchEvent(clickEvent);
             }
         }
     });
