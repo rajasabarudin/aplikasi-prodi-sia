@@ -1,4 +1,4 @@
-@extends('layouts.digital-twin')
+@extends('layouts.app')
 
 @section('title', 'Peta Zonasi Risiko Ganoderma - Digital Twin')
 
