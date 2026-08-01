@@ -25,6 +25,12 @@
             display: flex;
             width: 100%;
             align-items: stretch;
+            flex-wrap: nowrap;
+        }
+
+        canvas {
+            max-width: 100% !important;
+            height: auto !important;
         }
         
         #sidebar {
