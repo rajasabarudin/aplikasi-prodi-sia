@@ -35,7 +35,10 @@
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 fw-bold"><i class="fas fa-project-diagram text-success me-2"></i> Simulasi Sebaran Jarak Tanam (Segitiga 9x9m)</h5>
-                    <button class="btn btn-sm btn-outline-primary" onclick="simulateSpread()"><i class="fas fa-play me-1"></i> Mulai Simulasi Penyebaran</button>
+                    <div>
+                        <button class="btn btn-sm btn-outline-success me-2" onclick="exportDatasetCSV()"><i class="fas fa-file-csv me-1"></i> Unduh Dataset</button>
+                        <button class="btn btn-sm btn-outline-primary" onclick="simulateSpread()"><i class="fas fa-play me-1"></i> Mulai Simulasi Penyebaran</button>
+                    </div>
                 </div>
                 <div class="card-body d-flex justify-content-center align-items-center bg-light rounded m-3" style="min-height: 500px; overflow: hidden; position: relative;">
                     <!-- Area Canvas untuk menggambar grid pohon -->
@@ -312,6 +315,37 @@
                 });
                 canvas.dispatchEvent(clickEvent);
             }
+        }
+
+        // Fitur Export Dataset CSV
+        window.exportDatasetCSV = function() {
+            let csvContent = "data:text/csv;charset=utf-8,";
+            // Header CSV sesuai struktur rancangan disertasi
+            csvContent += "tree_id,grid_x,grid_y,jarak_ring,riwayat_infeksi,risiko_probabilitas_pct,status_aktual_lapangan\n";
+
+            trees.forEach(function(t) {
+                let riwayat = t.savedHistoryValue || 0;
+                let risiko = t.risk || 0;
+                
+                // Menentukan Ground Truth tiruan berdasarkan risiko untuk keperluan dataset
+                let statusAktual = "Sehat";
+                if (t.isCenter) statusAktual = "Episentrum (Sumber)";
+                else if (risiko > 75) statusAktual = "Terinfeksi Berat";
+                else if (risiko > 40) statusAktual = "Gejala Sedang";
+                else if (risiko > 20) statusAktual = "Gejala Ringan";
+                
+                let row = `${t.id},${t.x.toFixed(2)},${t.y.toFixed(2)},${t.ring},${riwayat},${risiko},${statusAktual}`;
+                csvContent += row + "\n";
+            });
+
+            // Trigger download
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Dataset_Simulasi_Ganoderma_AST-DSRA_v2.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
     });
 </script>
