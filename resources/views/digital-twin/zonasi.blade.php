@@ -182,8 +182,15 @@
                 }
                 
                 ctx.fill();
-                ctx.strokeStyle = '#fff';
-                ctx.lineWidth = 2;
+                
+                // Jika memiliki history, berikan border ungu/gelap yang lebih tebal
+                if (tree.hasHistory) {
+                    ctx.strokeStyle = '#8b5cf6'; // Ungu
+                    ctx.lineWidth = 4;
+                } else {
+                    ctx.strokeStyle = '#fff';
+                    ctx.lineWidth = 2;
+                }
                 ctx.stroke();
             });
         }
@@ -235,10 +242,10 @@
                                 </tr>
                                 <tr>
                                     <td class="text-muted">Kondisi Histori</td>
-                                    <td>: <select class="form-select form-select-sm mt-1">
-                                            <option>Aman (Tidak ada riwayat)</option>
-                                            <option>Pernah terserang 2 thn lalu</option>
-                                            <option>Ada sisa tunggul mati</option>
+                                    <td>: <select class="form-select form-select-sm mt-1" id="history_${clickedTree.id}">
+                                            <option value="0">Aman (Tidak ada riwayat)</option>
+                                            <option value="20">Pernah terserang 2 thn lalu (+20% Risiko)</option>
+                                            <option value="40">Ada sisa tunggul mati (+40% Risiko)</option>
                                           </select>
                                     </td>
                                 </tr>
@@ -258,17 +265,42 @@
         }
         
         window.saveNodeHistory = function(nodeId) {
-            alert('Berhasil! Histori infeksi untuk Node ' + nodeId + ' telah disimpan ke Pathogen Persistence Layer.');
-            // Secara visual, kita ubah warna node sedikit untuk menandakan ada riwayat tersimpan
+            let selectEl = document.getElementById('history_' + nodeId);
+            let addedRisk = 0;
+            let historyText = "Tidak ada riwayat";
+            if (selectEl) {
+                addedRisk = parseInt(selectEl.value);
+                historyText = selectEl.options[selectEl.selectedIndex].text;
+            }
+
             let tree = trees.find(t => t.id === nodeId);
             if(tree) {
-                tree.hasHistory = true;
-                // Redraw to show changes (optional, here we just show alert for prototype)
+                // Update properties
+                if (addedRisk > 0) {
+                    tree.hasHistory = true;
+                    // Tingkatkan risiko berdasarkan histori
+                    tree.risk = Math.min(99, tree.originalRisk !== undefined ? tree.originalRisk + addedRisk : tree.risk + addedRisk);
+                    if (tree.originalRisk === undefined) {
+                        tree.originalRisk = tree.risk - addedRisk;
+                    }
+                    alert('Berhasil! Histori "' + historyText + '" untuk Node ' + nodeId + ' disimpan. Risiko node meningkat menjadi ' + tree.risk + '%!');
+                } else {
+                    tree.hasHistory = false;
+                    if (tree.originalRisk !== undefined) {
+                        tree.risk = tree.originalRisk;
+                    }
+                    alert('Histori dihapus untuk Node ' + nodeId + '. Risiko kembali normal (' + tree.risk + '%).');
+                }
+                
+                // Redraw to show changes
                 if(document.getElementById('plantationGrid').dataset.simulated === 'true') {
                     drawTrees(true);
                 } else {
                     drawTrees(false);
                 }
+                
+                // Refresh modal content by simulating a click on the canvas at tree's position?
+                // Or just let user click again.
             }
         }
     });
