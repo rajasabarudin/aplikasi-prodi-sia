@@ -31,7 +31,15 @@
                 <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 fw-bold"><i class="fas fa-project-diagram text-success me-2"></i> Simulasi Sebaran Jarak Tanam (Segitiga 9x9m)</h5>
                     <div>
-                        <button class="btn btn-sm btn-outline-success me-2" onclick="exportDatasetCSV()"><i class="fas fa-file-csv me-1"></i> Unduh Dataset</button>
+                        <div class="dropdown d-inline-block me-2">
+                            <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-file-csv me-1"></i> Unduh Dataset
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" onclick="exportDatasetCSV()">Snapshot Saat Ini (Statis)</a></li>
+                                <li><a class="dropdown-item fw-bold text-primary" href="#" onclick="generateTimeSeriesDataset()">Time-Series 30 Hari (1000+ Baris)</a></li>
+                            </ul>
+                        </div>
                         <button class="btn btn-sm btn-outline-primary" onclick="simulateSpread()"><i class="fas fa-play me-1"></i> Mulai Simulasi Penyebaran</button>
                     </div>
                 </div>
@@ -338,6 +346,59 @@
             var link = document.createElement("a");
             link.setAttribute("href", encodedUri);
             link.setAttribute("download", "Dataset_Simulasi_Ganoderma_AST-DSRA_v2.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Fitur Generate Dataset Time-Series (1000+ data)
+        window.generateTimeSeriesDataset = function() {
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "tanggal,waktu,tree_id,suhu_tanah,kelembaban_tanah,ph_tanah,jarak_ring,riwayat_infeksi,risiko_probabilitas_pct,status_aktual_lapangan\n";
+
+            // Mulai dari 30 hari yang lalu
+            let startDate = new Date();
+            startDate.setDate(startDate.getDate() - 30);
+
+            // Loop 30 hari
+            for(let day = 0; day < 30; day++) {
+                let currentDate = new Date(startDate);
+                currentDate.setDate(currentDate.getDate() + day);
+                let dateStr = currentDate.toISOString().split('T')[0];
+
+                // Loop setiap pohon untuk hari tersebut
+                trees.forEach(function(t) {
+                    // Fluktuasi lingkungan harian
+                    let randomSuhu = (24 + Math.random() * 8).toFixed(1); // 24.0 - 32.0 C
+                    let randomKel = (65 + Math.random() * 30).toFixed(1); // 65.0 - 95.0 %
+                    let randomPH = (5.0 + Math.random() * 1.5).toFixed(1); // 5.0 - 6.5
+                    
+                    let riwayat = t.savedHistoryValue || 0;
+                    
+                    // Kalkulasi dummy risiko AST-DSRA v2 berdasarkan bobot mikroklimat hari ini
+                    // Jika kelembaban tinggi dan pH asam, risiko naik
+                    let baseRisk = (1 / Math.pow(Math.max(t.ring, 1), 1.2)) * 100;
+                    let microclimateMod = (parseFloat(randomKel) / 100) * (6.5 / parseFloat(randomPH));
+                    let dailyRisk = Math.min(99, (baseRisk * microclimateMod) + riwayat);
+                    
+                    if (t.isCenter) dailyRisk = 100;
+
+                    let statusAktual = "Sehat";
+                    if (t.isCenter) statusAktual = "Episentrum (Sumber)";
+                    else if (dailyRisk > 75) statusAktual = "Terinfeksi Berat";
+                    else if (dailyRisk > 40) statusAktual = "Gejala Sedang";
+                    else if (dailyRisk > 20) statusAktual = "Gejala Ringan";
+                    
+                    let row = `${dateStr},08:00:00,${t.id},${randomSuhu},${randomKel},${randomPH},${t.ring},${riwayat},${dailyRisk.toFixed(2)},${statusAktual}`;
+                    csvContent += row + "\n";
+                });
+            }
+
+            // Trigger download
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Dataset_TimeSeries_AST-DSRA_v2_1000Plus.csv");
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
