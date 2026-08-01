@@ -67,7 +67,7 @@
 <body>
     
     <!-- Top Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-custom py-2">
+    <nav class="navbar navbar-expand-xl navbar-custom py-2">
         <div class="container-fluid px-3">
             <a class="navbar-brand d-flex align-items-center" href="{{ route('digital-twin.index') }}">
                 <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px; box-shadow: 0 0 10px rgba(25, 135, 84, 0.5);">
@@ -80,29 +80,29 @@
             </button>
             
             <div class="collapse navbar-collapse" id="digitalTwinNav">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav mx-auto mb-2 mb-xl-0">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('digital-twin.index') ? 'active' : '' }} px-3" href="{{ route('digital-twin.index') }}">
+                        <a class="nav-link {{ request()->routeIs('digital-twin.index') ? 'active' : '' }} px-2 px-xl-3" href="{{ route('digital-twin.index') }}">
                             <i class="fas fa-tachometer-alt me-1"></i> Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('digital-twin.zonasi') ? 'active' : '' }} px-3" href="{{ route('digital-twin.zonasi') }}">
+                        <a class="nav-link {{ request()->routeIs('digital-twin.zonasi') ? 'active' : '' }} px-2 px-xl-3" href="{{ route('digital-twin.zonasi') }}">
                             <i class="fas fa-map-marked-alt me-1"></i> Peta Zonasi
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-3" href="#" onclick="alert('Fitur Simulasi Fuzzy Logic sedang dikembangkan.'); return false;">
+                        <a class="nav-link px-2 px-xl-3" href="#" onclick="alert('Fitur Simulasi Fuzzy Logic sedang dikembangkan.'); return false;">
                             <i class="fas fa-brain me-1"></i> Simulasi Fuzzy
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-3" href="#" onclick="alert('Fitur Riwayat Infeksi sedang dikembangkan.'); return false;">
+                        <a class="nav-link px-2 px-xl-3" href="#" onclick="alert('Fitur Riwayat Infeksi sedang dikembangkan.'); return false;">
                             <i class="fas fa-history me-1"></i> Riwayat
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-3" href="#" onclick="alert('Fitur Data IoT & Drone sedang dikembangkan.'); return false;">
+                        <a class="nav-link px-2 px-xl-3" href="#" onclick="alert('Fitur Data IoT & Drone sedang dikembangkan.'); return false;">
                             <i class="fas fa-database me-1"></i> Data IoT
                         </a>
                     </li>
