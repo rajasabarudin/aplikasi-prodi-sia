@@ -36,9 +36,11 @@
             color: rgba(255, 255, 255, 0.7);
             font-weight: 500;
             transition: all 0.3s ease;
-            margin: 0 4px;
+            margin: 0 2px;
             border-radius: 8px;
-            padding: 8px 16px;
+            padding: 6px 12px;
+            font-size: 0.95rem;
+            white-space: nowrap;
         }
         .navbar-custom .nav-link:hover, .navbar-custom .nav-link.active {
             color: #ffffff;
@@ -67,7 +69,7 @@
 <body>
     
     <!-- Top Navigation -->
-    <nav class="navbar navbar-expand-xl navbar-custom py-2">
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top py-2">
         <div class="container-fluid px-3">
             <a class="navbar-brand d-flex align-items-center" href="{{ route('digital-twin.index') }}">
                 <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px; box-shadow: 0 0 10px rgba(25, 135, 84, 0.5);">
@@ -80,7 +82,7 @@
             </button>
             
             <div class="collapse navbar-collapse" id="digitalTwinNav">
-                <ul class="navbar-nav mx-auto mb-2 mb-xl-0">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('digital-twin.index') ? 'active' : '' }} px-2 px-xl-3" href="{{ route('digital-twin.index') }}">
                             <i class="fas fa-tachometer-alt me-1"></i> Dashboard
