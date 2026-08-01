@@ -4,11 +4,6 @@
 
 @section('content')
 <div class="container-fluid px-4">
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Zonasi Risiko Ganoderma - Digital Twin</h1>
-    </div>
-
     <div class="row mb-4 align-items-center">
         <div class="col-md-8">
             <h4 class="fw-bold text-dark mb-1">Virtual Grid & Peta Zonasi (AST-DSRA v2)</h4>
