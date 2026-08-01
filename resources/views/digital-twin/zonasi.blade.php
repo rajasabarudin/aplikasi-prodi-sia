@@ -4,9 +4,14 @@
 
 @section('content')
 <div class="container-fluid px-4">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Zonasi Risiko Ganoderma - Digital Twin</h1>
+    </div>
+
     <div class="row mb-4 align-items-center">
         <div class="col-md-8">
-            <h2 class="fw-bold text-dark mb-1">Virtual Grid & Peta Zonasi (AST-DSRA v2)</h2>
+            <h4 class="fw-bold text-dark mb-1">Virtual Grid & Peta Zonasi (AST-DSRA v2)</h4>
             <p class="text-muted mb-0">Pemetaan Spasial Probabilitas Infeksi Berbasis Sensor IoT (Episentrum)</p>
         </div>
         <div class="col-md-4 text-md-end mt-3 mt-md-0">
