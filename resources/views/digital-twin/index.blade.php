@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.digital-twin')
 
 @section('title', 'Digital Twin - Kebun Sawit')
 
@@ -267,8 +267,6 @@
 @endpush
 
 @if(isset($chartData) && count($chartData) > 0)
-@push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('iotChart');
@@ -371,6 +369,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-@endpush
 @endif
 @endsection

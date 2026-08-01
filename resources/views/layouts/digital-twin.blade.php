@@ -9,8 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
@@ -20,111 +18,162 @@
         body {
             background-color: #f8fafc;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
         }
         
-        /* Modern Dark Navbar */
-        .navbar-custom {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        .wrapper {
+            display: flex;
+            width: 100%;
+            align-items: stretch;
         }
-        .navbar-custom .navbar-brand {
-            color: #ffffff;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+        
+        #sidebar {
+            min-width: 260px;
+            max-width: 260px;
+            min-height: 100vh;
+            background: #1e293b;
+            color: #fff;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
         }
-        .navbar-custom .nav-link {
-            color: rgba(255, 255, 255, 0.7);
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin: 0 2px;
-            border-radius: 8px;
-            padding: 6px 12px;
-            font-size: 0.95rem;
-            white-space: nowrap;
+
+        #sidebar.active {
+            margin-left: -260px;
         }
-        .navbar-custom .nav-link:hover, .navbar-custom .nav-link.active {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-1px);
+
+        #sidebar .sidebar-header {
+            padding: 25px 20px;
+            background: #0f172a;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        #sidebar ul.components {
+            padding: 20px 0;
+            flex-grow: 1;
+        }
+
+        #sidebar ul li a {
+            padding: 15px 25px;
+            font-size: 1.05em;
+            display: block;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: 0.2s;
+            border-left: 4px solid transparent;
+        }
+
+        #sidebar ul li a:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+        }
+
+        #sidebar ul li a.active {
+            color: #fff;
+            background: rgba(16, 185, 129, 0.15);
+            border-left: 4px solid #10b981;
+            font-weight: 600;
+        }
+
+        #content {
+            width: 100%;
+            min-height: 100vh;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .top-navbar {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
         }
         
         .main-content {
-            padding: 24px 0;
-            min-height: calc(100vh - 76px);
+            padding: 30px;
+            flex-grow: 1;
         }
-        
-        /* Custom Button */
-        .btn-back {
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-        .btn-back:hover {
-            background: rgba(255,255,255,0.2);
-            color: #fff;
+
+        @media (max-width: 768px) {
+            #sidebar {
+                margin-left: -260px;
+                position: absolute;
+                z-index: 999;
+            }
+            #sidebar.active {
+                margin-left: 0;
+            }
         }
     </style>
 </head>
 <body>
-    
-    <!-- Top Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-custom sticky-top py-2">
-        <div class="container-fluid px-3">
-            <a class="navbar-brand d-flex align-items-center" href="{{ route('digital-twin.index') }}">
-                <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px; box-shadow: 0 0 10px rgba(25, 135, 84, 0.5);">
-                    <i class="fas fa-satellite-dish text-white fs-6"></i>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header d-flex align-items-center">
+                <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px; box-shadow: 0 0 15px rgba(25, 135, 84, 0.4);">
+                    <i class="fas fa-satellite-dish text-white fs-5"></i>
                 </div>
-                <span class="fs-5">Digital Twin</span>
-            </a>
-            <button class="navbar-toggler text-white border-0" type="button" data-bs-toggle="collapse" data-bs-target="#digitalTwinNav" aria-controls="digitalTwinNav" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars fs-4"></i>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="digitalTwinNav">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('digital-twin.index') ? 'active' : '' }} px-2 px-xl-3" href="{{ route('digital-twin.index') }}">
-                            <i class="fas fa-tachometer-alt me-1"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('digital-twin.zonasi') ? 'active' : '' }} px-2 px-xl-3" href="{{ route('digital-twin.zonasi') }}">
-                            <i class="fas fa-map-marked-alt me-1"></i> Peta Zonasi
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-2 px-xl-3" href="#" onclick="alert('Fitur Simulasi Fuzzy Logic sedang dikembangkan.'); return false;">
-                            <i class="fas fa-brain me-1"></i> Simulasi Fuzzy
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-2 px-xl-3" href="#" onclick="alert('Fitur Riwayat Infeksi sedang dikembangkan.'); return false;">
-                            <i class="fas fa-history me-1"></i> Riwayat
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-2 px-xl-3" href="#" onclick="alert('Fitur Data IoT & Drone sedang dikembangkan.'); return false;">
-                            <i class="fas fa-database me-1"></i> Data IoT
-                        </a>
-                    </li>
-                </ul>
-                <div class="d-flex align-items-center">
-                    <a href="{{ route('dashboard') }}" class="btn btn-back btn-sm rounded-pill px-3 py-1">
-                        <i class="fas fa-arrow-left me-1"></i> Ke SIA
+                <h5 class="mb-0 fw-bold letter-spacing">Digital Twin</h5>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="{{ route('digital-twin.index') }}" class="{{ request()->routeIs('digital-twin.index') ? 'active' : '' }}">
+                        <i class="fas fa-tachometer-alt me-3 text-center" style="width: 20px;"></i> Dashboard IoT
                     </a>
+                </li>
+                <li>
+                    <a href="{{ route('digital-twin.zonasi') }}" class="{{ request()->routeIs('digital-twin.zonasi') ? 'active' : '' }}">
+                        <i class="fas fa-map-marked-alt me-3 text-center" style="width: 20px;"></i> Peta Zonasi
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="alert('Fitur Simulasi Fuzzy Logic sedang dikembangkan.'); return false;">
+                        <i class="fas fa-brain me-3 text-center" style="width: 20px;"></i> Simulasi Fuzzy
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="alert('Fitur Riwayat Infeksi sedang dikembangkan.'); return false;">
+                        <i class="fas fa-history me-3 text-center" style="width: 20px;"></i> Riwayat Infeksi
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="p-4 mt-auto border-top" style="border-color: rgba(255,255,255,0.05) !important;">
+                <a href="{{ route('dashboard') }}" class="btn btn-outline-light w-100 rounded-pill py-2">
+                    <i class="fas fa-arrow-left me-2"></i> Ke Prodi SIA
+                </a>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content">
+            <!-- Topbar (Just for Toggle and Title) -->
+            <div class="top-navbar">
+                <button type="button" id="sidebarCollapse" class="btn btn-light border shadow-sm">
+                    <i class="fas fa-bars text-secondary"></i>
+                </button>
+                <div class="ms-3 fw-bold text-dark fs-5">
+                    @yield('title', 'IoT Digital Twin Dashboard')
                 </div>
             </div>
+            
+            <main class="main-content">
+                @yield('content')
+            </main>
         </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        @yield('content')
-    </main>
+    </div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('sidebarCollapse').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+    </script>
     @stack('scripts')
 </body>
 </html>

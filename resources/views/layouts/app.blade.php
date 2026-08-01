@@ -622,32 +622,10 @@
                     </a>
                 </li>
                 <li class="nav-item mt-2">
-                    <a class="nav-link text-white d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#digitalTwinMenu" role="button" aria-expanded="{{ request()->routeIs('digital-twin.*') ? 'true' : 'false' }}" aria-controls="digitalTwinMenu">
-                        <div class="d-flex align-items-center">
-                            <i class="bi bi-cloud-arrow-down-fill me-2 text-success fs-5"></i>
-                            <span class="sidebar-text">Digital Twin (IoT)</span>
-                        </div>
-                        <i class="bi bi-chevron-down fs-6"></i>
+                    <a href="{{ route('digital-twin.index') }}" target="_blank" class="nav-link text-white {{ request()->routeIs('digital-twin.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
+                        <i class="bi bi-cloud-arrow-down-fill me-2 text-success fs-5"></i>
+                        <span class="sidebar-text">Digital Twin (IoT)</span>
                     </a>
-                    <div class="collapse {{ request()->routeIs('digital-twin.*') ? 'show' : '' }}" id="digitalTwinMenu">
-                        <ul class="nav flex-column ms-3 mt-2 border-start border-secondary ps-2">
-                            <li class="nav-item">
-                                <a class="nav-link {{ request()->routeIs('digital-twin.index') ? 'active' : '' }} text-white py-1" href="{{ route('digital-twin.index') }}">
-                                    Dashboard IoT
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ request()->routeIs('digital-twin.zonasi') ? 'active' : '' }} text-white py-1" href="{{ route('digital-twin.zonasi') }}">
-                                    Peta Zonasi
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white py-1" href="#" onclick="alert('Fitur Simulasi Fuzzy Logic sedang dikembangkan.'); return false;">
-                                    Simulasi Fuzzy
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
                 @endif
             </ul>
