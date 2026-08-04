@@ -66,7 +66,10 @@
 
             <div class="card shadow-sm border-0 bg-dark text-white">
                 <div class="card-body">
-                    <h6 class="fw-bold mb-3 border-bottom border-secondary pb-2">Legenda Peta Zonasi</h6>
+                    <h6 class="fw-bold mb-2 border-bottom border-secondary pb-2">Legenda Peta Zonasi</h6>
+                    <p class="small text-white-50 mb-3" style="font-size: 0.8rem; font-style: italic;">
+                        * Klasifikasi tingkat risiko dan probabilitas penyebaran infeksi didasarkan pada model penelitian Disertasi.
+                    </p>
                     <div class="d-flex align-items-center mb-2">
                         <span class="badge rounded-circle p-2 bg-black me-2" style="width: 15px; height: 15px;"></span>
                         <span>Episentrum (Pohon IoT Terinfeksi)</span>
