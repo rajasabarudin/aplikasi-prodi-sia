@@ -316,3 +316,9 @@ Route::get('/clear-manual-rekognisi', function () {
     \Illuminate\Support\Facades\Artisan::call('rekognisi:clear-manual');
     return nl2br(\Illuminate\Support\Facades\Artisan::output());
 });
+
+// Temporary route to import dataset IoT
+Route::get('/import-iot-dataset', function () {
+    $output = shell_exec('php ' . base_path('import_dataset.php') . ' 2>&1');
+    return "<pre>$output</pre>";
+});
