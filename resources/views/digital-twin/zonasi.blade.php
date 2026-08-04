@@ -91,6 +91,24 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Detail Prediksi Risiko -->
+<div class="modal fade" id="modalDetailRisiko" tabindex="-1" aria-labelledby="modalDetailRisikoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalDetailRisikoLabel"><i class="fas fa-calculator me-2"></i>Detail Perhitungan Prediksi</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalDetailRisikoBody">
+                <!-- Konten dinamis -->
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
@@ -247,7 +265,11 @@
                                 </tr>
                                 <tr>
                                     <td class="text-muted">Status Risiko</td>
-                                    <td>: <span class="badge ${badgeClass} fs-6">${clickedTree.risk}%</span></td>
+                                    <td>: 
+                                        <button type="button" class="btn btn-sm ${badgeClass} fs-6 border-0 shadow-sm" onclick="showRiskDetails('${clickedTree.id}', ${clickedTree.risk}, ${clickedTree.ring}, ${microclimateWeight})">
+                                            ${clickedTree.risk}% <i class="fas fa-question-circle ms-1"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="text-muted">Kondisi Histori</td>
@@ -269,6 +291,68 @@
         });
 
         // Expose fungsi ke global agar bisa dipanggil tombol
+        window.showRiskDetails = function(nodeId, risk, ring, envWeight) {
+            let baseScore = (1 / Math.pow(ring, 1.2)).toFixed(3);
+            let rawScore = (baseScore * envWeight * 100).toFixed(1);
+            
+            let htmlContent = `
+                <div class="mb-3">
+                    <h6 class="fw-bold text-primary border-bottom pb-2">Node Pohon: ${nodeId}</h6>
+                </div>
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Parameter Parameter (AST-DSRA v2)</th>
+                            <th class="text-center">Nilai / Bobot</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1. Jarak dari Episentrum (Ring ${ring})<br><small class="text-muted">Rumus: 1 / Jarak^1.2</small></td>
+                            <td class="text-center align-middle">${baseScore}</td>
+                        </tr>
+                        <tr>
+                            <td>2. Bobot Mikroklimat IoT<br><small class="text-muted">Berdasarkan Suhu & Kelembaban Tanah</small></td>
+                            <td class="text-center align-middle">${envWeight}</td>
+                        </tr>
+                        <tr class="table-info">
+                            <td class="fw-bold">Skor Risiko Awal (Jarak × Mikroklimat)</td>
+                            <td class="text-center fw-bold align-middle">${rawScore}%</td>
+                        </tr>`;
+                        
+            let tree = trees.find(t => t.id === nodeId);
+            if (tree && tree.hasHistory) {
+                htmlContent += `
+                        <tr>
+                            <td>3. Faktor Histori Infeksi Tambahan</td>
+                            <td class="text-center align-middle text-danger">+${tree.savedHistoryValue}%</td>
+                        </tr>`;
+            } else {
+                htmlContent += `
+                        <tr>
+                            <td>3. Faktor Histori Infeksi Tambahan</td>
+                            <td class="text-center align-middle">0%</td>
+                        </tr>`;
+            }
+            
+            htmlContent += `
+                    </tbody>
+                    <tfoot class="table-dark">
+                        <tr>
+                            <th>Total Probabilitas Infeksi (Max 99%)</th>
+                            <th class="text-center fs-5">${risk}%</th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="alert alert-warning small py-2 mb-0">
+                    <i class="fas fa-info-circle me-1"></i> Ini adalah simulasi logika <em>fuzzy</em> AST-DSRA v2 yang mengintegrasikan data titik (Jarak) dengan parameter lingkungan dari IoT.
+                </div>
+            `;
+            
+            document.getElementById('modalDetailRisikoBody').innerHTML = htmlContent;
+            new bootstrap.Modal(document.getElementById('modalDetailRisiko')).show();
+        }
+
         window.simulateSpread = function() {
             drawTrees(true);
         }
