@@ -327,6 +327,9 @@ Route::get('/import-iot-dataset', function () {
     $file = fopen($path, 'r');
     if (!$file) return "Gagal membuka dataset.csv";
     
+    // Hapus semua data lama agar bersih dan hanya berisi data dari dataset.csv
+    \App\Models\IotData::truncate();
+    
     $header = fgetcsv($file);
     $count = 0;
     while (($row = fgetcsv($file)) !== false) {
