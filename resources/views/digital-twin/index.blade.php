@@ -128,10 +128,11 @@
     <!-- Visual Monitoring Gallery -->
     @if(isset($photos) && count($photos) > 0)
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Galeri Pemantauan Visual (IoT Camera)</h6>
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('photo-gallery-body').classList.toggle('d-none'); this.innerText = this.innerText === 'Tampilkan' ? 'Sembunyikan' : 'Tampilkan';">Tampilkan</button>
         </div>
-        <div class="card-body">
+        <div class="card-body d-none" id="photo-gallery-body">
             <div class="row">
                 @foreach(array_slice($photos, 0, 4) as $photo)
                 <div class="col-lg-3 col-md-6 mb-4">
