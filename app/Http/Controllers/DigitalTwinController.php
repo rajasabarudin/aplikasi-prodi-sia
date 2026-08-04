@@ -22,6 +22,22 @@ class DigitalTwinController extends Controller
             if ($response->successful()) {
                 $photos = $response->json('data') ?? [];
                 
+                // --- KODE SIMULASI SEMENTARA UNTUK PRESENTASI ---
+                // Mengganti foto tidak relevan dengan foto asli kebun sawit/pertanian kualitas tinggi
+                $mockImages = [
+                    'https://images.unsplash.com/photo-1596781283626-d6eb0b4b2c15?auto=format&fit=crop&q=80&w=800',
+                    'https://images.unsplash.com/photo-1620935544710-534d0b25e1bd?auto=format&fit=crop&q=80&w=800',
+                    'https://images.unsplash.com/photo-1549472304-44bfaf026400?auto=format&fit=crop&q=80&w=800',
+                    'https://images.unsplash.com/photo-1634641951566-0dbb72bc213b?auto=format&fit=crop&q=80&w=800',
+                    'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&q=80&w=800'
+                ];
+                
+                foreach ($photos as &$p) {
+                    $p['url_foto'] = $mockImages[array_rand($mockImages)];
+                }
+                unset($p);
+                // ------------------------------------------------
+                
                 // Group by Date
                 foreach ($photos as $photo) {
                     $date = date('Y-m-d', strtotime($photo['waktu']));
