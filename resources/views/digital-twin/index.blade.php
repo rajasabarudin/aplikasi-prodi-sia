@@ -213,7 +213,7 @@
     <!-- Data Table -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary">Histori Dataset Keseluruhan</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Histori Dataset Keseluruhan <span class="badge bg-primary text-white ms-2">{{ $dataset->total() }} Data</span></h6>
             <a href="{{ route('digital-twin.export') }}" class="btn btn-sm btn-success shadow-sm">
                 <i class="fas fa-file-excel fa-sm text-white-50"></i> Export CSV
             </a>
