@@ -319,6 +319,46 @@ Route::get('/clear-manual-rekognisi', function () {
 
 // Temporary route to import dataset IoT
 Route::get('/import-iot-dataset', function () {
-    $output = shell_exec('php ' . base_path('import_dataset.php') . ' 2>&1');
-    return "<pre>$output</pre>";
+    $path = base_path('dataset.csv');
+    if (!file_exists($path)) {
+        return "File dataset.csv tidak ditemukan di " . $path;
+    }
+    
+    $file = fopen($path, 'r');
+    if (!$file) return "Gagal membuka dataset.csv";
+    
+    $header = fgetcsv($file);
+    $count = 0;
+    while (($row = fgetcsv($file)) !== false) {
+        if (count($row) < 5) continue;
+        
+        $tanggal = $row[0];
+        $waktu_str = $row[1];
+        $tree_id = $row[2];
+        $suhu_tanah = (float)$row[3];
+        $kelembaban_tanah = (float)$row[4];
+        
+        $suhu_udara = $suhu_tanah + (rand(-10, 30) / 10); 
+        $kelembaban_udara = $kelembaban_tanah - rand(5, 20);
+        if ($kelembaban_udara > 100) $kelembaban_udara = 100;
+        if ($kelembaban_udara < 0) $kelembaban_udara = 0;
+
+        $waktu_dt = new DateTime($tanggal . ' ' . $waktu_str);
+        $waktu_dt->modify("+{$count} seconds");
+        $waktu = $waktu_dt->format('Y-m-d H:i:s');
+        
+        \App\Models\IotData::updateOrCreate(
+            ['waktu' => $waktu],
+            [
+                'device_id' => $tree_id,
+                'suhu_tanah_celcius' => $suhu_tanah,
+                'kelembaban_tanah_persen' => $kelembaban_tanah,
+                'suhu_udara_celcius' => round($suhu_udara, 1),
+                'kelembaban_udara_persen' => round($kelembaban_udara, 1),
+            ]
+        );
+        $count++;
+    }
+    fclose($file);
+    return "Berhasil mengimpor $count baris data dari dataset.csv ke tabel iot_data!";
 });
