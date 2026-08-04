@@ -15,7 +15,7 @@
             </a>
             <form action="{{ route('digital-twin.sync') }}" method="POST" class="m-0">
                 @csrf
-                <button type="submit" class="btn btn-primary shadow-sm">
+                <button type="button" class="btn btn-secondary shadow-sm" onclick="alert('Perangkat IoT anda sedang dalam perbaikan, mohon ditunggu, terima kasih.')">
                     <i class="fas fa-sync fa-sm text-white-50"></i> Tarik Data Sekarang
                 </button>
             </form>
