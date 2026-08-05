@@ -20,7 +20,8 @@ class RpsController extends Controller
 
     public function create()
     {
-        $matakuliahs = Matakuliah::all();
+        $existingRpsKodes = Rps::pluck('kode_matakuliah')->toArray();
+        $matakuliahs = Matakuliah::whereNotIn('kode_matakuliah', $existingRpsKodes)->get();
         $dosens = Dosen::orderBy('nama_dosen')->get();
         $penelitians = \App\Models\PenelitianDosen::orderBy('nama_dosen')->get();
         $pkms = \App\Models\PKMDosen::orderBy('nama_dosen')->get();
