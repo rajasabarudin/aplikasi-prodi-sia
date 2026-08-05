@@ -150,7 +150,7 @@
                                 <th class="text-center" style="width: 5%;">No</th>
                                 <th class="text-center" style="width: 15%;">Tanggal</th>
                                 <th>Nama Mitra</th>
-                                <th>Nomor PKS</th>
+                                <th>Nomor Dokumen</th>
                                 <th class="text-center" style="width: 12%;">Kategori</th>
                                 <th class="text-center" style="width: 12%;">Level</th>
                                 <th class="text-center" style="width: 15%;">Berkas</th>
@@ -165,7 +165,12 @@
                                     <td class="fw-bold text-dark" style="font-size: 0.9rem;">
                                         <i class="bi bi-building me-1 text-secondary"></i>{{ $p->nama_mitra }}
                                     </td>
-                                    <td style="font-size: 0.85rem;"><code class="text-dark">{{ $p->no_pks_ubsi }}</code></td>
+                                    <td style="font-size: 0.85rem;">
+                                        <span class="d-block mb-1" title="Nomor PKS UBSI"><span class="badge bg-light text-dark border me-1" style="min-width: 65px;">PKS UBSI</span> <code class="text-dark">{{ $p->no_pks_ubsi ?: '-' }}</code></span>
+                                        <span class="d-block mb-1" title="Nomor PKS Mitra"><span class="badge bg-light text-dark border me-1" style="min-width: 65px;">PKS Mitra</span> <code class="text-secondary">{{ $p->no_pks_mitra ?: '-' }}</code></span>
+                                        <span class="d-block mb-1" title="Nomor IA UBSI"><span class="badge bg-light text-dark border me-1" style="min-width: 65px;">IA UBSI</span> <code class="text-dark">{{ $p->no_ia_ubsi ?: '-' }}</code></span>
+                                        <span class="d-block" title="Nomor IA Mitra"><span class="badge bg-light text-dark border me-1" style="min-width: 65px;">IA Mitra</span> <code class="text-secondary">{{ $p->no_ia_mitra ?: '-' }}</code></span>
+                                    </td>
                                     <td class="text-center">
                                         @if ($p->kategori === 'Pendidikan')
                                             <span class="badge bg-primary px-2 py-1" style="font-size: 10px;">Pendidikan</span>
