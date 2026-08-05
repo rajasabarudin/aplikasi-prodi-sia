@@ -1,3 +1,7 @@
 <?php
-$count = DB::table('peserta_kegiatans')->where('kategori', 'Dosen')->whereExists(function($q) { $q->select(DB::raw(1))->from('dosens')->whereColumn('dosens.nidn', 'peserta_kegiatans.identifier')->orWhereColumn('dosens.nip', 'peserta_kegiatans.identifier')->orWhereColumn('dosens.kode_dosen', 'peserta_kegiatans.identifier'); })->count();
-echo "COUNT IS: " . $count;
+require __DIR__.'/vendor/autoload.php';
+$app = require_once __DIR__.'/bootstrap/app.php';
+$kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+$kernel->bootstrap();
+echo "Penelitian: " . App\Models\PenelitianDosen::count() . "\n";
+echo "PKM: " . App\Models\PKMDosen::count() . "\n";

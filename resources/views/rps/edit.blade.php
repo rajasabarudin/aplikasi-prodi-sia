@@ -89,64 +89,76 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="card border-1 shadow-none">
-                                <div class="card-header bg-light py-2 px-3 border-bottom">
+                                <div class="card-header bg-light py-2 px-3 border-bottom d-flex justify-content-between align-items-center">
                                     <small class="fw-bold text-dark"><i class="bi bi-search me-1"></i>Pilih Hasil Penelitian Dosen</small>
+                                    <button type="button" class="btn btn-sm btn-primary py-0" data-bs-toggle="modal" data-bs-target="#modalPenelitian"><i class="bi bi-list-ul"></i> Pilih Data</button>
                                 </div>
-                                <div class="card-body p-3" style="max-height: 250px; overflow-y: auto;">
-                                    @if($penelitians->count() > 0)
-                                        @foreach($penelitians as $penelitian)
+                                <div class="card-body p-3" id="selected_penelitian_list">
+                                    @php $countPenelitian = 0; @endphp
+                                    @foreach($penelitians as $penelitian)
                                         @php 
                                             $hasPenelitian = $rps->penelitians->contains($penelitian->id); 
-                                            $integrasiPenelitianVal = $hasPenelitian ? $rps->penelitians->find($penelitian->id)->pivot->bentuk_integrasi : '';
                                         @endphp
-                                        <div class="mb-3 border-bottom pb-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input penelitian-checkbox" type="checkbox" name="penelitian_ids[]" value="{{ $penelitian->id }}" id="penelitian_{{ $penelitian->id }}" data-id="{{ $penelitian->id }}" {{ $hasPenelitian ? 'checked' : '' }}>
-                                                <label class="form-check-label fw-semibold" for="penelitian_{{ $penelitian->id }}" style="font-size: 0.85rem; cursor: pointer;">
-                                                    <strong>[{{ $penelitian->kode_dosen }}] {{ $penelitian->nama_dosen }}</strong><br>
-                                                    Artikel: {{ $penelitian->judul_penelitian }} ({{ $penelitian->jenis_jurnal }} - {{ $penelitian->ts?->tahun_sekarang ?? 'N/A' }})
-                                                </label>
+                                        @if($hasPenelitian)
+                                            @php 
+                                                $integrasiPenelitianVal = $rps->penelitians->find($penelitian->id)->pivot->bentuk_integrasi;
+                                                $countPenelitian++;
+                                            @endphp
+                                            <div class="mb-3 border-bottom pb-2 penelitian-selected-item" id="penelitian_item_{{ $penelitian->id }}">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <div>
+                                                        <input type="hidden" name="penelitian_ids[]" value="{{ $penelitian->id }}">
+                                                        <input type="hidden" class="penelitian-checkbox" checked>
+                                                        <strong>[{{ $penelitian->kode_dosen }}] {{ $penelitian->nama_dosen }}</strong><br>
+                                                        <small>Artikel: {{ $penelitian->judul_penelitian }} ({{ $penelitian->jenis_jurnal }} - {{ $penelitian->ts?->tahun_sekarang ?? 'N/A' }})</small>
+                                                    </div>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger btn-hapus-penelitian" data-id="{{ $penelitian->id }}"><i class="bi bi-trash"></i></button>
+                                                </div>
+                                                <div class="mt-1">
+                                                    <input type="text" name="penelitian_integrasi[{{ $penelitian->id }}]" class="form-control form-control-sm" placeholder="Bentuk integrasi (misal: Bahan ajar Bab 3)" value="{{ $integrasiPenelitianVal }}" required>
+                                                </div>
                                             </div>
-                                            <div class="mt-1 ps-4 {{ $hasPenelitian ? '' : 'd-none' }}" id="integrasi_penelitian_container_{{ $penelitian->id }}">
-                                                <input type="text" name="penelitian_integrasi[{{ $penelitian->id }}]" class="form-control form-control-sm" value="{{ $integrasiPenelitianVal }}" placeholder="Bentuk integrasi (misal: Bahan ajar Bab 3 / Studi kasus UTS)" {{ $hasPenelitian ? 'required' : '' }}>
-                                            </div>
-                                        </div>
-                                        @endforeach
-                                    @else
-                                        <span class="text-muted small fst-italic">Belum ada data penelitian dosen yang terdaftar.</span>
-                                    @endif
+                                        @endif
+                                    @endforeach
+                                    <span class="text-muted small fst-italic" id="empty_penelitian_text" style="{{ $countPenelitian > 0 ? 'display:none;' : '' }}">Belum ada hasil penelitian yang dipilih.</span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="card border-1 shadow-none">
-                                <div class="card-header bg-light py-2 px-3 border-bottom">
+                                <div class="card-header bg-light py-2 px-3 border-bottom d-flex justify-content-between align-items-center">
                                     <small class="fw-bold text-dark"><i class="bi bi-search me-1"></i>Pilih Hasil PkM Dosen</small>
+                                    <button type="button" class="btn btn-sm btn-success py-0" data-bs-toggle="modal" data-bs-target="#modalPkm"><i class="bi bi-list-ul"></i> Pilih Data</button>
                                 </div>
-                                <div class="card-body p-3" style="max-height: 250px; overflow-y: auto;">
-                                    @if($pkms->count() > 0)
-                                        @foreach($pkms as $pkm)
+                                <div class="card-body p-3" id="selected_pkm_list">
+                                    @php $countPkm = 0; @endphp
+                                    @foreach($pkms as $pkm)
                                         @php 
                                             $hasPkm = $rps->pkms->contains($pkm->id); 
-                                            $integrasiPkmVal = $hasPkm ? $rps->pkms->find($pkm->id)->pivot->bentuk_integrasi : '';
                                         @endphp
-                                        <div class="mb-3 border-bottom pb-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input pkm-checkbox" type="checkbox" name="pkm_ids[]" value="{{ $pkm->id }}" id="pkm_{{ $pkm->id }}" data-id="{{ $pkm->id }}" {{ $hasPkm ? 'checked' : '' }}>
-                                                <label class="form-check-label fw-semibold" for="pkm_{{ $pkm->id }}" style="font-size: 0.85rem; cursor: pointer;">
-                                                    <strong>[{{ $pkm->kode_dosen }}] {{ $pkm->nama_dosen }}</strong><br>
-                                                    Tema: {{ $pkm->tema_pkm }} (Mitra: {{ $pkm->mitra }})
-                                                </label>
+                                        @if($hasPkm)
+                                            @php 
+                                                $integrasiPkmVal = $rps->pkms->find($pkm->id)->pivot->bentuk_integrasi;
+                                                $countPkm++;
+                                            @endphp
+                                            <div class="mb-3 border-bottom pb-2 pkm-selected-item" id="pkm_item_{{ $pkm->id }}">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <div>
+                                                        <input type="hidden" name="pkm_ids[]" value="{{ $pkm->id }}">
+                                                        <input type="hidden" class="pkm-checkbox" checked>
+                                                        <strong>[{{ $pkm->kode_dosen }}] {{ $pkm->nama_dosen }}</strong><br>
+                                                        <small>Tema: {{ $pkm->tema_pkm }} (Mitra: {{ $pkm->mitra }})</small>
+                                                    </div>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger btn-hapus-pkm" data-id="{{ $pkm->id }}"><i class="bi bi-trash"></i></button>
+                                                </div>
+                                                <div class="mt-1">
+                                                    <input type="text" name="pkm_integrasi[{{ $pkm->id }}]" class="form-control form-control-sm" placeholder="Bentuk integrasi (misal: Rujukan praktikum)" value="{{ $integrasiPkmVal }}" required>
+                                                </div>
                                             </div>
-                                            <div class="mt-1 ps-4 {{ $hasPkm ? '' : 'd-none' }}" id="integrasi_pkm_container_{{ $pkm->id }}">
-                                                <input type="text" name="pkm_integrasi[{{ $pkm->id }}]" class="form-control form-control-sm" value="{{ $integrasiPkmVal }}" placeholder="Bentuk integrasi (misal: Rujukan praktikum mandiri)" {{ $hasPkm ? 'required' : '' }}>
-                                            </div>
-                                        </div>
-                                        @endforeach
-                                    @else
-                                        <span class="text-muted small fst-italic">Belum ada data PkM dosen yang terdaftar.</span>
-                                    @endif
+                                        @endif
+                                    @endforeach
+                                    <span class="text-muted small fst-italic" id="empty_pkm_text" style="{{ $countPkm > 0 ? 'display:none;' : '' }}">Belum ada hasil PkM yang dipilih.</span>
                                 </div>
                             </div>
                         </div>
@@ -282,31 +294,203 @@
     </div>
 </div>
 
+<!-- Modal Penelitian -->
+<div class="modal fade" id="modalPenelitian" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pilih Hasil Penelitian Dosen</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="searchPenelitianModal" class="form-control mb-3" placeholder="Cari nama dosen atau judul artikel...">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered table-sm" id="tablePenelitianModal">
+                <thead class="table-light">
+                    <tr>
+                        <th width="25%">Dosen</th>
+                        <th width="65%">Artikel</th>
+                        <th width="10%" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($penelitians as $penelitian)
+                    @php $hasPenelitian = $rps->penelitians->contains($penelitian->id); @endphp
+                    <tr class="penelitian-row" data-id="{{ $penelitian->id }}" style="{{ $hasPenelitian ? 'display:none;' : '' }}">
+                        <td><strong>[{{ $penelitian->kode_dosen }}]</strong> <br> {{ $penelitian->nama_dosen }}</td>
+                        <td>{{ $penelitian->judul_penelitian }} <br><small class="text-muted">({{ $penelitian->jenis_jurnal }} - {{ $penelitian->ts?->tahun_sekarang ?? 'N/A' }})</small></td>
+                        <td class="text-center align-middle">
+                            <button type="button" class="btn btn-sm btn-primary btn-pilih-penelitian" 
+                                data-id="{{ $penelitian->id }}" 
+                                data-kode="{{ $penelitian->kode_dosen }}" 
+                                data-dosen="{{ $penelitian->nama_dosen }}" 
+                                data-judul="{{ $penelitian->judul_penelitian }}"
+                                data-jurnal="{{ $penelitian->jenis_jurnal }}"
+                                data-tahun="{{ $penelitian->ts?->tahun_sekarang ?? 'N/A' }}">
+                                Pilih
+                            </button>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal PkM -->
+<div class="modal fade" id="modalPkm" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pilih Hasil PkM Dosen</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="searchPkmModal" class="form-control mb-3" placeholder="Cari nama dosen atau tema PkM...">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered table-sm" id="tablePkmModal">
+                <thead class="table-light">
+                    <tr>
+                        <th width="25%">Dosen</th>
+                        <th width="65%">Tema PkM</th>
+                        <th width="10%" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($pkms as $pkm)
+                    @php $hasPkm = $rps->pkms->contains($pkm->id); @endphp
+                    <tr class="pkm-row" data-id="{{ $pkm->id }}" style="{{ $hasPkm ? 'display:none;' : '' }}">
+                        <td><strong>[{{ $pkm->kode_dosen }}]</strong> <br> {{ $pkm->nama_dosen }}</td>
+                        <td>{{ $pkm->tema_pkm }} <br><small class="text-muted">(Mitra: {{ $pkm->mitra }})</small></td>
+                        <td class="text-center align-middle">
+                            <button type="button" class="btn btn-sm btn-success btn-pilih-pkm" 
+                                data-id="{{ $pkm->id }}" 
+                                data-kode="{{ $pkm->kode_dosen }}" 
+                                data-dosen="{{ $pkm->nama_dosen }}" 
+                                data-tema="{{ $pkm->tema_pkm }}"
+                                data-mitra="{{ $pkm->mitra }}">
+                                Pilih
+                            </button>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 $(document).ready(function() {
-    // Toggle input integrasi penelitian
-    $('.penelitian-checkbox').change(function() {
+    // Search in Modal Penelitian
+    $('#searchPenelitianModal').on('keyup', function() {
+        var value = $(this).val().toLowerCase();
+        $('#tablePenelitianModal tbody tr').filter(function() {
+            var text = $(this).text().toLowerCase();
+            $(this).toggle(text.indexOf(value) > -1);
+        });
+    });
+
+    // Pilih Penelitian
+    $('.btn-pilih-penelitian').on('click', function() {
+        var btn = $(this);
+        var id = btn.data('id');
+        var kode = btn.data('kode');
+        var dosen = btn.data('dosen');
+        var judul = btn.data('judul');
+        var jurnal = btn.data('jurnal');
+        var tahun = btn.data('tahun');
+
+        if ($('#penelitian_item_' + id).length > 0) return;
+
+        $('#empty_penelitian_text').hide();
+
+        var html = `
+        <div class="mb-3 border-bottom pb-2 penelitian-selected-item" id="penelitian_item_${id}">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                    <input type="hidden" name="penelitian_ids[]" value="${id}">
+                    <input type="hidden" class="penelitian-checkbox" checked>
+                    <strong>[${kode}] ${dosen}</strong><br>
+                    <small>Artikel: ${judul} (${jurnal} - ${tahun})</small>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-danger btn-hapus-penelitian" data-id="${id}"><i class="bi bi-trash"></i></button>
+            </div>
+            <div class="mt-1">
+                <input type="text" name="penelitian_integrasi[${id}]" class="form-control form-control-sm" placeholder="Bentuk integrasi (misal: Bahan ajar Bab 3)" required>
+            </div>
+        </div>
+        `;
+        $('#selected_penelitian_list').append(html);
+        btn.closest('tr').hide();
+    });
+
+    // Hapus Penelitian
+    $(document).on('click', '.btn-hapus-penelitian', function() {
         var id = $(this).data('id');
-        if ($(this).is(':checked')) {
-            $('#integrasi_penelitian_container_' + id).removeClass('d-none');
-            $('#integrasi_penelitian_container_' + id + ' input').attr('required', true);
-        } else {
-            $('#integrasi_penelitian_container_' + id).addClass('d-none');
-            $('#integrasi_penelitian_container_' + id + ' input').removeAttr('required').val('');
+        $('#penelitian_item_' + id).remove();
+        $('.penelitian-row[data-id="' + id + '"]').show();
+        if ($('#selected_penelitian_list .penelitian-selected-item').length === 0) {
+            $('#empty_penelitian_text').show();
         }
     });
 
-    // Toggle input integrasi pkm
-    $('.pkm-checkbox').change(function() {
+    // Search in Modal PkM
+    $('#searchPkmModal').on('keyup', function() {
+        var value = $(this).val().toLowerCase();
+        $('#tablePkmModal tbody tr').filter(function() {
+            var text = $(this).text().toLowerCase();
+            $(this).toggle(text.indexOf(value) > -1);
+        });
+    });
+
+    // Pilih PkM
+    $('.btn-pilih-pkm').on('click', function() {
+        var btn = $(this);
+        var id = btn.data('id');
+        var kode = btn.data('kode');
+        var dosen = btn.data('dosen');
+        var tema = btn.data('tema');
+        var mitra = btn.data('mitra');
+
+        if ($('#pkm_item_' + id).length > 0) return;
+
+        $('#empty_pkm_text').hide();
+
+        var html = `
+        <div class="mb-3 border-bottom pb-2 pkm-selected-item" id="pkm_item_${id}">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                    <input type="hidden" name="pkm_ids[]" value="${id}">
+                    <input type="hidden" class="pkm-checkbox" checked>
+                    <strong>[${kode}] ${dosen}</strong><br>
+                    <small>Tema: ${tema} (Mitra: ${mitra})</small>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-danger btn-hapus-pkm" data-id="${id}"><i class="bi bi-trash"></i></button>
+            </div>
+            <div class="mt-1">
+                <input type="text" name="pkm_integrasi[${id}]" class="form-control form-control-sm" placeholder="Bentuk integrasi (misal: Rujukan praktikum)" required>
+            </div>
+        </div>
+        `;
+        $('#selected_pkm_list').append(html);
+        btn.closest('tr').hide();
+    });
+
+    // Hapus PkM
+    $(document).on('click', '.btn-hapus-pkm', function() {
         var id = $(this).data('id');
-        if ($(this).is(':checked')) {
-            $('#integrasi_pkm_container_' + id).removeClass('d-none');
-            $('#integrasi_pkm_container_' + id + ' input').attr('required', true);
-        } else {
-            $('#integrasi_pkm_container_' + id).addClass('d-none');
-            $('#integrasi_pkm_container_' + id + ' input').removeAttr('required').val('');
+        $('#pkm_item_' + id).remove();
+        $('.pkm-row[data-id="' + id + '"]').show();
+        if ($('#selected_pkm_list .pkm-selected-item').length === 0) {
+            $('#empty_pkm_text').show();
         }
     });
 
