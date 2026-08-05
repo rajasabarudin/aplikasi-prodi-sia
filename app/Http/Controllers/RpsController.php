@@ -93,14 +93,22 @@ class RpsController extends Controller
 
         // Ekstrak 16 pertemuan otomatis dari PDF via Python
         $tempFile = storage_path('app/temp_rps_' . $rps->id . '.json');
-        $command = 'python "' . base_path('extract_pertemuan.py') . '" "' . $rps->kode_matakuliah . '" "' . $tempFile . '"';
-        shell_exec($command);
-        
         $extractedData = null;
-        if (file_exists($tempFile)) {
-            $jsonContent = file_get_contents($tempFile);
-            $extractedData = json_decode($jsonContent, true);
-            unlink($tempFile); // Hapus file temporary setelah dibaca
+        
+        $shellExecEnabled = function_exists('shell_exec') && !in_array('shell_exec', array_map('trim', explode(', ', ini_get('disable_functions'))));
+
+        if ($shellExecEnabled) {
+            $command = 'python "' . base_path('extract_pertemuan.py') . '" "' . $rps->kode_matakuliah . '" "' . $tempFile . '"';
+            try {
+                shell_exec($command);
+                if (file_exists($tempFile)) {
+                    $jsonContent = file_get_contents($tempFile);
+                    $extractedData = json_decode($jsonContent, true);
+                    unlink($tempFile); // Hapus file temporary setelah dibaca
+                }
+            } catch (\Throwable $e) {
+                // Abaikan error jika dilarang server
+            }
         }
         
         if (is_array($extractedData) && !isset($extractedData['error'])) {
