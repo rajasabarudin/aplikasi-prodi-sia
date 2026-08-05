@@ -100,7 +100,7 @@
                                                 <input class="form-check-input penelitian-checkbox" type="checkbox" name="penelitian_ids[]" value="{{ $penelitian->id }}" id="penelitian_{{ $penelitian->id }}" data-id="{{ $penelitian->id }}">
                                                 <label class="form-check-label fw-semibold" for="penelitian_{{ $penelitian->id }}" style="font-size: 0.85rem; cursor: pointer;">
                                                     <strong>[{{ $penelitian->kode_dosen }}] {{ $penelitian->nama_dosen }}</strong><br>
-                                                    Artikel: {{ $penelitian->judul_penelitian }} ({{ $penelitian->jenis_jurnal }})
+                                                    Artikel: {{ $penelitian->judul_penelitian }} ({{ $penelitian->jenis_jurnal }} - {{ $penelitian->ts?->tahun_sekarang ?? 'N/A' }})
                                                 </label>
                                             </div>
                                             <div class="mt-1 ps-4 d-none" id="integrasi_penelitian_container_{{ $penelitian->id }}">
