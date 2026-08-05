@@ -237,7 +237,7 @@
                                     }
                                 @endphp
                                 <tr @if($rowBg) style="{{ $rowBg }}" title="{{ $rowTitle }}" @endif>
-                                    <td class="text-center fw-bold text-muted">{{ $loop->iteration }}</td>
+                                    <td class="text-center fw-bold text-muted">{{ $kerjasamaList->firstItem() + $loop->index }}</td>
                                     <td class="text-center fw-bold text-dark" style="font-size: 0.85rem;">
                                         {{ $k->tahun_mou }}@if($k->tahun_berakhir) - {{ $k->tahun_berakhir }}@endif
                                     </td>
