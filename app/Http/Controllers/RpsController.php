@@ -93,7 +93,7 @@ class RpsController extends Controller
 
         // Ekstrak 16 pertemuan otomatis dari PDF via Python
         $tempFile = storage_path('app/temp_rps_' . $rps->id . '.json');
-        $command = 'python ' . escapeshellarg(base_path('extract_pertemuan.py')) . ' ' . escapeshellarg($rps->kode_matakuliah) . ' ' . escapeshellarg($tempFile);
+        $command = 'python "' . base_path('extract_pertemuan.py') . '" "' . $rps->kode_matakuliah . '" "' . $tempFile . '"';
         shell_exec($command);
         
         $extractedData = null;
