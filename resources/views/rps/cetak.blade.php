@@ -237,7 +237,7 @@
                                     <td style="padding: 5px; text-align: center;">{{ $integrasiNo++ }}</td>
                                     <td style="padding: 5px; text-align: center; font-weight: bold; color: #1a5c8a;">Penelitian</td>
                                     <td style="padding: 5px;">
-                                        <strong>{{ $penel->nama_jurnal }}</strong><br>
+                                        <strong>{{ $penel->judul_penelitian }}</strong><br>
                                         <small>Dosen: {{ $penel->nama_dosen }} ({{ $penel->ts?->tahun_sekarang ?? 'N/A' }})</small>
                                     </td>
                                     <td style="padding: 5px;">{{ $penel->pivot->bentuk_integrasi }}</td>
