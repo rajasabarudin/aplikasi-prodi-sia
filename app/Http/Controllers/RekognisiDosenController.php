@@ -70,19 +70,20 @@ class RekognisiDosenController extends Controller
 
         // Statistik Reviewer / Editor
         $reviewerRecords = $allRekognisi->filter(function($item) {
-            $name = strtolower($item->nama_rekognisi);
-            return str_contains($name, 'review') || 
-                   str_contains($name, 'editor') || 
-                   str_contains($name, 'mitra bestari') || 
-                   str_contains($name, 'juri') || 
-                   str_contains($name, 'penilai') || 
-                   str_contains($name, 'asesor') || 
-                   str_contains($name, 'assesor');
+            $name = (string) $item->nama_rekognisi;
+            $keywords = ['review', 'editor', 'mitra bestari', 'juri', 'penilai', 'asesor', 'assesor'];
+            foreach ($keywords as $keyword) {
+                if (stripos($name, $keyword) !== false) {
+                    return true;
+                }
+            }
+            return false;
         });
         
         $reviewerDosenNames = $reviewerRecords->map(function($item) {
-            return $item->nama_dosen;
-        })->unique()->values();
+            // Ambil nama dosen, kalau kosong ambil dari relasi dosen jika ada
+            return !empty($item->nama_dosen) ? trim($item->nama_dosen) : 'Dosen (Tanpa Nama)';
+        })->filter()->unique()->values();
         
         $totalReviewerDosen = $reviewerDosenNames->count();
         $persentaseReviewer = $totalDosen > 0 ? round(($totalReviewerDosen / $totalDosen) * 100, 1) : 0;
