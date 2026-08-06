@@ -36,8 +36,4 @@ class PenelitianDosen extends Model
         return $this->belongsTo(Ts::class, 'ts_id');
     }
 
-    public function rekognisiDosen()
-    {
-        return $this->hasMany(RekognisiDosen::class, 'penelitian_dosen_id');
-    }
 }

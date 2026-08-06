@@ -26,74 +26,11 @@ class ResyncRekognisiDosen extends Command
 
         $this->info('Data lama berhasil dihapus.');
 
-        $this->syncPenelitian();
         $this->syncHibahAndHki();
         $this->syncPrestasi();
 
         $this->info('Semua data berhasil ditarik ulang (resync) ke tabel Rekognisi Dosen!');
         return Command::SUCCESS;
-    }
-
-    private function syncPenelitian()
-    {
-        $this->info('Sinkronisasi Penelitian...');
-        $qualifyingTypes = [
-            'Jurnal Nasional Terakreditasi (SINTA)' => 'nasional',
-            'Jurnal Internasional' => 'internasional',
-            'Jurnal Internasional Bereputasi (Scopus/WoS)' => 'internasional',
-        ];
-
-        $penelitians = PenelitianDosen::all();
-
-        foreach ($penelitians as $penelitian) {
-            $jenisJurnal = $penelitian->jenis_jurnal;
-
-            if (array_key_exists($jenisJurnal, $qualifyingTypes)) {
-                $level = $qualifyingTypes[$jenisJurnal];
-                $kodeDosens = array_filter(array_map('trim', explode(',', $penelitian->kode_dosen)));
-                $namaDosens = array_filter(array_map('trim', explode(',', $penelitian->nama_dosen)));
-                
-                $ts = Ts::find($penelitian->ts_id);
-                $tahun = date('Y');
-                if ($ts) {
-                    if (preg_match('/\d{4}/', $ts->tahun_sekarang, $matches)) {
-                        $tahun = $matches[0];
-                    } else {
-                        $tahun = substr($ts->tahun_sekarang, 0, 10);
-                    }
-                }
-
-                $namaJurnal = $penelitian->nama_jurnal;
-                $namaRekognisi = "Publikasi Jurnal: {$namaJurnal} ({$jenisJurnal})";
-                if (strlen($namaRekognisi) > 200) {
-                    $namaRekognisi = substr($namaRekognisi, 0, 197) . '...';
-                }
-                $linkDokumen = $penelitian->berkas_paper ?: $penelitian->link_jurnal;
-
-                foreach ($kodeDosens as $index => $kode) {
-                    if (empty($kode)) continue;
-                    
-                    $nama = $namaDosens[$index] ?? '';
-                    if (empty($nama)) {
-                        $dosen = \App\Models\Dosen::where('kode_dosen', $kode)->first();
-                        $nama = $dosen ? $dosen->nama_dosen : '';
-                    }
-
-                    RekognisiDosen::firstOrCreate([
-                        'kode_dosen' => $kode,
-                        'penelitian_dosen_id' => $penelitian->id,
-                    ], [
-                        'nama_dosen' => $nama,
-                        'nama_rekognisi' => $namaRekognisi,
-                        'tahun' => $tahun,
-                        'ts_id' => $penelitian->ts_id,
-                        'level' => $level,
-                        'link_dokumen' => $linkDokumen,
-                        'is_keanggotaan' => false,
-                    ]);
-                }
-            }
-        }
     }
 
     private function syncHibahAndHki()

@@ -6,7 +6,6 @@ use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Ts;
 use App\Models\PenelitianDosen;
-use App\Models\RekognisiDosen;
 use Illuminate\Http\Request;
 
 class PenelitianDosenController extends Controller
@@ -189,7 +188,6 @@ class PenelitianDosenController extends Controller
 
         $penelitianDosen = PenelitianDosen::create($data);
 
-        $this->syncToRekognisi($penelitianDosen, $request);
 
         return redirect()->route('penelitian-dosen.index')
             ->with('success', 'Data penelitian dosen berhasil ditambahkan.');
@@ -262,7 +260,6 @@ class PenelitianDosenController extends Controller
 
         $penelitianDosen->update($data);
 
-        $this->syncToRekognisi($penelitianDosen, $request);
 
         return redirect()->route('penelitian-dosen.index')
             ->with('success', 'Data penelitian dosen berhasil diperbarui.');
@@ -270,7 +267,6 @@ class PenelitianDosenController extends Controller
 
     public function destroy(PenelitianDosen $penelitianDosen)
     {
-        $penelitianDosen->rekognisiDosen()->delete();
         $penelitianDosen->delete();
 
         return redirect()->route('penelitian-dosen.index')
@@ -291,75 +287,7 @@ class PenelitianDosenController extends Controller
             $fieldName => $linkValue
         ]);
 
-        if ($fieldName === 'berkas_paper') {
-            $penelitianDosen->rekognisiDosen()->update([
-                'link_dokumen' => $linkValue ?: $penelitianDosen->link_jurnal
-            ]);
-        }
-
         $message = $linkValue ? 'Dokumen berhasil ditambahkan.' : 'Dokumen berhasil dihapus.';
-
-        return redirect()->back()
-            ->with('success', $message);
-    }
-
-    private function syncToRekognisi($penelitianDosen, Request $request)
-    {
-        // Delete any existing rekognisi records linked to this penelitian
-        $penelitianDosen->rekognisiDosen()->delete();
-
-        $qualifyingTypes = [
-            'Jurnal Nasional Terakreditasi (SINTA)' => 'nasional',
-            'Jurnal Internasional' => 'internasional',
-            'Jurnal Internasional Bereputasi (Scopus/WoS)' => 'internasional',
-        ];
-
-        $jenisJurnal = $request->input('jenis_jurnal');
-
-        if (array_key_exists($jenisJurnal, $qualifyingTypes)) {
-            $level = $qualifyingTypes[$jenisJurnal];
-
-            // Get arrays of kode_dosen and nama_dosen
-            $kodeDosens = array_filter($request->input('kode_dosen', []));
-            $namaDosens = array_filter($request->input('nama_dosen', []));
-
-            $tsId = $request->input('ts_id');
-            $ts = Ts::find($tsId);
-            $tahun = date('Y');
-            if ($ts) {
-                if (preg_match('/\d{4}/', $ts->tahun_sekarang, $matches)) {
-                    $tahun = $matches[0];
-                } else {
-                    $tahun = substr($ts->tahun_sekarang, 0, 10);
-                }
-            }
-
-            $namaJurnal = $request->input('nama_jurnal');
-            $namaRekognisi = "Publikasi Jurnal: {$namaJurnal} ({$jenisJurnal})";
-            if (strlen($namaRekognisi) > 200) {
-                $namaRekognisi = substr($namaRekognisi, 0, 197) . '...';
-            }
-
-            $linkDokumen = $request->input('berkas_paper') ?: $request->input('link_jurnal');
-
-            foreach ($kodeDosens as $index => $kode) {
-                if (empty($kode)) continue;
-                $nama = $namaDosens[$index] ?? '';
-
-                RekognisiDosen::create([
-                    'kode_dosen' => $kode,
-                    'nama_dosen' => $nama,
-                    'nama_rekognisi' => $namaRekognisi,
-                    'tahun' => $tahun,
-                    'ts_id' => $tsId,
-                    'level' => $level,
-                    'link_dokumen' => $linkDokumen,
-                    'is_keanggotaan' => false,
-                    'penelitian_dosen_id' => $penelitianDosen->id,
-                ]);
-            }
-        }
-    }
 
     public function getDosen($kode)
     {
@@ -426,7 +354,6 @@ class PenelitianDosenController extends Controller
         }
 
         $penelitian = PenelitianDosen::create($data);
-        $this->syncToRekognisi($penelitian, $request);
 
         return redirect()->route('portal.penelitian')->with('success', 'Data Penelitian berhasil dikirim. Hubungi Kaprodi jika terdapat kesalahan input.');
     }
