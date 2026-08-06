@@ -75,6 +75,26 @@
                     <h2 class="fw-bold text-primary mb-0">{{ $totalRekognisi }}</h2>
                 </div>
 
+                <!-- Reviewer & Editor -->
+                <div class="mb-4 text-center py-2 bg-white rounded border border-light shadow-sm">
+                    <span class="text-muted fw-semibold small d-block mb-1">Dosen sbg Reviewer/Editor</span>
+                    <h3 class="fw-bold text-success mb-0">{{ $persentaseReviewer }}%</h3>
+                    <span class="text-muted small">{{ $totalReviewerDosen }} dari {{ count($dosens) }} Dosen</span>
+                    
+                    @if($totalReviewerDosen > 0)
+                        <hr class="my-2 mx-3 text-muted">
+                        <div class="text-start px-3" style="max-height: 120px; overflow-y: auto;">
+                            <ul class="mb-0 ps-3 small text-secondary" style="font-size: 0.85rem;">
+                                @foreach($reviewerDosenNames as $name)
+                                    <li>{{ $name }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @else
+                        <span class="d-block mt-2 small text-muted fst-italic">Belum ada data</span>
+                    @endif
+                </div>
+
                 <!-- Berdasarkan Tri Dharma -->
                 <div class="mb-4">
                     <div class="d-flex align-items-center mb-2">

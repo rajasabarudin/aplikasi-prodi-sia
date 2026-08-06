@@ -66,9 +66,34 @@ class RekognisiDosenController extends Controller
         }
 
         $dosens = Dosen::orderBy('kode_dosen')->get();
+        $totalDosen = $dosens->count();
+
+        // Statistik Reviewer / Editor
+        $reviewerRecords = $allRekognisi->filter(function($item) {
+            $name = strtolower($item->nama_rekognisi);
+            return str_contains($name, 'review') || 
+                   str_contains($name, 'editor') || 
+                   str_contains($name, 'mitra bestari') || 
+                   str_contains($name, 'juri') || 
+                   str_contains($name, 'penilai') || 
+                   str_contains($name, 'asesor') || 
+                   str_contains($name, 'assesor');
+        });
+        
+        $reviewerDosenNames = $reviewerRecords->map(function($item) {
+            return $item->nama_dosen;
+        })->unique()->values();
+        
+        $totalReviewerDosen = $reviewerDosenNames->count();
+        $persentaseReviewer = $totalDosen > 0 ? round(($totalReviewerDosen / $totalDosen) * 100, 1) : 0;
+
         $tsList = Ts::orderBy('tahun_sekarang')->get();
 
-        return view('rekognisi_dosen.index', compact('rekognisi', 'totalRekognisi', 'levelCounts', 'tridharmaCounts', 'tsCounts', 'labelTsCounts', 'dosenCounts', 'dosens', 'tsList'));
+        return view('rekognisi_dosen.index', compact(
+            'rekognisi', 'totalRekognisi', 'levelCounts', 'tridharmaCounts', 
+            'tsCounts', 'labelTsCounts', 'dosenCounts', 'dosens', 'tsList',
+            'persentaseReviewer', 'totalReviewerDosen', 'reviewerDosenNames'
+        ));
     }
 
     public function create()
