@@ -100,6 +100,16 @@ Route::get('/clean-rekognisi', function () {
     }
 });
 
+// Temporary route to clean up rekognisi data linked to penelitian
+Route::get('/fix-rekognisi-data', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('rekognisi:resync');
+        return "Perbaikan berhasil! Semua data rekognisi telah disinkronisasi ulang dan data penelitian telah dihapus dari halaman ini.";
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
+
 // Public Kegiatan Registration Routes
 Route::get('/kegiatan-portal/cek-identitas', [DashboardController::class, 'cekIdentitas'])->name('portal.kegiatan.cek-identitas');
 Route::get('/kegiatan-portal', [DashboardController::class, 'portalKegiatan'])->name('portal.kegiatan');
