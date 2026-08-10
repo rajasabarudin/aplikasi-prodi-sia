@@ -72,9 +72,10 @@
                     <tr>
                         <th class="text-center" style="width: 8%;">No</th>
                         <th style="width: 20%;">NIM</th>
-                        <th style="width: 30%;">Nama Mahasiswa</th>
+                        <th style="width: 20%;">Nama Mahasiswa</th>
                         <th style="width: 15%;">Kelas</th>
-                        <th class="text-center" style="width: 15%;">IPK</th>
+                        <th class="text-center" style="width: 15%;">Tahun Lulusan</th>
+                        <th class="text-center" style="width: 10%;">IPK</th>
                         <th class="text-center d-print-none" style="width: 12%;">Aksi</th>
                     </tr>
                 </thead>
@@ -85,6 +86,7 @@
                             <td class="fw-bold text-dark">{{ $ipk->nim }}</td>
                             <td class="fw-semibold text-dark">{{ $ipk->nama_mahasiswa }}</td>
                             <td class="text-dark">{{ $ipk->kelas }}</td>
+                            <td class="text-center text-dark">{{ $ipk->tahun_lulusan }}</td>
                             <td class="text-center">
                                 @if($ipk->ipk >= 3.50)
                                     <button class="btn btn-sm btn-success fw-bold px-3 py-1" style="font-size: 0.8rem; border-radius: 30px; pointer-events: none; min-width: 60px;">{{ number_format($ipk->ipk, 2) }}</button>
@@ -129,6 +131,10 @@
                                             <div class="mb-3">
                                                 <label class="form-label fw-semibold">Kelas <span class="text-danger">*</span></label>
                                                 <input type="text" name="kelas" class="form-control" value="{{ $ipk->kelas }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label fw-semibold">Tahun Lulusan <span class="text-danger">*</span></label>
+                                                <input type="text" name="tahun_lulusan" class="form-control" value="{{ $ipk->tahun_lulusan }}" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label fw-semibold">IPK <span class="text-danger">*</span></label>
@@ -196,6 +202,12 @@
                         <input type="text" name="kelas" id="modal_kelas" class="form-control" required placeholder="Contoh: SI-4A">
                     </div>
 
+                    <!-- Tahun Lulusan -->
+                    <div class="mb-3">
+                        <label for="modal_tahun" class="form-label fw-semibold">Tahun Lulusan <span class="text-danger">*</span></label>
+                        <input type="text" name="tahun_lulusan" id="modal_tahun" class="form-control" required placeholder="Contoh: 2024">
+                    </div>
+
                     <!-- IPK -->
                     <div class="mb-3">
                         <label for="modal_ipk" class="form-label fw-semibold">IPK <span class="text-danger">*</span></label>
@@ -234,7 +246,8 @@
                                 <li>Kolom A (A1) = NIM</li>
                                 <li>Kolom B (B1) = Nama Mahasiswa</li>
                                 <li>Kolom C (C1) = Kelas (Contoh: SI-4A)</li>
-                                <li>Kolom D (D1) = IPK (Contoh: 3.85)</li>
+                                <li>Kolom D (D1) = Tahun Lulusan (Contoh: 2024)</li>
+                                <li>Kolom E (E1) = IPK (Contoh: 3.85)</li>
                             </ul>
                             Baris pertama adalah header dan akan dilewati otomatis.
                             <br><a href="{{ route('ipk_lulusan.template') }}" class="alert-link fw-bold"><i class="bi bi-download"></i> Unduh Template Excel</a>

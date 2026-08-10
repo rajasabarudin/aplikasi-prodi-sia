@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nim')->nullable();
             $table->string('nama_mahasiswa')->nullable();
             $table->string('kelas')->nullable();
+            $table->string('tahun_lulusan')->nullable();
             $table->decimal('ipk', 4, 2)->nullable();
             $table->timestamps();
         });

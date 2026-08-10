@@ -19,7 +19,8 @@ class IpkLulusanController extends Controller
             $query->where(function ($q) use ($search) {
                 $q->where('nim', 'like', "%{$search}%")
                   ->orWhere('nama_mahasiswa', 'like', "%{$search}%")
-                  ->orWhere('kelas', 'like', "%{$search}%");
+                  ->orWhere('kelas', 'like', "%{$search}%")
+                  ->orWhere('tahun_lulusan', 'like', "%{$search}%");
             });
         }
 
@@ -36,6 +37,7 @@ class IpkLulusanController extends Controller
             'nim' => 'required|string|max:50',
             'nama_mahasiswa' => 'required|string|max:255',
             'kelas' => 'required|string|max:50',
+            'tahun_lulusan' => 'required|string|max:10',
             'ipk' => 'required|numeric|between:0.00,4.00',
         ]);
 
@@ -52,6 +54,7 @@ class IpkLulusanController extends Controller
             'nim' => 'required|string|max:50',
             'nama_mahasiswa' => 'required|string|max:255',
             'kelas' => 'required|string|max:50',
+            'tahun_lulusan' => 'required|string|max:10',
             'ipk' => 'required|numeric|between:0.00,4.00',
         ]);
 
@@ -88,9 +91,10 @@ class IpkLulusanController extends Controller
             $nim = trim($row[0] ?? '');
             $nama = trim($row[1] ?? '');
             $kelas = trim($row[2] ?? '');
-            $ipkVal = trim($row[3] ?? '');
+            $tahun = trim($row[3] ?? '');
+            $ipkVal = trim($row[4] ?? '');
 
-            if (empty($nim) || empty($nama) || empty($kelas) || $ipkVal === '') {
+            if (empty($nim) || empty($nama) || empty($kelas) || empty($tahun) || $ipkVal === '') {
                 $skipped++;
                 continue;
             }
@@ -108,6 +112,7 @@ class IpkLulusanController extends Controller
                 $exists->update([
                     'nama_mahasiswa' => $nama,
                     'kelas' => $kelas,
+                    'tahun_lulusan' => $tahun,
                     'ipk' => $ipkVal,
                 ]);
                 $inserted++;
@@ -118,6 +123,7 @@ class IpkLulusanController extends Controller
                 'nim' => $nim,
                 'nama_mahasiswa' => $nama,
                 'kelas' => $kelas,
+                'tahun_lulusan' => $tahun,
                 'ipk' => $ipkVal,
             ]);
 
@@ -136,7 +142,8 @@ class IpkLulusanController extends Controller
         $sheet->setCellValue('A1', 'NIM');
         $sheet->setCellValue('B1', 'Nama Mahasiswa');
         $sheet->setCellValue('C1', 'Kelas');
-        $sheet->setCellValue('D1', 'IPK');
+        $sheet->setCellValue('D1', 'Tahun Lulusan');
+        $sheet->setCellValue('E1', 'IPK');
 
         $headerStyle = [
             'font' => ['bold' => true, 'color' => ['rgb' => 'FFFFFF']],
@@ -146,20 +153,22 @@ class IpkLulusanController extends Controller
             ],
             'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
         ];
-        $sheet->getStyle('A1:D1')->applyFromArray($headerStyle);
+        $sheet->getStyle('A1:E1')->applyFromArray($headerStyle);
 
         $sheet->getColumnDimension('A')->setWidth(15);
         $sheet->getColumnDimension('B')->setWidth(30);
         $sheet->getColumnDimension('C')->setWidth(15);
-        $sheet->getColumnDimension('D')->setWidth(10);
+        $sheet->getColumnDimension('D')->setWidth(15);
+        $sheet->getColumnDimension('E')->setWidth(10);
 
         $sheet->setCellValue('A3', 'Contoh:');
         $sheet->setCellValue('A4', '12210001');
         $sheet->setCellValue('B4', 'Budi Santoso');
         $sheet->setCellValue('C4', 'SI-4A');
-        $sheet->setCellValue('D4', '3.85');
+        $sheet->setCellValue('D4', '2024');
+        $sheet->setCellValue('E4', '3.85');
 
-        $sheet->getStyle('A3:D3')->getFont()->setItalic(true);
+        $sheet->getStyle('A3:E3')->getFont()->setItalic(true);
 
         $writer = new Xlsx($spreadsheet);
         $filename = 'template-import-ipk-lulusan.xlsx';

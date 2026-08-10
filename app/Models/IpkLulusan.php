@@ -9,5 +9,5 @@ class IpkLulusan extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['nim', 'nama_mahasiswa', 'kelas', 'ipk'];
+    protected $fillable = ['nim', 'nama_mahasiswa', 'kelas', 'tahun_lulusan', 'ipk'];
 }
