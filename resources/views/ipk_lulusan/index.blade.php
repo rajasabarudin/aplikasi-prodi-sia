@@ -122,6 +122,9 @@
                 <p class="text-muted mb-0">Total terfilter: <strong>{{ $ipkList->total() }}</strong> data</p>
             </div>
             <div class="d-print-none">
+                <button type="button" class="btn btn-info me-1 text-white" data-bs-toggle="modal" data-bs-target="#exportIpkModal">
+                    <i class="bi bi-download me-1"></i>Export Excel
+                </button>
                 <button type="button" class="btn btn-success me-1" data-bs-toggle="modal" data-bs-target="#importIpkModal">
                     <i class="bi bi-upload me-1"></i>Import Excel
                 </button>
@@ -259,6 +262,8 @@
                                 </div>
                             </div>
                         </div>
+
+
                     @empty
                         <tr>
                             <td colspan="6" class="text-center text-muted py-4">
@@ -367,6 +372,38 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-success">Mulai Import</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Export IPK Lulusan -->
+<div class="modal fade" id="exportIpkModal" tabindex="-1" aria-labelledby="exportIpkModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title fw-bold" id="exportIpkModalLabel"><i class="bi bi-download me-2"></i>Export Data IPK Lulusan</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('ipk_lulusan.export') }}" method="GET">
+                <div class="modal-body">
+                    <p>Pilih tahun lulusan yang ingin di-export ke format Excel. Biarkan "Semua Tahun" untuk mengunduh seluruh data.</p>
+                    <div class="mb-3">
+                        <label for="export_tahun" class="form-label fw-semibold">Pilih Tahun Lulusan</label>
+                        <select name="tahun_lulusan" id="export_tahun" class="form-select">
+                            <option value="">-- Semua Tahun --</option>
+                            @foreach ($tahunList as $tahun)
+                                @if(!empty($tahun))
+                                    <option value="{{ $tahun }}">{{ $tahun }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-info text-white">Export Excel</button>
                 </div>
             </form>
         </div>

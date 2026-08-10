@@ -196,6 +196,7 @@ Route::middleware(['auth', 'permission'])->prefix('admin')->group(function () {
     Route::post('ipk/import', [IpkMahasiswaController::class, 'import'])->name('ipk.import');
     Route::resource('ipk', IpkMahasiswaController::class);
 
+    Route::get('ipk-lulusan/export', [IpkLulusanController::class, 'export'])->name('ipk_lulusan.export');
     Route::get('ipk-lulusan/template', [IpkLulusanController::class, 'template'])->name('ipk_lulusan.template');
     Route::post('ipk-lulusan/import', [IpkLulusanController::class, 'import'])->name('ipk_lulusan.import');
     Route::resource('ipk-lulusan', IpkLulusanController::class)->names('ipk_lulusan');
