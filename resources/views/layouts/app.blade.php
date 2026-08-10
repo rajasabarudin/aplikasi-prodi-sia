@@ -467,14 +467,14 @@
 
                 @if(Auth::user()->hasPermission('mahasiswa') || Auth::user()->hasPermission('sertifikasi-mahasiswa') || Auth::user()->hasPermission('ipk'))
                 <li class="nav-item mt-2">
-                    <a class="nav-link text-white d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#mahasiswaDataMenu" role="button" aria-expanded="{{ request()->routeIs('mahasiswa.*') || request()->routeIs('sertifikasi-mahasiswa.*') || request()->routeIs('ipk.*') ? 'true' : 'false' }}" aria-controls="mahasiswaDataMenu">
+                    <a class="nav-link text-white d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#mahasiswaDataMenu" role="button" aria-expanded="{{ request()->routeIs('mahasiswa.*') || request()->routeIs('sertifikasi-mahasiswa.*') || request()->routeIs('ipk.*') || request()->routeIs('ipk_lulusan.*') ? 'true' : 'false' }}" aria-controls="mahasiswaDataMenu">
                         <span>
                             <i class="bi bi-people-fill me-2 text-warning fs-5"></i>
                             <span class="sidebar-text">Data Mahasiswa</span>
                         </span>
                         <i class="bi bi-chevron-down float-end"></i>
                     </a>
-                    <div class="collapse {{ request()->routeIs('mahasiswa.*') || request()->routeIs('sertifikasi-mahasiswa.*') || request()->routeIs('ipk.*') ? 'show' : '' }}" id="mahasiswaDataMenu">
+                    <div class="collapse {{ request()->routeIs('mahasiswa.*') || request()->routeIs('sertifikasi-mahasiswa.*') || request()->routeIs('ipk.*') || request()->routeIs('ipk_lulusan.*') ? 'show' : '' }}" id="mahasiswaDataMenu">
                         <ul class="nav nav-pills flex-column ms-3 mt-1">
                             @if(Auth::user()->hasPermission('mahasiswa'))
                             <li class="nav-item">
@@ -505,6 +505,12 @@
                                 <a href="{{ route('ipk.index') }}" class="nav-link text-white {{ request()->routeIs('ipk.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
                                     <i class="bi bi-award me-2 text-warning"></i>
                                     <span class="sidebar-text">IPK Mahasiswa</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('ipk_lulusan.index') }}" class="nav-link text-white {{ request()->routeIs('ipk_lulusan.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
+                                    <i class="bi bi-award-fill me-2 text-warning"></i>
+                                    <span class="sidebar-text">IPK Lulusan</span>
                                 </a>
                             </li>
                             @endif

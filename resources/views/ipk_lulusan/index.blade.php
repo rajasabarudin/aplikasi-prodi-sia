@@ -1,0 +1,253 @@
+@extends('layouts.app')
+
+@section('title', 'Data IPK Lulusan')
+
+@section('content')
+<div class="row">
+    <!-- Kanan: Tabel Data & Pencarian -->
+    <div class="col-lg-12 col-md-12">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h1 class="mb-0 fw-bold text-dark">Data IPK Lulusan</h1>
+                <p class="text-muted mb-0">Total terfilter: <strong>{{ $ipkList->total() }}</strong> data</p>
+            </div>
+            <div class="d-print-none">
+                <button type="button" class="btn btn-success me-1" data-bs-toggle="modal" data-bs-target="#importIpkModal">
+                    <i class="bi bi-upload me-1"></i>Import Excel
+                </button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahIpkModal">
+                    <i class="bi bi-plus-circle me-1"></i>Tambah Data IPK
+                </button>
+            </div>
+        </div>
+
+        @if ($errors->any())
+            <div class="alert alert-danger d-print-none shadow-sm border-0 border-start border-danger border-4 mb-4">
+                <ul class="mb-0 small">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="alert alert-success d-print-none shadow-sm border-0 border-start border-success border-4 mb-4">
+                <i class="bi bi-check-circle-fill me-2 text-success"></i>{{ session('success') }}
+            </div>
+        @endif
+
+        <!-- Panel Pencarian dan Filter -->
+        <div class="card mb-3 d-print-none border-0 shadow-sm">
+            <div class="card-body py-2">
+                <form method="GET" class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                        <input type="text" name="search" class="form-control" placeholder="Cari NIM, nama, atau kelas..." value="{{ request('search') }}">
+                    </div>
+                    <div class="col-md-2">
+                        @php
+                            $currentLimit = request('per_page', 20);
+                        @endphp
+                        <select name="per_page" class="form-select" onchange="this.form.submit()">
+                            <option value="10" {{ $currentLimit == 10 ? 'selected' : '' }}>10 Baris</option>
+                            <option value="20" {{ $currentLimit == 20 ? 'selected' : '' }}>20 Baris</option>
+                            <option value="50" {{ $currentLimit == 50 ? 'selected' : '' }}>50 Baris</option>
+                            <option value="100" {{ $currentLimit == 100 ? 'selected' : '' }}>100 Baris</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5 text-md-end d-flex gap-1 justify-content-end">
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Cari</button>
+                        @if (request('search') || request('per_page'))
+                            <a href="{{ route('ipk_lulusan.index') }}" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i> Reset</a>
+                        @endif
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tabel Data -->
+        <div class="table-responsive shadow-sm rounded">
+            <table class="table table-bordered table-striped table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-center" style="width: 8%;">No</th>
+                        <th style="width: 20%;">NIM</th>
+                        <th style="width: 30%;">Nama Mahasiswa</th>
+                        <th style="width: 15%;">Kelas</th>
+                        <th class="text-center" style="width: 15%;">IPK</th>
+                        <th class="text-center d-print-none" style="width: 12%;">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($ipkList as $ipk)
+                        <tr>
+                            <td class="text-center fw-bold text-muted">{{ ($ipkList->currentPage() - 1) * $ipkList->perPage() + $loop->iteration }}</td>
+                            <td class="fw-bold text-dark">{{ $ipk->nim }}</td>
+                            <td class="fw-semibold text-dark">{{ $ipk->nama_mahasiswa }}</td>
+                            <td class="text-dark">{{ $ipk->kelas }}</td>
+                            <td class="text-center">
+                                @if($ipk->ipk >= 3.50)
+                                    <button class="btn btn-sm btn-success fw-bold px-3 py-1" style="font-size: 0.8rem; border-radius: 30px; pointer-events: none; min-width: 60px;">{{ number_format($ipk->ipk, 2) }}</button>
+                                @elseif($ipk->ipk >= 3.00)
+                                    <button class="btn btn-sm btn-primary fw-bold px-3 py-1" style="font-size: 0.8rem; border-radius: 30px; pointer-events: none; min-width: 60px;">{{ number_format($ipk->ipk, 2) }}</button>
+                                @else
+                                    <button class="btn btn-sm btn-danger fw-bold px-3 py-1" style="font-size: 0.8rem; border-radius: 30px; pointer-events: none; min-width: 60px;">{{ number_format($ipk->ipk, 2) }}</button>
+                                @endif
+                            </td>
+                            <td class="text-center d-print-none">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editIpkModal{{ $ipk->id }}" title="Edit"><i class="bi bi-pencil"></i></button>
+                                    <form action="{{ route('ipk_lulusan.destroy', $ipk->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data IPK {{ $ipk->nama_mahasiswa }}?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" title="Hapus"><i class="bi bi-trash"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Modal Edit IPK -->
+                        <div class="modal fade" id="editIpkModal{{ $ipk->id }}" tabindex="-1" aria-labelledby="editIpkModalLabel{{ $ipk->id }}" aria-hidden="true">
+                            <div class="modal-dialog text-start">
+                                <div class="modal-content">
+                                    <form action="{{ route('ipk_lulusan.update', $ipk->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="modal-header bg-warning text-dark">
+                                            <h5 class="modal-title" id="editIpkModalLabel{{ $ipk->id }}"><i class="bi bi-pencil me-2"></i>Edit Data IPK Lulusan</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label class="form-label fw-semibold">NIM <span class="text-danger">*</span></label>
+                                                <input type="text" name="nim" class="form-control" value="{{ $ipk->nim }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label fw-semibold">Nama Mahasiswa <span class="text-danger">*</span></label>
+                                                <input type="text" name="nama_mahasiswa" class="form-control" value="{{ $ipk->nama_mahasiswa }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label fw-semibold">Kelas <span class="text-danger">*</span></label>
+                                                <input type="text" name="kelas" class="form-control" value="{{ $ipk->kelas }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label fw-semibold">IPK <span class="text-danger">*</span></label>
+                                                <input type="number" step="0.01" min="0.00" max="4.00" name="ipk" class="form-control" value="{{ $ipk->ipk }}" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                <i class="bi bi-award display-6 d-block mb-2 text-secondary"></i>
+                                Belum ada data IPK lulusan.
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-between align-items-center mt-4 d-print-none">
+            <div class="text-muted small">
+                Menampilkan {{ $ipkList->firstItem() ?? 0 }} sampai {{ $ipkList->lastItem() ?? 0 }} dari {{ $ipkList->total() }} data
+            </div>
+            <div>
+                {{ $ipkList->links('pagination::bootstrap-5') }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tambah IPK -->
+<div class="modal fade" id="tambahIpkModal" tabindex="-1" aria-labelledby="tambahIpkModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ route('ipk_lulusan.store') }}" method="POST">
+                @csrf
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="tambahIpkModalLabel"><i class="bi bi-award-fill me-2 text-warning"></i>Tambah Data IPK Lulusan</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- NIM -->
+                    <div class="mb-3">
+                        <label for="modal_nim" class="form-label fw-semibold">NIM <span class="text-danger">*</span></label>
+                        <input type="text" name="nim" id="modal_nim" class="form-control" required placeholder="Masukkan NIM...">
+                    </div>
+
+                    <!-- Nama -->
+                    <div class="mb-3">
+                        <label for="modal_nama" class="form-label fw-semibold">Nama Mahasiswa <span class="text-danger">*</span></label>
+                        <input type="text" name="nama_mahasiswa" id="modal_nama" class="form-control" required placeholder="Masukkan Nama...">
+                    </div>
+
+                    <!-- Kelas -->
+                    <div class="mb-3">
+                        <label for="modal_kelas" class="form-label fw-semibold">Kelas <span class="text-danger">*</span></label>
+                        <input type="text" name="kelas" id="modal_kelas" class="form-control" required placeholder="Contoh: SI-4A">
+                    </div>
+
+                    <!-- IPK -->
+                    <div class="mb-3">
+                        <label for="modal_ipk" class="form-label fw-semibold">IPK <span class="text-danger">*</span></label>
+                        <input type="number" step="0.01" min="0.00" max="4.00" name="ipk" id="modal_ipk" class="form-control" required placeholder="Contoh: 3.85">
+                        <div class="form-text">Nilai IPK berkisar antara 0.00 hingga 4.00</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Import IPK -->
+<div class="modal fade" id="importIpkModal" tabindex="-1" aria-labelledby="importIpkModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ route('ipk_lulusan.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="importIpkModalLabel"><i class="bi bi-file-earmark-excel-fill me-2 text-white"></i>Import Data IPK Lulusan</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="file" class="form-label fw-semibold">Pilih File Excel <span class="text-danger">*</span></label>
+                        <input type="file" name="file" id="file" class="form-control" accept=".xlsx,.xls,.csv" required>
+                    </div>
+                    <div class="alert alert-info mb-0">
+                        <small>
+                            <strong>Format kolom Excel:</strong>
+                            <ul class="mb-2 ps-3">
+                                <li>Kolom A (A1) = NIM</li>
+                                <li>Kolom B (B1) = Nama Mahasiswa</li>
+                                <li>Kolom C (C1) = Kelas (Contoh: SI-4A)</li>
+                                <li>Kolom D (D1) = IPK (Contoh: 3.85)</li>
+                            </ul>
+                            Baris pertama adalah header dan akan dilewati otomatis.
+                            <br><a href="{{ route('ipk_lulusan.template') }}" class="alert-link fw-bold"><i class="bi bi-download"></i> Unduh Template Excel</a>
+                        </small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success">Mulai Import</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@endsection

@@ -18,6 +18,7 @@ use App\Http\Controllers\PmbController;
 use App\Http\Controllers\KerjasamaController;
 use App\Http\Controllers\PksIaController;
 use App\Http\Controllers\IpkMahasiswaController;
+use App\Http\Controllers\IpkLulusanController;
 use App\Http\Controllers\HkiController;
 use App\Http\Controllers\PrestasiMahasiswaController;
 use App\Http\Controllers\OrganisasiMahasiswaController;
@@ -194,6 +195,10 @@ Route::middleware(['auth', 'permission'])->prefix('admin')->group(function () {
     Route::get('ipk/template', [IpkMahasiswaController::class, 'template'])->name('ipk.template');
     Route::post('ipk/import', [IpkMahasiswaController::class, 'import'])->name('ipk.import');
     Route::resource('ipk', IpkMahasiswaController::class);
+
+    Route::get('ipk-lulusan/template', [IpkLulusanController::class, 'template'])->name('ipk_lulusan.template');
+    Route::post('ipk-lulusan/import', [IpkLulusanController::class, 'import'])->name('ipk_lulusan.import');
+    Route::resource('ipk-lulusan', IpkLulusanController::class)->names('ipk_lulusan');
 
     Route::get('beasiswa-mahasiswa/get-mahasiswa/{nim}', [BeasiswaMahasiswaController::class, 'getMahasiswa'])->name('beasiswa-mahasiswa.get-mahasiswa');
     Route::resource('beasiswa-mahasiswa', BeasiswaMahasiswaController::class)->parameters([
