@@ -4,8 +4,118 @@
 
 @section('content')
 <div class="row">
+    <!-- Kiri: Panel Statistik IPK Lulusan -->
+    <div class="col-lg-3 col-md-4 d-print-none mb-4">
+        <div class="card shadow-sm border-0 mb-3">
+            <div class="card-header text-white py-3" style="background: #0f172a !important;">
+                <h5 class="card-title mb-0 fw-bold"><i class="bi bi-bar-chart-line-fill me-2"></i>Statistik IPK Lulusan</h5>
+            </div>
+            <div class="card-body">
+                <!-- Total Data -->
+                <div class="mb-4 text-center py-3 stat-card-total">
+                    <span class="text-white-50 small d-block mb-1">Total Lulusan</span>
+                    <h2 class="fw-bold mb-0 text-white">{{ $totalIpk }}</h2>
+                </div>
+
+                <!-- Rerata IPK -->
+                <div class="mb-4">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="bg-primary text-white rounded p-1 px-2 me-2" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;">
+                            <i class="bi bi-calculator"></i>
+                        </div>
+                        <span class="fw-bold text-dark">Rerata Keseluruhan</span>
+                    </div>
+                    <div class="ps-1">
+                        <button class="btn btn-light border fw-bold px-3 py-1.5" style="border-radius: 30px; pointer-events: none; background: #f8fafc;">
+                            <span class="text-primary fs-5">{{ number_format($avgIpk, 2, ',', '.') }}</span> <span class="text-muted small">/ 4.00</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Distribusi IPK -->
+                <div class="mt-4 border-top pt-3">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-success text-white rounded p-1 px-2 me-2" style="background: linear-gradient(135deg, #10b981, #059669) !important;">
+                            <i class="bi bi-pie-chart"></i>
+                        </div>
+                        <span class="fw-bold text-dark">Distribusi IPK Keseluruhan</span>
+                    </div>
+                    <div class="ps-1">
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-light">
+                            <span class="text-dark fw-semibold" style="font-size: 0.85rem;">IPK &ge; 3.50 (Cum Laude)</span>
+                            <button class="btn btn-sm btn-success fw-bold px-2 py-0" style="font-size: 0.75rem; border-radius: 30px; pointer-events: none; height: 22px; line-height: 1.2;">
+                                {{ $dist['sangat_memuaskan'] }} Lulusan
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-light">
+                            <span class="text-dark fw-semibold" style="font-size: 0.85rem;">IPK 3.00 - 3.49</span>
+                            <button class="btn btn-sm btn-primary fw-bold px-2 py-0" style="font-size: 0.75rem; border-radius: 30px; pointer-events: none; height: 22px; line-height: 1.2;">
+                                {{ $dist['memuaskan'] }} Lulusan
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-light">
+                            <span class="text-dark fw-semibold" style="font-size: 0.85rem;">IPK &lt; 3.00</span>
+                            <button class="btn btn-sm btn-danger fw-bold px-2 py-0" style="font-size: 0.75rem; border-radius: 30px; pointer-events: none; height: 22px; line-height: 1.2;">
+                                {{ $dist['cukup'] }} Lulusan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rerata & Distribusi per Tahun -->
+                <div class="mt-4 border-top pt-3">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-primary text-white rounded p-1 px-2 me-2" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;">
+                            <i class="bi bi-calendar-check"></i>
+                        </div>
+                        <span class="fw-bold text-dark">Rerata & Dist. per Tahun</span>
+                    </div>
+                    <div class="ps-1" style="max-height: 220px; overflow-y: auto;">
+                        @foreach ($statsPerTahun as $stat)
+                            <div class="mb-2 pb-2 border-bottom border-light">
+                                <div class="d-flex justify-content-between align-items-center fw-bold text-dark mb-1" style="font-size: 0.85rem;">
+                                    <span>Tahun {{ $stat['tahun'] }}</span>
+                                    <button class="btn btn-sm btn-primary fw-bold px-2 py-0" style="font-size: 0.75rem; border-radius: 30px; pointer-events: none; height: 22px; line-height: 1.2;">
+                                        {{ number_format($stat['average'], 2, ',', '.') }}
+                                    </button>
+                                </div>
+                                <div class="d-flex gap-1 flex-wrap">
+                                    <button class="btn btn-sm btn-outline-success fw-bold px-2 py-0" style="font-size: 8px; border-radius: 30px; pointer-events: none; height: 18px; line-height: 1.2; border-color: #a7f3d0; color: #065f46; background-color: #ecfdf5;">
+                                        &ge;3.5: {{ $stat['cumlaude'] }}
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-primary fw-bold px-2 py-0" style="font-size: 8px; border-radius: 30px; pointer-events: none; height: 18px; line-height: 1.2; border-color: #bfdbfe; color: #1e40af; background-color: #eff6ff;">
+                                        3.0-3.5: {{ $stat['memuaskan'] }}
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger fw-bold px-2 py-0" style="font-size: 8px; border-radius: 30px; pointer-events: none; height: 18px; line-height: 1.2; border-color: #fecaca; color: #991b1b; background-color: #fef2f2;">
+                                        &lt;3.0: {{ $stat['cukup'] }}
+                                    </button>
+                                </div>
+                            </div>
+                        @endforeach
+                        @if(empty($statsPerTahun))
+                            <span class="text-muted small">Belum ada data tahun lulusan.</span>
+                        @endif
+                    </div>
+                </div>
+
+                <!-- Chart Rerata IPK per Tahun -->
+                <div class="mt-4 border-top pt-3">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-warning text-dark rounded p-1 px-2 me-2" style="background: linear-gradient(135deg, #f59e0b, #d97706) !important; color: white !important;">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+                        <span class="fw-bold text-dark">Tren Rerata IPK</span>
+                    </div>
+                    <div style="position: relative; height: 180px; width: 100%;">
+                        <canvas id="ipkLineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Kanan: Tabel Data & Pencarian -->
-    <div class="col-lg-12 col-md-12">
+    <div class="col-lg-9 col-md-8">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
                 <h1 class="mb-0 fw-bold text-dark">Data IPK Lulusan</h1>
@@ -262,5 +372,55 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Chart.js Initialization for IPK Trend
+    var ctx = document.getElementById('ipkLineChart');
+    if (ctx) {
+        new Chart(ctx.getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: {!! json_encode($chartLabels) !!},
+                datasets: [{
+                    label: 'Rerata IPK',
+                    data: {!! json_encode($chartData) !!},
+                    borderColor: '#f59e0b',
+                    backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                    fill: true,
+                    tension: 0.3,
+                    borderWidth: 2,
+                    pointBackgroundColor: '#f59e0b',
+                    pointRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        padding: 10,
+                        cornerRadius: 8
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false }
+                    },
+                    y: {
+                        min: 0.00,
+                        max: 4.00,
+                        ticks: { stepSize: 1.00 }
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
 
 @endsection

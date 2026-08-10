@@ -28,7 +28,42 @@ class IpkLulusanController extends Controller
 
         $ipkList = $query->orderBy('id', 'desc')->paginate($perPage)->withQueryString();
 
-        return view('ipk_lulusan.index', compact('ipkList'));
+        $tahunList = IpkLulusan::select('tahun_lulusan')->distinct()->orderBy('tahun_lulusan', 'desc')->pluck('tahun_lulusan');
+        
+        $totalIpk = IpkLulusan::count();
+        $avgIpk = IpkLulusan::avg('ipk') ?? 0;
+        
+        $dist = [
+            'sangat_memuaskan' => IpkLulusan::where('ipk', '>=', 3.50)->count(),
+            'memuaskan' => IpkLulusan::whereBetween('ipk', [3.00, 3.49])->count(),
+            'cukup' => IpkLulusan::where('ipk', '<', 3.00)->count(),
+        ];
+        
+        $avgIpk = round($avgIpk, 2);
+
+        $statsPerTahun = [];
+        foreach ($tahunList as $tahun) {
+            if (empty($tahun)) continue;
+            $records = IpkLulusan::where('tahun_lulusan', $tahun)->get();
+            $count = $records->count();
+            $statsPerTahun[] = [
+                'tahun' => $tahun,
+                'average' => $count > 0 ? $records->avg('ipk') : 0,
+                'cumlaude' => $records->where('ipk', '>=', 3.50)->count(),
+                'memuaskan' => $records->where('ipk', '>=', 3.00)->where('ipk', '<', 3.50)->count(),
+                'cukup' => $records->where('ipk', '<', 3.00)->count(),
+            ];
+        }
+
+        // Chart data
+        $chartLabels = array_reverse(array_filter($tahunList->toArray()));
+        $chartData = [];
+        foreach ($chartLabels as $label) {
+            $val = IpkLulusan::where('tahun_lulusan', $label)->avg('ipk');
+            $chartData[] = round($val ?? 0, 2);
+        }
+
+        return view('ipk_lulusan.index', compact('ipkList', 'tahunList', 'totalIpk', 'avgIpk', 'dist', 'statsPerTahun', 'chartLabels', 'chartData'));
     }
 
     public function store(Request $request)
