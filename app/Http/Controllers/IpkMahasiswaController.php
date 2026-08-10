@@ -266,4 +266,84 @@ class IpkMahasiswaController extends Controller
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ])->deleteFileAfterSend(true);
     }
+
+    public function export(Request $request)
+    {
+        $tsId = $request->get('ts_id');
+        
+        $query = IpkMahasiswa::with('ts')->orderBy('nama', 'asc');
+        
+        if ($tsId) {
+            $query->where('ts_id', $tsId);
+            $ts = Ts::find($tsId);
+            $taLabel = $ts ? str_replace('/', '_', $ts->tahun_sekarang) : 'Tertentu';
+            $filename = "Data_IPK_Mahasiswa_Aktif_TA_{$taLabel}.xlsx";
+        } else {
+            $filename = "Data_IPK_Mahasiswa_Aktif_Semua_TA.xlsx";
+        }
+
+        $data = $query->get();
+
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Header
+        $sheet->setCellValue('A1', 'NO');
+        $sheet->setCellValue('B1', 'NIM');
+        $sheet->setCellValue('C1', 'NAMA MAHASISWA');
+        $sheet->setCellValue('D1', 'TA (Tahun Akademik)');
+        $sheet->setCellValue('E1', 'IPK');
+
+        $headerStyle = [
+            'font' => ['bold' => true, 'color' => ['rgb' => 'FFFFFF']],
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => ['rgb' => '10B981'], // Green color
+            ],
+            'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+        ];
+        $sheet->getStyle('A1:E1')->applyFromArray($headerStyle);
+
+        // Set Width
+        $sheet->getColumnDimension('A')->setWidth(5);
+        $sheet->getColumnDimension('B')->setWidth(15);
+        $sheet->getColumnDimension('C')->setWidth(35);
+        $sheet->getColumnDimension('D')->setWidth(20);
+        $sheet->getColumnDimension('E')->setWidth(10);
+
+        // Data
+        $row = 2;
+        foreach ($data as $index => $item) {
+            $sheet->setCellValue('A' . $row, $index + 1);
+            $sheet->setCellValue('B' . $row, $item->nim);
+            $sheet->setCellValue('C' . $row, $item->nama);
+            $sheet->setCellValue('D' . $row, $item->ts ? $item->ts->tahun_sekarang : '-');
+            $sheet->setCellValue('E' . $row, $item->ipk);
+            
+            $sheet->getStyle('A' . $row)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+            $sheet->getStyle('D' . $row)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+            $sheet->getStyle('E' . $row)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+            
+            $row++;
+        }
+
+        // Add borders to all data
+        $borderStyle = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'color' => ['argb' => '000000'],
+                ],
+            ],
+        ];
+        $sheet->getStyle('A1:E' . ($row - 1))->applyFromArray($borderStyle);
+
+        $writer = new Xlsx($spreadsheet);
+        $tempPath = tempnam(sys_get_temp_dir(), 'export_ipk_mhs_aktif');
+        $writer->save($tempPath);
+
+        return response()->download($tempPath, $filename, [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        ])->deleteFileAfterSend(true);
+    }
 }
