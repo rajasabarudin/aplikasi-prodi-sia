@@ -289,6 +289,9 @@ class PenelitianDosenController extends Controller
 
         $message = $linkValue ? 'Dokumen berhasil ditambahkan.' : 'Dokumen berhasil dihapus.';
 
+        return redirect()->back()->with('success', $message);
+    }
+
     public function getDosen($kode)
     {
         $dosen = Dosen::where('kode_dosen', $kode)->first();
