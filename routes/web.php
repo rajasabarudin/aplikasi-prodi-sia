@@ -192,6 +192,9 @@ Route::middleware(['auth', 'permission'])->prefix('admin')->group(function () {
     Route::post('capstone-mahasiswa', [CapstoneMahasiswaController::class, 'store'])->name('capstone-mahasiswa.store');
     Route::put('capstone-mahasiswa/{capstone_mahasiswa}', [CapstoneMahasiswaController::class, 'update'])->name('capstone-mahasiswa.update');
     Route::delete('capstone-mahasiswa/{capstone_mahasiswa}', [CapstoneMahasiswaController::class, 'destroy'])->name('capstone-mahasiswa.destroy');
+    Route::post('kegiatan-mahasiswa', [\App\Http\Controllers\KegiatanMahasiswaController::class, 'store'])->name('kegiatan-mahasiswa.store');
+    Route::put('kegiatan-mahasiswa/{kegiatan_mahasiswa}', [\App\Http\Controllers\KegiatanMahasiswaController::class, 'update'])->name('kegiatan-mahasiswa.update');
+    Route::delete('kegiatan-mahasiswa/{kegiatan_mahasiswa}', [\App\Http\Controllers\KegiatanMahasiswaController::class, 'destroy'])->name('kegiatan-mahasiswa.destroy');
     Route::get('ipk/export', [IpkMahasiswaController::class, 'export'])->name('ipk.export');
     Route::get('ipk/template', [IpkMahasiswaController::class, 'template'])->name('ipk.template');
     Route::post('ipk/import', [IpkMahasiswaController::class, 'import'])->name('ipk.import');

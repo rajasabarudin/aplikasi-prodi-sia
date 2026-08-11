@@ -265,6 +265,11 @@
                     <i class="bi bi-cpu-fill me-1 text-danger"></i> Capstone
                 </button>
             </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link fw-bold px-3 py-2" id="kegiatan-tab" data-bs-toggle="tab" data-bs-target="#kegiatan" type="button" role="tab" aria-controls="kegiatan" aria-selected="false" style="border-radius: 8px;">
+                    <i class="bi bi-calendar-event me-1 text-info"></i> Kegiatan
+                </button>
+            </li>
         </ul>
 
         <!-- Tab Content -->
@@ -919,6 +924,86 @@
                                             </td>
                                         </tr>
                                      @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Kegiatan -->
+            <div class="tab-pane fade animate-fade-in" id="kegiatan" role="tabpanel" aria-labelledby="kegiatan-tab">
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3">
+                        <h5 class="card-title mb-0 fw-bold"><i class="bi bi-calendar-event me-2 text-info"></i>Kegiatan Mahasiswa</h5>
+                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#tambahKegiatanModal">
+                            <i class="bi bi-plus-circle me-1"></i>Tambah Kegiatan
+                        </button>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="text-center" style="width: 5%;">No</th>
+                                        <th style="width: 25%;">Nama Kegiatan</th>
+                                        <th style="width: 15%;">Jenis Kegiatan</th>
+                                        <th style="width: 15%;">Tgl Kegiatan</th>
+                                        <th style="width: 20%;">Penyelenggara</th>
+                                        <th class="text-center" style="width: 10%;">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($mahasiswa->kegiatan ?? collect() as $keg)
+                                        <tr>
+                                            <td class="text-center fw-bold text-muted">{{ $loop->iteration }}</td>
+                                            <td>
+                                                <div class="fw-bold text-dark">{{ $keg->nama_kegiatan }}</div>
+                                                @if($keg->link_bukti_kegiatan)
+                                                    <a href="{{ $keg->link_bukti_kegiatan }}" target="_blank" class="badge bg-info-subtle text-info text-decoration-none py-1 px-2 mt-1" style="border-radius: 6px;">
+                                                        <i class="bi bi-link-45deg"></i> Lihat Bukti
+                                                    </a>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-secondary px-2.5 py-1.5" style="border-radius: 6px; font-size: 0.75rem;">{{ ucfirst($keg->jenis_kegiatan) }}</span>
+                                            </td>
+                                            <td>
+                                                <div class="fw-semibold text-dark">{{ \Carbon\Carbon::parse($keg->tgl_kegiatan)->format('d M Y') }}</div>
+                                            </td>
+                                            <td>
+                                                <div class="text-dark fw-semibold">{{ $keg->penyelenggara }}</div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="btn-group" role="group">
+                                                    <button type="button" class="btn btn-sm btn-warning" 
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#editKegiatanModal"
+                                                        data-id="{{ $keg->id }}"
+                                                        data-nama_kegiatan="{{ $keg->nama_kegiatan }}"
+                                                        data-jenis_kegiatan="{{ $keg->jenis_kegiatan }}"
+                                                        data-tgl_kegiatan="{{ $keg->tgl_kegiatan }}"
+                                                        data-penyelenggara="{{ $keg->penyelenggara }}"
+                                                        data-link_bukti_kegiatan="{{ $keg->link_bukti_kegiatan }}"
+                                                        title="Edit Kegiatan">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </button>
+                                                    <form action="{{ route('kegiatan-mahasiswa.destroy', $keg->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data kegiatan {{ $keg->nama_kegiatan }}?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-danger" title="Hapus Kegiatan"><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center text-muted py-4">
+                                                <i class="bi bi-calendar-x display-6 d-block mb-2 text-secondary"></i>
+                                                Belum ada data kegiatan untuk mahasiswa ini.
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -1736,6 +1821,118 @@
     </div>
 </div>
 
+<!-- Modal Tambah Kegiatan -->
+<div class="modal fade" id="tambahKegiatanModal" tabindex="-1" aria-labelledby="tambahKegiatanModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ route('kegiatan-mahasiswa.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="nim" value="{{ $mahasiswa->nim }}">
+                
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="tambahKegiatanModalLabel"><i class="bi bi-plus-circle-fill me-2 text-primary"></i>Tambah Data Kegiatan</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="add_nama_kegiatan" class="form-label fw-semibold">Nama Kegiatan <span class="text-danger">*</span></label>
+                        <input type="text" name="nama_kegiatan" id="add_nama_kegiatan" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="add_jenis_kegiatan" class="form-label fw-semibold">Jenis Kegiatan <span class="text-danger">*</span></label>
+                        <select name="jenis_kegiatan" id="add_jenis_kegiatan" class="form-select" required>
+                            <option value="">Pilih Jenis Kegiatan</option>
+                            <option value="pelatihan">Pelatihan</option>
+                            <option value="seminar">Seminar</option>
+                            <option value="workshop">Workshop</option>
+                            <option value="sertifikasi">Sertifikasi</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="add_tgl_kegiatan" class="form-label fw-semibold">Tanggal Kegiatan <span class="text-danger">*</span></label>
+                        <input type="date" name="tgl_kegiatan" id="add_tgl_kegiatan" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="add_penyelenggara_keg" class="form-label fw-semibold">Penyelenggara <span class="text-danger">*</span></label>
+                        <input type="text" name="penyelenggara" id="add_penyelenggara_keg" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="add_link_bukti_kegiatan" class="form-label fw-semibold">Link Bukti Kegiatan</label>
+                        <input type="url" name="link_bukti_kegiatan" id="add_link_bukti_kegiatan" class="form-control" placeholder="https://...">
+                        <div class="form-text">Masukkan link dokumen bukti kegiatan jika ada.</div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit Kegiatan -->
+<div class="modal fade" id="editKegiatanModal" tabindex="-1" aria-labelledby="editKegiatanModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" method="POST" id="editKegiatanForm">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="nim" value="{{ $mahasiswa->nim }}">
+                
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="editKegiatanModalLabel"><i class="bi bi-pencil-square me-2 text-warning"></i>Edit Data Kegiatan</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="edit_nama_kegiatan" class="form-label fw-semibold">Nama Kegiatan <span class="text-danger">*</span></label>
+                        <input type="text" name="nama_kegiatan" id="edit_nama_kegiatan" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="edit_jenis_kegiatan" class="form-label fw-semibold">Jenis Kegiatan <span class="text-danger">*</span></label>
+                        <select name="jenis_kegiatan" id="edit_jenis_kegiatan" class="form-select" required>
+                            <option value="">Pilih Jenis Kegiatan</option>
+                            <option value="pelatihan">Pelatihan</option>
+                            <option value="seminar">Seminar</option>
+                            <option value="workshop">Workshop</option>
+                            <option value="sertifikasi">Sertifikasi</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="edit_tgl_kegiatan" class="form-label fw-semibold">Tanggal Kegiatan <span class="text-danger">*</span></label>
+                        <input type="date" name="tgl_kegiatan" id="edit_tgl_kegiatan" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="edit_penyelenggara_keg" class="form-label fw-semibold">Penyelenggara <span class="text-danger">*</span></label>
+                        <input type="text" name="penyelenggara" id="edit_penyelenggara_keg" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="edit_link_bukti_kegiatan" class="form-label fw-semibold">Link Bukti Kegiatan</label>
+                        <input type="url" name="link_bukti_kegiatan" id="edit_link_bukti_kegiatan" class="form-control" placeholder="https://...">
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-warning">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Add Modal Auto-fill (Supports multiple lecturers by appending)
@@ -1988,6 +2185,34 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
             }
+        });
+        });
+    }
+
+    // Edit Kegiatan Modal Population
+    var editKegiatanModal = document.getElementById('editKegiatanModal');
+    if (editKegiatanModal) {
+        editKegiatanModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            
+            var id = button.getAttribute('data-id');
+            var namaKegiatan = button.getAttribute('data-nama_kegiatan');
+            var jenisKegiatan = button.getAttribute('data-jenis_kegiatan');
+            var tglKegiatan = button.getAttribute('data-tgl_kegiatan');
+            var penyelenggara = button.getAttribute('data-penyelenggara');
+            var linkBukti = button.getAttribute('data-link_bukti_kegiatan');
+            
+            var action = "{{ route('kegiatan-mahasiswa.store') }}";
+            action = action.replace('kegiatan-mahasiswa', 'kegiatan-mahasiswa/' + id);
+            
+            var form = editKegiatanModal.querySelector('form');
+            form.setAttribute('action', action);
+            
+            document.getElementById('edit_nama_kegiatan').value = namaKegiatan || '';
+            document.getElementById('edit_jenis_kegiatan').value = jenisKegiatan || '';
+            document.getElementById('edit_tgl_kegiatan').value = tglKegiatan || '';
+            document.getElementById('edit_penyelenggara_keg').value = penyelenggara || '';
+            document.getElementById('edit_link_bukti_kegiatan').value = linkBukti || '';
         });
     }
 });

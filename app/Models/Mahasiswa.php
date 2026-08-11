@@ -44,4 +44,9 @@ class Mahasiswa extends Model
     {
         return $this->hasMany(BeasiswaMahasiswa::class, 'nim', 'nim');
     }
+
+    public function kegiatan()
+    {
+        return $this->hasMany(KegiatanMahasiswa::class, 'nim', 'nim');
+    }
 }
