@@ -44,7 +44,23 @@ class MatakuliahController extends Controller
 
         $allMatakuliah = Matakuliah::orderBy('nama_matakuliah', 'asc')->get();
 
-        return view('matakuliah.index', compact('matakuliahs', 'search', 'perPage', 'totalMatakuliah', 'totalSks', 'matakuliahByJenis', 'allMatakuliah', 'matakuliahBySemester'));
+        $penciriNames = [
+            'Pengantar Teknologi Informasi & Komunikasi **',
+            'Entrepreneurship *',
+            'Character Building (*) **',
+            'Pemodelan Basis Data Akuntansi',
+            'Pemrograman Basis Data (p) (MySQL)',
+            'Sistem Informasi Akuntansi',
+            'Sistem Informasi Manajemen',
+            'Pemrograman Akuntansi (p)',
+            'Aplikasi Komputer Akuntansi (p) (Zahir)',
+            'Analisa & Perancangan Sistem Informasi Akuntansi',
+            'Aplikasi Komputer Akuntansi II (ABSS)',
+            'Proyek Sistem Informasi Akuntansi'
+        ];
+        $mkPenciri = Matakuliah::whereIn('nama_matakuliah', $penciriNames)->get();
+
+        return view('matakuliah.index', compact('matakuliahs', 'search', 'perPage', 'totalMatakuliah', 'totalSks', 'matakuliahByJenis', 'allMatakuliah', 'matakuliahBySemester', 'mkPenciri'));
     }
 
     public function store(Request $request)

@@ -75,6 +75,31 @@
                         @endforelse
                     </div>
                 </div>
+                <!-- MK Penciri (LKPS) -->
+                <div class="mb-3 border-top pt-3">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="bg-warning text-dark rounded p-1 px-2 me-2" style="background: linear-gradient(135deg, #f59e0b, #d97706) !important; color: white !important;">
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <span class="fw-bold text-dark">MK Penciri Prodi (LKPS)</span>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted small py-2 border-bottom border-light mb-2">
+                        <span class="text-dark fw-semibold">Total MK Penciri</span>
+                        <span class="badge bg-warning text-dark rounded-pill">{{ $mkPenciri->count() }} Matakuliah</span>
+                    </div>
+                    <div class="ps-1 custom-scroll" style="max-height: 200px; overflow-y: auto;">
+                        <ul class="list-unstyled ps-2 mb-0 mt-1">
+                            @forelse($mkPenciri as $course)
+                                <li class="text-muted small py-1 d-flex align-items-start" style="font-size: 0.8rem; line-height: 1.2;">
+                                    <i class="bi bi-dot text-warning me-1"></i>
+                                    <span>{{ $course->nama_matakuliah }} <span class="text-secondary small">({{ $course->sks }} SKS)</span></span>
+                                </li>
+                            @empty
+                                <span class="text-muted small">Tidak ada data MK Penciri</span>
+                            @endforelse
+                        </ul>
+                    </div>
+                </div>
 
                 <!-- Visualisasi Jenis -->
                 <div class="mt-4 border-top pt-3">
