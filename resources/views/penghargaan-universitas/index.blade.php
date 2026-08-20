@@ -44,7 +44,7 @@
                                 <td>{{ $item->nomor_penghargaan ?? '-' }}</td>
                                 <td class="text-center">
                                     @if($item->link_dokumen_penghargaan)
-                                        <a href="{{ $item->link_dokumen_penghargaan }}" target="_blank" class="btn btn-sm btn-outline-info" title="Lihat Dokumen"><i class="bi bi-file-earmark-text"></i> Dokumen</a>
+                                        <a href="{{ str_starts_with($item->link_dokumen_penghargaan, 'http') ? $item->link_dokumen_penghargaan : asset($item->link_dokumen_penghargaan) }}" target="_blank" class="btn btn-sm btn-outline-info" title="Lihat Dokumen"><i class="bi bi-file-earmark-text"></i> Dokumen</a>
                                     @else
                                         <span class="text-muted">-</span>
                                     @endif
@@ -76,7 +76,7 @@
                                             <h5 class="modal-title" id="editModalLabel{{ $item->id }}">Edit Penghargaan Universitas</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <form action="{{ route('penghargaan-universitas.update', $item->id) }}" method="POST">
+                                        <form action="{{ route('penghargaan-universitas.update', $item->id) }}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
                                             <div class="modal-body">
@@ -93,9 +93,14 @@
                                                     <input type="text" name="nomor_penghargaan" class="form-control" value="{{ $item->nomor_penghargaan }}">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label class="form-label">Link Dokumen Penghargaan</label>
-                                                    <input type="url" name="link_dokumen_penghargaan" class="form-control" value="{{ $item->link_dokumen_penghargaan }}">
-                                                    <small class="text-muted">Misal: https://drive.google.com/...</small>
+                                                    <label class="form-label">Upload Dokumen Penghargaan (PDF, JPG, PNG)</label>
+                                                    @if($item->link_dokumen_penghargaan)
+                                                        <div class="mb-2">
+                                                            <a href="{{ str_starts_with($item->link_dokumen_penghargaan, 'http') ? $item->link_dokumen_penghargaan : asset($item->link_dokumen_penghargaan) }}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="bi bi-file-earmark-text"></i> Lihat Dokumen Saat Ini</a>
+                                                        </div>
+                                                    @endif
+                                                    <input type="file" name="link_dokumen_penghargaan" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+                                                    <small class="text-muted">Biarkan kosong jika tidak ingin mengubah dokumen.</small>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Link Berita</label>
@@ -132,7 +137,7 @@
                 <h5 class="modal-title" id="addModalLabel">Tambah Penghargaan Universitas</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('penghargaan-universitas.store') }}" method="POST">
+            <form action="{{ route('penghargaan-universitas.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
@@ -148,9 +153,8 @@
                         <input type="text" name="nomor_penghargaan" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Link Dokumen Penghargaan</label>
-                        <input type="url" name="link_dokumen_penghargaan" class="form-control">
-                        <small class="text-muted">Misal: https://drive.google.com/...</small>
+                        <label class="form-label">Upload Dokumen Penghargaan (PDF, JPG, PNG)</label>
+                        <input type="file" name="link_dokumen_penghargaan" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Link Berita</label>
