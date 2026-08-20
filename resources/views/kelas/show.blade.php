@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Detail Kelas</h1>
     <div>
-        <a href="{{ route('kelas.edit', $kela->id) }}" class="btn btn-warning">Edit</a>
+        <a href="{{ route('kelas.edit', ['kelas' => $kela->id]) }}" class="btn btn-warning">Edit</a>
         <a href="{{ route('kelas.index') }}" class="btn btn-secondary">Kembali</a>
     </div>
 </div>

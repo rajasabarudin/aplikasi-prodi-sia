@@ -18,7 +18,7 @@
     </div>
 @endif
 
-<form action="{{ route('kelas.update', $kela->id) }}" method="POST">
+<form action="{{ route('kelas.update', ['kelas' => $kela->id]) }}" method="POST">
     @csrf
     @method('PUT')
     <div class="mb-3">

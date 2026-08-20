@@ -131,9 +131,9 @@
                             </td>
                             <td class="text-center d-print-none">
                                 <div class="btn-group" role="group">
-                                    <a href="{{ route('kelas.show', $k->id) }}" class="btn btn-sm btn-info text-white"><i class="bi bi-eye"></i></a>
-                                    <a href="{{ route('kelas.edit', $k->id) }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
-                                    <form action="{{ route('kelas.destroy', $k->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                    <a href="{{ route('kelas.show', ['kelas' => $k->id]) }}" class="btn btn-sm btn-info text-white"><i class="bi bi-eye"></i></a>
+                                    <a href="{{ route('kelas.edit', ['kelas' => $k->id]) }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
+                                    <form action="{{ route('kelas.destroy', ['kelas' => $k->id]) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
