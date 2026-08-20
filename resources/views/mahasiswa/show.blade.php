@@ -216,6 +216,18 @@
                             {{ $capstoneList->count() }}
                         </span>
                     </div>
+                    <!-- Kegiatan -->
+                    <div class="d-flex justify-content-between align-items-center bg-white p-2 rounded border border-light shadow-sm">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="bg-info text-white rounded-3 px-2 py-1 fs-5">
+                                <i class="bi bi-calendar-event-fill"></i>
+                            </span>
+                            <span class="fw-semibold text-dark small">Mengikuti Kegiatan</span>
+                        </div>
+                        <span class="badge bg-info rounded-pill px-2.5 py-1.5 fw-bold" style="font-size: 0.8rem;">
+                            {{ ($mahasiswa->kegiatan ?? collect())->count() }}
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
