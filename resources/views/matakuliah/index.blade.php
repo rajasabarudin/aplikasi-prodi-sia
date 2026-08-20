@@ -174,12 +174,13 @@
                         <thead class="table-dark">
                             <tr>
                                 <th class="text-center" style="width: 5%;">No</th>
-                                <th style="width: 10%;">Kode MK</th>
-                                <th style="width: 25%;">Nama Matakuliah</th>
+                                <th style="width: 8%;">Kode MK</th>
+                                <th style="width: 20%;">Nama Matakuliah</th>
                                 <th class="text-center" style="width: 8%;">SKS</th>
-                                <th style="width: 15%;">Jenis</th>
+                                <th style="width: 12%;">Jenis</th>
                                 <th class="text-center" style="width: 8%;">Sem</th>
-                                <th style="width: 20%;">Dokumen Pembelajaran</th>
+                                <th style="width: 18%;">Dokumen Pemb.</th>
+                                <th style="width: 12%;">Integrasi (OBE)</th>
                                 <th class="text-center d-print-none" style="width: 9%;">Aksi</th>
                             </tr>
                         </thead>
@@ -346,6 +347,28 @@
                                                 </button>
                                             @endif
                                         </div>
+                                    </td>
+                                    <td>
+                                        @if($mk->rps)
+                                            @php
+                                                $countPenelitian = $mk->rps->penelitians ? $mk->rps->penelitians->count() : 0;
+                                                $countPkm = $mk->rps->pkms ? $mk->rps->pkms->count() : 0;
+                                            @endphp
+                                            @if($countPenelitian > 0 || $countPkm > 0)
+                                                <div class="d-flex flex-column gap-1 align-items-start">
+                                                @if($countPenelitian > 0)
+                                                    <span class="badge bg-success" style="font-size: 0.7rem;"><i class="bi bi-journal-text me-1"></i>Penelitian ({{ $countPenelitian }})</span>
+                                                @endif
+                                                @if($countPkm > 0)
+                                                    <span class="badge bg-info text-dark" style="font-size: 0.7rem;"><i class="bi bi-people-fill me-1"></i>PkM ({{ $countPkm }})</span>
+                                                @endif
+                                                </div>
+                                            @else
+                                                <span class="text-muted small fst-italic">-</span>
+                                            @endif
+                                        @else
+                                            <span class="text-muted small fst-italic">Belum ada RPS</span>
+                                        @endif
                                     </td>
                                     <td class="text-center d-print-none">
                                         <div class="btn-group" role="group">

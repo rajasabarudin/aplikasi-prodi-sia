@@ -10,7 +10,7 @@ class MatakuliahController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $query = Matakuliah::query();
+        $query = Matakuliah::with(['rps', 'rps.penelitians', 'rps.pkms']);
 
         if ($search) {
             $query->where(function ($q) use ($search) {
