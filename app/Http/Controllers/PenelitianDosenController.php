@@ -380,9 +380,11 @@ class PenelitianDosenController extends Controller
 
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
         
-        $judul = $penelitian_dosen->judul_penelitian ?? 'Penelitian Pengembangan Teknologi dan Sistem Informasi';
-        $ts = $penelitian_dosen->ts;
+        $judulRaw = $penelitian_dosen->judul_penelitian ?? 'Penelitian Pengembangan Teknologi dan Sistem Informasi';
+        // Escape special XML chars to prevent document corruption
+        $judul = $judulRaw;
         
+        $ts = $penelitian_dosen->ts;
         $semester = $ts ? $ts->semester : 'Gasal';
         $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
         
@@ -409,7 +411,6 @@ class PenelitianDosenController extends Controller
             }
         }
 
-        // Get Dosen data
         $dosen = \App\Models\Dosen::where('kode_dosen', $penelitian_dosen->kode_dosen)->first();
         $nama_ketua = $penelitian_dosen->nama_dosen ?? ($dosen ? $dosen->nama_dosen : 'Nama Ketua Belum Diisi');
         $nidn_ketua = $dosen ? $dosen->nidn : '-';
@@ -428,7 +429,6 @@ class PenelitianDosenController extends Controller
         $biaya = $penelitian_dosen->biaya ? $penelitian_dosen->biaya : 5000000;
         $biayaStr = number_format($biaya, 0, ',', '.');
 
-        // Apply variables
         $templateProcessor->setValue('JUDUL', strtoupper($judul));
         $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
         
@@ -454,14 +454,13 @@ class PenelitianDosenController extends Controller
         $templateProcessor->setValue('INSTITUSI', 'Universitas Bina Sarana Informatika');
         $templateProcessor->setValue('WAKTU_PENELITIAN', '6 Bulan');
         
-        // Auto-Generate Content based on paper (Replace newline with <w:br/>)
         $ringkasan = "Penelitian ini berjudul '$judul'. Fokus utama dari penelitian ini adalah untuk merancang, mengimplementasikan, dan menguji solusi inovatif yang relevan dengan perkembangan keilmuan terkini. Penelitian ini diharapkan dapat memberikan kontribusi signifikan baik dari segi teoritis maupun praktis. Melalui pendekatan sistematis, kajian ini mengeksplorasi metodologi yang relevan dan mengaplikasikannya dalam studi kasus yang terukur, sehingga menghasilkan luaran yang bermanfaat.";
         $pendahuluan = "Latar belakang penelitian ini dilandasi oleh kebutuhan yang semakin meningkat terhadap solusi inovatif dalam bidang ini. Perkembangan teknologi dan dinamika masyarakat menuntut adanya penelitian yang lebih komprehensif. Masalah utama yang akan dipecahkan adalah bagaimana meningkatkan efisiensi, akurasi, dan efektivitas melalui pendekatan baru. Penelitian ini memiliki urgensi yang tinggi mengingat dampak positif yang dapat dihasilkan bagi perbaikan sistem, optimalisasi proses, serta pengembangan keilmuan selanjutnya dalam jangka panjang.";
         $metode = "Metode yang digunakan dalam penelitian ini meliputi pendekatan kualitatif dan kuantitatif yang dipadukan (mixed-methods) untuk mendapatkan hasil komprehensif. Pengumpulan data dilakukan melalui studi literatur mendalam, observasi langsung, dokumentasi, dan wawancara dengan narasumber yang relevan. Data yang terkumpul kemudian dianalisis menggunakan metode statistik serta pemodelan sistem. Validasi hasil akan dilakukan melalui tahapan pengujian fungsionalitas dan triangulasi data untuk memastikan keakuratan dan keandalan temuan penelitian.";
         $luaran = "Luaran dari penelitian ini ditargetkan berupa publikasi jurnal nasional terakreditasi SINTA sesuai standar dikti. Selain itu, hasil penelitian ini juga diharapkan dapat diwujudkan dalam bentuk prototipe/model sistem yang berfungsi penuh dan dapat menjadi rujukan berharga bagi akademisi, peneliti selanjutnya, maupun pihak praktisi terkait.";
         
-        // Fix line breaks for Word XML using <w:br/>
-        $pustaka = "1. Setyawan, A., & Budi, S. (2025). Metodologi Penelitian Modern dan Implementasinya. Jakarta: Penerbit Informatika.<w:br/>2. Wijaya, R. (2024). Inovasi dan Pengembangan Sistem di Era Digital. Jurnal Sains dan Teknologi, 12(3), 45-56.<w:br/>3. Referensi Jurnal Utama: '$judul'. (Disesuaikan).";
+        // Correct Word XML line break insertion: </w:t><w:br/><w:t>
+        $pustaka = "1. Setyawan, A., &amp; Budi, S. (2025). Metodologi Penelitian Modern dan Implementasinya. Jakarta: Penerbit Informatika.</w:t><w:br/><w:t>2. Wijaya, R. (2024). Inovasi dan Pengembangan Sistem di Era Digital. Jurnal Sains dan Teknologi, 12(3), 45-56.</w:t><w:br/><w:t>3. Referensi Jurnal Utama: '$judul'. (Disesuaikan).";
         
         $templateProcessor->setValue('RINGKASAN', $ringkasan);
         $templateProcessor->setValue('PENDAHULUAN', $pendahuluan);
@@ -469,7 +468,6 @@ class PenelitianDosenController extends Controller
         $templateProcessor->setValue('LUARAN', $luaran);
         $templateProcessor->setValue('PUSTAKA', $pustaka);
 
-        // Budget & Schedule variables (use basic setValue to avoid XML corruption from cloneRow)
         $templateProcessor->setValue('B_NO', '1');
         $templateProcessor->setValue('B_ITEM', 'Pelaksanaan Penelitian (Pembelian ATK, Pengumpulan Data, dan Publikasi)');
         $templateProcessor->setValue('B_HARGA', $biayaStr);
@@ -479,11 +477,16 @@ class PenelitianDosenController extends Controller
         $templateProcessor->setValue('J_NO', '1');
         $templateProcessor->setValue('J_KEGIATAN', 'Pelaksanaan Penelitian Berkelanjutan');
 
-        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judulRaw, 0, 30));
         $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
         
         $tempPath = storage_path('app/temp_' . time() . '.docx');
         $templateProcessor->saveAs($tempPath);
+        
+        // Clear any previous output buffers to prevent file corruption
+        if (ob_get_level()) {
+            ob_end_clean();
+        }
         
         return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
     }
