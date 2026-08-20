@@ -25,8 +25,12 @@ class SilabusController extends Controller
 
         Silabus::where('rps_id', $rps->id)->delete();
         
-        // Ambil CPMK dari tabel cpmks
-        $cpmks = \App\Models\Cpmk::where('kode_matakuliah', $rps->kode_matakuliah)->get();
+        // Ambil CPMK dari tabel cpmk_matakuliah (pivot)
+        $cpmk_ids = \Illuminate\Support\Facades\DB::table('cpmk_matakuliah')
+            ->where('kode_matakuliah', $rps->kode_matakuliah)
+            ->pluck('cpmk_id');
+        $cpmks = \App\Models\Cpmk::whereIn('id', $cpmk_ids)->get();
+        
         $cpmk_text = '';
         foreach($cpmks as $index => $c) {
             $cpmk_text .= ($index + 1) . ". " . trim($c->deskripsi_cpmk) . "
