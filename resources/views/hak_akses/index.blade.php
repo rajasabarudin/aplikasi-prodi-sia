@@ -3,6 +3,37 @@
 @section('title', 'Pengaturan Hak Akses')
 
 @section('content')
+
+<style>
+    .table-responsive {
+        max-height: 600px;
+    }
+    .vertical-header {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        white-space: nowrap;
+        vertical-align: middle !important;
+        text-align: left;
+    }
+    .sticky-col {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background-color: #fff !important;
+        border-right: 2px solid #dee2e6;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    }
+    .sticky-header {
+        position: sticky;
+        left: 0;
+        z-index: 3;
+        background-color: #212529 !important;
+        color: #fff;
+        border-right: 2px solid #dee2e6;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+        vertical-align: middle !important;
+    }
+</style>
 <div class="row justify-content-center">
     <div class="col-md-10">
         <div class="d-flex align-items-center justify-content-between mb-4">
@@ -27,12 +58,12 @@
                     @csrf
 
                     <div class="table-responsive rounded shadow-sm mb-4">
-                        <table class="table table-bordered table-striped table-hover align-middle mb-0 text-nowrap">
+                        <table class="table table-bordered table-hover align-middle mb-0">
                             <thead class="table-dark">
                                 <tr>
-                                    <th style="width: 25%;">Level / Role</th>
+                                    <th class="sticky-header" style="min-width: 150px;">Level / Role</th>
                                     @foreach ($menus as $key => $label)
-                                        <th class="text-center" style="font-size: 0.75rem; padding: 12px 6px !important;">
+                                        <th class="text-center vertical-header" style="font-size: 0.75rem; padding: 10px 5px !important; width: 40px;">
                                             {{ $label }}
                                         </th>
                                     @endforeach
@@ -41,7 +72,7 @@
                             <tbody>
                                 @foreach ($roles as $role)
                                     <tr>
-                                        <td class="fw-bold text-dark text-capitalize py-3">
+                                        <td class="fw-bold text-dark text-capitalize py-3 sticky-col">
                                             <i class="bi bi-person-badge-fill me-2 text-secondary"></i>{{ $role }}
                                         </td>
                                         @foreach ($menus as $menuKey => $menuLabel)
@@ -60,7 +91,7 @@
                                     </tr>
                                 @endforeach
                                 <tr>
-                                    <td class="fw-bold text-dark text-capitalize py-3">
+                                    <td class="fw-bold text-dark text-capitalize py-3 sticky-col">
                                         <i class="bi bi-crown-fill me-2 text-danger"></i>King <span class="text-muted small fw-normal">(Super Admin)</span>
                                     </td>
                                     @foreach ($menus as $menuKey => $menuLabel)
