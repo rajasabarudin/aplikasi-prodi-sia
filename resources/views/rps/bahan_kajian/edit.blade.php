@@ -16,7 +16,7 @@
                             <select name="kode_matakuliah" class="form-select @error('kode_matakuliah') is-invalid @enderror" required>
                                 <option value="">-- Pilih Matakuliah --</option>
                                 @foreach($matakuliahList as $mk)
-                                <option value="{{ $mk->kode_matakuliah }}" {{ old('kode_matakuliah', $bahanKajian->kode_matakuliah) == $mk->kode_matakuliah ? 'selected' : '' }}>{{ $mk->nama_matakuliah }} ({{ $mk->kode_matakuliah }})</option>
+                                <option value="{{ $mk->kode_matakuliah }}" {{ old('kode_matakuliah', $bahanKajian->kode_matakuliah) === $mk->kode_matakuliah ? 'selected' : '' }}>{{ $mk->nama_matakuliah }} ({{ $mk->kode_matakuliah }})</option>
                                 @endforeach
                             </select>
                             @error('kode_matakuliah')<div class="invalid-feedback">{{ $message }}</div>@enderror

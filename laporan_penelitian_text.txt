@@ -1,0 +1,2073 @@
+UNIVERSITAS BINA SARANA INFORMATIKA
+KAMPUS KOTA PONTIANAK
+PROGRAM STUDI SISTEM INFORMASI AKUNTANSI (D3)
+Laporan Evaluasi Diri (LED) & Penjaminan Mutu | Standar Akreditasi LAM INFOKOM
+Kriteria:
+Kriteria C3
+Tanggal Cetak:
+20-08-2026 10:15
+Topik Laporan:
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+STATISTIK RINGKAS
+Total Penelitian
+126 Judul
+Kategori Jurnal Nasional Terakreditasi (SINTA)
+110 Judul
+Kategori Jurnal Internasional
+9 Judul
+Kategori Jurnal Nasional
+7 Judul
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+1
+AEE
+Ade Hendini
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Penelitian
+Mandiri
+JITET (Jurnal Informatika dan Teknik Elektro Terapan)
+https://journal.eng.unila.ac.id/index.php/jitet/article/view/8641
+Rp 0
+2
+RJD
+RAJA
+SABARUDDIN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Penelitian
+Dosen dan
+Mahasiswa
+Jurnal Sistem Informasi Akuntansi
+https://saysv2.bsi.ac.id/storage/berkas_mysimliz/2025-
+2026%20Ganjil/bidang_b_artikel_201610582_KnxAuYU27ciGuHsDapWdc6spgNFqXl66iWCgCwDW.pdf
+Rp 0
+3
+NRR
+NURMALASARI
+Jurnal
+Internasional
+Sesuai
+Bidang
+Ilmu
+International Journal of Management Analytics (IJMA)
+https://penerbitjurnalinternasional.com/index.php/ijma/article/view/810
+Rp 0
+4
+NRR
+NURMALASARI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Tidak
+Sesuai
+Bidang
+Ilmu
+Progresif: Jurnal Ilmiah Komputer
+https://ojs.stmik-banjarbaru.ac.id/index.php/progresif/article/view/2500
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+1/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+5
+NRR,
+ARQ
+NURMALASARI,
+ARDIYANSYAH
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Tidak
+Sesuai
+Bidang
+Ilmu
+Jurnal Sistem Informasi Akuntansi (JUSTIAN)
+https://jurnal.bsi.ac.id/index.php/justian/article/view/8785
+Rp 0
+6
+NRR
+NURMALASARI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Widya Cipta : Jurnal Seketari dan Manajemen
+https://jurnal.bsi.ac.id/index.php/widyacipta/article/view/11525
+Rp 0
+7
+NRR,
+LAT
+NURMALASARI,
+LATIFAH
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Pariwisata Bisnis Digital dan Manajemen UNM
+https://ejournal.nusamandiri.ac.id/index.php/jasdim/article/view/8329
+Rp 0
+8
+WVN,
+YLA
+WEISKHY
+STEVEN
+DHARMAWAN,
+YULIA
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Sistem Informasi Akuntansi (JUSTIAN)
+https://jurnal.bsi.ac.id/https:/jurnal.bsi.ac.id/index.php/justian/article/view/2917
+Rp 0
+9
+WVN
+WEISKHY
+STEVEN
+DHARMAWAN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JSI - Jurnal Sistem Informasi
+https://jsi.ejournal.unsri.ac.id/index.php/jsi/article/view/100/95
+Rp 0
+10
+AEE
+Ade Hendini
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JEKIN – Jurnal Teknik Informatika
+https://rumahjurnal.or.id/index.php/JEKIN/article/view/1578
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+2/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+11
+AEE
+Ade Hendini
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Nuansa Informatika
+https://journal.fkom.uniku.ac.id/ilkom/article/view/122
+Rp 0
+12
+WVN
+WEISKHY
+STEVEN
+DHARMAWAN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Sistem Informasi Akuntansi (JUSTIAN)
+https://jurnal.bsi.ac.id/index.php/justian/article/view/1952
+Rp 0
+13
+WVN
+WEISKHY
+STEVEN
+DHARMAWAN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Mahasiswa Teknik Informatika (JATI)
+https://www.ejournal.itn.ac.id/index.php/jati/article/view/9974
+Rp 0
+14
+WVN
+WEISKHY
+STEVEN
+DHARMAWAN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Sistem Informasi Akuntansi (JUSTIAN)
+https://jurnal.bsi.ac.id/index.php/justian/article/view/7753
+Rp 0
+15
+WVN
+WEISKHY
+STEVEN
+DHARMAWAN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Sistem Informasi Akuntansi (JUSTIAN)
+https://jurnal.bsi.ac.id/index.php/justian/article/view/8818
+Rp 0
+16
+WVN
+WEISKHY
+STEVEN
+DHARMAWAN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Journal Of Computer Networks, Architecture and High-
+Performance Computing
+https://itscience-indexing.com/jurnal/index.php/CNAPC/article/view/4053
+Rp 0
+17
+WVN
+WEISKHY
+STEVEN
+DHARMAWAN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Sistem Informasi Akuntansi (JUSTIAN)
+https://jurnal.bsi.ac.id/index.php/justian/article/view/8803
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+3/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+18
+WVN
+WEISKHY
+STEVEN
+DHARMAWAN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Informatika UPGRIS
+https://journal.upgris.ac.id/index.php/JIU/article/view/25421
+Rp 0
+19
+WVN
+WEISKHY
+STEVEN
+DHARMAWAN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Journal of Artificial Intelligence and Engineering Applications
+https://ioinformatic.org/index.php/JAIEA/article/view/2055/1392
+Rp 0
+20
+WVN
+WEISKHY
+STEVEN
+DHARMAWAN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JATI (Jurnal Mahasiswa Teknik Informatika)
+https://ejournal.itn.ac.id/jati/article/view/16754
+Rp 0
+21
+LAT
+LATIFAH
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Tidak
+Sesuai
+Bidang
+Ilmu
+Jurnal Ekonomi Integra
+https://jurnal.bsi.ac.id/index.php/reputasi/article/view/3179
+Rp 0
+22
+LAT,
+WEJ
+LATIFAH,
+WANTY EKA
+JAYANTI
+Jurnal
+Internasional
+Sesuai
+Bidang
+Ilmu
+International Journal of Management Analytics (IJMA)
+https://dmimultitechpublisher.my.id/index.php/ijma
+Rp 0
+23
+LAT
+LATIFAH
+Jurnal
+Nasional
+Sesuai
+Bidang
+Journal of Digital Marketing and Halal Industry 7 (2), 285-310, 2025
+https://journal.walisongo.ac.id/index.php/JDMHI/article/view/29326
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+4/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+Terakreditasi
+(SINTA)
+Ilmu
+24
+YLA
+YULIA
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JUSTIAN, Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justian/article/view/7554
+Rp 0
+25
+YLA,
+NDZ
+YULIA, NANDA
+DIAZ ARIZONA
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JUSTIAN, Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justian/article/view/8978
+Rp 0
+26
+YLA,
+NDZ
+YULIA, NANDA
+DIAZ ARIZONA
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Tidak
+Sesuai
+Bidang
+Ilmu
+JUSTIAN : Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justian/article/view/11001
+Rp 0
+27
+YLA
+YULIA
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JUSTIAN : Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justian/article/view/12402/3096
+Rp 0
+28
+YLA
+YULIA
+Jurnal
+Internasional
+Sesuai
+Bidang
+Ilmu
+Journal Economic Business Innovation
+https://analysisdata.co.id/index.php/JEBI/article/view/366/390
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+5/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+29
+MDX
+MUHAMAD
+SYARIF
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Tidak
+Sesuai
+Bidang
+Ilmu
+Jurnal ICT : Information Communication & Technology
+https://ejournal.ikmi.ac.id/index.php/jict-ikmi/article/view/339
+Rp 0
+30
+MDX
+MUHAMAD
+SYARIF
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Tidak
+Sesuai
+Bidang
+Ilmu
+Jurnal ICT : Information Communication & Technology
+https://ejournal.ikmi.ac.id/index.php/jict-ikmi/article/view/321
+Rp 0
+31
+MDX
+MUHAMAD
+SYARIF
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Tidak
+Sesuai
+Bidang
+Ilmu
+Jurnal Sistem Informasi Akuntansi (JUSTIAN)
+https://jurnal.bsi.ac.id/index.php/justian/index
+Rp 0
+32
+MDX
+MUHAMAD
+SYARIF
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal ICT : Information Communication & Technology
+https://ejournal.ikmi.ac.id/index.php/jict-ikmi/article/view/277
+Rp 0
+33
+MDX
+MUHAMAD
+SYARIF
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Techno.Com
+https://publikasi.dinus.ac.id/index.php/technoc/article/view/11685/4928
+Rp 0
+34
+ARQ,
+WVN
+ARDIYANSYAH,
+WEISKHY
+STEVEN
+DHARMAWAN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justian/article/view/7753
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+6/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+35
+ARQ,
+NRR
+ARDIYANSYAH,
+NURMALASARI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/https:/jurnal.bsi.ac.id/index.php/justian/article/view/8785
+Rp 0
+36
+WNR
+WINDI
+IRMAYANI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JUSTIAN
+https://jurnal.bsi.ac.id/index.php/justian/article/view/9311/2357
+Rp 0
+37
+ARQ
+ARDIYANSYAH
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justian/article/view/11566
+Rp 0
+38
+ARQ
+ARDIYANSYAH
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Journal of Artificial Intelligence and Engineering Applications
+-
+Rp 0
+39
+WNR
+WINDI
+IRMAYANI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Khatulistiwa Informatika
+https://ejournal.bsi.ac.id/ejurnal/index.php/khatulistiwa/article/view/24740
+Rp 0
+40
+WNR
+WINDI
+IRMAYANI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justian/article/view/8107/2095
+Rp 0
+41
+ARQ
+ARDIYANSYAH
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Journal of Artificial Intelligence and Engineering Applications
+https://ioinformatic.org/index.php/JAIEA/article/view/2474/1714
+Rp 0
+42
+ARQ
+ARDIYANSYAH
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Journal of Artificial Intelligence and Engineering Applications
+https://ioinformatic.org/index.php/JAIEA/article/view/2464/1708
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+7/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+43
+WNR
+WINDI
+IRMAYANI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Komputer Teknologi Informasi Sistem Informasi
+https://ejurnal.lkpkaryaprima.id/index.php/juktisi/article/view/1267
+Rp 0
+44
+RJD
+RAJA
+SABARUDDIN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Ekonomi STIEP
+https://stiepontianak.ac.id/jurnal/index.php/jes/article/view/710
+Rp 0
+45
+WEJ
+WANTY EKA
+JAYANTI
+Jurnal
+Nasional
+Sesuai
+Bidang
+Ilmu
+Jurnal Teknologi Sistem Informasi
+https://jurnal.mdp.ac.id/index.php/jtsi/article/view/10542
+Rp 0
+46
+CAA
+CANDRA
+AGUSTINA
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JITK (Jurnal Ilmu Pengetahuan dan Teknologi Komputer)
+https://ejournal.nusamandiri.ac.id/index.php/jitk/article/view/7274/1729
+Rp 0
+47
+WEJ
+WANTY EKA
+JAYANTI
+Jurnal
+Nasional
+Sesuai
+Bidang
+Ilmu
+Justian (Jurnal Sistem Informasi Akuntansi)
+https://jurnal.bsi.ac.id/index.php/justian/article/view/8107
+Rp 0
+48
+WEJ
+WANTY EKA
+JAYANTI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+J-AKSI: Jurnal Akuntansi dan Sistem Informasi
+https://ejournal.unma.ac.id/index.php/jaksi/article/view/14541
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+8/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+49
+RJD
+RAJA
+SABARUDDIN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Teknik: Jurnal Ilmu Teknik dan Informatika
+https://journal.stiestekom.ac.id/index.php/TEKNIK/article/view/717/521
+Rp 0
+50
+AAI
+ANIK ANDRIANI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Journal Global Technology Computer
+https://ejurnal.seminar-id.com/index.php/jogtc/article/view/7837/3981
+Rp 0
+51
+WEJ
+WANTY EKA
+JAYANTI
+Jurnal
+Internasional
+Sesuai
+Bidang
+Ilmu
+Journal of Computer Science and Information Technology (JCSIT)
+https://journal.ppmi.web.id/index.php/jcsit/article/view/2613
+Rp 0
+52
+WEJ
+WANTY EKA
+JAYANTI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Ekonomi STIEP (JES)
+https://jurnal.stiepontianak.ac.id/index.php/jes/article/view/613
+Rp 0
+53
+WEJ
+WANTY EKA
+JAYANTI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Sistem Informasi Akuntansi (JUSTIAN)
+https://jurnal.bsi.ac.id/index.php/justian/article/view/8107/2095
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+9/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+54
+CAA
+CANDRA
+AGUSTINA
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Teknologi Informasi dan Terapan (J-TIT)
+https://publikasi.polije.ac.id/jtit/article/view/5954
+Rp 0
+55
+WEJ
+WANTY EKA
+JAYANTI
+Jurnal
+Internasional
+Sesuai
+Bidang
+Ilmu
+Journal of Development Economics and Digitalization, Tourism
+Economics
+https://journal.ppmi.web.id/index.php/jdedte/article/view/1790/1675
+Rp 0
+56
+CAA
+CANDRA
+AGUSTINA
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Indonesian Journal on Software Engineering (IJSE)
+https://ejournal.bsi.ac.id/ejurnal/index.php/ijse/article/view/26180/6865
+Rp 0
+57
+DPS
+DIAH
+PUSPITASARI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Saintekom: Sains, Teknologi, Komputer dan Manajemen
+https://ojs.stmikplk.ac.id/index.php/saintekom/article/view/754/228
+Rp 0
+58
+MHW
+MOCHAMAD
+WAHYUDI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+ILKOM Jurnal Ilmiah
+https://jurnal.fikom.umi.ac.id/index.php/ILKOM/article/view/2363/
+Rp 0
+59
+MHW
+MOCHAMAD
+WAHYUDI
+Jurnal
+Internasional
+Sesuai
+Bidang
+Ilmu
+Journal of Image and Graphics (United Kingdom)
+https://www.joig.net/2025/JOIG-V13N3-286.pdf
+Rp 0
+60
+MHW
+MOCHAMAD
+WAHYUDI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Matrik: Jurnal Manajemen, Teknik Informatika, dan Rekayasa
+Komputer
+https://journal.universitasbumigora.ac.id/matrik/article/view/4190/2051
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+10/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+61
+MHW
+MOCHAMAD
+WAHYUDI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Sistemasi: Jurnal Sistem Informasi
+https://sistemasi.ftik.unisi.ac.id/index.php/stmsi/article/view/5193/996
+Rp 0
+62
+MHW
+MOCHAMAD
+WAHYUDI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JURNAL TEKNOINFO
+https://publikasi.teknokrat.ac.id/index.php/teknoinfo/article/view/751
+Rp 0
+63
+STO
+SUMANTO
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JURNAL TEKNOINFO
+https://publikasi.teknokrat.ac.id/index.php/teknoinfo/article/view/751
+Rp 0
+64
+AAI
+ANIK ANDRIANI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Journal of Innovative and Creativity
+https://joecy.org/index.php/joecy/article/view/8399
+Rp 0
+65
+TFB
+TAUFIK
+BAIDAWI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Perangkat Lunak
+https://ejournal.unisi.ac.id/index.php/jupel/article/view/4040/1888
+Rp 0
+66
+TFB
+TAUFIK
+BAIDAWI
+Jurnal
+Nasional
+Sesuai
+Bidang
+Informatics and Computer Engineering Journal
+https://jurnal.bsi.ac.id/index.php/ijec/article/view/9412/2315
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+11/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+Terakreditasi
+(SINTA)
+Ilmu
+67
+TFB
+TAUFIK
+BAIDAWI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+CONTEN : Computer and Network Technology
+https://jurnal.bsi.ac.id/index.php/conten/article/view/11584/2807
+Rp 0
+68
+IIO
+ANDI RIYANTO
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Sistem Informasi Akuntansi (JUSTIKA)
+https://ojs.bsi.ac.id/index.php/justika/article/view/8884
+Rp 0
+69
+SIX
+SRI MURNI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JUSTIAN, Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justian/article/view/9429
+Rp 0
+70
+CAA
+CANDRA
+AGUSTINA
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Komtika (Komputasi dan Informatika)
+https://journal.unimma.ac.id/index.php/komtika/article/view/14820/6285
+Rp 0
+71
+DPS
+DIAH
+PUSPITASARI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Infortech
+https://jurnal.bsi.ac.id/index.php/infortech/article/view/11397
+Rp 0
+72
+MHW
+MOCHAMAD
+WAHYUDI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Journal of Artificial Intelligence and Engineering Applications
+(JAIEA)
+https://ioinformatic.org/index.php/JAIEA/article/view/1242
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+12/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+73
+STO
+SUMANTO
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Pustaka Data
+https://jurnal.pustakagalerimandiri.co.id/index.php/pustakadata/article/view/1468
+Rp 0
+74
+STO
+SUMANTO
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Journal of Artificial Intelligence and Engineering Applications
+(JAIEA)
+https://ioinformatic.org/index.php/JAIEA/article/view/1242
+Rp 0
+75
+STO
+SUMANTO
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+KOMPUTASI:JURNALILMIAHILMUKOMPUTERDANMATEMATIKA
+https://komputasi-fmipa.unpak.ac.id/index.php/komputasi/article/view/82/38
+Rp 0
+76
+STO
+SUMANTO
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Ilmiah Sistem Informasi Akuntansi (JIMASIA)
+https://publikasi.teknokrat.ac.id/index.php/jimasia/article/view/1476
+Rp 0
+77
+CAA
+CANDRA
+AGUSTINA
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JTIT
+https://publikasi.polije.ac.id/jtit/article/view/5440
+Rp 0
+78
+IIO
+ANDI RIYANTO
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Swabumi
+https://ejournal.bsi.ac.id/ejurnal/index.php/swabumi/article/view/27274
+Rp 0
+79
+IIO
+ANDI RIYANTO
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Swabumi
+https://ejournal.bsi.ac.id/ejurnal/index.php/swabumi/article/view/27503
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+13/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+80
+CAA
+CANDRA
+AGUSTINA
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+IJUBI (Indonesian Journal of Business Intelligence)
+https://ejournal.almaata.ac.id/index.php/IJUBI/article/view/5141
+Rp 0
+81
+CAA
+CANDRA
+AGUSTINA
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Evolusi
+https://ejournal.bsi.ac.id/ejurnal/index.php/evolusi/article/view/23149
+Rp 0
+82
+DPS
+DIAH
+PUSPITASARI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Moneter : Jurnal Keuangan Dan Perbankan
+https://ejournal2.uika-bogor.ac.id/index.php/MONETER/article/view/1378/722
+Rp 0
+83
+SIX
+SRI MURNI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JUSTIAN
+https://jurnal.bsi.ac.id/index.php/justian/article/view/9253/2358
+Rp 0
+84
+RJD
+RAJA
+SABARUDDIN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Journal of Information System Research (JOSH)
+https://ejurnal.seminar-id.com/index.php/josh/article/view/5886/3052
+Rp 0
+85
+RJD
+RAJA
+SABARUDDIN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justian/article/view/8340
+Rp 0
+86
+STO
+SUMANTO
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Innovation and Future Technology (IFTECH)
+https://ejournal.lppm-unbaja.ac.id/index.php/iftech/article/view/3906/1884
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+14/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+87
+STO
+SUMANTO
+Jurnal
+Nasional
+Sesuai
+Bidang
+Ilmu
+CHAIN: Journal of Computer Technology, Computer Engineering
+and Informatics
+https://ejournal.techcart-press.com/index.php/chain/article/view/167/153
+Rp 0
+88
+TFB
+TAUFIK
+BAIDAWI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+IJCIT (Indonesian Journal on Computer and Information
+Technology)
+https://ejournal.bsi.ac.id/ejurnal/index.php/ijcit/article/view/24297/pdf
+Rp 0
+89
+TFB
+TAUFIK
+BAIDAWI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Reputasi: Jurnal Rekayasa Perangkat Lunak
+https://jurnal.bsi.ac.id/index.php/reputasi/article/view/6779/1906
+Rp 0
+90
+TFB
+TAUFIK
+BAIDAWI
+Jurnal
+Nasional
+Sesuai
+Bidang
+Ilmu
+Journal Of Informatics And Busisnes
+https://jurnal.ittc.web.id/index.php/jibs/article/view/1590/1456
+Rp 0
+91
+TFB
+TAUFIK
+BAIDAWI
+Jurnal
+Nasional
+Sesuai
+Bidang
+Ilmu
+Journal Of Informatics And Busisnes
+https://jurnal.ittc.web.id/index.php/jibs/article/view/1603/1472
+Rp 0
+92
+IIO
+ANDI RIYANTO
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+SWABUMI
+https://jurnal.bsi.ac.id/index.php/swabumi/article/view/12187
+Rp 0
+93
+TFB
+TAUFIK
+BAIDAWI
+Jurnal
+Nasional
+Sesuai
+Bidang
+Journal Of Informatics And Busisnes
+https://jurnal.ittc.web.id/index.php/jibs/article/view/1619/1470
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+15/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+Ilmu
+94
+TFB
+TAUFIK
+BAIDAWI
+Jurnal
+Nasional
+Sesuai
+Bidang
+Ilmu
+Journal Of Informatics And Busisnes
+https://jurnal.ittc.web.id/index.php/jibs/article/view/1638/1499
+Rp 0
+95
+TFB
+TAUFIK
+BAIDAWI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Teknik Komputer AMIK BSI Jakarta
+https://ejournal.bsi.ac.id/ejurnal/index.php/jtk/article/view/25194
+Rp 0
+96
+YLA
+YULIA
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JUSTIAN - Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justian/article/view/11001/2476
+Rp 0
+97
+STO
+SUMANTO
+Jurnal
+Internasional
+Sesuai
+Bidang
+Ilmu
+International Journal of Information Engineering and Electronic
+Business
+https://doi.org/10.5815/ijieeb.2026.03.05
+Rp 0
+98
+WEJ
+WANTY EKA
+JAYANTI
+Jurnal
+Internasional
+Sesuai
+Bidang
+Ilmu
+International Journal of Management Analytics (IJMA)
+https://penerbitjurnalinternasional.com/index.php/ijma/article/view/717/978
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+16/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+99
+WEJ
+WANTY EKA
+JAYANTI
+Jurnal
+Internasional
+Sesuai
+Bidang
+Ilmu
+International Journal of Management Analytics (IJMA)
+https://penerbitjurnalinternasional.com/index.php/ijma/article/view/820
+Rp 0
+100
+WVN
+WEISKHY
+STEVEN
+DHARMAWAN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JATI : Jurnal Mahasiswa Teknik Informatika
+https://ejournal.itn.ac.id/jati/
+Rp 0
+101
+WVN
+WEISKHY
+STEVEN
+DHARMAWAN
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+URNAL INFORMATIKA UPGRIS
+file:///Users/weiskhystevendharmawan/Downloads/25421-83099-2-PB.pdf
+Rp 0
+102
+IIO
+ANDI RIYANTO
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Indonesian Journal on Computer and Information Technology
+(IJCIT)
+https://ejournal.bsi.ac.id/ejurnal/index.php/ijcit/article/view/24444
+Rp 0
+103
+WNR
+WINDI
+IRMAYANI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JUSTIAN
+https://jurnal.bsi.ac.id/index.php/justian/article/view/9311/2357
+Rp 0
+104
+IIO
+ANDI RIYANTO
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JUSTIKA Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justika/article/view/7541/1958
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+17/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+105
+WNR
+WINDI
+IRMAYANI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JUSTIAN
+https://jurnal.bsi.ac.id/index.php/justian/article/view/9192/2356
+Rp 0
+106
+IIO
+ANDI RIYANTO
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+SWABUMI
+https://ejournal.bsi.ac.id/ejurnal/index.php/swabumi/article/view/24427/pdf
+Rp 0
+107
+IIO
+ANDI RIYANTO
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JUSTIKA Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justika/article/view/7541/1958
+Rp 0
+108
+NRR
+NURMALASARI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Publikasi
+Karya
+Ilmiah hasil
+Penelitian
+Jurnal Sekretaris dan Manajemen
+https://ejournal.bsi.ac.id/ejurnal/index.php/widyacipta/article/view/26461
+Rp 0
+109
+NOS
+NURFIA
+OKTAVIANI
+SYAMSIAH
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+IJNMT (International Journal of New Media Technology)
+https://ejournals.umn.ac.id/index.php/IJNMT/article/view/4481/1841
+Rp 0
+110
+NOS
+NURFIA
+OKTAVIANI
+SYAMSIAH
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+IJNMT (International Journal of New Media Technology)
+https://ejournals.umn.ac.id/index.php/IJNMT/article/view/4481/1841
+Rp 0
+111
+SIX
+SRI MURNI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Rancang Bangun Aplikasi Sistem Informasi Penjualan "Gadget-
+Sale" untuk Pengelolaan Produk dan Transaksi Berbasis Web
+https://jurnal.bsi.ac.id/index.php/justian/article/view/7469
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+18/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+112
+NOS
+NURFIA
+OKTAVIANI
+SYAMSIAH
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JURNAL SISTEM INFORMASI DAN TENOLOGI (SITECH)
+https://jurnal.umk.ac.id/index.php/sitech/article/view/16253/6790
+Rp 0
+113
+SIX
+SRI MURNI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justian/article/view/8340
+Rp 0
+114
+NDZ
+NANDA DIAZ
+ARIZONA
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JUSTIAN - Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justian/article/view/11001/2476
+Rp 0
+115
+MDX
+MUHAMAD
+SYARIF
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal ICT : Information Communication & Technology
+https://ejournal.ikmi.ac.id/index.php/jict-ikmi/article/view/321
+Rp 0
+116
+MDX
+MUHAMAD
+SYARIF
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal ICT
+https://ejournal.ikmi.ac.id/index.php/jict-ikmi/article/view/339/161
+Rp 0
+117
+LAT
+LATIFAH
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Ekonomi STIEP (JES )
+https://jurnal.stiepontianak.ac.id/index.php/jes/article/view/613
+Rp 0
+118
+LAT
+LATIFAH
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Journal of Digital Marketing and Halal Industry
+https://journal.walisongo.ac.id/index.php/JDMHI/article/view/29326
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+19/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+119
+DPS
+DIAH
+PUSPITASARI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+Jurnal Infortech
+https://jurnal.bsi.ac.id/index.php/infortech/article/view/11397
+Rp 0
+120
+ARQ
+ARDIYANSYAH
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Sesuai
+Bidang
+Ilmu
+JUSTIAN, Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justian/article/view/11566
+Rp 0
+121
+AEE
+Ade Hendini
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Publikasi
+Karya
+Ilmiah hasil
+Penelitian
+JITET (Jurnal Informatika dan Teknik Elektro Terapan)
+https://journal.eng.unila.ac.id/index.php/jitet/article/view/8641
+Rp 0
+122
+NRR
+NURMALASARI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Publikasi
+Karya
+Ilmiah hasil
+Penelitian
+JUSTIAN : Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justian/article/view/9114
+Rp 0
+123
+NRR
+NURMALASARI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Publikasi
+Karya
+Ilmiah hasil
+Penelitian
+JUSTIAN : Jurnal Sistem Informasi Akuntansi
+https://jurnal.bsi.ac.id/index.php/justian/article/view/9535
+Rp 0
+124
+WEJ
+WANTY EKA
+JAYANTI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Publikasi
+Karya
+Ilmiah hasil
+Penelitian
+J-AKSI : Jurnal Akuntansi dan Sistem Informasi
+https://ejournal.unma.ac.id/index.php/jaksi/article/view/14541
+Rp 0
+125
+WNR
+WINDI
+IRMAYANI
+Jurnal
+Nasional
+Publikasi
+Karya
+JUSTIAN : Jurnal Sistem Informasi Akuntansi
+https://doi.org/10.31294/justian.v6i2.9311
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+20/21
+No
+Kode
+Dosen
+Nama Dosen
+Jenis
+Jurnal
+Jenis
+Penelitian
+Nama Jurnal
+Link Jurnal
+Biaya
+Terakreditasi
+(SINTA)
+Ilmiah hasil
+Penelitian
+126
+WEJ
+WANTY EKA
+JAYANTI
+Jurnal
+Nasional
+Terakreditasi
+(SINTA)
+Publikasi
+Karya
+Ilmiah hasil
+Penelitian
+PENG: Jurnal Ekonomi dan Manajemen
+https://teewanjournal.com/index.php/peng/article/view/3562/version/3616
+Rp 0
+8/20/26, 10:15 AM
+Laporan Penelitian Dosen (Pelaksanaan C.3)
+https://prodisia.my.id/admin/obe-portal/pdf-recap/C3/P2
+21/21

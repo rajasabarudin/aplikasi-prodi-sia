@@ -1,0 +1,176 @@
+{
+    "mks": [
+        {
+            "kode_matakuliah": "101",
+            "nama_matakuliah": "Pendidikan Pancasila **"
+        },
+        {
+            "kode_matakuliah": "104",
+            "nama_matakuliah": "Bahasa Inggris I"
+        },
+        {
+            "kode_matakuliah": "851",
+            "nama_matakuliah": "Akuntansi Dasar & Praktik"
+        },
+        {
+            "kode_matakuliah": "207",
+            "nama_matakuliah": "Logika & Algoritma"
+        },
+        {
+            "kode_matakuliah": "153",
+            "nama_matakuliah": "Pengantar Teknologi Informasi & Komunikasi **"
+        },
+        {
+            "kode_matakuliah": "894",
+            "nama_matakuliah": "Dasar Pemrograman (p)"
+        },
+        {
+            "kode_matakuliah": "105",
+            "nama_matakuliah": "Bahasa Inggris II"
+        },
+        {
+            "kode_matakuliah": "0334",
+            "nama_matakuliah": "Teori Akuntansi"
+        },
+        {
+            "kode_matakuliah": "0041",
+            "nama_matakuliah": "Akuntansi Keuangan Menengah"
+        },
+        {
+            "kode_matakuliah": "0561",
+            "nama_matakuliah": "Pemodelan Basis Data Akuntansi"
+        },
+        {
+            "kode_matakuliah": "0537",
+            "nama_matakuliah": "Pemrograman Basis Data (p) (MySQL)"
+        },
+        {
+            "kode_matakuliah": "700",
+            "nama_matakuliah": "Statistika *"
+        },
+        {
+            "kode_matakuliah": "102",
+            "nama_matakuliah": "Pendidikan Agama **"
+        },
+        {
+            "kode_matakuliah": "0046",
+            "nama_matakuliah": "Akuntansi Keuangan Lanjut"
+        },
+        {
+            "kode_matakuliah": "0004",
+            "nama_matakuliah": "Sistem Informasi Akuntansi"
+        },
+        {
+            "kode_matakuliah": "0576",
+            "nama_matakuliah": "Praktikum Akuntansi Dasar"
+        },
+        {
+            "kode_matakuliah": "240",
+            "nama_matakuliah": "Sistem Informasi Manajemen"
+        },
+        {
+            "kode_matakuliah": "804",
+            "nama_matakuliah": "Perpajakan"
+        },
+        {
+            "kode_matakuliah": "0588",
+            "nama_matakuliah": "Pemrograman Akuntansi (p)"
+        },
+        {
+            "kode_matakuliah": "232",
+            "nama_matakuliah": "Aplikasi Komputer Akuntansi (p) (Zahir)"
+        },
+        {
+            "kode_matakuliah": "0047",
+            "nama_matakuliah": "Perpajakan Lanjutan"
+        },
+        {
+            "kode_matakuliah": "230",
+            "nama_matakuliah": "Akuntansi Biaya"
+        },
+        {
+            "kode_matakuliah": "0628",
+            "nama_matakuliah": "Analisa & Perancangan Sistem Informasi Akuntansi"
+        },
+        {
+            "kode_matakuliah": "028",
+            "nama_matakuliah": "Aplikasi Komputer Akuntansi II (ABSS)"
+        },
+        {
+            "kode_matakuliah": "0608",
+            "nama_matakuliah": "Proyek Sistem Informasi Akuntansi"
+        },
+        {
+            "kode_matakuliah": "0617",
+            "nama_matakuliah": "Metode Penelitian Akuntansi*"
+        },
+        {
+            "kode_matakuliah": "712",
+            "nama_matakuliah": "Entrepreneurship *"
+        },
+        {
+            "kode_matakuliah": "617",
+            "nama_matakuliah": "Analisa Laporan Keuangan **"
+        },
+        {
+            "kode_matakuliah": "0002",
+            "nama_matakuliah": "Penganggaran Perusahaan"
+        },
+        {
+            "kode_matakuliah": "154",
+            "nama_matakuliah": "Character Building (*) **"
+        },
+        {
+            "kode_matakuliah": "615",
+            "nama_matakuliah": "Praktik Kerja Lapangan"
+        },
+        {
+            "kode_matakuliah": "253",
+            "nama_matakuliah": "Bahasa Indonesia **"
+        },
+        {
+            "kode_matakuliah": "722",
+            "nama_matakuliah": "Manajemen Keuangan **"
+        },
+        {
+            "kode_matakuliah": "997",
+            "nama_matakuliah": "Tugas Akhir"
+        },
+        {
+            "kode_matakuliah": "0053",
+            "nama_matakuliah": "Pemeriksaan Akuntansi"
+        },
+        {
+            "kode_matakuliah": "106",
+            "nama_matakuliah": "Pendidikan Kewarganegaraan **"
+        }
+    ],
+    "penelitians": [
+        {
+            "id": 1,
+            "judul_penelitian": null
+        },
+        {
+            "id": 2,
+            "judul_penelitian": null
+        },
+        {
+            "id": 3,
+            "judul_penelitian": "Test"
+        },
+        {
+            "id": 4,
+            "judul_penelitian": "Test"
+        }
+    ],
+    "pkms": [
+        {
+            "id": 1,
+            "tema_pkm": "Pemanfaatan Microsoft Power BI untuk Analisis Data Dampak FOMO terhadap Fokus Belajar Siswa pada SMKN 7 Pontianak"
+        },
+        {
+            "id": 2,
+            "tema_pkm": "Test"
+        }
+    ]
+}

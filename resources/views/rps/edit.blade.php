@@ -18,7 +18,7 @@
                             <select name="kode_matakuliah" class="form-select" required>
                                 <option value="">-- Pilih Matakuliah --</option>
                                 @foreach($matakuliahs as $mk)
-                                <option value="{{ $mk->kode_matakuliah }}" {{ $rps->kode_matakuliah == $mk->kode_matakuliah ? 'selected' : '' }}>{{ $mk->nama_matakuliah }} (Semester {{ $mk->semester }})</option>
+                                <option value="{{ $mk->kode_matakuliah }}" {{ $rps->kode_matakuliah === $mk->kode_matakuliah ? 'selected' : '' }}>{{ $mk->nama_matakuliah }} (Semester {{ $mk->semester }})</option>
                                 @endforeach
                             </select>
                         </div>
