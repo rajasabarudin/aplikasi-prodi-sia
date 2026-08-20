@@ -335,16 +335,16 @@
                 </li>
                 @endif
                 
-                @if(Auth::user()->hasPermission('kelas') || Auth::user()->hasPermission('pmb') || Auth::user()->hasPermission('akun') || Auth::user()->hasPermission('kerjasama') || Auth::user()->hasPermission('pks-ia') || Auth::user()->hasPermission('praktisi'))
+                @if(Auth::user()->hasPermission('kelas') || Auth::user()->hasPermission('pmb') || Auth::user()->hasPermission('akun') || Auth::user()->hasPermission('kerjasama') || Auth::user()->hasPermission('pks-ia') || Auth::user()->hasPermission('praktisi') || Auth::user()->hasPermission('penghargaan-universitas'))
                 <li class="nav-item mt-2">
-                    <a class="nav-link text-white d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#masterDataMenu" role="button" aria-expanded="{{ request()->routeIs('kelas.*') || request()->routeIs('pmb.*') || request()->routeIs('akun.*') || request()->routeIs('kerjasama.*') || request()->routeIs('pks-ia.*') || request()->routeIs('praktisi.*') ? 'true' : 'false' }}" aria-controls="masterDataMenu">
+                    <a class="nav-link text-white d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#masterDataMenu" role="button" aria-expanded="{{ request()->routeIs('kelas.*') || request()->routeIs('pmb.*') || request()->routeIs('akun.*') || request()->routeIs('kerjasama.*') || request()->routeIs('pks-ia.*') || request()->routeIs('praktisi.*') || request()->routeIs('penghargaan-universitas.*') ? 'true' : 'false' }}" aria-controls="masterDataMenu">
                         <span>
                             <i class="bi bi-database me-2 text-success fs-5"></i>
                             <span class="sidebar-text">Master Data</span>
                         </span>
                         <i class="bi bi-chevron-down float-end"></i>
                     </a>
-                    <div class="collapse {{ request()->routeIs('kelas.*') || request()->routeIs('pmb.*') || request()->routeIs('akun.*') || request()->routeIs('kerjasama.*') || request()->routeIs('pks-ia.*') || request()->routeIs('praktisi.*') ? 'show' : '' }}" id="masterDataMenu">
+                    <div class="collapse {{ request()->routeIs('kelas.*') || request()->routeIs('pmb.*') || request()->routeIs('akun.*') || request()->routeIs('kerjasama.*') || request()->routeIs('pks-ia.*') || request()->routeIs('praktisi.*') || request()->routeIs('penghargaan-universitas.*') ? 'show' : '' }}" id="masterDataMenu">
                         <ul class="nav nav-pills flex-column ms-3 mt-1">
                             @if(Auth::user()->hasPermission('kelas'))
                             <li class="nav-item">
@@ -370,11 +370,19 @@
                                 </a>
                             </li>
                             @endif
-                            @if(Auth::user()->hasPermission('pks-ia'))
+                                                        @if(Auth::user()->hasPermission('pks-ia'))
                             <li class="nav-item">
                                 <a href="{{ route('pks-ia.index') }}" class="nav-link text-white {{ request()->routeIs('pks-ia.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
                                     <i class="bi bi-file-earmark-text me-2 text-success"></i>
                                     <span class="sidebar-text">Data PKS & IA</span>
+                                </a>
+                            </li>
+                            @endif
+                            @if(Auth::user()->hasPermission('penghargaan-universitas'))
+                            <li class="nav-item">
+                                <a href="{{ route('penghargaan-universitas.index') }}" class="nav-link text-white {{ request()->routeIs('penghargaan-universitas.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
+                                    <i class="bi bi-award me-2 text-warning"></i>
+                                    <span class="sidebar-text">Penghargaan Univ</span>
                                 </a>
                             </li>
                             @endif

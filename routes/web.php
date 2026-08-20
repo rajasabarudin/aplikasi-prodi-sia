@@ -161,6 +161,7 @@ Route::middleware(['auth', 'permission'])->prefix('admin')->group(function () {
 
     Route::get('profil-prodi', [ProfilProdiController::class, 'index'])->name('profil-prodi.index');
     Route::post('profil-prodi', [ProfilProdiController::class, 'update'])->name('profil-prodi.update');
+    Route::resource('penghargaan-universitas', \App\Http\Controllers\PenghargaanUniversitasController::class);
     Route::resource('berita', BeritaController::class)->parameters([
         'berita' => 'berita'
     ]);

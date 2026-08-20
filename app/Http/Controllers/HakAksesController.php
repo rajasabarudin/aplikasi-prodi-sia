@@ -43,6 +43,7 @@ class HakAksesController extends Controller
         'kohort' => 'Matriks Kohort C3',
         'keuangan-prodi' => 'Keuangan & Dana C5',
         'survei-kepuasan' => 'Survei Kepuasan',
+        'penghargaan-universitas' => 'Penghargaan Universitas',
         'profil-prodi' => 'Profil Prodi (Web)',
         'berita' => 'Berita (Web)',
         'digital-twin' => 'Digital Twin (IoT)',
