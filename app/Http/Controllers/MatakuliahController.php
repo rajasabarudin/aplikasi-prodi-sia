@@ -45,8 +45,14 @@ class MatakuliahController extends Controller
             
         $totalPbl = Matakuliah::whereIn('sistem_pembelajaran', ['PBL', 'PBL/Elearning'])->count();
         $persentasePbl = $totalMatakuliah > 0 ? round(($totalPbl / $totalMatakuliah) * 100, 1) : 0;
-        $totalReguler = Matakuliah::whereIn('sistem_pembelajaran', ['Reguler', 'Elearning'])->orWhereNull('sistem_pembelajaran')->count();
+                $totalReguler = Matakuliah::whereIn('sistem_pembelajaran', ['Reguler', 'Elearning'])->orWhereNull('sistem_pembelajaran')->count();
         $persentaseReguler = $totalMatakuliah > 0 ? round(($totalReguler / $totalMatakuliah) * 100, 1) : 0;
+        
+        $totalPenelitian = Matakuliah::whereHas('rps.penelitians')->count();
+        $persentasePenelitian = $totalMatakuliah > 0 ? round(($totalPenelitian / $totalMatakuliah) * 100, 1) : 0;
+        
+        $totalPkm = Matakuliah::whereHas('rps.pkms')->count();
+        $persentasePkm = $totalMatakuliah > 0 ? round(($totalPkm / $totalMatakuliah) * 100, 1) : 0;
 
         $allMatakuliah = Matakuliah::orderBy('nama_matakuliah', 'asc')->get();
 
@@ -66,7 +72,7 @@ class MatakuliahController extends Controller
         ];
         $mkPenciri = Matakuliah::whereIn('nama_matakuliah', $penciriNames)->get();
 
-        return view('matakuliah.index', compact('matakuliahs', 'search', 'perPage', 'totalMatakuliah', 'totalSks', 'matakuliahByJenis', 'allMatakuliah', 'matakuliahBySemester', 'mkPenciri', 'totalPbl', 'persentasePbl', 'totalReguler', 'persentaseReguler'));
+        return view('matakuliah.index', compact('matakuliahs', 'search', 'perPage', 'totalMatakuliah', 'totalSks', 'matakuliahByJenis', 'allMatakuliah', 'matakuliahBySemester', 'mkPenciri', 'totalPbl', 'persentasePbl', 'totalReguler', 'persentaseReguler', 'totalPenelitian', 'persentasePenelitian', 'totalPkm', 'persentasePkm'));
     }
 
     public function store(Request $request)
