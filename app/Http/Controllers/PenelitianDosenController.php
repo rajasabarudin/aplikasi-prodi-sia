@@ -409,8 +409,48 @@ class PenelitianDosenController extends Controller
             }
         }
 
+        // Get Dosen data
+        $dosen = \App\Models\Dosen::where('kode_dosen', $penelitian_dosen->kode_dosen)->first();
+        $nama_ketua = $penelitian_dosen->nama_dosen ?? ($dosen ? $dosen->nama_dosen : 'Nama Ketua Belum Diisi');
+        $nidn_ketua = $dosen ? $dosen->nidn : '-';
+        $jabatan_ketua = $dosen ? $dosen->jfa : '-';
+        $prodi_ketua = $dosen ? $dosen->homebase_dosen : 'Sistem Informasi Akuntansi (D3)';
+        
+        $nama_anggota = $penelitian_dosen->nama_mahasiswa ?? '-';
+        if(empty(trim($nama_anggota))) $nama_anggota = '-';
+        $nidn_anggota = $penelitian_dosen->nim_mhs ?? '-';
+        if(empty(trim($nidn_anggota))) $nidn_anggota = '-';
+        
+        $nama_mitra = $penelitian_dosen->anggota_mitra ?? '-';
+        if(empty(trim($nama_mitra))) $nama_mitra = '-';
+        
+        $biaya = $penelitian_dosen->biaya ? number_format($penelitian_dosen->biaya, 0, ',', '.') : '0';
+
+        // Apply variables
         $templateProcessor->setValue('JUDUL', $judul);
         $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $templateProcessor->setValue('NAMA_KETUA', $nama_ketua);
+        $templateProcessor->setValue('NIDN_KETUA', $nidn_ketua);
+        $templateProcessor->setValue('JABATAN_KETUA', $jabatan_ketua);
+        $templateProcessor->setValue('PRODI_KETUA', $prodi_ketua);
+        $templateProcessor->setValue('HP_KETUA', '-');
+        $templateProcessor->setValue('EMAIL_KETUA', '-');
+        
+        $templateProcessor->setValue('NAMA_ANGGOTA', $nama_anggota);
+        $templateProcessor->setValue('NIDN_ANGGOTA', $nidn_anggota);
+        $templateProcessor->setValue('JABATAN_ANGGOTA', 'Mahasiswa');
+        $templateProcessor->setValue('PRODI_ANGGOTA', 'Sistem Informasi Akuntansi');
+        
+        $templateProcessor->setValue('NAMA_MITRA', $nama_mitra);
+        $templateProcessor->setValue('ALAMAT_MITRA', '-');
+        $templateProcessor->setValue('PJ_MITRA', '-');
+        
+        $templateProcessor->setValue('BIAYA', $biaya);
+        $templateProcessor->setValue('KETUA_LPPM', '[Nama Ketua LPPM]');
+        $templateProcessor->setValue('REKTOR', '[Nama Rektor]');
+        $templateProcessor->setValue('INSTITUSI', 'Universitas Bina Sarana Informatika');
+        $templateProcessor->setValue('WAKTU_PENELITIAN', '6 Bulan');
         
         $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
         $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
