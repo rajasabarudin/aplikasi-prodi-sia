@@ -233,40 +233,29 @@
             </td>
         </tr>
 
-        <tr>
+                <tr>
             <td colspan="3" class="section-header">PUSTAKA PENDUKUNG</td>
         </tr>
         <tr>
             <td colspan="3">
-                @if(count($referensi_pendukung) > 0)
-                    <ol class="numbered-list">
-                    @foreach($referensi_pendukung as $ref)
-                        <li>{{ $ref->penulis }} ({{ $ref->tahun }}). {{ $ref->judul }}. {{ $ref->penerbit }}.</li>
+                <ol class="numbered-list">
+                @foreach($referensi_pendukung as $ref)
+                    <li>{{ $ref->penulis }} ({{ $ref->tahun }}). {{ $ref->judul }}. {{ $ref->penerbit }}.</li>
+                @endforeach
+                @if($silabus->rps?->penelitians)
+                    @foreach($silabus->rps->penelitians as $penel)
+                    <li>{{ $penel->nama_dosen }} ({{ $penel->ts?->tahun_sekarang ?? 'N/A' }}). {{ $penel->judul_penelitian ?? $penel->nama_jurnal }}. (Integrasi Penelitian: {{ $penel->pivot->bentuk_integrasi }}).</li>
                     @endforeach
-                    </ol>
-                @else
-                    -
                 @endif
-            </td>
-        </tr>
-
-        <tr>
-            <td colspan="3" class="section-header">INTEGRASI HASIL PENELITIAN & PKM DOSEN (OBE)</td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                @if(($silabus->rps?->penelitians && $silabus->rps->penelitians->count() > 0) || ($silabus->rps?->pkms && $silabus->rps->pkms->count() > 0))
-                    <ol class="numbered-list" style="text-align: justify;">
-                        @foreach($silabus->rps->penelitians as $penel)
-                        <li><strong>[Penelitian]</strong> {{ $penel->nama_jurnal }} (Dosen: {{ $penel->nama_dosen }}). Integrasi: {{ $penel->pivot->bentuk_integrasi }}.</li>
-                        @endforeach
-                        @foreach($silabus->rps->pkms as $pkm)
-                        <li><strong>[Pengabdian/PkM]</strong> {{ $pkm->tema_pkm }} (Dosen: {{ $pkm->nama_dosen }}). Integrasi: {{ $pkm->pivot->bentuk_integrasi }}.</li>
-                        @endforeach
-                    </ol>
-                @else
-                    <span style="font-style: italic; color: #666; padding-left: 5px;">Mata kuliah ini belum mengintegrasikan hasil penelitian atau PkM dosen.</span>
+                @if($silabus->rps?->pkms)
+                    @foreach($silabus->rps->pkms as $pkm)
+                    <li>{{ $pkm->nama_dosen }} ({{ $pkm->ts?->tahun_sekarang ?? 'N/A' }}). {{ $pkm->tema_pkm }}. (Integrasi PkM: {{ $pkm->pivot->bentuk_integrasi }}).</li>
+                    @endforeach
                 @endif
+                @if(count($referensi_pendukung) == 0 && (!isset($silabus->rps->penelitians) || count($silabus->rps->penelitians) == 0) && (!isset($silabus->rps->pkms) || count($silabus->rps->pkms) == 0))
+                    <li>-</li>
+                @endif
+                </ol>
             </td>
         </tr>
 

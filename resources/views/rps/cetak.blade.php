@@ -205,60 +205,25 @@
                         <li>Belum ada referensi utama.</li>
                         @endforelse
                     </ul>
-                    <strong>Pendukung:</strong><br>
+                                        <strong>Pendukung:</strong><br>
                     <ul style="margin: 5px 0; padding-left: 20px;">
-                        @forelse($referensi_pendukung as $r)
+                        @foreach($referensi_pendukung as $r)
                         <li>{{ $r->penulis }} ({{ $r->tahun }}). <em>{{ $r->judul }}</em>. {{ $r->kota }}: {{ $r->penerbit }}.</li>
-                        @empty
+                        @endforeach
+                        @if($rps->penelitians)
+                            @foreach($rps->penelitians as $penel)
+                            <li>{{ $penel->nama_dosen }} ({{ $penel->ts?->tahun_sekarang ?? 'N/A' }}). <em>{{ $penel->judul_penelitian ?? $penel->nama_jurnal }}</em>. (Integrasi Penelitian: {{ $penel->pivot->bentuk_integrasi }}).</li>
+                            @endforeach
+                        @endif
+                        @if($rps->pkms)
+                            @foreach($rps->pkms as $pkm)
+                            <li>{{ $pkm->nama_dosen }} ({{ $pkm->ts?->tahun_sekarang ?? 'N/A' }}). <em>{{ $pkm->tema_pkm }}</em>. (Integrasi PkM: {{ $pkm->pivot->bentuk_integrasi }}).</li>
+                            @endforeach
+                        @endif
+                        @if(count($referensi_pendukung) == 0 && (!isset($rps->penelitians) || count($rps->penelitians) == 0) && (!isset($rps->pkms) || count($rps->pkms) == 0))
                         <li>-</li>
-                        @endforelse
+                        @endif
                     </ul>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" class="text-bold" style="border-top: 2px solid #000;">Integrasi Hasil Penelitian & PkM dalam Pembelajaran (OBE)</td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    @if(($rps->penelitians && $rps->penelitians->count() > 0) || ($rps->pkms && $rps->pkms->count() > 0))
-                        <table style="width: 100%; border-collapse: collapse; margin-top: 5px; font-size: 10pt;" border="1">
-                            <thead>
-                                <tr style="background-color: #f2f2f2;">
-                                    <th style="padding: 5px; width: 5%; text-align: center;">No</th>
-                                    <th style="padding: 5px; width: 15%; text-align: center;">Jenis Kegiatan</th>
-                                    <th style="padding: 5px; width: 45%; text-align: center;">Judul Penelitian / Tema PkM & Dosen</th>
-                                    <th style="padding: 5px; width: 35%; text-align: center;">Bentuk Integrasi dalam Perkuliahan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php $integrasiNo = 1; @endphp
-                                @foreach($rps->penelitians as $penel)
-                                <tr>
-                                    <td style="padding: 5px; text-align: center;">{{ $integrasiNo++ }}</td>
-                                    <td style="padding: 5px; text-align: center; font-weight: bold; color: #1a5c8a;">Penelitian</td>
-                                    <td style="padding: 5px;">
-                                        <strong>{{ $penel->judul_penelitian }} ({{ $penel->ts?->tahun_sekarang ?? 'N/A' }})</strong><br>
-                                        <small>Dosen: {{ $penel->nama_dosen }}</small>
-                                    </td>
-                                    <td style="padding: 5px;">{{ $penel->pivot->bentuk_integrasi }}</td>
-                                </tr>
-                                @endforeach
-                                @foreach($rps->pkms as $pkm)
-                                <tr>
-                                    <td style="padding: 5px; text-align: center;">{{ $integrasiNo++ }}</td>
-                                    <td style="padding: 5px; text-align: center; font-weight: bold; color: #2a7a4a;">Pengabdian (PkM)</td>
-                                    <td style="padding: 5px;">
-                                        <strong>{{ $pkm->tema_pkm }}</strong><br>
-                                        <small>Dosen: {{ $pkm->nama_dosen }} | Mitra: {{ $pkm->mitra }} ({{ $pkm->ts?->tahun_sekarang ?? 'N/A' }})</small>
-                                    </td>
-                                    <td style="padding: 5px;">{{ $pkm->pivot->bentuk_integrasi }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <div style="font-style: italic; color: #666; padding: 5px;">Mata kuliah ini belum mengintegrasikan hasil penelitian atau PkM dosen pengampu.</div>
-                    @endif
                 </td>
             </tr>
         </table>
