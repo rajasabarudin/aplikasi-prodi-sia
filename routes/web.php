@@ -255,6 +255,8 @@ Route::middleware(['auth', 'permission'])->prefix('admin')->group(function () {
 
     Route::get('penelitian-dosen/get-dosen/{kode}', [PenelitianDosenController::class, 'getDosen'])->name('penelitian-dosen.get-dosen');
     Route::get('penelitian-dosen/get-mahasiswa/{nim}', [PenelitianDosenController::class, 'getMahasiswa'])->name('penelitian-dosen.get-mahasiswa');
+    Route::get('penelitian-dosen/{penelitian_dosen}/generate-proposal', [PenelitianDosenController::class, 'generateProposal'])->name('penelitian-dosen.generate-proposal');
+    Route::get('penelitian-dosen/{penelitian_dosen}/generate-laporan', [PenelitianDosenController::class, 'generateLaporan'])->name('penelitian-dosen.generate-laporan');
     Route::post('penelitian-dosen/{penelitian_dosen}/update-document', [PenelitianDosenController::class, 'updateDocument'])->name('penelitian-dosen.update-document');
     Route::resource('penelitian-dosen', PenelitianDosenController::class);
 

@@ -6,7 +6,18 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Detail Penelitian Dosen</h1>
     <div>
+        
+        <div class="dropdown d-inline-block">
+            <button class="btn btn-info text-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-file-word"></i> Generate Dokumen
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ route('penelitian-dosen.generate-proposal', $penelitianDosen) }}"><i class="bi bi-file-earmark-word text-primary"></i> Generate Proposal</a></li>
+                <li><a class="dropdown-item" href="{{ route('penelitian-dosen.generate-laporan', $penelitianDosen) }}"><i class="bi bi-file-earmark-word text-success"></i> Generate Laporan</a></li>
+            </ul>
+        </div>
         <a href="{{ route('penelitian-dosen.index') }}" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Kembali</a>
+
         <a href="{{ route('penelitian-dosen.edit', $penelitianDosen) }}" class="btn btn-warning"><i class="bi bi-pencil"></i> Edit</a>
     </div>
 </div>

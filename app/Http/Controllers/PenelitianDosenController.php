@@ -27,7 +27,67 @@ class PenelitianDosenController extends Controller
                   ->orWhere('nama_jurnal', 'like', "%{$search}%")
                   ->orWhere('anggota_mitra', 'like', "%{$search}%");
             });
+        
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
         }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
         // Clone query untuk statistik agar akurat sesuai filter
         $statsQuery = clone $query;
@@ -79,8 +139,128 @@ class PenelitianDosenController extends Controller
                 $nama = $namas[$idx] ?? '';
                 $key = $kode . ' - ' . $nama;
                 $dosenCounts[$key] = ($dosenCounts[$key] ?? 0) + 1;
+            
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
             }
         }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
+        
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
         arsort($dosenCounts);
 
         // Berdasarkan Mahasiswa (Dihitung Terpisah)
@@ -94,8 +274,128 @@ class PenelitianDosenController extends Controller
                 $nama = $namas[$idx] ?? '';
                 $key = $nim . ' - ' . $nama;
                 $mhsCounts[$key] = ($mhsCounts[$key] ?? 0) + 1;
+            
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
             }
         }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
+        
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
         arsort($mhsCounts);
 
         // Hitung kolaborasi dosen bersama mahasiswa
@@ -106,8 +406,128 @@ class PenelitianDosenController extends Controller
                 $kolaborasiCount++;
             } else {
                 $nonKolaborasiCount++;
+            
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
             }
         }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
+        
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
         // Paginasi & Cetak Semua
         $perPage = in_array($request->get('per_page'), [10, 50, 100, 200]) ? intval($request->get('per_page')) : 10;
@@ -116,7 +536,67 @@ class PenelitianDosenController extends Controller
             $penelitian = $query->get();
         } else {
             $penelitian = $query->paginate($perPage)->withQueryString();
+        
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
         }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
         $dosens = Dosen::orderBy('kode_dosen')->get();
         $tsList = Ts::orderBy('tahun_sekarang')->get();
@@ -125,7 +605,67 @@ class PenelitianDosenController extends Controller
         return view('penelitian_dosen.index', compact(
             'penelitian', 'totalPenelitian', 'jenisJurnalCounts', 'jenisPenelitianCounts', 'tsCounts', 'labelTsCounts', 'dosenCounts', 'mhsCounts', 'dosens', 'tsList', 'mahasiswas', 'kolaborasiCount', 'nonKolaborasiCount'
         ));
+    
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
     }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
     public function create()
     {
@@ -133,7 +673,67 @@ class PenelitianDosenController extends Controller
         $tsList = Ts::orderBy('tahun_sekarang')->get();
         $mahasiswas = Mahasiswa::orderBy('nim')->get();
         return view('penelitian_dosen.create', compact('dosens', 'tsList', 'mahasiswas'));
+    
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
     }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
     public function store(Request $request)
     {
@@ -176,7 +776,67 @@ class PenelitianDosenController extends Controller
         } else {
             $data['nim_mhs'] = null;
             $data['nama_mahasiswa'] = null;
+        
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
         }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
         // Gabungkan data mitra
         $mitraArray = array_filter($request->input('anggota_mitra', []));
@@ -184,20 +844,200 @@ class PenelitianDosenController extends Controller
             $data['anggota_mitra'] = implode(', ', $mitraArray);
         } else {
             $data['anggota_mitra'] = null;
+        
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
         }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
         $penelitianDosen = PenelitianDosen::create($data);
 
 
         return redirect()->route('penelitian-dosen.index')
             ->with('success', 'Data penelitian dosen berhasil ditambahkan.');
+    
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
     }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
     public function show(PenelitianDosen $penelitianDosen)
     {
         $penelitianDosen->load('ts');
         return view('penelitian_dosen.show', compact('penelitianDosen'));
+    
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
     }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
     public function edit(PenelitianDosen $penelitianDosen)
     {
@@ -205,7 +1045,67 @@ class PenelitianDosenController extends Controller
         $tsList = Ts::orderBy('tahun_sekarang')->get();
         $mahasiswas = Mahasiswa::orderBy('nim')->get();
         return view('penelitian_dosen.edit', compact('penelitianDosen', 'dosens', 'tsList', 'mahasiswas'));
+    
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
     }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
     public function update(Request $request, PenelitianDosen $penelitianDosen)
     {
@@ -248,7 +1148,67 @@ class PenelitianDosenController extends Controller
         } else {
             $data['nim_mhs'] = null;
             $data['nama_mahasiswa'] = null;
+        
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
         }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
         // Gabungkan data mitra
         $mitraArray = array_filter($request->input('anggota_mitra', []));
@@ -256,14 +1216,134 @@ class PenelitianDosenController extends Controller
             $data['anggota_mitra'] = implode(', ', $mitraArray);
         } else {
             $data['anggota_mitra'] = null;
+        
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
         }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
         $penelitianDosen->update($data);
 
 
         return redirect()->route('penelitian-dosen.index')
             ->with('success', 'Data penelitian dosen berhasil diperbarui.');
+    
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
     }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
     public function destroy(PenelitianDosen $penelitianDosen)
     {
@@ -271,7 +1351,67 @@ class PenelitianDosenController extends Controller
 
         return redirect()->route('penelitian-dosen.index')
             ->with('success', 'Data penelitian dosen berhasil dihapus.');
+    
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
     }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
     public function updateDocument(Request $request, PenelitianDosen $penelitianDosen)
     {
@@ -290,25 +1430,325 @@ class PenelitianDosenController extends Controller
         $message = $linkValue ? 'Dokumen berhasil ditambahkan.' : 'Dokumen berhasil dihapus.';
 
         return redirect()->back()->with('success', $message);
+    
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
     }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
     public function getDosen($kode)
     {
         $dosen = Dosen::where('kode_dosen', $kode)->first();
         if ($dosen) {
             return response()->json(['nama_dosen' => $dosen->nama_dosen]);
-        }
-        return response()->json(['nama_dosen' => ''], 404);
+        
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
     }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
+        return response()->json(['nama_dosen' => ''], 404);
+    
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
     public function getMahasiswa($nim)
     {
         $mahasiswa = Mahasiswa::where('nim', $nim)->first();
         if ($mahasiswa) {
             return response()->json(['nama' => $mahasiswa->nama]);
-        }
-        return response()->json(['nama' => ''], 404);
+        
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
     }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
+        return response()->json(['nama' => ''], 404);
+    
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
     public function publicIndex(Request $request)
     {
@@ -316,7 +1756,67 @@ class PenelitianDosenController extends Controller
         $penelitian = $query->paginate(10);
         $tsList = Ts::orderBy('tahun_sekarang')->get();
         return view('penelitian_dosen.public_index', compact('penelitian', 'tsList'));
+    
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
     }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
     public function publicStore(Request $request)
     {
@@ -348,16 +1848,316 @@ class PenelitianDosenController extends Controller
         } else {
             $data['nim_mhs'] = null;
             $data['nama_mahasiswa'] = null;
+        
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
         }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
         if (!empty($request->anggota_mitra)) {
             $data['anggota_mitra'] = implode(', ', array_filter($request->anggota_mitra));
         } else {
             $data['anggota_mitra'] = null;
+        
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
         }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
 
         $penelitian = PenelitianDosen::create($data);
 
         return redirect()->route('portal.penelitian')->with('success', 'Data Penelitian berhasil dikirim. Hubungi Kaprodi jika terdapat kesalahan input.');
+    
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
+
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
+    }
+
+    public function generateProposal(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Proposal');
+    }
+
+    public function generateLaporan(PenelitianDosen $penelitian_dosen)
+    {
+        return $this->generateDocument($penelitian_dosen, 'Laporan');
+    }
+
+    private function generateDocument(PenelitianDosen $penelitian_dosen, $type)
+    {
+        $templatePath = storage_path("app/templates/Template_{$type}.docx");
+        if (!file_exists($templatePath)) {
+            return back()->with('error', "Template {$type} tidak ditemukan di sistem.");
+        }
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
+        
+        $judul = $penelitian_dosen->judul_penelitian ?? 'Judul Penelitian Belum Diisi';
+        $ts = $penelitian_dosen->ts;
+        
+        $semester = $ts ? $ts->semester : 'Gasal';
+        $tahunSekarang = $ts ? $ts->tahun_sekarang : date('Y');
+        
+        preg_match('/\d{4}/', $tahunSekarang, $matches);
+        $tahun = isset($matches[0]) ? intval($matches[0]) : date('Y');
+        
+        $isGanjil = stripos($semester, 'Gasal') !== false || stripos($semester, 'Ganjil') !== false;
+        
+        if ($type === 'Proposal') {
+            if ($isGanjil) {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun;
+            } else {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            }
+        } else {
+            if ($isGanjil) {
+                $bulan = 'FEBRUARI';
+                $tahunStr = $tahun + 1;
+            } else {
+                $bulan = 'AGUSTUS';
+                $tahunStr = $tahun + 1;
+            }
+        }
+
+        $templateProcessor->setValue('JUDUL', $judul);
+        $templateProcessor->setValue('BULAN_TAHUN', $bulan . ' ' . $tahunStr);
+        
+        $safeJudul = preg_replace('/[^a-zA-Z0-9]/', '_', substr($judul, 0, 30));
+        $fileName = "{$type}_Penelitian_{$penelitian_dosen->nama_dosen}_{$safeJudul}.docx";
+        
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        $templateProcessor->saveAs($tempPath);
+        
+        return response()->download($tempPath, $fileName)->deleteFileAfterSend(true);
     }
 }
