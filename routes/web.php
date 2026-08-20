@@ -161,6 +161,20 @@ Route::middleware(['auth', 'permission'])->prefix('admin')->group(function () {
 
     Route::get('profil-prodi', [ProfilProdiController::class, 'index'])->name('profil-prodi.index');
     Route::post('profil-prodi', [ProfilProdiController::class, 'update'])->name('profil-prodi.update');
+    
+    // Route untuk migrasi database via URL
+    Route::get('/run-migrations', function () {
+        if (\Illuminate\Support\Facades\Auth::user()->level === 'king') {
+            try {
+                \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+                $output = \Illuminate\Support\Facades\Artisan::output();
+                return "<h1>Migrasi Berhasil!</h1><pre>" . $output . "</pre><br><a href='" . url('/admin/dashboard') . "'>Kembali ke Dashboard</a>";
+            } catch (\Exception $e) {
+                return "<h1>Migrasi Gagal!</h1><p>" . $e->getMessage() . "</p>";
+            }
+        }
+        return abort(403, 'Akses Ditolak');
+    });
     Route::resource('penghargaan-universitas', \App\Http\Controllers\PenghargaanUniversitasController::class);
     Route::resource('berita', BeritaController::class)->parameters([
         'berita' => 'berita'
