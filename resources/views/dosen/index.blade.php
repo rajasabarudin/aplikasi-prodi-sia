@@ -265,7 +265,7 @@
                     </div>
                     <div class="col-md-7 text-md-end">
                         <button type="submit" class="btn btn-primary me-1"><i class="bi bi-search"></i> Cari</button>
-                        <a href="{{ route('dosen.index', array_merge(request()->query(), ['print' => 'all'])) }}" target="_blank" class="btn btn-success me-1"><i class="bi bi-printer"></i> Cetak</a>
+                        <a href="{{ route('dosen.index', array_merge(request()->query(), ['export' => 'excel'])) }}" class="btn btn-success me-1"><i class="bi bi-file-earmark-excel"></i> Cetak (Excel)</a>
                         <button type="button" class="btn btn-primary me-1" data-bs-toggle="modal" data-bs-target="#tambahDosenModal"><i class="bi bi-plus-circle"></i> Tambah Dosen</button>
                         @if (request('search'))
                             <a href="{{ route('dosen.index') }}" class="btn btn-secondary">Reset</a>
@@ -358,16 +358,7 @@
     </div>
 </div>
 
-@if (request('print') == 'all')
-    <script>
-        window.addEventListener('DOMContentLoaded', (event) => {
-            window.print();
-            window.onafterprint = function() {
-                window.close();
-            };
-        });
-    </script>
-@endif
+
 
 @if ($errors->any())
     @push('scripts')

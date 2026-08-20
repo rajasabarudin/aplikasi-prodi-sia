@@ -103,6 +103,57 @@ class DosenController extends Controller
 
         $dosenPunyaPrestasiCount = count($dosenPrestasiList);
 
+        if ($request->get('export') === 'excel') {
+            $dosens = $query->get();
+            
+            $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+            
+            // Header
+            $sheet->setCellValue('A1', 'No');
+            $sheet->setCellValue('B1', 'NIDN');
+            $sheet->setCellValue('C1', 'Nama');
+            $sheet->setCellValue('D1', 'Kode Dosen');
+            $sheet->setCellValue('E1', 'NIP');
+            $sheet->setCellValue('F1', 'JFA');
+            $sheet->setCellValue('G1', 'Kepangkatan');
+            $sheet->setCellValue('H1', 'Serdos');
+            
+            // Format header
+            $sheet->getStyle('A1:H1')->getFont()->setBold(true);
+            $sheet->getStyle('A1:H1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            
+            // Data
+            $row = 2;
+            $no = 1;
+            foreach ($dosens as $dosen) {
+                $sheet->setCellValue('A' . $row, $no);
+                $sheet->setCellValueExplicit('B' . $row, $dosen->nidn ?? '-', \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                $sheet->setCellValue('C' . $row, $dosen->nama_dosen);
+                $sheet->setCellValueExplicit('D' . $row, $dosen->kode_dosen ?? '-', \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                $sheet->setCellValueExplicit('E' . $row, $dosen->nip ?? '-', \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                $sheet->setCellValue('F' . $row, $dosen->jfa);
+                $sheet->setCellValue('G' . $row, $dosen->kepangkatan);
+                $sheet->setCellValue('H' . $row, $dosen->keterangan_serdos);
+                $row++;
+                $no++;
+            }
+            
+            // Auto size columns
+            foreach (range('A', 'H') as $col) {
+                $sheet->getColumnDimension($col)->setAutoSize(true);
+            }
+            
+            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+            $filename = 'Data_Dosen_' . date('Ymd_His') . '.xlsx';
+            
+            return response()->streamDownload(function () use ($writer) {
+                $writer->save('php://output');
+            }, $filename, [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            ]);
+        }
+
         if ($request->get('print') === 'all') {
             $dosens = $query->get();
         } else {
