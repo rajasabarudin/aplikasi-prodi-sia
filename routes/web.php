@@ -400,3 +400,11 @@ Route::get('/import-iot-dataset', function () {
     fclose($file);
     return "Berhasil mengimpor $count baris data dari dataset.csv ke tabel iot_data!";
 });
+
+Route::get('/migrate-db', function () {
+    \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+    $output = \Illuminate\Support\Facades\Artisan::output();
+    \Illuminate\Support\Facades\Artisan::call('view:clear');
+    \Illuminate\Support\Facades\Artisan::call('cache:clear');
+    return 'Database migrated and cache cleared successfully! ' . $output;
+});
