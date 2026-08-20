@@ -272,12 +272,13 @@
                     <th style="width: 3%;" rowspan="2">Mg Ke-</th>
                     <th style="width: 15%;" rowspan="2">Sub-CPMK<br><small>(Kemampuan akhir tiap tahapan belajar)</small></th>
                     <th style="width: 15%;" rowspan="2">Bahan Kajian<br><small>(Materi Pembelajaran)</small></th>
-                    <th style="width: 13%;" rowspan="2">Bentuk & Metode Pembelajaran</th>
-                    <th style="width: 7%;" rowspan="2">Waktu</th>
+                    <th style="width: 20%;" colspan="2">Bentuk & Metode Pembelajaran</th>
                     <th style="width: 15%;" rowspan="2">Pengalaman Belajar Mahasiswa</th>
                     <th style="width: 32%;" colspan="3">Penilaian</th>
                 </tr>
                 <tr>
+                    <th style="width: 10%;">Tatap Muka</th>
+                    <th style="width: 10%;">Daring</th>
                     <th>Kriteria & Bentuk</th>
                     <th>Indikator</th>
                     <th style="width: 5%;">Bobot (%)</th>

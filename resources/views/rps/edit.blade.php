@@ -235,8 +235,8 @@
                                     <th style="width: 80px;">Mg Ke</th>
                                     <th>Sub-CPMK</th>
                                     <th>Bahan Kajian (Materi)</th>
-                                    <th>Metode Pembelajaran</th>
-                                    <th>Waktu</th>
+                                    <th>Tatap Muka</th>
+                                    <th>Daring</th>
                                     <th>Pengalaman Belajar</th>
                                     <th>Kriteria Penilaian</th>
                                     <th>Indikator Penilaian</th>
