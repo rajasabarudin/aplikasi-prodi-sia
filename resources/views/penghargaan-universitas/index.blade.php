@@ -81,7 +81,7 @@
 </div>
 
 
-@foreach($penghargaanUniversitas as $item)
+@foreach($penghargaan as $item)
 
                             
                             <!-- Edit Modal -->
