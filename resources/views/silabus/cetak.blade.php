@@ -244,12 +244,12 @@
                 @endforeach
                 @if($silabus->rps?->penelitians)
                     @foreach($silabus->rps->penelitians as $penel)
-                    <li>{{ $penel->nama_dosen }} ({{ $penel->ts?->tahun_sekarang ?? 'N/A' }}). {{ $penel->judul_penelitian ?? $penel->nama_jurnal }}. (Integrasi Penelitian: {{ $penel->pivot->bentuk_integrasi }}).</li>
+                    <li>{{ $penel->nama_dosen }} ({{ $penel->ts?->tahun_sekarang ?? 'N/A' }}). <em>{{ $penel->judul_penelitian ?? $penel->nama_jurnal }}</em>.</li>
                     @endforeach
                 @endif
                 @if($silabus->rps?->pkms)
                     @foreach($silabus->rps->pkms as $pkm)
-                    <li>{{ $pkm->nama_dosen }} ({{ $pkm->ts?->tahun_sekarang ?? 'N/A' }}). {{ $pkm->tema_pkm }}. (Integrasi PkM: {{ $pkm->pivot->bentuk_integrasi }}).</li>
+                    <li>{{ $pkm->nama_dosen }} ({{ $pkm->ts?->tahun_sekarang ?? 'N/A' }}). <em>{{ $pkm->tema_pkm }}</em>.</li>
                     @endforeach
                 @endif
                 @if(count($referensi_pendukung) == 0 && (!isset($silabus->rps->penelitians) || count($silabus->rps->penelitians) == 0) && (!isset($silabus->rps->pkms) || count($silabus->rps->pkms) == 0))
