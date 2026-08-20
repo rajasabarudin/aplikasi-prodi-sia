@@ -67,6 +67,22 @@
                                     </div>
                                 </td>
                             </tr>
+                            @empty
+                            <tr>
+                                <td colspan="7" class="text-center text-muted py-4">Belum ada data penghargaan universitas.</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@foreach($penghargaanUniversitas as $item)
+
                             
                             <!-- Edit Modal -->
                             <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
@@ -116,18 +132,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @empty
-                            <tr>
-                                <td colspan="7" class="text-center text-muted py-4">Belum ada data penghargaan universitas.</td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@endforeach
 
 <!-- Add Modal -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
