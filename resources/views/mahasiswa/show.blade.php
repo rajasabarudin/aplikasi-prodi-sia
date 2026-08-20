@@ -1848,6 +1848,9 @@
                             <option value="seminar">Seminar</option>
                             <option value="workshop">Workshop</option>
                             <option value="sertifikasi">Sertifikasi</option>
+                              <option value="kepanitiaan">Kepanitiaan</option>
+                              <option value="kunjungan studi/industri">Kunjungan Studi/Industri</option>
+                              <option value="kuliah umum">Kuliah Umum</option>
                         </select>
                     </div>
 
@@ -1905,6 +1908,9 @@
                             <option value="seminar">Seminar</option>
                             <option value="workshop">Workshop</option>
                             <option value="sertifikasi">Sertifikasi</option>
+                              <option value="kepanitiaan">Kepanitiaan</option>
+                              <option value="kunjungan studi/industri">Kunjungan Studi/Industri</option>
+                              <option value="kuliah umum">Kuliah Umum</option>
                         </select>
                     </div>
 
