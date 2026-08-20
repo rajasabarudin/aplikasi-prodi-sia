@@ -25,7 +25,12 @@ class RpsController extends Controller
         }
         
         $rps = $query->get();
-        return view('rps.index', compact('rps'));
+        
+        // Cari matakuliah yang belum ada di tabel RPS
+        $rpsKodes = Rps::pluck('kode_matakuliah')->toArray();
+        $belumAdaRps = Matakuliah::whereNotIn('kode_matakuliah', $rpsKodes)->get();
+        
+        return view('rps.index', compact('rps', 'belumAdaRps'));
     }
 
     public function create()

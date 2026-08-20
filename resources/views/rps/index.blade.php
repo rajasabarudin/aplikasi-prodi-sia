@@ -15,6 +15,21 @@
 
         @if(session('success'))<div class="alert alert-success">{{ session('success') }}</div>@endif
 
+        @if(isset($belumAdaRps) && $belumAdaRps->count() > 0)
+        <div class="alert alert-warning mb-3">
+            <h6 class="alert-heading fw-bold mb-1"><i class="bi bi-exclamation-triangle"></i> Info: Ada {{ $belumAdaRps->count() }} Mata Kuliah yang belum memiliki RPS</h6>
+            <ul class="mb-0 mt-2" style="font-size: 0.9rem;">
+                @foreach($belumAdaRps as $mk)
+                <li><strong>{{ $mk->kode_matakuliah }}</strong> - {{ $mk->nama_matakuliah }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @else
+        <div class="alert alert-success mb-3">
+            <i class="bi bi-check-circle"></i> Sempurna! Semua Mata Kuliah ({{ \App\Models\Matakuliah::count() }}) sudah memiliki RPS.
+        </div>
+        @endif
+
         <div class="card shadow-sm border-0 mb-3">
             <div class="card-body py-3">
                 <form action="{{ route('penyusunan-rps.index') }}" method="GET" class="d-flex align-items-center mb-0">
