@@ -246,6 +246,7 @@
                         <span class="sidebar-text">Dashboard</span>
                     </a>
                 </li>
+                @if(Auth::user()->hasPermission("obe-portal") || Auth::user()->hasPermission("tracer-study") || Auth::user()->hasPermission("kohort") || Auth::user()->hasPermission("keuangan-prodi") || Auth::user()->hasPermission("survei-kepuasan"))
                 <li class="nav-item mt-2">
                     <a class="nav-link text-white d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#laporanMenu" role="button" aria-expanded="{{ request()->routeIs('obe.*') || request()->routeIs('tracer-study.*') || request()->routeIs('kohort.*') || request()->routeIs('keuangan-prodi.*') || request()->routeIs('survei-kepuasan.*') ? 'true' : 'false' }}" aria-controls="laporanMenu">
                         <span>
@@ -256,42 +257,53 @@
                     </a>
                     <div class="collapse {{ request()->routeIs('obe.*') || request()->routeIs('tracer-study.*') || request()->routeIs('kohort.*') || request()->routeIs('keuangan-prodi.*') || request()->routeIs('survei-kepuasan.*') ? 'show' : '' }}" id="laporanMenu">
                         <ul class="nav nav-pills flex-column ms-3 mt-1">
+                            @if(Auth::user()->hasPermission("obe-portal"))
                             <li class="nav-item mt-1">
                                 <a href="{{ route('obe.index') }}" class="nav-link text-white {{ request()->routeIs('obe.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
                                     <i class="bi bi-shield-check me-2 text-warning"></i>
                                     <span class="sidebar-text">Portal Akreditasi (OBE)</span>
                                 </a>
                             </li>
+                            @endif
+                            @if(Auth::user()->hasPermission("tracer-study"))
                             <li class="nav-item mt-1">
                                 <a href="{{ route('tracer-study.index') }}" class="nav-link text-white {{ request()->routeIs('tracer-study.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
                                     <i class="bi bi-briefcase me-2 text-info"></i>
                                     <span class="sidebar-text">Tracer Study Alumni</span>
                                 </a>
                             </li>
+                            @endif
+                            @if(Auth::user()->hasPermission("kohort"))
                             <li class="nav-item mt-1">
                                 <a href="{{ route('kohort.index') }}" class="nav-link text-white {{ request()->routeIs('kohort.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
                                     <i class="bi bi-table me-2 text-warning"></i>
                                     <span class="sidebar-text">Matriks Kohort C3</span>
                                 </a>
                             </li>
+                            @endif
+                            @if(Auth::user()->hasPermission("keuangan-prodi"))
                             <li class="nav-item mt-1">
                                 <a href="{{ route('keuangan-prodi.index') }}" class="nav-link text-white {{ request()->routeIs('keuangan-prodi.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
                                     <i class="bi bi-wallet2 me-2 text-success"></i>
                                     <span class="sidebar-text">Keuangan & Dana C5</span>
                                 </a>
                             </li>
+                            @endif
+                            @if(Auth::user()->hasPermission("survei-kepuasan"))
                             <li class="nav-item mt-1">
                                 <a href="{{ route('survei-kepuasan.index') }}" class="nav-link text-white {{ request()->routeIs('survei-kepuasan.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
                                     <i class="bi bi-ui-checks me-2 text-primary"></i>
                                     <span class="sidebar-text">Survei Kepuasan (C1-C9)</span>
                                 </a>
                             </li>
+                            @endif
                         </ul>
                     </div>
                 </li>
+                @endif
 
                 <!-- Separator: Evaluasi & Asesmen -->
-                @if(Auth::user()->level === 'king')
+                @if(Auth::user()->hasPermission("profil-prodi") || Auth::user()->hasPermission("berita"))
                 <li class="nav-item mt-2">
                     <a class="nav-link text-white d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#portalMenu" role="button" aria-expanded="{{ request()->routeIs('profil-prodi.*') || request()->routeIs('berita.*') ? 'true' : 'false' }}" aria-controls="portalMenu">
                         <span>
@@ -302,18 +314,22 @@
                     </a>
                     <div class="collapse {{ request()->routeIs('profil-prodi.*') || request()->routeIs('berita.*') ? 'show' : '' }}" id="portalMenu">
                         <ul class="nav nav-pills flex-column ms-3 mt-1">
+                            @if(Auth::user()->hasPermission("profil-prodi"))
                             <li class="nav-item">
                                 <a href="{{ route('profil-prodi.index') }}" class="nav-link text-white {{ request()->routeIs('profil-prodi.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
                                     <i class="bi bi-building me-2 text-warning"></i>
                                     <span class="sidebar-text">Profil Prodi</span>
                                 </a>
                             </li>
+                            @endif
+                            @if(Auth::user()->hasPermission("berita"))
                             <li class="nav-item">
                                 <a href="{{ route('berita.index') }}" class="nav-link text-white {{ request()->routeIs('berita.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
                                     <i class="bi bi-newspaper me-2 text-info"></i>
                                     <span class="sidebar-text">Berita & Pengumuman</span>
                                 </a>
                             </li>
+                            @endif
                         </ul>
                     </div>
                 </li>
@@ -613,12 +629,14 @@
                 </li>
                 @endif
 
+                @if(Auth::user()->hasPermission("kegiatan"))
                 <li class="nav-item mt-2">
                     <a href="{{ route('kegiatan.index') }}" class="nav-link text-white {{ request()->routeIs('kegiatan.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
                         <i class="bi bi-calendar-event-fill me-2 text-info fs-5"></i>
                         <span class="sidebar-text">Manajemen Kegiatan</span>
                     </a>
                 </li>
+                @endif
 
                 @if(Auth::user()->level === 'king')
                 <li class="nav-item mt-2">
@@ -627,6 +645,8 @@
                         <span class="sidebar-text">Hak Akses</span>
                     </a>
                 </li>
+                @endif
+                @if(Auth::user()->hasPermission("digital-twin"))
                 <li class="nav-item mt-2">
                     <a href="{{ route('digital-twin.index') }}" target="_blank" class="nav-link text-white {{ request()->routeIs('digital-twin.*') ? 'active' : '' }} d-flex align-items-center justify-content-start">
                         <i class="bi bi-cloud-arrow-down-fill me-2 text-success fs-5"></i>

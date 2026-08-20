@@ -48,6 +48,7 @@ class CheckMenuPermission
             'organisasi-mahasiswa' => ['mahasiswa'],
             'tugas-mahasiswa' => ['mahasiswa'],
             'capstone-mahasiswa' => ['mahasiswa'],
+            'kegiatan-mahasiswa' => ['mahasiswa'],
             'sertifikasi-dosen' => ['dosen'],
             'kegiatan-dosen' => ['dosen'],
         ];

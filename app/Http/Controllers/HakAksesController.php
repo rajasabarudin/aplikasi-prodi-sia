@@ -15,6 +15,9 @@ class HakAksesController extends Controller
         'kegiatan-tendik' => 'Kegiatan Tendik',
         'mahasiswa' => 'Data Mahasiswa',
         'sertifikasi-mahasiswa' => 'Data Sertifikasi Mahasiswa',
+        'beasiswa-mahasiswa' => 'Data Beasiswa Mahasiswa',
+        'ipk' => 'Data IPK Mahasiswa',
+        'ipk-lulusan' => 'Data IPK Lulusan',
         'kelas' => 'Data Kelas',
         'matakuliah' => 'Data Matakuliah',
         'ts' => 'Data Akademik',
@@ -33,6 +36,16 @@ class HakAksesController extends Controller
         'rps-bahan-kajian' => 'Bahan Kajian MK (RPS)',
         'rps-referensi' => 'Referensi MK (RPS)',
         'penyusunan-rps' => 'Penyusunan RPS',
+        'penyusunan-rtm' => 'Penyusunan RTM',
+        'penyusunan-silabus' => 'Penyusunan Silabus',
+        'obe-portal' => 'Portal Akreditasi (OBE)',
+        'tracer-study' => 'Tracer Study Alumni',
+        'kohort' => 'Matriks Kohort C3',
+        'keuangan-prodi' => 'Keuangan & Dana C5',
+        'survei-kepuasan' => 'Survei Kepuasan',
+        'profil-prodi' => 'Profil Prodi (Web)',
+        'berita' => 'Berita (Web)',
+        'digital-twin' => 'Digital Twin (IoT)',
     ];
 
     private $roles = ['jendral', 'lecture', 'mhs'];
