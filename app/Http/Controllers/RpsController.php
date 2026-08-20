@@ -14,7 +14,7 @@ class RpsController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Rps::with(['matakuliah']);
+        $query = Rps::with(['matakuliah', 'penelitians', 'pkms']);
         
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;

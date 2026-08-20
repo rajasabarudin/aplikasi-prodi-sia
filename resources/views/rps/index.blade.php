@@ -50,6 +50,7 @@
                             <th class="text-center" style="width:5%">No</th>
                             <th>Matakuliah</th>
                             <th>Dosen Pengembang</th>
+                            <th>Integrasi Penelitian/PkM</th>
                             <th>Nomor Dokumen</th>
                             <th class="text-center" style="width:15%">Aksi</th>
                         </tr>
@@ -72,6 +73,22 @@
                                     @endforeach
                                 @else
                                     <span class="text-muted">-</span>
+                                @endif
+                            </td>
+                            <td>
+                                @php
+                                    $countPenelitian = $r->penelitians ? $r->penelitians->count() : 0;
+                                    $countPkm = $r->pkms ? $r->pkms->count() : 0;
+                                @endphp
+                                @if($countPenelitian > 0 || $countPkm > 0)
+                                    @if($countPenelitian > 0)
+                                        <span class="badge bg-success mb-1" style="font-size: 0.75rem;">Penelitian ({{ $countPenelitian }})</span>
+                                    @endif
+                                    @if($countPkm > 0)
+                                        <span class="badge bg-info text-dark" style="font-size: 0.75rem;">PkM ({{ $countPkm }})</span>
+                                    @endif
+                                @else
+                                    <span class="text-muted small fst-italic">Belum Terintegrasi</span>
                                 @endif
                             </td>
                             <td>{{ $r->nomor_dokumen ?? '-' }}</td>
