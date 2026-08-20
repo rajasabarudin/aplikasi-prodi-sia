@@ -20,7 +20,7 @@
         .info-table th { background-color: #f2f2f2; }
         
         .content-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; border: 2px solid #000; }
-        .content-table th, .content-table td { border: 1px solid #000; padding: 6px; word-wrap: break-word; word-break: break-word; }
+        .content-table th, .content-table td { border: 1px solid #000; padding: 6px; word-wrap: break-word; }
         .content-table th { background-color: #f2f2f2; text-align: center; }
         
         .signature-table { width: 100%; margin-top: 30px; }
@@ -235,17 +235,17 @@
             <thead>
                 <tr>
                     <th style="width: 3%;" rowspan="2">Mg Ke-</th>
-                    <th style="width: 15%;" rowspan="2">Sub-CPMK<br><small>(Kemampuan akhir tiap tahapan belajar)</small></th>
-                    <th style="width: 15%;" rowspan="2">Bahan Kajian<br><small>(Materi Pembelajaran)</small></th>
-                    <th style="width: 20%;" colspan="2">Bentuk & Metode Pembelajaran</th>
+                    <th style="width: 14%;" rowspan="2">Sub-CPMK<br><small>(Kemampuan akhir tiap tahapan belajar)</small></th>
+                    <th style="width: 18%;" rowspan="2">Bahan Kajian<br><small>(Materi Pembelajaran)</small></th>
+                    <th style="width: 18%;" colspan="2">Bentuk & Metode Pembelajaran</th>
                     <th style="width: 15%;" rowspan="2">Pengalaman Belajar Mahasiswa</th>
                     <th style="width: 32%;" colspan="3">Penilaian</th>
                 </tr>
                 <tr>
-                    <th style="width: 10%;">Tatap Muka</th>
-                    <th style="width: 10%;">Daring</th>
-                    <th>Kriteria & Bentuk</th>
-                    <th>Indikator</th>
+                    <th style="width: 9%;">Tatap Muka</th>
+                    <th style="width: 9%;">Daring</th>
+                    <th style="width: 13%;">Kriteria & Bentuk</th>
+                    <th style="width: 14%;">Indikator</th>
                     <th style="width: 5%;">Bobot (%)</th>
                 </tr>
                 <tr style="background-color: #e9ecef;">
