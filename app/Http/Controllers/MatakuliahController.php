@@ -43,9 +43,9 @@ class MatakuliahController extends Controller
             ->orderBy('semester', 'asc')
             ->get();
             
-        $totalPbl = Matakuliah::whereIn('sistem_pembelajaran', ['PBL', 'PBL/Elearning', 'Elearning'])->count();
+        $totalPbl = Matakuliah::whereIn('sistem_pembelajaran', ['PBL', 'PBL/Elearning'])->count();
         $persentasePbl = $totalMatakuliah > 0 ? round(($totalPbl / $totalMatakuliah) * 100, 1) : 0;
-        $totalReguler = Matakuliah::where('sistem_pembelajaran', 'Reguler')->count();
+        $totalReguler = Matakuliah::whereIn('sistem_pembelajaran', ['Reguler', 'Elearning'])->orWhereNull('sistem_pembelajaran')->count();
         $persentaseReguler = $totalMatakuliah > 0 ? round(($totalReguler / $totalMatakuliah) * 100, 1) : 0;
 
         $allMatakuliah = Matakuliah::orderBy('nama_matakuliah', 'asc')->get();

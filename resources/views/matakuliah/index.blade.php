@@ -239,7 +239,7 @@
                                             elseif($mk->jenis_matakuliah == 'Pendukung') $badgeColor = 'bg-info text-dark';
                                             
                                             $pembelajaranColor = 'bg-secondary';
-                                            if($mk->sistem_pembelajaran == 'PBL' || $mk->sistem_pembelajaran == 'PBL/Elearning' || $mk->sistem_pembelajaran == 'Elearning') $pembelajaranColor = 'bg-info text-dark';
+                                            if($mk->sistem_pembelajaran == 'PBL' || $mk->sistem_pembelajaran == 'PBL/Elearning') $pembelajaranColor = 'bg-info text-dark';
                                         @endphp
                                         <div class="d-flex flex-column gap-1 align-items-start">
                                             <span class="badge {{ $badgeColor }} py-1.5 px-2.5" style="border-radius: 6px; font-size: 0.7rem; font-weight: 600;">{{ $mk->jenis_matakuliah }}</span>
