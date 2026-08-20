@@ -234,19 +234,19 @@
         <table class="content-table" style="font-size: 10pt;">
             <thead>
                 <tr>
-                    <th style="width: 3%;" rowspan="2">Mg Ke-</th>
-                    <th style="width: 14%;" rowspan="2">Sub-CPMK<br><small>(Kemampuan akhir tiap tahapan belajar)</small></th>
-                    <th style="width: 18%;" rowspan="2">Bahan Kajian<br><small>(Materi Pembelajaran)</small></th>
-                    <th style="width: 18%;" colspan="2">Bentuk & Metode Pembelajaran</th>
-                    <th style="width: 15%;" rowspan="2">Pengalaman Belajar Mahasiswa</th>
-                    <th style="width: 32%;" colspan="3">Penilaian</th>
-                </tr>
-                <tr>
-                    <th style="width: 9%;">Tatap Muka</th>
-                    <th style="width: 9%;">Daring</th>
-                    <th style="width: 13%;">Kriteria & Bentuk</th>
-                    <th style="width: 14%;">Indikator</th>
-                    <th style="width: 5%;">Bobot (%)</th>
+                      <th style="width: 3%;" rowspan="2">Mg Ke-</th>
+                      <th style="width: 12%;" rowspan="2">Sub-CPMK<br><small>(Kemampuan akhir tiap tahapan belajar)</small></th>
+                      <th style="width: 23%;" rowspan="2">Bahan Kajian<br><small>(Materi Pembelajaran)</small></th>
+                      <th style="width: 16%;" colspan="2">Bentuk & Metode Pembelajaran</th>
+                      <th style="width: 14%;" rowspan="2">Pengalaman Belajar Mahasiswa</th>
+                      <th style="width: 32%;" colspan="3">Penilaian</th>
+                  </tr>
+                  <tr>
+                      <th style="width: 8%;">Tatap Muka</th>
+                      <th style="width: 8%;">Daring</th>
+                      <th style="width: 12%;">Kriteria & Bentuk</th>
+                      <th style="width: 15%;">Indikator</th>
+                      <th style="width: 5%;">Bobot (%)</th>
                 </tr>
                 <tr style="background-color: #e9ecef;">
                     <th>(1)</th>
