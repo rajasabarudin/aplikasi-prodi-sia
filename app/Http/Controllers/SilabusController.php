@@ -20,7 +20,7 @@ class SilabusController extends Controller
         $rps = Rps::findOrFail($id);
         
         $tempFile = storage_path('app/temp_silabus_' . $rps->id . '.json');
-        $command = 'python ' . escapeshellarg(base_path('extract_silabus.py')) . ' ' . escapeshellarg($rps->kode_matakuliah) . ' ' . escapeshellarg($tempFile);
+        $command = 'python "' . base_path('extract_silabus.py') . '" "' . $rps->kode_matakuliah . '" "' . $tempFile . '"';
         shell_exec($command);
         
         $extractedData = null;
