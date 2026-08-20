@@ -44,6 +44,8 @@
             border: 1px solid #000;
             padding: 6px;
             vertical-align: top;
+            word-wrap: break-word;
+            word-break: break-word;
         }
         .section-header {
             background-color: #d9d9d9;

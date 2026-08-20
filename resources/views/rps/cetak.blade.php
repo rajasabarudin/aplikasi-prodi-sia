@@ -20,7 +20,7 @@
         .info-table th { background-color: #f2f2f2; }
         
         .content-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; border: 2px solid #000; }
-        .content-table th, .content-table td { border: 1px solid #000; padding: 6px; }
+        .content-table th, .content-table td { border: 1px solid #000; padding: 6px; word-wrap: break-word; word-break: break-word; }
         .content-table th { background-color: #f2f2f2; text-align: center; }
         
         .signature-table { width: 100%; margin-top: 30px; }
