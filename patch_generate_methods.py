@@ -1,22 +1,10 @@
-<?php
+import re
 
-namespace App\Http\Controllers;
+# PATCH RTM CONTROLLER
+with open('app/Http/Controllers/RtmController.php', 'r', encoding='utf-8') as f:
+    rtm_content = f.read()
 
-use App\Models\Rps;
-use App\Models\Rtm;
-use App\Models\RtmTugas;
-use App\Models\RtmPenilaian;
-use Illuminate\Http\Request;
-
-class RtmController extends Controller
-{
-    public function index()
-    {
-        $rpsList = Rps::with(['matakuliah', 'rtm'])->get();
-        return view('rtm.index', compact('rpsList'));
-    }
-
-    public function generate($id)
+new_generate_rtm = """    public function generate($id)
     {
         $rps = Rps::with(['pertemuans' => function($query) {
             $query->orderBy('minggu_ke', 'asc');
@@ -83,56 +71,68 @@ class RtmController extends Controller
         }
 
         return redirect()->route('penyusunan-rtm.index')->with('success', 'RTM berhasil digenerate otomatis dan akurat dari Rincian Pertemuan RPS!');
-    }
+    }"""
+
+# Replace the entire generate function for RTM
+rtm_content = re.sub(
+    r"    public function generate\(\$id\)\s*\{.*?\n    \}\n",
+    new_generate_rtm + "\n\n",
+    rtm_content,
+    flags=re.DOTALL
+)
+
+with open('app/Http/Controllers/RtmController.php', 'w', encoding='utf-8') as f:
+    f.write(rtm_content)
 
 
-    public function edit($id)
+# PATCH SILABUS CONTROLLER
+with open('app/Http/Controllers/SilabusController.php', 'r', encoding='utf-8') as f:
+    silabus_content = f.read()
+
+new_generate_silabus = """    public function generate($id)
     {
-        $rtm = Rtm::with(['tugas.penilaians', 'rps.matakuliah'])->findOrFail($id);
-        return view('rtm.edit', compact('rtm'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $rtm = Rtm::findOrFail($id);
+        $rps = Rps::with(['pertemuans' => function($query) {
+            $query->orderBy('minggu_ke', 'asc');
+        }])->findOrFail($id);
         
-        $rtm->update([
-            'nomor_dokumen' => $request->nomor_dokumen,
-            'dosen_pengampu' => $request->dosen_pengampu,
-            'semester' => $request->semester
+        Silabus::where('rps_id', $rps->id)->delete();
+        
+        $silabus = Silabus::create([
+            'rps_id' => $rps->id,
+            'kode_dokumen' => 'UBSI/DA/PNK.' . $rps->kode_matakuliah,
+            'cpmk' => '',
+            'sub_cpmk' => ''
         ]);
         
-        if ($request->has('tugas')) {
-            foreach ($request->tugas as $tugasId => $tData) {
-                $tugas = RtmTugas::findOrFail($tugasId);
-                $tugas->update([
-                    'bentuk_tugas' => $tData['bentuk_tugas'] ?? '',
-                    'judul_tugas' => $tData['judul_tugas'] ?? '',
-                    'sub_cpmk' => $tData['sub_cpmk'] ?? '',
-                    'obyek_garapan' => $tData['obyek_garapan'] ?? '',
-                    'metode_pengerjaan' => $tData['metode_pengerjaan'] ?? '',
-                    'bentuk_format_luaran' => $tData['bentuk_format_luaran'] ?? '',
-                    'waktu_pengerjaan' => $tData['waktu_pengerjaan'] ?? '',
-                    'waktu_pengumpulan' => $tData['waktu_pengumpulan'] ?? '',
-                    'lain_lain' => $tData['lain_lain'] ?? '',
-                    'daftar_rujukan' => $tData['daftar_rujukan'] ?? '',
+        $hasMateri = false;
+        foreach ($rps->pertemuans as $pertemuan) {
+            if (!empty(trim($pertemuan->bahan_kajian))) {
+                $hasMateri = true;
+                SilabusMateri::create([
+                    'silabus_id' => $silabus->id,
+                    'pertemuan' => $pertemuan->minggu_ke,
+                    'materi' => $pertemuan->bahan_kajian
                 ]);
             }
         }
         
-        return redirect()->route('penyusunan-rtm.index')->with('success', 'Data RTM berhasil diperbarui.');
-    }
+        if (!$hasMateri) {
+            SilabusMateri::create([
+                'silabus_id' => $silabus->id,
+                'pertemuan' => '1',
+                'materi' => 'Materi Pertemuan 1 (Draft)'
+            ]);
+        }
+        
+        return redirect()->route('penyusunan-silabus.index')->with('success', 'Silabus berhasil digenerate otomatis dari Rincian Pertemuan RPS!');
+    }"""
 
-    public function destroy($id)
-    {
-        $rtm = Rtm::findOrFail($id);
-        $rtm->delete();
-        return redirect()->route('penyusunan-rtm.index')->with('success', 'Data RTM berhasil dihapus.');
-    }
+silabus_content = re.sub(
+    r"    public function generate\(\$id\)\s*\{.*?\n    \}\n",
+    new_generate_silabus + "\n\n",
+    silabus_content,
+    flags=re.DOTALL
+)
 
-    public function cetak($id)
-    {
-        $rtm = Rtm::with(['tugas.penilaians', 'rps.matakuliah', 'rps.penelitians', 'rps.pkms'])->findOrFail($id);
-        return view('rtm.cetak', compact('rtm'));
-    }
-}
+with open('app/Http/Controllers/SilabusController.php', 'w', encoding='utf-8') as f:
+    f.write(silabus_content)

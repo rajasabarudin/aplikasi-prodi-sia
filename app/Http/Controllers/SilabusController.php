@@ -17,60 +17,42 @@ class SilabusController extends Controller
 
     public function generate($id)
     {
-        $rps = Rps::findOrFail($id);
+        $rps = Rps::with(['pertemuans' => function($query) {
+            $query->orderBy('minggu_ke', 'asc');
+        }])->findOrFail($id);
         
-        $tempFile = storage_path('app/temp_silabus_' . $rps->id . '.json');
-        $command = 'python "' . base_path('extract_silabus.py') . '" "' . $rps->kode_matakuliah . '" "' . $tempFile . '"';
-        if (function_exists('shell_exec')) {
-            @shell_exec($command);
-        }
+        Silabus::where('rps_id', $rps->id)->delete();
         
-        $extractedData = null;
-        if (file_exists($tempFile)) {
-            $jsonContent = file_get_contents($tempFile);
-            $extractedData = json_decode($jsonContent, true);
-            unlink($tempFile);
-        }
+        $silabus = Silabus::create([
+            'rps_id' => $rps->id,
+            'kode_dokumen' => 'UBSI/DA/PNK.' . $rps->kode_matakuliah,
+            'cpmk' => '',
+            'sub_cpmk' => ''
+        ]);
         
-        if (is_array($extractedData) && !isset($extractedData['error']) && !empty($extractedData['materis'])) {
-            Silabus::where('rps_id', $rps->id)->delete();
-            
-            $silabus = Silabus::create([
-                'rps_id' => $rps->id,
-                'kode_dokumen' => $extractedData['kode_dokumen'] ?: 'UBSI/DA/PNK.' . $rps->kode_matakuliah,
-                'cpmk' => $extractedData['cpmk'],
-                'sub_cpmk' => $extractedData['sub_cpmk']
-            ]);
-            
-            foreach ($extractedData['materis'] as $item) {
+        $hasMateri = false;
+        foreach ($rps->pertemuans as $pertemuan) {
+            if (!empty(trim($pertemuan->bahan_kajian))) {
+                $hasMateri = true;
                 SilabusMateri::create([
                     'silabus_id' => $silabus->id,
-                    'pertemuan' => $item['pertemuan'],
-                    'materi' => $item['materi']
+                    'pertemuan' => $pertemuan->minggu_ke,
+                    'materi' => $pertemuan->bahan_kajian
                 ]);
             }
-            
-            return redirect()->route('penyusunan-silabus.index')->with('success', 'Silabus untuk matakuliah ' . ($rps->matakuliah?->nama_matakuliah) . ' berhasil digenerate otomatis!');
-                } else {
-            // FALLBACK MANUAL CREATION
-            Silabus::where('rps_id', $rps->id)->delete();
-            
-            $silabus = Silabus::create([
-                'rps_id' => $rps->id,
-                'kode_dokumen' => 'UBSI/DA/PNK.' . $rps->kode_matakuliah,
-                'cpmk' => '',
-                'sub_cpmk' => ''
-            ]);
-            
+        }
+        
+        if (!$hasMateri) {
             SilabusMateri::create([
                 'silabus_id' => $silabus->id,
                 'pertemuan' => '1',
                 'materi' => 'Materi Pertemuan 1 (Draft)'
             ]);
-            
-            return redirect()->route('penyusunan-silabus.index')->with('success', 'Berhasil dibuat dalam Mode Manual (Server Anda tidak mendukung Auto-Extract PDF). Silakan lengkapi data Silabus secara mandiri dengan mengklik Edit.');
         }
+        
+        return redirect()->route('penyusunan-silabus.index')->with('success', 'Silabus berhasil digenerate otomatis dari Rincian Pertemuan RPS!');
     }
+
 
     public function edit($id)
     {
