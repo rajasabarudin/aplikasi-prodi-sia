@@ -12,9 +12,19 @@ use Illuminate\Http\Request;
 
 class RpsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $rps = Rps::with(['matakuliah'])->get();
+        $query = Rps::with(['matakuliah']);
+        
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->whereHas('matakuliah', function($q) use ($search) {
+                $q->where('nama_matakuliah', 'like', '%' . $search . '%')
+                  ->orWhere('kode_matakuliah', 'like', '%' . $search . '%');
+            });
+        }
+        
+        $rps = $query->get();
         return view('rps.index', compact('rps'));
     }
 

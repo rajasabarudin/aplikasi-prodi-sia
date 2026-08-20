@@ -15,6 +15,18 @@
 
         @if(session('success'))<div class="alert alert-success">{{ session('success') }}</div>@endif
 
+        <div class="card shadow-sm border-0 mb-3">
+            <div class="card-body py-3">
+                <form action="{{ route('penyusunan-rps.index') }}" method="GET" class="d-flex align-items-center mb-0">
+                    <input type="text" name="search" class="form-control me-2" placeholder="Cari Kode atau Nama Matakuliah..." value="{{ request('search') }}">
+                    <button type="submit" class="btn btn-secondary me-2"><i class="bi bi-search"></i> Cari</button>
+                    @if(request()->has('search') && request('search') != '')
+                        <a href="{{ route('penyusunan-rps.index') }}" class="btn btn-outline-danger"><i class="bi bi-x-circle"></i> Reset</a>
+                    @endif
+                </form>
+            </div>
+        </div>
+
         <div class="card shadow-sm border-0">
             <div class="table-responsive">
                 <table class="table table-bordered table-striped table-hover align-middle mb-0">
