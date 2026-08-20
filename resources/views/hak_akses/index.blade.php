@@ -27,7 +27,7 @@
                     @csrf
 
                     <div class="table-responsive rounded shadow-sm mb-4">
-                        <table class="table table-bordered table-striped table-hover align-middle mb-0">
+                        <table class="table table-bordered table-striped table-hover align-middle mb-0 text-nowrap">
                             <thead class="table-dark">
                                 <tr>
                                     <th style="width: 25%;">Level / Role</th>

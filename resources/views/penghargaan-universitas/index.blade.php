@@ -23,7 +23,7 @@
         <div class="card shadow-sm border-0">
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover align-middle mb-0">
+                    <table class="table table-bordered table-striped table-hover align-middle mb-0 text-nowrap">
                         <thead class="table-dark">
                             <tr>
                                 <th class="text-center" style="width: 5%">No</th>
