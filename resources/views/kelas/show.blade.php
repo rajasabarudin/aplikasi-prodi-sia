@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Detail Kelas</h1>
     <div>
-        <a href="{{ route('kelas.edit', ['kelas' => $kela->id]) }}" class="btn btn-warning">Edit</a>
+        <a href="{{ route('kelas.edit', ['kelas' => $kelas->id]) }}" class="btn btn-warning">Edit</a>
         <a href="{{ route('kelas.index') }}" class="btn btn-secondary">Kembali</a>
     </div>
 </div>
@@ -16,15 +16,15 @@
         <table class="table table-bordered">
             <tr>
                 <th style="width: 200px;">Nama Kelas</th>
-                <td>{{ $kela->nama_kelas }}</td>
+                <td>{{ $kelas->nama_kelas }}</td>
             </tr>
             <tr>
                 <th>Dibuat</th>
-                <td>{{ $kela->created_at }}</td>
+                <td>{{ $kelas->created_at }}</td>
             </tr>
             <tr>
                 <th>Diperbarui</th>
-                <td>{{ $kela->updated_at }}</td>
+                <td>{{ $kelas->updated_at }}</td>
             </tr>
         </table>
     </div>

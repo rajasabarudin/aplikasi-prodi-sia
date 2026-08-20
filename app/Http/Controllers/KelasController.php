@@ -70,31 +70,31 @@ class KelasController extends Controller
             ->with('success', 'Data kelas berhasil ditambahkan.');
     }
 
-    public function show(Kelas $kela)
+    public function show(Kelas $kelas)
     {
-        return view('kelas.show', compact('kela'));
+        return view('kelas.show', compact('kelas'));
     }
 
-    public function edit(Kelas $kela)
+    public function edit(Kelas $kelas)
     {
-        return view('kelas.edit', compact('kela'));
+        return view('kelas.edit', compact('kelas'));
     }
 
-    public function update(Request $request, Kelas $kela)
+    public function update(Request $request, Kelas $kelas)
     {
         $request->validate([
-            'nama_kelas' => 'required|unique:kelas,nama_kelas,' . $kela->id,
+            'nama_kelas' => 'required|unique:kelas,nama_kelas,' . $kelas->id,
         ]);
 
-        $kela->update($request->all());
+        $kelas->update($request->all());
 
         return redirect()->route('kelas.index')
             ->with('success', 'Data kelas berhasil diperbarui.');
     }
 
-    public function destroy(Kelas $kela)
+    public function destroy(Kelas $kelas)
     {
-        $kela->delete();
+        $kelas->delete();
 
         return redirect()->route('kelas.index')
             ->with('success', 'Data kelas berhasil dihapus.');
