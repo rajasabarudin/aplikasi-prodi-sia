@@ -239,7 +239,7 @@
                                             elseif($mk->jenis_matakuliah == 'Pendukung') $badgeColor = 'bg-info text-dark';
                                             
                                             $pembelajaranColor = 'bg-secondary';
-                                            if($mk->sistem_pembelajaran == 'PBL' || $mk->sistem_pembelajaran == 'PBL/Elearning') $pembelajaranColor = 'bg-info text-dark';
+                                            if($mk->sistem_pembelajaran == 'PBL' || $mk->sistem_pembelajaran == 'PBL/Elearning' || $mk->sistem_pembelajaran == 'Elearning') $pembelajaranColor = 'bg-info text-dark';
                                         @endphp
                                         <div class="d-flex flex-column gap-1 align-items-start">
                                             <span class="badge {{ $badgeColor }} py-1.5 px-2.5" style="border-radius: 6px; font-size: 0.7rem; font-weight: 600;">{{ $mk->jenis_matakuliah }}</span>
@@ -513,8 +513,18 @@
                             <option value="Pendukung">Pendukung</option>
                         </select>
                     </div>
+                      <!-- Sistem Pembelajaran -->
+                      <div class="mb-3">
+                          <label for="add_sistem_pembelajaran" class="form-label fw-semibold">Sistem Pembelajaran <span class="text-danger">*</span></label>
+                          <select name="sistem_pembelajaran" id="add_sistem_pembelajaran" class="form-select" required>
+                              <option value="Reguler">Reguler</option>
+                              <option value="PBL">PBL</option>
+                              <option value="PBL/Elearning">PBL / E-Learning</option>
+                              <option value="Elearning">E-Learning</option>
+                          </select>
+                      </div>
 
-                    <!-- Semester -->
+                      <!-- Semester -->
                     <div class="mb-3">
                         <label for="add_semester" class="form-label fw-semibold">Semester <span class="text-danger">*</span></label>
                         <select name="semester" id="add_semester" class="form-select" required>
@@ -623,8 +633,18 @@
                             <option value="Pendukung">Pendukung</option>
                         </select>
                     </div>
+                      <!-- Sistem Pembelajaran -->
+                      <div class="mb-3">
+                          <label for="edit_sistem_pembelajaran" class="form-label fw-semibold">Sistem Pembelajaran <span class="text-danger">*</span></label>
+                          <select name="sistem_pembelajaran" id="edit_sistem_pembelajaran" class="form-select" required>
+                              <option value="Reguler">Reguler</option>
+                              <option value="PBL">PBL</option>
+                              <option value="PBL/Elearning">PBL / E-Learning</option>
+                              <option value="Elearning">E-Learning</option>
+                          </select>
+                      </div>
 
-                    <!-- Semester -->
+                      <!-- Semester -->
                     <div class="mb-3">
                         <label for="edit_semester" class="form-label fw-semibold">Semester <span class="text-danger">*</span></label>
                         <select name="semester" id="edit_semester" class="form-select" required>
