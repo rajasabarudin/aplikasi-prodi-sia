@@ -17,21 +17,45 @@ class SilabusController extends Controller
 
     public function generate($id)
     {
-        $rps = Rps::with(['pertemuans' => function($query) {
-            $query->orderBy('minggu_ke', 'asc');
-        }])->findOrFail($id);
+        $rps = Rps::with('pertemuans')->findOrFail($id);
         
+        $pertemuans = $rps->pertemuans->sortBy(function($item) {
+            return (int) $item->minggu_ke;
+        });
+
         Silabus::where('rps_id', $rps->id)->delete();
+        
+        // Ambil CPMK dari tabel cpmks
+        $cpmks = \App\Models\Cpmk::where('kode_matakuliah', $rps->kode_matakuliah)->get();
+        $cpmk_text = '';
+        foreach($cpmks as $index => $c) {
+            $cpmk_text .= ($index + 1) . ". " . trim($c->deskripsi_cpmk) . "
+";
+        }
+
+        // Ambil Sub-CPMK unik dari pertemuan
+        $subCpmkList = [];
+        foreach ($pertemuans as $pertemuan) {
+            if (!empty(trim($pertemuan->sub_cpmk))) {
+                $subCpmkList[] = trim($pertemuan->sub_cpmk);
+            }
+        }
+        $sub_cpmk_text = '';
+        $uniqueSubCpmk = array_values(array_unique($subCpmkList));
+        foreach($uniqueSubCpmk as $index => $s) {
+            $sub_cpmk_text .= ($index + 1) . ". " . $s . "
+";
+        }
         
         $silabus = Silabus::create([
             'rps_id' => $rps->id,
             'kode_dokumen' => 'UBSI/DA/PNK.' . $rps->kode_matakuliah,
-            'cpmk' => '',
-            'sub_cpmk' => ''
+            'cpmk' => trim($cpmk_text),
+            'sub_cpmk' => trim($sub_cpmk_text)
         ]);
         
         $hasMateri = false;
-        foreach ($rps->pertemuans as $pertemuan) {
+        foreach ($pertemuans as $pertemuan) {
             if (!empty(trim($pertemuan->bahan_kajian))) {
                 $hasMateri = true;
                 SilabusMateri::create([

@@ -18,10 +18,12 @@ class RtmController extends Controller
 
     public function generate($id)
     {
-        $rps = Rps::with(['pertemuans' => function($query) {
-            $query->orderBy('minggu_ke', 'asc');
-        }])->findOrFail($id);
+        $rps = Rps::with('pertemuans')->findOrFail($id);
         
+        $pertemuans = $rps->pertemuans->sortBy(function($item) {
+            return (int) $item->minggu_ke;
+        });
+
         Rtm::where('rps_id', $rps->id)->delete();
         $rtm = Rtm::create([
             'rps_id' => $rps->id,
@@ -32,7 +34,7 @@ class RtmController extends Controller
 
         $tugas_ke = 1;
         $hasTugas = false;
-        foreach ($rps->pertemuans as $pertemuan) {
+        foreach ($pertemuans as $pertemuan) {
             $bobot = (float) $pertemuan->bobot_penilaian;
             if ($bobot > 0) {
                 $hasTugas = true;
