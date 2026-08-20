@@ -83,7 +83,10 @@
                                         </form>
                                     </div>
                                 @else
-                                    <a href="{{ route('penyusunan-rtm.generate', $r->id) }}" class="btn btn-sm btn-primary w-100 fw-bold"><i class="bi bi-cpu me-1"></i>Generate RTM</a>
+                                    <form action="{{ route('penyusunan-rtm.generate', $r->id) }}" method="POST" class="m-0">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-primary w-100 fw-bold"><i class="bi bi-cpu me-1"></i>Generate RTM</button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>
