@@ -17,7 +17,8 @@ class MatakuliahController extends Controller
                 $q->where('kode_matakuliah', 'like', '%' . $search . '%')
                   ->orWhere('nama_matakuliah', 'like', '%' . $search . '%')
                   ->orWhere('jenis_matakuliah', 'like', '%' . $search . '%')
-                  ->orWhere('semester', 'like', '%' . $search . '%');
+                  ->orWhere('semester', 'like', '%' . $search . '%')
+                  ->orWhere('sistem_pembelajaran', 'like', '%' . $search . '%');
             });
         }
 
@@ -41,6 +42,11 @@ class MatakuliahController extends Controller
             ->groupBy('semester')
             ->orderBy('semester', 'asc')
             ->get();
+            
+        $totalPbl = Matakuliah::whereIn('sistem_pembelajaran', ['PBL', 'PBL/Elearning'])->count();
+        $persentasePbl = $totalMatakuliah > 0 ? round(($totalPbl / $totalMatakuliah) * 100, 1) : 0;
+        $totalReguler = Matakuliah::where('sistem_pembelajaran', 'Reguler')->count();
+        $persentaseReguler = $totalMatakuliah > 0 ? round(($totalReguler / $totalMatakuliah) * 100, 1) : 0;
 
         $allMatakuliah = Matakuliah::orderBy('nama_matakuliah', 'asc')->get();
 
@@ -60,7 +66,7 @@ class MatakuliahController extends Controller
         ];
         $mkPenciri = Matakuliah::whereIn('nama_matakuliah', $penciriNames)->get();
 
-        return view('matakuliah.index', compact('matakuliahs', 'search', 'perPage', 'totalMatakuliah', 'totalSks', 'matakuliahByJenis', 'allMatakuliah', 'matakuliahBySemester', 'mkPenciri'));
+        return view('matakuliah.index', compact('matakuliahs', 'search', 'perPage', 'totalMatakuliah', 'totalSks', 'matakuliahByJenis', 'allMatakuliah', 'matakuliahBySemester', 'mkPenciri', 'totalPbl', 'persentasePbl', 'totalReguler', 'persentaseReguler'));
     }
 
     public function store(Request $request)
@@ -73,6 +79,7 @@ class MatakuliahController extends Controller
             'sks_pu' => 'required|integer|min:0',
             'jenis_matakuliah' => 'required|string|in:Ciri Nasional,Ciri Institusi,Inti Program Studi,Pendukung',
             'semester' => 'required|string|in:I,II,III,IV,V,VI,VII,VIII',
+            'sistem_pembelajaran' => 'required|string|in:Reguler,PBL,PBL/Elearning',
             'link_modul' => 'nullable|url|max:255',
             'link_rps' => 'nullable|url|max:255',
             'link_rtm' => 'nullable|url|max:255',
@@ -99,6 +106,7 @@ class MatakuliahController extends Controller
             'sks_pu' => 'required|integer|min:0',
             'jenis_matakuliah' => 'required|string|in:Ciri Nasional,Ciri Institusi,Inti Program Studi,Pendukung',
             'semester' => 'required|string|in:I,II,III,IV,V,VI,VII,VIII',
+            'sistem_pembelajaran' => 'required|string|in:Reguler,PBL,PBL/Elearning',
             'link_modul' => 'nullable|url|max:255',
             'link_rps' => 'nullable|url|max:255',
             'link_rtm' => 'nullable|url|max:255',

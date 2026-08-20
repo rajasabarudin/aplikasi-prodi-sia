@@ -18,6 +18,7 @@ class Matakuliah extends Model
         'sks_pu',
         'jenis_matakuliah',
         'semester',
+        'sistem_pembelajaran',
         'link_modul',
         'link_rps',
         'link_rtm',

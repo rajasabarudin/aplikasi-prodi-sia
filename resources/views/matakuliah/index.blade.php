@@ -23,6 +23,32 @@
                     <h2 class="fw-bold mb-0 text-white">{{ $totalSks }} SKS</h2>
                 </div>
 
+                <!-- Statistik Pembelajaran (PBL vs Reguler) -->
+                <div class="mb-4 border-bottom border-light pb-3">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="bg-info text-white rounded p-1 px-2 me-2" style="background: linear-gradient(135deg, #06b6d4, #0891b2) !important;">
+                            <i class="bi bi-laptop"></i>
+                        </div>
+                        <span class="fw-bold text-dark" style="font-size: 0.9rem;">Sistem Pembelajaran</span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-1 mt-3">
+                        <span class="small fw-semibold text-dark">PBL & E-Learning</span>
+                        <span class="small badge bg-info text-dark rounded-pill">{{ $totalPbl }} MK ({{ $persentasePbl }}%)</span>
+                    </div>
+                    <div class="progress mb-3" style="height: 6px;">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: {{ $persentasePbl }}%;" aria-valuenow="{{ $persentasePbl }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="small fw-semibold text-dark">Reguler</span>
+                        <span class="small badge bg-secondary rounded-pill">{{ $totalReguler }} MK ({{ $persentaseReguler }}%)</span>
+                    </div>
+                    <div class="progress mb-2" style="height: 6px;">
+                        <div class="progress-bar bg-secondary" role="progressbar" style="width: {{ $persentaseReguler }}%;" aria-valuenow="{{ $persentaseReguler }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+
                 <!-- Berdasarkan Jenis -->
                 <div class="mb-3">
                     <div class="d-flex align-items-center mb-2">
@@ -211,8 +237,14 @@
                                             elseif($mk->jenis_matakuliah == 'Ciri Institusi') $badgeColor = 'bg-warning text-dark';
                                             elseif($mk->jenis_matakuliah == 'Inti Program Studi') $badgeColor = 'bg-primary text-white';
                                             elseif($mk->jenis_matakuliah == 'Pendukung') $badgeColor = 'bg-info text-dark';
+                                            
+                                            $pembelajaranColor = 'bg-secondary';
+                                            if($mk->sistem_pembelajaran == 'PBL' || $mk->sistem_pembelajaran == 'PBL/Elearning') $pembelajaranColor = 'bg-info text-dark';
                                         @endphp
-                                        <span class="badge {{ $badgeColor }} py-1.5 px-2.5" style="border-radius: 6px; font-size: 0.75rem; font-weight: 600;">{{ $mk->jenis_matakuliah }}</span>
+                                        <div class="d-flex flex-column gap-1 align-items-start">
+                                            <span class="badge {{ $badgeColor }} py-1.5 px-2.5" style="border-radius: 6px; font-size: 0.7rem; font-weight: 600;">{{ $mk->jenis_matakuliah }}</span>
+                                            <span class="badge {{ $pembelajaranColor }} py-1 px-2" style="border-radius: 4px; font-size: 0.65rem;"><i class="bi bi-laptop me-1"></i>{{ $mk->sistem_pembelajaran ?? 'Reguler' }}</span>
+                                        </div>
                                     </td>
                                     <td class="text-center fw-bold text-dark">{{ $mk->semester }}</td>
                                     <td>
@@ -238,6 +270,7 @@
                                                     data-sks_pa="{{ $mk->sks_pa }}"
                                                     data-sks_pu="{{ $mk->sks_pu }}"
                                                     data-jenis_matakuliah="{{ $mk->jenis_matakuliah }}"
+                                                    data-sistem_pembelajaran="{{ $mk->sistem_pembelajaran }}"
                                                     data-semester="{{ $mk->semester }}"
                                                     data-link_modul="{{ $mk->link_modul }}"
                                                     data-link_rps="{{ $mk->link_rps }}"
@@ -295,6 +328,7 @@
                                                     data-sks_pa="{{ $mk->sks_pa }}"
                                                     data-sks_pu="{{ $mk->sks_pu }}"
                                                     data-jenis_matakuliah="{{ $mk->jenis_matakuliah }}"
+                                                    data-sistem_pembelajaran="{{ $mk->sistem_pembelajaran }}"
                                                     data-semester="{{ $mk->semester }}"
                                                     data-link_modul="{{ $mk->link_modul }}"
                                                     data-link_rps="{{ $mk->link_rps }}"
@@ -337,6 +371,7 @@
                                                     data-sks_pa="{{ $mk->sks_pa }}"
                                                     data-sks_pu="{{ $mk->sks_pu }}"
                                                     data-jenis_matakuliah="{{ $mk->jenis_matakuliah }}"
+                                                    data-sistem_pembelajaran="{{ $mk->sistem_pembelajaran }}"
                                                     data-semester="{{ $mk->semester }}"
                                                     data-link_modul="{{ $mk->link_modul }}"
                                                     data-link_rps="{{ $mk->link_rps }}"
@@ -382,6 +417,7 @@
                                                 data-sks_pa="{{ $mk->sks_pa }}"
                                                 data-sks_pu="{{ $mk->sks_pu }}"
                                                 data-jenis_matakuliah="{{ $mk->jenis_matakuliah }}"
+                                                    data-sistem_pembelajaran="{{ $mk->sistem_pembelajaran }}"
                                                 data-semester="{{ $mk->semester }}"
                                                 data-link_modul="{{ $mk->link_modul }}"
                                                 data-link_rps="{{ $mk->link_rps }}"
@@ -738,6 +774,7 @@
                 var sks_pa = button.getAttribute('data-sks_pa');
                 var sks_pu = button.getAttribute('data-sks_pu');
                 var jenis = button.getAttribute('data-jenis_matakuliah');
+                var sistem_pembelajaran = button.getAttribute('data-sistem_pembelajaran');
                 var semester = button.getAttribute('data-semester');
                 
                 var action = "{{ route('matakuliah.store') }}";
@@ -758,6 +795,7 @@
                 document.getElementById('edit_sks_pu').value = sks_pu || '0';
                 calculateSksEdit();
                 document.getElementById('edit_jenis_matakuliah').value = jenis || '';
+                document.getElementById('edit_sistem_pembelajaran').value = sistem_pembelajaran || 'Reguler';
                 document.getElementById('edit_semester').value = semester || '';
                 document.getElementById('edit_link_modul').value = linkModul || '';
                 document.getElementById('edit_link_rps').value = linkRps || '';
