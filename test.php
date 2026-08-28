@@ -1,1 +1,0 @@
-<?php  = collect([ (object)['a'=>1, 'b'=>2] ]);  = ->toArray(); var_dump((array) reset());
