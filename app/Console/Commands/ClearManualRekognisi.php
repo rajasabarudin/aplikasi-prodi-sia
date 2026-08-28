@@ -20,7 +20,6 @@ class ClearManualRekognisi extends Command
             ->orWhere(function ($query) {
                 $query->whereNull('penelitian_dosen_id')
                       ->whereNull('hibah_penelitian_id')
-                      ->whereNull('hki_id')
                       ->whereNull('prestasi_dosen_id');
             })
             ->delete();

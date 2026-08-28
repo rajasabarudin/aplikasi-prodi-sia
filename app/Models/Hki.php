@@ -26,9 +26,4 @@ class Hki extends Model
     {
         return $this->belongsTo(Mahasiswa::class, 'nim', 'nim');
     }
-
-    public function rekognisiDosen()
-    {
-        return $this->hasMany(RekognisiDosen::class, 'hki_id');
-    }
 }

@@ -147,7 +147,6 @@ class DashboardController extends Controller
                         'level' => $level,
                         'link_dokumen' => $hki->link_dokumen,
                         'is_keanggotaan' => false,
-                        'hki_id' => $hki->id,
                     ]);
                 }
             }
