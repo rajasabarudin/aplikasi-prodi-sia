@@ -23,7 +23,6 @@ class RekognisiDosen extends Model
         'kategori_tridharma',
         'penelitian_dosen_id',
         'hibah_penelitian_id',
-        'hki_id',
         'prestasi_dosen_id',
     ];
 
@@ -40,11 +39,6 @@ class RekognisiDosen extends Model
     public function hibahPenelitian()
     {
         return $this->belongsTo(HibahPenelitian::class, 'hibah_penelitian_id');
-    }
-
-    public function hki()
-    {
-        return $this->belongsTo(Hki::class, 'hki_id');
     }
 
     public function prestasiDosen()

@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\PenelitianDosen;
 use App\Models\HibahPenelitian;
-use App\Models\Hki;
 use App\Models\PrestasiDosen;
 use App\Models\RekognisiDosen;
 use App\Models\Ts;
@@ -13,29 +12,28 @@ use App\Models\Ts;
 class ResyncRekognisiDosen extends Command
 {
     protected $signature = 'rekognisi:resync';
-    protected $description = 'Menghapus dan menarik ulang data Rekognisi dari Penelitian, Hibah, HKI, dan Prestasi.';
+    protected $description = 'Menghapus dan menarik ulang data Rekognisi dari Penelitian, Hibah, dan Prestasi.';
 
     public function handle()
     {
         $this->info('Menghapus data rekognisi yang ter-generate otomatis...');
         RekognisiDosen::whereNotNull('penelitian_dosen_id')
             ->orWhereNotNull('hibah_penelitian_id')
-            ->orWhereNotNull('hki_id')
             ->orWhereNotNull('prestasi_dosen_id')
             ->delete();
 
         $this->info('Data lama berhasil dihapus.');
 
-        $this->syncHibahAndHki();
+        $this->syncHibah();
         $this->syncPrestasi();
 
         $this->info('Semua data berhasil ditarik ulang (resync) ke tabel Rekognisi Dosen!');
         return Command::SUCCESS;
     }
 
-    private function syncHibahAndHki()
+    private function syncHibah()
     {
-        $this->info('Sinkronisasi Hibah & HKI...');
+        $this->info('Sinkronisasi Hibah...');
         // Hibah
         $hibahs = HibahPenelitian::all();
         foreach ($hibahs as $hibah) {
@@ -81,50 +79,6 @@ class ResyncRekognisiDosen extends Command
                     'nama_rekognisi' => $namaRekognisi,
                     'tahun' => $tahun,
                     'ts_id' => $hibah->ts_id,
-                    'level' => $level,
-                    'link_dokumen' => $linkDokumen,
-                    'is_keanggotaan' => false,
-                ]);
-            }
-        }
-
-        // HKI
-        $hkis = Hki::all();
-        foreach ($hkis as $hki) {
-            $kodeDosens = array_filter(array_map('trim', explode(',', $hki->kode_dosen)));
-            $namaDosens = array_filter(array_map('trim', explode(',', $hki->nama_dosen)));
-            $tahun = date('Y', strtotime($hki->tgl_permohonan));
-            $ts = Ts::where('tahun_sekarang', 'like', "%{$tahun}%")->first() ?: Ts::orderBy('tahun_sekarang', 'desc')->first();
-            $tsId = $ts ? $ts->id : null;
-            if (!$tsId) continue;
-
-            $level = 'nasional';
-            $jenis = strtolower($hki->jenis_ciptaan);
-            $judulCiptaan = strtolower($hki->judul_ciptaan);
-            if (str_contains($jenis, 'internasional') || str_contains($judulCiptaan, 'internasional') || str_contains($jenis, 'international') || str_contains($judulCiptaan, 'international')) {
-                $level = 'internasional';
-            }
-            $namaRekognisi = "HKI ({$hki->jenis_ciptaan}): {$hki->judul_ciptaan}";
-            if (strlen($namaRekognisi) > 200) {
-                $namaRekognisi = substr($namaRekognisi, 0, 197) . '...';
-            }
-            $linkDokumen = $hki->link_dokumen;
-
-            foreach ($kodeDosens as $index => $kode) {
-                if (empty($kode)) continue;
-                $nama = $namaDosens[$index] ?? '';
-                if (empty($nama)) {
-                    $dosen = \App\Models\Dosen::where('kode_dosen', $kode)->first();
-                    $nama = $dosen ? $dosen->nama_dosen : '';
-                }
-                RekognisiDosen::firstOrCreate([
-                    'kode_dosen' => $kode,
-                    'hki_id' => $hki->id,
-                ], [
-                    'nama_dosen' => $nama,
-                    'nama_rekognisi' => $namaRekognisi,
-                    'tahun' => $tahun,
-                    'ts_id' => $tsId,
                     'level' => $level,
                     'link_dokumen' => $linkDokumen,
                     'is_keanggotaan' => false,

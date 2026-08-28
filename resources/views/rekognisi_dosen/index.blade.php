@@ -306,18 +306,6 @@
                                         @endif
                                     </div>
                                 @endif
-                                @if($item->hki_id)
-                                    <div class="mt-1">
-                                        <span class="badge bg-success-subtle text-success" style="font-size: 10px;">
-                                            <i class="bi bi-shield-check me-1"></i> HKI
-                                        </span>
-                                        @if($item->hki && $item->hki->mahasiswa)
-                                            <span class="badge bg-secondary-subtle text-secondary" style="font-size: 10px;">
-                                                <i class="bi bi-person-fill me-1"></i> Mhs: {{ $item->hki->mahasiswa->nama }} ({{ $item->hki->mahasiswa->nim }})
-                                            </span>
-                                        @endif
-                                    </div>
-                                @endif
                                 @if($item->prestasi_dosen_id)
                                     <div class="mt-1">
                                         <a href="{{ route('prestasi-dosen.show', $item->prestasi_dosen_id) }}" class="badge bg-danger-subtle text-danger text-decoration-none" style="font-size: 10px;">

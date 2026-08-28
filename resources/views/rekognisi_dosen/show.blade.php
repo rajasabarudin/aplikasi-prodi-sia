@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Detail Rekognisi Dosen')
 
@@ -71,14 +71,6 @@
                     <a href="{{ route('hibah-penelitian.show', $rekognisiDosen->hibah_penelitian_id) }}" class="btn btn-sm btn-outline-warning ms-2">
                         <i class="bi bi-eye"></i> Lihat Hibah Asal
                     </a>
-                </td>
-            </tr>
-            @endif
-            @if ($rekognisiDosen->hki_id)
-            <tr>
-                <th>Sumber Sinkronisasi</th>
-                <td>
-                    <span class="text-success fw-semibold"><i class="bi bi-shield-check me-1"></i> Disinkronkan Otomatis dari HKI</span>
                 </td>
             </tr>
             @endif

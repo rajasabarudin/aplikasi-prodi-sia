@@ -36,15 +36,6 @@
     </div>
 @endif
 
-@if ($rekognisiDosen->hki_id)
-    <div class="alert alert-warning mb-3">
-        <i class="bi bi-exclamation-triangle-fill me-2"></i>
-        <strong>Perhatian!</strong> Data rekognisi ini disinkronkan secara otomatis dari <strong>HKI</strong>.
-        Jika Anda mengubah data di sini, perubahan tersebut dapat tertimpa kembali jika data HKI yang bersangkutan diperbarui.
-        Disarankan untuk mengubah data langsung dari menu HKI.
-    </div>
-@endif
-
 @if ($rekognisiDosen->prestasi_dosen_id)
     <div class="alert alert-warning mb-3">
         <i class="bi bi-exclamation-triangle-fill me-2"></i>
